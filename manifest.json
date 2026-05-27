@@ -1,0 +1,31 @@
+{
+  "name": "EMR Elite Navigator",
+  "short_name": "EMR Navigator",
+  "description": "EMR (Emergency Medical Responder) bilingual assessment and protocol navigator for field use.",
+  "lang": "en-US",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#dbeafe",
+  "theme_color": "#2563eb",
+  "categories": ["medical", "health", "productivity"],
+  "icons": [
+    { "src": "icons/icon.svg",              "type": "image/svg+xml", "sizes": "any",     "purpose": "any" },
+    { "src": "icons/icon-192.png",          "type": "image/png",     "sizes": "192x192", "purpose": "any" },
+    { "src": "icons/icon-512.png",          "type": "image/png",     "sizes": "512x512", "purpose": "any" },
+    { "src": "icons/icon-maskable-192.png", "type": "image/png",     "sizes": "192x192", "purpose": "maskable" },
+    { "src": "icons/icon-maskable-512.png", "type": "image/png",     "sizes": "512x512", "purpose": "maskable" },
+    { "src": "icons/apple-touch-icon.png",  "type": "image/png",     "sizes": "180x180", "purpose": "any" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Start New Assessment",
+      "short_name": "New",
+      "description": "Reset and begin a new patient assessment",
+      "url": "./index.html?action=reset",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
