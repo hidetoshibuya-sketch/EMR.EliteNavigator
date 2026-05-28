@@ -64,12 +64,12 @@
             padding: 18px 22px; border-radius: 12px; margin-top: 0; margin-bottom: 18px; font-weight: 700;
             box-shadow: var(--shadow);
         }
-        h2 .sub-lang { display: block; font-size: 1.1rem; font-weight: 400; color: #bfdbfe; margin-top: 5px; }
+        h2 .sub-lang { display: block; font-size: 1.05rem; font-weight: 400; color: #bfdbfe; margin-top: 5px; }
         h3 {
             font-size: 1.3rem; margin: 24px 0 14px 0; color: #1e3a8a; display: flex; justify-content: space-between; align-items: center; font-weight: 700;
             border-left: 5px solid var(--primary); padding-left: 12px;
         }
-        h3 .sub-lang { font-size: 1.02rem; color: #64748b; font-weight: 400; margin-left: 10px; }
+        h3 .sub-lang { font-size: 1.05rem; color: #64748b; font-weight: 400; margin-left: 10px; }
 
         .card {
             background: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: var(--shadow);
@@ -79,8 +79,8 @@
             display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid #e2e8f0; gap: 12px;
         }
         .check-item:last-child { border-bottom: none; }
-        .check-item .label-txt { font-weight: 700; font-size: 1.18rem; }
-        .check-item .sub-lang { display: block; font-size: 1rem; color: var(--text-sub); font-weight: 400; margin-top: 3px; }
+        .check-item .label-txt { font-weight: 700; font-size: 1.12rem; }
+        .check-item .sub-lang { display: block; font-size: 1.05rem; color: var(--text-sub); font-weight: 400; margin-top: 3px; }
 
         button {
             padding: 16px 24px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 1.12rem;
@@ -103,7 +103,7 @@
             border-radius: 10px; font-size: 1.15rem; font-weight: 600; line-height: 1.55; min-height: 56px;
         }
         .btn-audio::after { content: " 🔊"; float: right; font-size: 1.45rem; }
-        .btn-audio .sub-lang { display: block; font-size: 1.02rem; color: #475569; font-weight: 400; margin-top: 7px; }
+        .btn-audio .sub-lang { display: block; font-size: 1.05rem; color: #475569; font-weight: 400; margin-top: 7px; }
 
         .btn-mic-sub { background: #cbd5e1; color: var(--text-main); padding: 12px 18px; font-size: 1.05rem; border-radius: 22px; border: 1px solid #94a3b8; min-height: 44px; }
         .btn-mic-sub.recording { background: var(--accent); color: white; }
@@ -118,7 +118,7 @@
             font-size: 1.1rem; cursor: pointer; border: 1px solid #cbd5e1; font-weight: 600; line-height: 1.45;
             min-height: 52px; display: inline-flex; flex-direction: column; justify-content: center;
         }
-        .chip .sub-lang { display: block; font-size: 0.92rem; color: #64748b; font-weight: 400; margin-top: 4px; }
+        .chip .sub-lang { display: block; font-size: 0.98rem; color: #64748b; font-weight: 400; margin-top: 4px; }
         .chip.active { background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); color: white; border-color: transparent; }
         .chip.active .sub-lang { color: #dbeafe; }
         .chip.cc-chip { background: #f0fdf4; border: 1px solid #16a34a; color: #16a34a; }
@@ -163,7 +163,7 @@
         
         .dots-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e2e8f0; }
         .dots-label { font-size: 0.9rem; font-weight: 700; color: var(--text-main); flex: 1; }
-        .dots-label .sub-lang { display: block; font-size: 0.78rem; color: var(--text-sub); font-weight: 400; }
+        .dots-label .sub-lang { display: block; font-size: 1rem; color: var(--text-sub); font-weight: 400; }
         .dots-btn-group { display: flex; gap: 4px; }
         .dots-btn { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 6px 10px; font-size: 0.85rem; font-weight: 700; border-radius: 4px; min-width: 32px; text-align: center; }
         .dots-btn.active { background: var(--accent); color: white; border-color: transparent; }
@@ -205,14 +205,37 @@
 
         textarea { width: 100%; height: 240px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 14px; box-sizing: border-box; background: #fafafa; color: #1e40af; font-family: monospace; font-size: 0.95rem; margin-bottom: 12px; line-height: 1.5; font-weight: 600; }
 
-        .guide-box { background: rgba(37,99,235,0.05); border: 1px solid rgba(37,99,235,0.2); border-radius: 10px; padding: 14px; margin-top: 10px; font-size: 1rem; color: #1e40af; line-height: 1.55; }
-        .guide-box .sub-lang { display: block; color: #475569; margin-top: 3px; font-weight: normal; }
+        .guide-box { background: rgba(37,99,235,0.05); border: 1px solid rgba(37,99,235,0.2); border-radius: 10px; padding: 16px; margin-top: 10px; font-size: 1.05rem; color: #1e40af; line-height: 1.6; }
+        .guide-box .sub-lang { display: block; color: #475569; margin-top: 3px; font-weight: normal; font-size: 0.98rem; }
         .alert-box { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
+
+        /* Care Performed item with expandable protocol */
+        .care-item { padding: 14px 0; border-bottom: 1px solid #e2e8f0; }
+        .care-item:last-child { border-bottom: none; }
+        .care-item-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .care-item-row > div:first-child { flex: 1; min-width: 0; }
+        .care-protocol-box {
+            display: none;
+            margin-top: 10px;
+            background: #f8fafc;
+            border: 1.5px solid #cbd5e1;
+            border-left: 5px solid #2563eb;
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 1rem;
+            line-height: 1.55;
+            color: #0f172a;
+        }
+        .care-item.expanded .care-protocol-box { display: block; }
+        .care-protocol-box strong { color: #1e3a8a; font-size: 1.05rem; }
+        .care-protocol-box ul { margin: 6px 0; padding-left: 22px; }
+        .care-protocol-box ul li { margin-bottom: 4px; }
+        .care-protocol-box .ja { margin-top: 6px; padding-top: 6px; border-top: 1px dashed #cbd5e1; color: #475569; font-size: 0.95rem; }
 
         .disabled { opacity: 0.3; pointer-events: none; filter: grayscale(40%); }
         .hidden { display: none !important; }
         .flex-between { display: flex; justify-content: space-between; align-items: center; }
-        .stt-info { font-size: 0.7rem; color: var(--primary); font-weight: 700; margin-top: -2px; margin-bottom: 4px; }
+        .stt-info { font-size: 0.95rem; color: var(--primary); font-weight: 700; margin-top: -2px; margin-bottom: 4px; }
         
         .export-btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
         .btn-main-act { width: 100%; padding: 18px; font-size: 1.18rem; background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%); color: white; border-radius: 10px; font-weight: 800; min-height: 64px; }
@@ -222,8 +245,8 @@
         .guide-txt-area { color: #1e40af; background: #f0f4f8; padding: 12px 14px; border-radius: 8px; font-size: 1.02rem; margin-top: 8px; font-weight: bold; border-left: 5px solid var(--primary); line-height: 1.5; }
 
         /* Anatomy System Layout */
-        .anatomy-container { display: flex; gap: 15px; margin-top: 10px; align-items: flex-start; }
-        .anatomy-svg-box { width: 120px; flex-shrink: 0; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 5px; text-align: center; }
+        .anatomy-container { display: flex; gap: 16px; margin-top: 12px; align-items: flex-start; flex-wrap: wrap; }
+        .anatomy-svg-box { width: 300px; max-width: 100%; flex-shrink: 0; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 12px; text-align: center; }
         .anatomy-svg { width: 100%; height: auto; }
         .anatomy-region { fill: #e2e8f0; stroke: #94a3b8; stroke-width: 1.5; transition: fill 0.3s; cursor: pointer; }
         .anatomy-region.injured { fill: #ef4444; stroke: #b91c1c; }
@@ -231,7 +254,7 @@
         .anatomy-region.sev-2 { fill: #fb923c; stroke: #ea580c; }
         .anatomy-region.sev-3 { fill: #dc2626; stroke: #991b1b; }
         .anatomy-region.selected { stroke: #2563eb; stroke-width: 3; }
-        .matrix-box { flex: 1; }
+        .matrix-box { flex: 1 1 320px; min-width: 0; }
 
         /* DCAP-BTLS checklist grid — uniform 2-column tiles, fixed row heights */
         .dcap-grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:10px; margin-top:8px; }
@@ -245,11 +268,13 @@
             border-radius:10px;
             padding:14px 16px;
             cursor:pointer;
-            font-size:1.02rem;
-            line-height:1.35;
+            font-size:1.05rem;
+            line-height:1.4;
             min-height:62px;
             transition: background 0.15s, border-color 0.15s;
+            overflow:hidden;
         }
+        .dcap-grid label > span { min-width:0; word-wrap:break-word; overflow-wrap:break-word; }
         .dcap-grid label:hover { background:#eff6ff; border-color:#93c5fd; }
         .dcap-grid label.checked {
             background:#fee2e2;
@@ -261,24 +286,24 @@
             width:24px; height:24px; margin:0; cursor:pointer; accent-color:#dc2626;
         }
         .dcap-grid label > span { min-width:0; }
-        .dcap-grid label .en { display:block; font-weight:700; font-size:0.95rem; }
-        .dcap-grid label .ja { display:block; font-size:0.78rem; color:#64748b; font-weight:400; margin-top:2px; }
+        .dcap-grid label .en { display:block; font-weight:700; font-size:1.05rem; }
+        .dcap-grid label .ja { display:block; font-size:0.95rem; color:#64748b; font-weight:400; margin-top:3px; }
         .dcap-grid label.checked .ja { color:#991b1b; }
 
         /* DCAP group section title spacing */
-        .dcap-group-title { font-size:0.95rem; font-weight:700; color:#1e3a8a; margin:12px 0 6px; }
+        .dcap-group-title { font-size:1.05rem; font-weight:700; color:#1e3a8a; margin:14px 0 8px; }
         .dcap-group-title:first-child { margin-top:0; }
 
         /* Findings count box */
-        .dcap-count-box { margin-top:14px; font-size:1.02rem; color:#475569; background:#f1f5f9; padding:12px 16px; border-radius:8px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
-        .dcap-count-box strong { color:#1e3a8a; font-size:1.15rem; }
+        .dcap-count-box { margin-top:14px; font-size:1.05rem; color:#475569; background:#f1f5f9; padding:14px 18px; border-radius:8px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+        .dcap-count-box strong { color:#1e3a8a; font-size:1.2rem; }
 
         /* Special findings checkboxes */
-        .sf-item { display:flex; align-items:flex-start; gap:12px; background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:10px; padding:14px 16px; cursor:pointer; font-size:1.02rem; line-height:1.4; min-height:60px; }
+        .sf-item { display:flex; align-items:flex-start; gap:12px; background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:10px; padding:14px 16px; cursor:pointer; font-size:1.05rem; line-height:1.4; min-height:60px; }
         .sf-item:hover { background:#eff6ff; }
         .sf-item.checked { background:#fef3c7; border-color:#ca8a04; color:#78350f; font-weight:700; }
         .sf-item input[type=checkbox] { margin-top:3px; flex-shrink:0; width:22px; height:22px; accent-color:#ca8a04; }
-        .sf-item .ja { display:block; font-size:0.9rem; color:#64748b; font-weight:400; margin-top:3px; }
+        .sf-item .ja { display:block; font-size:0.98rem; color:#64748b; font-weight:400; margin-top:3px; }
         .sf-item.checked .ja { color:#92400e; }
 
         /* START Triageフローチャート スタイル */
@@ -289,21 +314,33 @@
 
         .result-node { border-radius: 10px; padding: 16px; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; justify-content: space-between; border: 2px solid; }
 
-        /* ─── Responsive: cap font sizes on tiny phones to avoid overflow ─── */
-        @media (max-width: 380px) {
-            body { font-size: 1.05rem; padding: 12px; }
-            h1 { font-size: 1.75rem; }
-            h2 { font-size: 1.2rem; padding: 12px 16px; }
-            h3 { font-size: 1.05rem; }
+        /* ─── Responsive: phone (≤480px) — single column DCAP, full-width anatomy ─── */
+        @media (max-width: 480px) {
+            body { font-size: 1.1rem; padding: 12px; }
+            h1 { font-size: 1.85rem; }
+            h2 { font-size: 1.25rem; padding: 12px 16px; }
+            h3 { font-size: 1.1rem; }
             .card { padding: 16px; }
-            .chip { font-size: 0.95rem; padding: 10px 14px; }
-            .btn-audio { font-size: 0.98rem; padding: 14px 16px; }
-            .dcap-grid label { font-size: 0.92rem; padding: 10px 12px; min-height: 54px; }
+            .chip { font-size: 1rem; padding: 11px 14px; }
+            .btn-audio { font-size: 1rem; padding: 14px 16px; }
+            /* DCAP: switch to single column so labels never overflow */
+            .dcap-grid { grid-template-columns: 1fr !important; gap: 8px; }
+            .dcap-grid label { font-size: 1rem; padding: 14px 14px; min-height: 56px; }
+            .dcap-grid label .en { font-size: 1.02rem; }
+            .dcap-grid label .ja { font-size: 0.95rem; }
+            /* Anatomy: full-width box stacked above the panel */
+            .anatomy-svg-box { width: 100% !important; max-width: 360px; margin: 0 auto; }
+            .matrix-box { flex-basis: 100%; }
+            /* Equip grid: single column too */
+            .equip-grid { grid-template-columns: 1fr; }
+            /* Vital table — narrower padding */
+            .vital-table th, .vital-table td { padding: 6px 4px; }
+            .vcell { min-width: 56px; }
         }
         /* Desktop: slightly reduce wasted space */
         @media (min-width: 1100px) {
-            body { font-size: 1.18rem; max-width: 1080px; margin: 0 auto; }
-            .card { padding: 24px; }
+            body { font-size: 1.22rem; max-width: 1100px; margin: 0 auto; }
+            .card { padding: 26px; }
         }
         .result-tag { width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; }
         
@@ -321,29 +358,29 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.4 PWA</h1>
+    <h1>EMR Elite Navigator v2.7 PWA</h1>
     <div id="speech-status-bar" style="text-align:center; margin-bottom:10px;">
-        <button onclick="testSpeech()" style="padding:8px 16px; background:linear-gradient(135deg, #0f766e 0%, #14b8a6 100%); color:white; border:none; border-radius:6px; font-size:0.78rem; font-weight:700; cursor:pointer;">🔊 Test Voice / 音声テスト</button>
-        <span id="speech-status" style="margin-left:8px; font-size:0.7rem; color:#475569;"></span>
+        <button onclick="testSpeech()" style="padding:8px 16px; background:linear-gradient(135deg, #0f766e 0%, #14b8a6 100%); color:white; border:none; border-radius:6px; font-size:1rem; font-weight:700; cursor:pointer;">🔊 Test Voice / 音声テスト</button>
+        <span id="speech-status" style="margin-left:8px; font-size:0.95rem; color:#475569;"></span>
     </div>
 
     <!-- ==================== GLOBAL CONVERSATION RECORDER ==================== -->
     <div class="card" id="global-recorder-card" style="border:2px solid #6366f1; background:linear-gradient(135deg, #eef2ff 0%, #ffffff 100%);">
         <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
             <div style="flex:1; min-width:180px;">
-                <div style="font-weight:800; color:#3730a3; font-size:0.9rem;">🎙 Conversation Recorder <span style="font-size:0.7rem; font-weight:400; color:#64748b;">(会話レコーダー)</span></div>
-                <div id="recorder-status" style="font-size:0.7rem; color:#64748b; margin-top:2px;">Tap REC to start continuous transcription of patient interview.<span style="display:block;">(REC ボタンで患者との会話を連続的にテキスト記録)</span></div>
+                <div style="font-weight:800; color:#3730a3; font-size:0.9rem;">🎙 Conversation Recorder <span style="font-size:0.95rem; font-weight:400; color:#64748b;">(会話レコーダー)</span></div>
+                <div id="recorder-status" style="font-size:0.95rem; color:#64748b; margin-top:2px;">Tap REC to start continuous transcription of patient interview.<span style="display:block;">(REC ボタンで患者との会話を連続的にテキスト記録)</span></div>
             </div>
             <div style="display:flex; gap:6px; flex-wrap:wrap;">
                 <button id="btn-global-rec" onclick="toggleGlobalRecording()" style="padding:10px 18px; background:linear-gradient(135deg, #dc2626 0%, #ef4444 100%); color:white; border:none; border-radius:8px; font-weight:800; font-size:0.85rem; cursor:pointer;">● REC</button>
-                <button onclick="summarizeTranscript()" style="padding:10px 16px; background:linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); color:white; border:none; border-radius:8px; font-weight:700; font-size:0.78rem; cursor:pointer;">✨ Summarize</button>
-                <button onclick="clearTranscript()" style="padding:10px 12px; background:#94a3b8; color:white; border:none; border-radius:8px; font-weight:700; font-size:0.78rem; cursor:pointer;">Clear</button>
+                <button onclick="summarizeTranscript()" style="padding:10px 16px; background:linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); color:white; border:none; border-radius:8px; font-weight:700; font-size:1rem; cursor:pointer;">✨ Summarize</button>
+                <button onclick="clearTranscript()" style="padding:10px 12px; background:#94a3b8; color:white; border:none; border-radius:8px; font-weight:700; font-size:1rem; cursor:pointer;">Clear</button>
             </div>
         </div>
-        <textarea id="global-transcript" placeholder="Live transcript of the patient interview will appear here…&#10;(患者との会話がここにテキスト化されて記録されます)" style="width:100%; height:120px; margin-top:10px; box-sizing:border-box; padding:8px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.78rem; font-family:-apple-system, sans-serif; background:#fff; color:#0f172a;"></textarea>
-        <div id="transcript-summary" style="display:none; margin-top:10px; padding:10px; background:#fff; border:1px solid #cbd5e1; border-left:5px solid #2563eb; border-radius:6px; font-size:0.78rem; color:#0f172a; line-height:1.5;"></div>
+        <textarea id="global-transcript" placeholder="Live transcript of the patient interview will appear here…&#10;(患者との会話がここにテキスト化されて記録されます)" style="width:100%; height:120px; margin-top:10px; box-sizing:border-box; padding:8px; border:1px solid #cbd5e1; border-radius:6px; font-size:1rem; font-family:-apple-system, sans-serif; background:#fff; color:#0f172a;"></textarea>
+        <div id="transcript-summary" style="display:none; margin-top:10px; padding:10px; background:#fff; border:1px solid #cbd5e1; border-left:5px solid #2563eb; border-radius:6px; font-size:1rem; color:#0f172a; line-height:1.5;"></div>
     </div>
-    <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.6rem;">(全リセット)</span></button>
+    <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
     <div class="card" id="sec-sizeup">
         <h2>1. Scene Size-Up <span class="sub-lang">(現場状況把握)</span></h2>
@@ -356,10 +393,10 @@
             <button class="btn-ok" onclick="toggleCheck(this, 'BSI/PPE Enforced')">OK</button>
         </div>
         <div class="check-item">
-            <div><span class="label-txt">Number of Patients</span><span class="sub-lang">(傷病者数の確認)</span></div>
-            <div>
-                <button class="btn-ok" style="margin-right:4px;" id="btn-pat-single" onclick="setPatientCount('Single', this)">Single <span style="font-size:0.6rem;">(単数)</span></button>
-                <button class="btn-ok" id="btn-pat-multiple" onclick="setPatientCount('Multiple', this)">Multiple <span style="font-size:0.6rem;">(複数)</span></button>
+            <div style="flex:1; min-width:0;"><span class="label-txt">Number of Patients</span><span class="sub-lang">(傷病者数の確認)</span></div>
+            <div style="display:flex; gap:6px; flex-shrink:0;">
+                <button class="btn-ok" id="btn-pat-single" onclick="setPatientCount('Single', this)">Single</button>
+                <button class="btn-ok" id="btn-pat-multiple" onclick="setPatientCount('Multiple', this)">Multiple</button>
             </div>
         </div>
         <div class="check-item">
@@ -433,21 +470,21 @@
     <div class="card disabled" id="sec-branch">
         <h2>2. Flow Selection <span class="sub-lang">(事案分類選択)</span></h2>
         <div style="display: flex; justify-content: space-between;">
-            <button class="btn-branch" id="btn-trauma" onclick="selectFlow('trauma')">💥 Trauma <span style="display:block; font-size:0.65rem; font-weight:400;">(外傷フロー)</span></button>
-            <button class="btn-branch" id="btn-medical" onclick="selectFlow('medical')">🏥 Medical <span style="display:block; font-size:0.65rem; font-weight:400;">(急病フロー)</span></button>
+            <button class="btn-branch" id="btn-trauma" onclick="selectFlow('trauma')">💥 Trauma <span style="display:block; font-size:0.92rem; font-weight:400;">(外傷フロー)</span></button>
+            <button class="btn-branch" id="btn-medical" onclick="selectFlow('medical')">🏥 Medical <span style="display:block; font-size:0.92rem; font-weight:400;">(急病フロー)</span></button>
         </div>
     </div>
 
     <div class="card disabled" id="sec-primary">
         <h2>3. Primary Assessment <span class="sub-lang">(初期評価)</span></h2>
         
-        <button class="btn-audio" onclick="speak('Hello, I am a firefighter and we are here to help you. Please stay still and try to relax. I will be using this application on my tablet to guide our assessment, so you may hear automated questions in English. Is that okay?')">
-            "Hello, I am a firefighter and we are here to help you. Please stay still and try to relax. I will be using this application on my tablet to guide our assessment, so you may hear automated questions in English. Is that okay?"
-            <span class="sub-lang">(こんにちは、消防です。助けに来ました。動かずにリラックスしてください。これからこのタブレットのアプリを使ってお体を診ていきますので、英語の自動音声で質問が流れることがあります。いいですか？)</span>
+        <button class="btn-audio" onclick="playAudio('greeting', 'Hello, I am a firefighter. We came to help you. Please stay still and relax. We will examine your body. Is that okay?')">
+            "Hello, I am a firefighter. We came to help you. Please stay still and relax. We will examine your body. Is that okay?"
+            <span class="sub-lang">(こんにちは、消防です。助けに来ました。動かずにリラックスして下さい。お身体を見ていきます。いいですか？)</span>
         </button>
 
         <h3>Initial Findings on Discovery <span class="sub-lang">(発見評価・発見時の患者状態)</span></h3>
-        <div style="font-size:0.7rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
+        <div style="font-size:0.95rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
             Record the patient's state <strong>at the moment of discovery</strong> — this baseline is critical for handoff and trend assessment.
             <span class="sub-lang" style="display:block; margin-top:2px;">(発見した時点での患者の状態を記録します。引き継ぎとトレンド評価の基準となります)</span>
         </div>
@@ -456,28 +493,28 @@
             <input type="text" id="input-INIT_Manual" class="input-text" placeholder="Additional discovery findings / 追加の発見時所見をテキスト入力">
             <button class="btn-save" onclick="saveInitialManualInput()">SAVE</button>
         </div>
-        <div id="init-manual-list" style="margin-top:6px; font-size:0.72rem; color:#475569;"></div>
+        <div id="init-manual-list" style="margin-top:6px; font-size:0.95rem; color:#475569;"></div>
 
         <h3>ABC Evaluation <span class="sub-lang">(ABC評価)</span></h3>
         <div style="display:flex; gap:8px; margin-bottom:10px;">
-            <button class="btn-ok" style="flex:1;" id="btn-abc-ok" onclick="setAbcStatus('ABC OK')">ABC OK <span style="font-size:0.65rem; font-weight:400; display:block;">(安定)</span></button>
-            <button class="btn-danger-toggle" style="flex:1;" id="btn-abc-cpa" onclick="setAbcStatus('CPA')">CPA <span style="font-size:0.65rem; font-weight:400; display:block;">(心肺停止)</span></button>
+            <button class="btn-ok" style="flex:1;" id="btn-abc-ok" onclick="setAbcStatus('ABC OK')">ABC OK <span style="font-size:0.92rem; font-weight:400; display:block;">(安定)</span></button>
+            <button class="btn-danger-toggle" style="flex:1;" id="btn-abc-cpa" onclick="setAbcStatus('CPA')">CPA <span style="font-size:0.92rem; font-weight:400; display:block;">(心肺停止)</span></button>
         </div>
 
         <h3>Major Bleeding? <span class="sub-lang">(活動性の大出血あり/なし)</span></h3>
         <div style="display:flex; gap:8px; margin-bottom:10px;">
-            <button class="btn-danger-toggle" style="flex:1;" id="btn-bleed-yes" onclick="setBleedingStatus(true)">Yes <span style="font-size:0.65rem; font-weight:400; display:block;">(大出血あり)</span></button>
-            <button class="btn-ok" style="flex:1;" id="btn-bleed-no" onclick="setBleedingStatus(false)">No <span style="font-size:0.65rem; font-weight:400; display:block;">(なし)</span></button>
+            <button class="btn-danger-toggle" style="flex:1;" id="btn-bleed-yes" onclick="setBleedingStatus(true)">Yes <span style="font-size:0.92rem; font-weight:400; display:block;">(大出血あり)</span></button>
+            <button class="btn-ok" style="flex:1;" id="btn-bleed-no" onclick="setBleedingStatus(false)">No <span style="font-size:0.92rem; font-weight:400; display:block;">(なし)</span></button>
         </div>
 
         <div id="sec-bleeding-guide" class="guide-box alert-box hidden" style="margin-bottom:12px;">
-            <strong style="font-size:0.8rem;">🩸 Estimated Blood Loss Guide <span class="sub-lang">(推定出血量・クラス分類ガイド)</span></strong>
-            <div style="font-size:0.65rem; line-height:1.3; margin-top:4px; color:#991b1b;">
+            <strong style="font-size:1rem;">🩸 Estimated Blood Loss Guide <span class="sub-lang">(推定出血量・クラス分類ガイド)</span></strong>
+            <div style="font-size:0.92rem; line-height:1.3; margin-top:4px; color:#991b1b;">
                 * Adult Blood Volume: ~8% of Body Weight (4-5L) <span style="color:#475569;">(成人の血液量: 体重の約8% [約4〜5L])</span><br>
                 * Multiple wounds: Add 500ml <span style="color:#475569;">(出血箇所複数の場合さらに500mlプラス)</span><br>
                 * 1 Square Foot on floor/clothes &asymp; 100ml <span style="color:#475569;">(床や衣服の1平方フィート=100ml)</span>
             </div>
-            <table class="vital-table" style="font-size:0.65rem; margin-top:6px; color:black;">
+            <table class="vital-table" style="font-size:0.92rem; margin-top:6px; color:black;">
                 <thead>
                     <tr>
                         <th>Class</th>
@@ -493,7 +530,7 @@
                     <tr><td>Class 4</td><td>&ge;2000ml</td><td>&ge;140</td><td>Severe altered mental status <span class="sub-lang">(意識障害)</span></td></tr>
                 </tbody>
             </table>
-            <div style="font-size:0.7rem; font-weight:bold; margin-top:6px; background:white; padding:4px; border-radius:4px; border:1px solid #fca5a5;">
+            <div style="font-size:0.95rem; font-weight:bold; margin-top:6px; background:white; padding:4px; border-radius:4px; border:1px solid #fca5a5;">
                 【Internal Pool Volumes / 部位別推定値】<br>
                 Forearm(前腕):250ml | Upper Arm(上腕)/Lower Leg(下腿):500ml | Thigh(大腿)/Hemothorax(血胸):1000ml | Abdomen(腹腔):1500ml | Pelvis(骨盤):2000ml
             </div>
@@ -506,10 +543,10 @@
             <button class="btn-ok" style="flex:1;" id="avpu-P" onclick="toggleAvpu('P')">P</button>
             <button class="btn-danger-toggle" style="flex:1;" id="avpu-U" onclick="toggleAvpu('U')">U</button>
         </div>
-        <div id="avpu-guide-text" class="guide-txt-area" style="font-size:0.7rem;">Select AVPU to show Japanese guide. <span style="font-weight:normal;">(AVPUを選択すると日本語ガイドが表示されます。)</span></div>
+        <div id="avpu-guide-text" class="guide-txt-area" style="font-size:0.95rem;">Select AVPU to show Japanese guide. <span style="font-weight:normal;">(AVPUを選択すると日本語ガイドが表示されます。)</span></div>
 
         <h3>Chief Complaints <span class="sub-lang">(主訴の確認)</span></h3>
-        <button class="btn-audio" onclick="speak('Can you tell me what is bothering you the most right now? Please describe your main symptom.')">
+        <button class="btn-audio" onclick="playAudio('cc-intro', 'Can you tell me what is bothering you the most right now? Please describe your main symptom.')">
             "Can you tell me what is bothering you the most right now? Please describe your main symptom."
             <span class="sub-lang">(今一番つらい症状は何ですか？主な症状を教えてください。)</span>
         </button>
@@ -517,25 +554,25 @@
         <div class="chip-group" id="chips-CC"></div>
 
         <h3>Perfusion & Shock Check <span class="sub-lang">(血液灌流・ショックサインの確認)</span></h3>
-        <button class="btn-audio" onclick="speak('May I touch your skin to check your circulation?')">
+        <button class="btn-audio" onclick="playAudio('shock-intro', 'May I touch your skin to check your circulation?')">
             "May I touch your skin to check your circulation?"
             <span class="sub-lang">(お体の循環状態を確認するため、お肌に触らせてくださいね。)</span>
         </button>
         <div style="display:flex; gap:8px; margin-bottom:4px;">
-            <button class="btn-danger-toggle" style="flex:1;" id="btn-shock-yes" onclick="setShockStatus(true)">Yes <span style="font-size:0.65rem; font-weight:400; display:block;">(ショック徴候・湿潤冷感あり)</span></button>
-            <button class="btn-ok" style="flex:1;" id="btn-shock-no" onclick="setShockStatus(false)">No <span style="font-size:0.65rem; font-weight:400; display:block;">(なし)</span></button>
+            <button class="btn-danger-toggle" style="flex:1;" id="btn-shock-yes" onclick="setShockStatus(true)">Yes <span style="font-size:0.92rem; font-weight:400; display:block;">(ショック徴候・湿潤冷感あり)</span></button>
+            <button class="btn-ok" style="flex:1;" id="btn-shock-no" onclick="setShockStatus(false)">No <span style="font-size:0.92rem; font-weight:400; display:block;">(なし)</span></button>
         </div>
         <div id="guide-medical-shock" class="guide-box alert-box hidden" style="line-height:1.5;">
             <div style="font-size:0.85rem; font-weight:800; color:#991b1b; margin-bottom:8px;">
-                ⚠️ SHOCK PROTOCOL ACTIVATED <span class="sub-lang" style="font-size:0.7rem; font-weight:400;">(ショックプロトコル発動)</span>
+                ⚠️ SHOCK PROTOCOL ACTIVATED <span class="sub-lang" style="font-size:0.95rem; font-weight:400;">(ショックプロトコル発動)</span>
             </div>
 
             <!-- ───── Non-Rebreather Mask ───── -->
             <div style="background:#fff; border:2px solid #dc2626; border-radius:8px; padding:8px 10px; margin-bottom:8px;">
-                <div style="font-weight:800; color:#991b1b; font-size:0.78rem; margin-bottom:4px;">
-                    🫁 Non-Rebreather Mask (NRB) <span style="font-size:0.65rem; font-weight:400; color:#64748b;">ノンリブリージング・マスク</span>
+                <div style="font-weight:800; color:#991b1b; font-size:1rem; margin-bottom:4px;">
+                    🫁 Non-Rebreather Mask (NRB) <span style="font-size:0.92rem; font-weight:400; color:#64748b;">ノンリブリージング・マスク</span>
                 </div>
-                <ul style="margin:0; padding-left:18px; font-size:0.72rem; color:#0f172a;">
+                <ul style="margin:0; padding-left:18px; font-size:0.95rem; color:#0f172a;">
                     <li><strong>Flow: 10–15 LPM</strong> (minimum 8 LPM), <strong>FiO₂ 80–95%</strong>
                         <div style="color:#64748b;">流量は10〜15 LPM（最小8 LPM以上）、酸素濃度は80%〜95%</div>
                     </li>
@@ -550,10 +587,10 @@
 
             <!-- ───── Shock Position ───── -->
             <div style="background:#fff; border:2px solid #dc2626; border-radius:8px; padding:8px 10px; margin-bottom:8px;">
-                <div style="font-weight:800; color:#991b1b; font-size:0.78rem; margin-bottom:4px;">
-                    🛏 Shock Position <span style="font-size:0.65rem; font-weight:400; color:#64748b;">体位の確保（ショック体位）</span>
+                <div style="font-weight:800; color:#991b1b; font-size:1rem; margin-bottom:4px;">
+                    🛏 Shock Position <span style="font-size:0.92rem; font-weight:400; color:#64748b;">体位の確保（ショック体位）</span>
                 </div>
-                <ul style="margin:0; padding-left:18px; font-size:0.72rem; color:#0f172a;">
+                <ul style="margin:0; padding-left:18px; font-size:0.95rem; color:#0f172a;">
                     <li>Lay responsive patient <strong>supine</strong>, elevate legs <strong>20–30 cm (8–12 in)</strong>
                         <div style="color:#64748b;">反応のある患者は仰向けに寝かせ、足を20〜30cm高く上げる</div>
                     </li>
@@ -565,10 +602,10 @@
 
             <!-- ───── Warmth ───── -->
             <div style="background:#fff; border:2px solid #dc2626; border-radius:8px; padding:8px 10px; margin-bottom:8px;">
-                <div style="font-weight:800; color:#991b1b; font-size:0.78rem; margin-bottom:4px;">
-                    🔥 Maintain Body Temperature <span style="font-size:0.65rem; font-weight:400; color:#64748b;">保温</span>
+                <div style="font-weight:800; color:#991b1b; font-size:1rem; margin-bottom:4px;">
+                    🔥 Maintain Body Temperature <span style="font-size:0.92rem; font-weight:400; color:#64748b;">保温</span>
                 </div>
-                <ul style="margin:0; padding-left:18px; font-size:0.72rem; color:#0f172a;">
+                <ul style="margin:0; padding-left:18px; font-size:0.95rem; color:#0f172a;">
                     <li>Place a blanket <strong>under and over</strong> the patient to maintain normal body temperature
                         <div style="color:#64748b;">患者の下にも毛布を敷くなどして、正常な体温を保つ</div>
                     </li>
@@ -580,10 +617,10 @@
 
             <!-- ───── NPO ───── -->
             <div style="background:#fff; border:2px solid #dc2626; border-radius:8px; padding:8px 10px; margin-bottom:8px;">
-                <div style="font-weight:800; color:#991b1b; font-size:0.78rem; margin-bottom:4px;">
-                    🚫 NPO — Nothing By Mouth <span style="font-size:0.65rem; font-weight:400; color:#64748b;">飲食の禁止</span>
+                <div style="font-weight:800; color:#991b1b; font-size:1rem; margin-bottom:4px;">
+                    🚫 NPO — Nothing By Mouth <span style="font-size:0.92rem; font-weight:400; color:#64748b;">飲食の禁止</span>
                 </div>
-                <ul style="margin:0; padding-left:18px; font-size:0.72rem; color:#0f172a;">
+                <ul style="margin:0; padding-left:18px; font-size:0.95rem; color:#0f172a;">
                     <li>Give the patient <strong>NO food or drink</strong>, even if they complain of thirst
                         <div style="color:#64748b;">患者が喉の渇きを訴えても、食べ物や飲み物を一切与えない</div>
                     </li>
@@ -598,27 +635,27 @@
         <h3 style="margin-top:14px;">Oxygen Administration <span class="sub-lang">(酸素投与判断)</span></h3>
         <div id="oxygen-advisory" class="guide-box alert-box hidden">
             ⚠️ <strong>O₂ Administration Recommended <span class="sub-lang">(酸素投与を推奨)</span></strong>
-            <div id="oxygen-advisory-reason" style="margin-top:4px; font-size:0.7rem;"></div>
+            <div id="oxygen-advisory-reason" style="margin-top:4px; font-size:0.95rem;"></div>
         </div>
         <div style="display:flex; gap:8px;">
-            <button class="btn-ok" style="flex:1;" id="btn-oxygen-yes" onclick="toggleMedicalOk('Oxygen', true)">Oxygen Administered <span style="font-size:0.65rem; font-weight:400; display:block;">(投与あり)</span></button>
-            <button class="btn-ok" style="flex:1;" id="btn-oxygen-no" onclick="toggleMedicalOk('Oxygen', false)">Not Required / Normal <span style="font-size:0.65rem; font-weight:400; display:block;">(投与不要/正常)</span></button>
+            <button class="btn-ok" style="flex:1;" id="btn-oxygen-yes" onclick="toggleMedicalOk('Oxygen', true)">Oxygen Administered <span style="font-size:0.92rem; font-weight:400; display:block;">(投与あり)</span></button>
+            <button class="btn-ok" style="flex:1;" id="btn-oxygen-no" onclick="toggleMedicalOk('Oxygen', false)">Not Required / Normal <span style="font-size:0.92rem; font-weight:400; display:block;">(投与不要/正常)</span></button>
         </div>
 
         <!-- NRB protocol shown when O2 is administered -->
         <div id="nrb-protocol-box" class="guide-box alert-box hidden" style="margin-top:10px;">
             <div style="font-weight:800; color:#991b1b; font-size:0.95rem; margin-bottom:6px;">
-                🫁 Non-Rebreather Mask (NRB) <span class="sub-lang" style="font-size:0.78rem; font-weight:400; color:#64748b;">ノンリブリージング・マスク</span>
+                🫁 Non-Rebreather Mask (NRB) <span class="sub-lang" style="font-size:1rem; font-weight:400; color:#64748b;">ノンリブリージング・マスク</span>
             </div>
             <ul style="margin:0; padding-left:20px; font-size:0.9rem; line-height:1.5; color:#0f172a;">
                 <li><strong>Flow: 10–15 LPM</strong> (minimum 8 LPM), <strong>FiO₂ 80–95%</strong>
-                    <div style="color:#64748b; font-size:0.8rem;">流量は10〜15 LPM（最小8 LPM以上）、酸素濃度は80%〜95%</div>
+                    <div style="color:#64748b; font-size:1rem;">流量は10〜15 LPM（最小8 LPM以上）、酸素濃度は80%〜95%</div>
                 </li>
                 <li><strong>Cylinder pressure check</strong> — replace cylinder when pressure falls below <strong>500 psi</strong>, before it runs empty
-                    <div style="color:#64748b; font-size:0.8rem;">タンク圧が500 psiを切った場合は、完全に空になる前に新しいシリンダーと交換</div>
+                    <div style="color:#64748b; font-size:1rem;">タンク圧が500 psiを切った場合は、完全に空になる前に新しいシリンダーと交換</div>
                 </li>
                 <li>Inflate the reservoir bag fully before placing on patient; ensure bag does not fully collapse on inhalation
-                    <div style="color:#64748b; font-size:0.8rem;">リザーバーバッグを膨らませてから装着し、吸気時に完全につぶれないことを確認</div>
+                    <div style="color:#64748b; font-size:1rem;">リザーバーバッグを膨らませてから装着し、吸気時に完全につぶれないことを確認</div>
                 </li>
             </ul>
         </div>
@@ -631,7 +668,7 @@
         <div style="background:#fff; border:3px solid #dc2626; border-radius:10px; padding:14px; margin-bottom:10px; text-align:center;">
             <div style="font-size:0.85rem; font-weight:800; color:#991b1b; margin-bottom:8px;">⏱ CPR Timer / 心肺蘇生タイマー</div>
             <div id="cpr-timer-display" style="font-size:2.4rem; font-weight:900; color:#0f172a; font-variant-numeric:tabular-nums; line-height:1; margin-bottom:8px;">00:00</div>
-            <div id="cpr-cycle-info" style="font-size:0.7rem; color:#475569; margin-bottom:10px;">Cycle —/— · Next rhythm check at 2:00</div>
+            <div id="cpr-cycle-info" style="font-size:0.95rem; color:#475569; margin-bottom:10px;">Cycle —/— · Next rhythm check at 2:00</div>
             <div style="display:flex; gap:8px; justify-content:center;">
                 <button id="btn-cpr-start" class="btn-main-act" style="flex:1; padding:12px; font-size:0.95rem;" onclick="startCPR()">▶ CPR START</button>
                 <button id="btn-cpr-cycle" class="btn-ok" style="flex:1; padding:12px; font-size:0.85rem; display:none;" onclick="cprCycleMark()">⟳ Rhythm Check Mark</button>
@@ -639,46 +676,114 @@
             </div>
         </div>
 
-        <!-- ==================== CPR PROTOCOL ==================== -->
-        <div style="background:#fff; border:2px solid #dc2626; border-radius:8px; padding:10px; margin-bottom:10px;">
-            <div style="background:#dc2626; color:#fff; padding:5px 8px; border-radius:5px; font-weight:800; font-size:0.85rem; margin:-5px -5px 8px -5px;">
-                ① High-Quality CPR Protocol <span style="font-size:0.65rem; font-weight:400;">(質の高い胸骨圧迫プロトコル)</span>
+        <!-- ==================== CPR PROTOCOL (Adult / Child / Infant + ROSC) ==================== -->
+        <div style="background:#fff; border:2px solid #dc2626; border-radius:10px; padding:14px; margin-bottom:12px;">
+            <div style="background:#dc2626; color:#fff; padding:8px 12px; border-radius:6px; font-weight:800; font-size:1.05rem; margin:-9px -9px 12px -9px;">
+                ① High-Quality CPR Protocol <span style="font-size:0.92rem; font-weight:400;">(質の高い CPR プロトコル — 成人・小児・乳児)</span>
             </div>
-            <ol style="font-size:0.75rem; line-height:1.6; padding-left:20px; margin:0;">
-                <li><strong>Confirm scene safety, check responsiveness (10 sec).</strong>
-                    <div style="color:#475569; font-size:0.7rem;">現場の安全確認、反応確認10秒以内</div>
+
+            <!-- ── Universal initial steps ── -->
+            <div style="font-weight:800; font-size:1.05rem; color:#991b1b; margin-bottom:6px;">Initial Universal Steps <span style="font-weight:400; font-size:0.95rem; color:#64748b;">(共通初動)</span></div>
+            <ol style="font-size:1rem; line-height:1.55; padding-left:22px; margin:0 0 12px 0;">
+                <li><strong>Confirm scene safety</strong> (PPE on, hazards cleared).
+                    <div style="color:#475569; font-size:0.95rem;">現場の安全確認・PPE 装着・危険物排除</div>
                 </li>
-                <li><strong>Call for help → 119 / additional units / AED.</strong>
-                    <div style="color:#475569; font-size:0.7rem;">応援要請（119番・追加リソース・AED）</div>
+                <li><strong>Check responsiveness</strong> (shake & shout — “Are you okay?”). Adult/Child: tap shoulder. Infant: flick sole of foot.
+                    <div style="color:#475569; font-size:0.95rem;">反応確認（叫びかけ＋肩タップ／乳児は足底をはじく）</div>
                 </li>
-                <li><strong>Check breathing &amp; pulse simultaneously (≤10 sec).</strong>
-                    <div style="color:#475569; font-size:0.7rem;">呼吸と脈拍を同時確認・10秒以内</div>
+                <li><strong>Activate EMS</strong> — call 119, send for AED. If alone with infant/child for &lt;1 min: do 2 min CPR first, then call.
+                    <div style="color:#475569; font-size:0.95rem;">119番通報・AED 要請（乳児/小児で単独の場合は2分 CPR 後に通報）</div>
                 </li>
-                <li><strong>Start chest compressions immediately:</strong>
-                    <ul style="font-size:0.72rem; margin:3px 0; padding-left:18px; color:#7f1d1d;">
-                        <li>Rate: <strong>100–120/min</strong> <span style="color:#64748b;">(深さ100〜120回/分)</span></li>
-                        <li>Depth: <strong>5–6 cm</strong> (Adult), 1/3 chest depth (Peds) <span style="color:#64748b;">(成人5〜6cm、小児は胸郭の1/3)</span></li>
-                        <li>Site: <strong>Lower half of sternum</strong> <span style="color:#64748b;">(胸骨の下半分)</span></li>
-                        <li>Full <strong>recoil</strong> between compressions <span style="color:#64748b;">(完全な圧解除)</span></li>
-                        <li>Minimize interruptions (<strong>&lt; 10 sec</strong>) <span style="color:#64748b;">(中断は10秒以内)</span></li>
+                <li><strong>Assess breathing &amp; pulse</strong> in ≤10 sec.
+                    <ul style="margin:3px 0; padding-left:18px;">
+                        <li><strong>Adult / Child:</strong> carotid pulse</li>
+                        <li><strong>Infant:</strong> brachial pulse</li>
                     </ul>
-                </li>
-                <li><strong>Ventilation: BVM with high-flow O₂ at 30:2 ratio.</strong>
-                    <div style="color:#475569; font-size:0.7rem;">高濃度酸素接続のBVMで人工呼吸 30:2</div>
-                    <ul style="font-size:0.7rem; margin:3px 0; padding-left:18px; color:#7f1d1d;">
-                        <li>Each breath over <strong>1 second</strong>, visible chest rise <span style="color:#64748b;">(1秒かけて、胸が上がる程度)</span></li>
-                        <li>Avoid hyperventilation <span style="color:#64748b;">(過換気を避ける)</span></li>
-                        <li>With advanced airway: 1 breath every 6 sec (10/min), continuous compressions <span style="color:#64748b;">(高度気道確保後は6秒に1回・圧迫は持続)</span></li>
-                    </ul>
-                </li>
-                <li><strong>Switch compressors every 2 minutes</strong> to prevent fatigue.
-                    <div style="color:#475569; font-size:0.7rem;">疲労防止のため2分毎に圧迫者交代</div>
-                </li>
-                <li><strong>Continue until:</strong> ROSC / ALS arrival / patient decompensation reversed / scene becomes unsafe.
-                    <div style="color:#475569; font-size:0.7rem;">ROSC・ALS到着・容態回復・現場危険まで継続</div>
+                    <div style="color:#475569; font-size:0.95rem;">10秒以内に呼吸・脈拍を同時確認。成人/小児=頸動脈、乳児=上腕動脈</div>
                 </li>
             </ol>
-            <button class="btn-audio" style="margin-top:8px;" onclick="speak('Start chest compressions. Push hard, push fast. Rate one hundred to one hundred twenty per minute. Depth five to six centimeters. Switch compressors every two minutes.')">
+
+            <!-- ── Adult CPR ── -->
+            <div style="background:#fef2f2; border-left:5px solid #dc2626; padding:10px 12px; border-radius:6px; margin-bottom:10px;">
+                <div style="font-weight:800; color:#991b1b; font-size:1.05rem; margin-bottom:4px;">🧑 Adult CPR <span style="font-weight:400; font-size:0.92rem; color:#64748b;">(成人 ≥ Puberty)</span></div>
+                <ul style="margin:0; padding-left:20px; font-size:1rem; line-height:1.55; color:#0f172a;">
+                    <li><strong>Compressor position:</strong> Two hands, heel of one hand on lower half of sternum, other hand on top, fingers interlocked, arms straight, shoulders over hands.</li>
+                    <li><strong>Rate:</strong> 100–120/min · <strong>Depth:</strong> 5–6 cm (2–2.4 in) · <strong>Recoil:</strong> full release between compressions</li>
+                    <li><strong>Ratio (1 or 2 rescuers):</strong> 30 compressions : 2 breaths</li>
+                    <li><strong>Ventilation:</strong> BVM + high-flow O₂, each breath over 1 sec until visible chest rise</li>
+                    <li><strong>Advanced airway:</strong> continuous compressions + 1 breath every 6 sec (10/min)</li>
+                    <li><strong>Switch compressors every 2 min</strong> to prevent fatigue</li>
+                </ul>
+                <div style="color:#7f1d1d; font-size:0.95rem; margin-top:4px;">成人: 両手・胸骨下半分、深さ5〜6cm、100〜120回/分、30:2、2分毎に交代</div>
+            </div>
+
+            <!-- ── Child CPR ── -->
+            <div style="background:#fff7ed; border-left:5px solid #ea580c; padding:10px 12px; border-radius:6px; margin-bottom:10px;">
+                <div style="font-weight:800; color:#9a3412; font-size:1.05rem; margin-bottom:4px;">👦 Child CPR <span style="font-weight:400; font-size:0.92rem; color:#64748b;">(小児 1歳〜思春期前)</span></div>
+                <ul style="margin:0; padding-left:20px; font-size:1rem; line-height:1.55; color:#0f172a;">
+                    <li><strong>Compressor position:</strong> <em>One or two hands</em> (whichever achieves adequate depth) on lower half of sternum, between the nipple line.</li>
+                    <li><strong>Rate:</strong> 100–120/min · <strong>Depth:</strong> approx. 5 cm (<strong>1/3 of chest depth</strong>)</li>
+                    <li><strong>Ratio:</strong> <strong>30 : 2</strong> (1 rescuer) · <strong>15 : 2</strong> (2 rescuers)</li>
+                    <li><strong>Ventilation:</strong> smaller breaths, gentle chest rise; pediatric BVM with high-flow O₂</li>
+                    <li><strong>AED:</strong> use <em>pediatric pads</em> if available and patient &lt; 8 y or &lt; 25 kg; otherwise adult pads in antero-posterior placement</li>
+                </ul>
+                <div style="color:#9a3412; font-size:0.95rem; margin-top:4px;">小児（1歳〜思春期前）: 片手 or 両手、深さ約5cm（胸郭の1/3）、単独30:2／2人15:2、AED は小児用パッドを推奨</div>
+            </div>
+
+            <!-- ── Infant CPR ── -->
+            <div style="background:#fef9c3; border-left:5px solid #ca8a04; padding:10px 12px; border-radius:6px; margin-bottom:10px;">
+                <div style="font-weight:800; color:#854d0e; font-size:1.05rem; margin-bottom:4px;">👶 Infant CPR <span style="font-weight:400; font-size:0.92rem; color:#64748b;">(乳児 0〜1歳)</span></div>
+                <ul style="margin:0; padding-left:20px; font-size:1rem; line-height:1.55; color:#0f172a;">
+                    <li><strong>Compressor position (1 rescuer):</strong> <em>2 fingers</em> on the sternum just below the nipple line.</li>
+                    <li><strong>Compressor position (2 rescuers):</strong> <em>2-thumb encircling-hands technique</em> — both thumbs on lower sternum, fingers wrap the chest.</li>
+                    <li><strong>Rate:</strong> 100–120/min · <strong>Depth:</strong> approx. 4 cm (<strong>1/3 AP chest depth</strong>)</li>
+                    <li><strong>Ratio:</strong> <strong>30 : 2</strong> (1 rescuer) · <strong>15 : 2</strong> (2 rescuers)</li>
+                    <li><strong>Ventilation:</strong> mouth-to-mouth-and-nose for infant, very small puffs to make chest rise; infant-size BVM</li>
+                    <li><strong>AED:</strong> manual defibrillator preferred &lt; 1 y; if only AED available, use pediatric attenuator pads (front + back placement)</li>
+                </ul>
+                <div style="color:#854d0e; font-size:0.95rem; margin-top:4px;">乳児（0〜1歳）: 単独=2本指 / 2人=両母指圧迫、深さ約4cm（胸郭の1/3）、単独30:2／2人15:2、AED は小児用減衰パッドを前後貼付</div>
+            </div>
+
+            <!-- ── Continue until ── -->
+            <div style="background:#f1f5f9; padding:10px 12px; border-radius:6px; font-size:1rem; line-height:1.55; margin-bottom:10px;">
+                <strong>Continue until:</strong> ROSC · ALS arrives · scene becomes unsafe · rescuer exhaustion · or you are physically replaced.
+                <div style="color:#475569; font-size:0.95rem;">継続条件: ROSC・ALS到着・現場危険・救助者疲労・交代が来るまで</div>
+            </div>
+
+            <!-- ── ROSC details ── -->
+            <div style="background:#f0fdf4; border-left:5px solid #16a34a; padding:10px 12px; border-radius:6px;">
+                <div style="font-weight:800; color:#15803d; font-size:1.08rem; margin-bottom:6px;">💚 ROSC — Return of Spontaneous Circulation <span style="font-weight:400; font-size:0.92rem; color:#64748b;">(自己心拍再開時の対応)</span></div>
+                <div style="font-size:1rem; line-height:1.55; color:#0f172a;">
+                    <strong>Signs of ROSC:</strong>
+                    <ul style="margin:3px 0; padding-left:20px;">
+                        <li>Palpable pulse</li>
+                        <li>Spontaneous breathing or coughing</li>
+                        <li>Visible movement</li>
+                        <li>Rise in EtCO₂ &gt; 40 mmHg (if available)</li>
+                        <li>Sudden BP increase / waveform on monitor</li>
+                    </ul>
+                    <div style="color:#15803d; font-size:0.95rem; margin-top:2px;">ROSC 徴候: 触知可能な脈拍、自発呼吸、動き、EtCO₂&gt;40mmHg、BP急上昇</div>
+
+                    <div style="font-weight:800; margin-top:8px;">Post-ROSC Care (10-step):</div>
+                    <ol style="margin:3px 0; padding-left:22px;">
+                        <li><strong>Confirm pulse</strong> ≤10 sec — if absent, restart CPR immediately</li>
+                        <li><strong>Airway:</strong> maintain patency (OPA/NPA), suction as needed</li>
+                        <li><strong>Breathing:</strong> assist ventilation if &lt; 10 / min; target SpO₂ 94–99% (avoid hyperoxia)</li>
+                        <li><strong>Circulation:</strong> monitor pulse & BP every 5 min; document trend</li>
+                        <li><strong>12-lead ECG</strong> as soon as available (look for STEMI)</li>
+                        <li><strong>Targeted Temperature Management (TTM):</strong> prevent hyperthermia; ALS may initiate 32–36 °C cooling</li>
+                        <li><strong>Glucose check</strong> — treat hypoglycemia (&lt; 70 mg/dL with oral glucose / IV)</li>
+                        <li><strong>Identify &amp; treat reversible causes (5H/5T):</strong>
+                            <div style="color:#475569; font-size:0.9rem;">Hypovolemia · Hypoxia · H⁺ acidosis · Hypo/Hyperkalemia · Hypothermia · Tension pneumothorax · Tamponade · Toxins · Thrombosis (cardiac/pulmonary)</div>
+                        </li>
+                        <li><strong>Prepare for re-arrest:</strong> AED stays on patient with pads connected</li>
+                        <li><strong>Rapid transport</strong> to a cardiac-arrest-capable receiving facility with continuous monitoring; document time of ROSC</li>
+                    </ol>
+                    <div style="color:#15803d; font-size:0.95rem; margin-top:4px;">ROSC 後ケア: 脈拍再確認・気道維持・SpO2 94-99%・循環監視・12誘導ECG・体温管理・低血糖補正・可逆原因(5H/5T)対応・AED 装着継続・心停止対応病院へ迅速搬送</div>
+                </div>
+            </div>
+
+            <button class="btn-audio" style="margin-top:10px;" onclick="playAudio('cpr-coach', 'Start chest compressions. Push hard, push fast. Rate one hundred to one hundred twenty per minute. Depth five to six centimeters for adult, four centimeters for infant. Switch compressors every two minutes.')">
                 🔊 Read CPR coaching prompt <span class="sub-lang">(英語でCPR指導をアナウンス)</span>
             </button>
         </div>
@@ -686,33 +791,33 @@
         <!-- ==================== PHILIPS HS1 AED PROTOCOL ==================== -->
         <div style="background:#fff; border:2px solid #1d4ed8; border-radius:8px; padding:10px; margin-bottom:10px;">
             <div style="background:#1d4ed8; color:#fff; padding:5px 8px; border-radius:5px; font-weight:800; font-size:0.95rem; margin:-5px -5px 8px -5px;">
-                ② Philips HeartStart HS1 (M5066A) Protocol <span style="font-size:0.78rem; font-weight:400;">(フィリップス HeartStart HS1 使用手順)</span>
+                ② Philips HeartStart HS1 (M5066A) Protocol <span style="font-size:1rem; font-weight:400;">(フィリップス HeartStart HS1 使用手順)</span>
             </div>
-            <ol style="font-size:0.75rem; line-height:1.6; padding-left:20px; margin:0 0 6px 0;">
+            <ol style="font-size:0.98rem; line-height:1.6; padding-left:20px; margin:0 0 6px 0;">
                 <li><strong>Press the green ON/OFF button.</strong> Device powers up and self-tests.
-                    <div style="color:#475569; font-size:0.7rem;">緑のON/OFFボタンを押す。電源ONとセルフテスト開始</div>
+                    <div style="color:#475569; font-size:0.95rem;">緑のON/OFFボタンを押す。電源ONとセルフテスト開始</div>
                 </li>
                 <li><strong>Expose chest. Dry skin if wet. Shave excessive hair.</strong>
-                    <div style="color:#475569; font-size:0.7rem;">胸部を露出、濡れていれば拭く、体毛が濃ければ剃毛</div>
+                    <div style="color:#475569; font-size:0.95rem;">胸部を露出、濡れていれば拭く、体毛が濃ければ剃毛</div>
                 </li>
                 <li><strong>Peel pads and apply per diagram:</strong> Upper-right chest &amp; lower-left rib side.
-                    <div style="color:#475569; font-size:0.7rem;">パッドを剥がし図の通り装着（右上胸・左下肋骨側）</div>
-                    <div style="color:#475569; font-size:0.7rem;">小児用パッドは&lt;8歳または25kg未満で使用、なければ成人用を前後に貼付</div>
+                    <div style="color:#475569; font-size:0.95rem;">パッドを剥がし図の通り装着（右上胸・左下肋骨側）</div>
+                    <div style="color:#475569; font-size:0.95rem;">小児用パッドは&lt;8歳または25kg未満で使用、なければ成人用を前後に貼付</div>
                 </li>
                 <li><strong>Plug pads connector</strong> into the flashing port if not pre-connected.
-                    <div style="color:#475569; font-size:0.7rem;">点滅しているコネクタにパッドコネクタを接続</div>
+                    <div style="color:#475569; font-size:0.95rem;">点滅しているコネクタにパッドコネクタを接続</div>
                 </li>
                 <li><strong>Stop touching the patient — let AED analyze rhythm.</strong>
-                    <div style="color:#475569; font-size:0.7rem;">患者から離れる。AEDが心電図解析</div>
+                    <div style="color:#475569; font-size:0.95rem;">患者から離れる。AEDが心電図解析</div>
                 </li>
                 <li><strong>If shock advised:</strong> Loudly clear "I'm clear, you're clear, everybody clear!" → Press flashing orange Shock button.
-                    <div style="color:#475569; font-size:0.7rem;">ショック適応時：大声で「離れろ」と確認→オレンジ点滅ボタンを押す</div>
+                    <div style="color:#475569; font-size:0.95rem;">ショック適応時：大声で「離れろ」と確認→オレンジ点滅ボタンを押す</div>
                 </li>
                 <li><strong>Immediately resume CPR for 2 minutes</strong> regardless of result.
-                    <div style="color:#475569; font-size:0.7rem;">結果に関わらず直ちに2分間のCPRを再開</div>
+                    <div style="color:#475569; font-size:0.95rem;">結果に関わらず直ちに2分間のCPRを再開</div>
                 </li>
                 <li><strong>AED re-analyzes every 2 minutes</strong> — follow voice prompts continuously until ALS arrives.
-                    <div style="color:#475569; font-size:0.7rem;">2分毎に再解析。ALS到着まで音声指示に従う</div>
+                    <div style="color:#475569; font-size:0.95rem;">2分毎に再解析。ALS到着まで音声指示に従う</div>
                 </li>
             </ol>
         </div>
@@ -722,63 +827,63 @@
             <div style="background:#0f766e; color:#fff; padding:5px 8px; border-radius:5px; font-weight:800; font-size:0.85rem; margin:-5px -5px 8px -5px;">
                 ③ Philips AED English Voice Prompts + 日本語解説
             </div>
-            <div style="font-size:0.7rem; color:#475569; margin-bottom:6px;">Tap 🔊 to hear each Philips AED voice prompt and read the Japanese explanation.</div>
+            <div style="font-size:0.95rem; color:#475569; margin-bottom:6px;">Tap 🔊 to hear each Philips AED voice prompt and read the Japanese explanation.</div>
             <div id="aed-prompts-list"></div>
         </div>
 
-        <button class="btn-ok active" style="width:100%; margin-top:10px; background:var(--text-main); color:white;" onclick="cancelCPA()">↩ Return to Main Flow <span style="font-size:0.65rem; font-weight:400;">(通常評価に戻る)</span></button>
+        <button class="btn-ok active" style="width:100%; margin-top:10px; background:var(--text-main); color:white;" onclick="cancelCPA()">↩ Return to Main Flow <span style="font-size:0.92rem; font-weight:400;">(通常評価に戻る)</span></button>
     </div>
 
     <div class="card hidden" id="sec-demographics">
         <h2>4. Patient Demographics <span class="sub-lang">(傷病者個人情報・意向確認)</span></h2>
         
-        <button class="btn-audio" onclick="speak('Can you show me your ID card, CAC, or passport if you have one?')">
+        <button class="btn-audio" onclick="playAudio('id-card', 'Can you show me your ID card, CAC, or passport if you have one?')">
             "Can you show me your ID card, CAC, or passport if you have one?"
             <span class="sub-lang">(身分証明書、CACカード、またはパスポートをお持ちでしたら見せていただけますか？)</span>
         </button>
 
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
-                <span style="font-size:0.75rem; font-weight:bold;">Name <span style="font-weight:normal; color:var(--text-sub);">(氏名)</span></span>
-                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.65rem;" onclick="speak('What is your name?')">🔊 Ask Name</button>
+                <span style="font-size:0.98rem; font-weight:bold;">Name <span style="font-weight:normal; color:var(--text-sub);">(氏名)</span></span>
+                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="speak('What is your name?')">🔊 Ask Name</button>
             </div>
             <input type="text" id="info-name" class="input-text" style="width:100%; box-sizing:border-box;" placeholder="e.g. John Doe">
         </div>
 
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
-                <span style="font-size:0.75rem; font-weight:bold;">Age <span style="font-weight:normal; color:var(--text-sub);">(年齢)</span></span>
-                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.65rem;" onclick="speak('How old are you?')">🔊 Ask Age</button>
+                <span style="font-size:0.98rem; font-weight:bold;">Age <span style="font-weight:normal; color:var(--text-sub);">(年齢)</span></span>
+                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="speak('How old are you?')">🔊 Ask Age</button>
             </div>
             <input type="text" id="info-age" class="input-text" style="width:100%; box-sizing:border-box;" placeholder="e.g. 28">
         </div>
 
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
-                <span style="font-size:0.75rem; font-weight:bold;">Unit / Belonging <span style="font-weight:normal; color:var(--text-sub);">(所属部隊・階級)</span></span>
-                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.65rem;" onclick="speak('What is your unit or command?')">🔊 Ask Unit</button>
+                <span style="font-size:0.98rem; font-weight:bold;">Unit / Belonging <span style="font-weight:normal; color:var(--text-sub);">(所属部隊・階級)</span></span>
+                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="speak('What is your unit or command?')">🔊 Ask Unit</button>
             </div>
             <input type="text" id="info-unit" class="input-text" style="width:100%; box-sizing:border-box;" placeholder="e.g. Yokosuka Naval Base">
         </div>
 
-        <button class="btn-save" style="width:100%; background:var(--primary);" onclick="saveDemographics()">Save Demographics <span style="font-size:0.65rem; font-weight:400;">(個人情報を記録)</span></button>
+        <button class="btn-save" style="width:100%; background:var(--primary);" onclick="saveDemographics()">Save Demographics <span style="font-size:0.92rem; font-weight:400;">(個人情報を記録)</span></button>
     </div>
 
     <div class="card hidden" id="sec-trauma-flow">
         <h2>Secondary Assessment: Trauma <span class="sub-lang">(外傷詳細プロトコル)</span></h2>
 
         <h3>DOTS / DCAP-BTLS Body Survey <span class="sub-lang">(全身詳細観察・各部位12所見)</span></h3>
-        <div style="font-size:0.7rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
+        <div style="font-size:0.95rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
             Tap a body region to load the 12-finding DCAP-BTLS checklist. Confirmed findings color the illustration.
             <span class="sub-lang" style="display:block;">(イラストの部位をタップして DCAP-BTLS 12項目を評価。所見数で色が濃くなります)</span>
         </div>
 
         <div class="anatomy-container">
-            <div class="anatomy-svg-box" style="width:200px; padding:8px;">
+            <div class="anatomy-svg-box" style="width:300px; padding:12px;">
                 <div style="display:flex; gap:6px; justify-content:center;">
                     <!-- ─────── ANTERIOR (FRONT) ─────── -->
                     <div style="flex:1; text-align:center;">
-                        <div style="font-size:0.6rem; font-weight:bold; color:var(--text-sub); margin-bottom:3px;">Anterior<br><span style="font-weight:400; color:#94a3b8;">前面</span></div>
+                        <div style="font-size:0.88rem; font-weight:bold; color:var(--text-sub); margin-bottom:3px;">Anterior<br><span style="font-weight:400; color:#94a3b8;">前面</span></div>
                         <svg class="anatomy-svg" viewBox="0 0 100 220">
                             <!-- Head -->
                             <circle id="map-Skull" class="anatomy-region" cx="50" cy="20" r="13" onclick="openRegion('Skull')" />
@@ -825,7 +930,7 @@
 
                     <!-- ─────── POSTERIOR (BACK) ─────── -->
                     <div style="flex:1; text-align:center;">
-                        <div style="font-size:0.6rem; font-weight:bold; color:var(--text-sub); margin-bottom:3px;">Posterior<br><span style="font-weight:400; color:#94a3b8;">背面</span></div>
+                        <div style="font-size:0.88rem; font-weight:bold; color:var(--text-sub); margin-bottom:3px;">Posterior<br><span style="font-weight:400; color:#94a3b8;">背面</span></div>
                         <svg class="anatomy-svg" viewBox="0 0 100 220">
                             <!-- Head back -->
                             <circle id="map-back-Skull" class="anatomy-region" cx="50" cy="20" r="13" onclick="openRegion('Skull')" />
@@ -860,7 +965,7 @@
                     </div>
                 </div>
 
-                <div style="font-size:0.6rem; color:#475569; margin-top:6px; line-height:1.4; text-align:center;">
+                <div style="font-size:0.88rem; color:#475569; margin-top:6px; line-height:1.4; text-align:center;">
                     <span style="display:inline-block; width:10px; height:10px; background:#fde68a; border:1px solid #f59e0b; vertical-align:middle;"></span> 1 finding
                     &nbsp;<span style="display:inline-block; width:10px; height:10px; background:#fb923c; border:1px solid #ea580c; vertical-align:middle;"></span> 2 findings
                     &nbsp;<span style="display:inline-block; width:10px; height:10px; background:#dc2626; border:1px solid #991b1b; vertical-align:middle;"></span> 3+ findings
@@ -869,24 +974,24 @@
 
             <div class="matrix-box" id="dots-matrix-area">
                 <div id="dcap-region-title" style="font-weight:700; color:#1e3a8a; font-size:0.85rem; margin-bottom:6px;">Select a body region above ↑ <span class="sub-lang" style="font-weight:400; color:#64748b;">(部位を選択してください)</span></div>
-                <div id="dcap-region-panel" style="font-size:0.72rem;">
+                <div id="dcap-region-panel" style="font-size:0.95rem;">
                     <em style="color:#64748b;">No region selected yet.</em>
                 </div>
             </div>
         </div>
 
         <h3 style="margin-top:14px;">Special / Critical Findings <span class="sub-lang">(特徴的所見チェックリスト)</span></h3>
-        <div id="special-findings-grid" style="display:grid; grid-template-columns:repeat(2, 1fr); gap:6px; font-size:0.72rem;"></div>
+        <div id="special-findings-grid" style="display:grid; grid-template-columns:repeat(2, 1fr); gap:6px; font-size:0.95rem;"></div>
 
         <h3 style="margin-top:14px;">Additional Injury Notes <span class="sub-lang">(その他負傷・自由テキスト入力)</span></h3>
         <div class="input-flex">
             <input type="text" id="input-DOTS_Manual" class="input-text" placeholder="Type additional findings here / 追加の所見をここに入力">
             <button class="btn-save" onclick="saveDotsManualInput()">SAVE</button>
         </div>
-        <div id="dots-manual-list" style="margin-top:6px; font-size:0.72rem; color:#475569;"></div>
+        <div id="dots-manual-list" style="margin-top:6px; font-size:0.95rem; color:#475569;"></div>
 
         <h3>Vital Signs Check x5 <span class="sub-lang">(バイタルサイン測定・5回分)</span></h3>
-        <div style="font-size:0.7rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
+        <div style="font-size:0.95rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
             ⏰ Tap <strong>NOW</strong> for current time. Up/Down arrows or direct typing finalizes the value.
             <span class="sub-lang" style="display:block; margin-top:2px;">(NOWで現在時刻入力。▲▼または直接入力で確定して文字が濃くなります)</span>
         </div>
@@ -904,57 +1009,192 @@
             </thead>
             <tbody id="trauma-vitals-tbody"></tbody>
         </table>
-        <button class="btn-save" style="width:100%; margin-top:8px; background-color:var(--secondary);" onclick="saveTraumaVitals()">Save All 5 Vital Sets <span style="font-size:0.65rem; font-weight:400;">(全バイタルを保存)</span></button>
+        <button class="btn-save" style="width:100%; margin-top:8px; background-color:var(--secondary);" onclick="saveTraumaVitals()">Save All 5 Vital Sets <span style="font-size:0.92rem; font-weight:400;">(全バイタルを保存)</span></button>
         <div id="trauma-oxygen-advisory" class="guide-box alert-box hidden" style="margin-top:8px;">
             ⚠️ <strong>O₂ Administration Recommended <span class="sub-lang">(酸素投与を推奨)</span></strong>
-            <div id="trauma-oxygen-advisory-reason" style="margin-top:4px; font-size:0.7rem;"></div>
+            <div id="trauma-oxygen-advisory-reason" style="margin-top:4px; font-size:0.95rem;"></div>
         </div>
 
         <h3>Care Performed / Trauma Interventions <span class="sub-lang">(実施した処置・外傷対応・10項目)</span></h3>
-        <div class="check-item">
-            <div><span class="label-txt">🩸 ① Bleeding Control — Direct Pressure</span><span class="sub-lang">(止血①: 直接圧迫)</span></div>
-            <button class="btn-ok" onclick="toggleGenericDone(this)">OK</button>
+
+        <div class="care-item" data-key="t-pressure">
+            <div class="care-item-row">
+                <div><span class="label-txt">🩸 ① Bleeding Control — Direct Pressure</span><span class="sub-lang">(止血①: 直接圧迫)</span></div>
+                <button class="btn-ok" onclick="toggleCareProtocol(this)">OK</button>
+            </div>
+            <div class="care-protocol-box">
+                <strong>Direct Pressure Protocol</strong>
+                <ul>
+                    <li>Apply firm pressure with sterile gauze for at least <strong>5–10 min</strong> without lifting to check.</li>
+                    <li>If blood soaks through, <strong>add gauze on top</strong> — do not remove original layers.</li>
+                    <li><strong>Elevate</strong> the extremity above heart level if no fracture suspected.</li>
+                    <li>If pressure fails to control bleeding → escalate to tourniquet or hemostatic gauze.</li>
+                </ul>
+                <div class="ja">滅菌ガーゼで直接5〜10分以上圧迫、外さない。出血が浸透したらガーゼを追加。骨折がなければ患肢を心臓より高く挙上。制御できない場合はターニケット／止血ガーゼへ移行。</div>
+            </div>
         </div>
-        <div class="check-item" style="flex-direction:column; align-items:flex-start;">
-            <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+
+        <div class="care-item" data-key="t-tourniquet">
+            <div class="care-item-row">
                 <div><span class="label-txt">🩸 ② Bleeding Control — Tourniquet</span><span class="sub-lang">(止血②: ターニケット — 装着時刻を必ず記録)</span></div>
                 <button class="btn-ok" onclick="toggleTourniquet(this)">OK</button>
             </div>
-            <div id="tourniquet-time" style="display:none; margin-top:6px; background:#fef2f2; border:1px solid #fca5a5; color:#7f1d1d; padding:6px 8px; border-radius:6px; font-size:0.9rem; font-weight:700; width:100%; box-sizing:border-box;">
+            <div id="tourniquet-time" style="display:none; margin-top:6px; background:#fef2f2; border:1px solid #fca5a5; color:#7f1d1d; padding:8px 12px; border-radius:6px; font-size:1rem; font-weight:700; width:100%; box-sizing:border-box;">
                 ⏱ TQ Applied at <span id="tq-applied-time">—</span> · Elapsed <span id="tq-elapsed">0:00</span>
             </div>
+            <div class="care-protocol-box">
+                <strong>Tourniquet Protocol (CAT / SOFTT-W)</strong>
+                <ul>
+                    <li>Place <strong>2–3 inches (5–7 cm) above the wound</strong>, never on a joint.</li>
+                    <li>Tighten until <strong>bleeding stops AND distal pulse is absent</strong>.</li>
+                    <li><strong>Write the application time on the tourniquet</strong> and patient's forehead (T-time).</li>
+                    <li>Maximum field time guidance: ≤ 2 hours. <strong>Do not loosen</strong> en route to hospital.</li>
+                    <li>If first TQ does not stop bleeding → apply <strong>second TQ</strong> just above the first.</li>
+                </ul>
+                <div class="ja">創部の5〜7cm中枢側に、関節を避けて装着。出血停止＋末梢脈消失まで締める。装着時刻を必ず記録。最大2時間目安・搬送中は緩めない。第一弾で止まらなければ第二TQをすぐ中枢側に追加。</div>
+            </div>
         </div>
-        <div class="check-item">
-            <div><span class="label-txt">🩸 ③ Bleeding Control — Hemostatic Gauze</span><span class="sub-lang">(止血③: 止血ガーゼ・パッキング)</span></div>
-            <button class="btn-ok" onclick="toggleGenericDone(this)">OK</button>
+
+        <div class="care-item" data-key="t-hemostat">
+            <div class="care-item-row">
+                <div><span class="label-txt">🩸 ③ Bleeding Control — Hemostatic Gauze</span><span class="sub-lang">(止血③: 止血ガーゼ・パッキング)</span></div>
+                <button class="btn-ok" onclick="toggleCareProtocol(this)">OK</button>
+            </div>
+            <div class="care-protocol-box">
+                <strong>Hemostatic Gauze / Wound Packing</strong>
+                <ul>
+                    <li>For wounds not amenable to tourniquet (junctional, neck, axilla, groin).</li>
+                    <li><strong>Pack tightly</strong> into the wound cavity directly against the bleeding source.</li>
+                    <li>Hold direct pressure for <strong>3 min</strong> (Combat Gauze / QuikClot) after packing.</li>
+                    <li>Apply pressure dressing over the packed wound; do <strong>not</strong> remove gauze in the field.</li>
+                </ul>
+                <div class="ja">ターニケット適応外の部位（接合部・頸・腋窩・鼠径）に使用。創腔の出血源に直接強く詰め込み、3分間圧迫。圧迫包帯で被覆。現場で抜去しない。</div>
+            </div>
         </div>
-        <div class="check-item">
-            <div><span class="label-txt">🦴 ④ Splint — Rigid (Board / SAM)</span><span class="sub-lang">(スプリント: 硬性副子・SAM)</span></div>
-            <button class="btn-ok" onclick="toggleGenericDone(this)">OK</button>
+
+        <div class="care-item" data-key="t-splint-rigid">
+            <div class="care-item-row">
+                <div><span class="label-txt">🦴 ④ Splint — Rigid (Board / SAM)</span><span class="sub-lang">(スプリント: 硬性副子・SAM)</span></div>
+                <button class="btn-ok" onclick="toggleCareProtocol(this)">OK</button>
+            </div>
+            <div class="care-protocol-box">
+                <strong>Rigid Splint Protocol</strong>
+                <ul>
+                    <li>Check <strong>CSM</strong> (Circulation / Sensation / Motor) <em>before AND after</em> splinting.</li>
+                    <li>Immobilize the <strong>joint above AND below</strong> the injury.</li>
+                    <li>Splint in the position found unless distal pulse is absent — then realign with gentle traction.</li>
+                    <li>Pad bony prominences; secure with cravats, leave fingertips/toes visible.</li>
+                </ul>
+                <div class="ja">固定前後で必ず CSM (循環・感覚・運動) 確認。受傷部位の上下関節を固定。脈拍触知不可なら軽い牽引で整復後固定。骨突起部はパッドで保護。指先は確認できるよう露出。</div>
+            </div>
         </div>
-        <div class="check-item">
-            <div><span class="label-txt">🦴 ⑤ Splint — C-Collar / Spinal Immobilization</span><span class="sub-lang">(頸椎カラー・脊柱固定・バックボード)</span></div>
-            <button class="btn-ok" onclick="toggleGenericDone(this)">OK</button>
+
+        <div class="care-item" data-key="t-splint-spinal">
+            <div class="care-item-row">
+                <div><span class="label-txt">🦴 ⑤ Splint — C-Collar / Spinal Immobilization</span><span class="sub-lang">(頸椎カラー・脊柱固定・バックボード)</span></div>
+                <button class="btn-ok" onclick="toggleCareProtocol(this)">OK</button>
+            </div>
+            <div class="care-protocol-box">
+                <strong>Spinal Motion Restriction</strong>
+                <ul>
+                    <li>Manual in-line stabilization <strong>first</strong> — maintain until fully immobilized.</li>
+                    <li>Size and apply C-collar; <strong>do not</strong> remove once on (except to clear airway).</li>
+                    <li>Log-roll onto backboard with 3+ rescuers; head holder calls cadence.</li>
+                    <li>Secure torso → pelvis → legs → head last; pad voids; reassess CSM all 4 extremities.</li>
+                    <li><strong>Indications:</strong> Mechanism + AMS, midline tenderness, neuro deficit, distracting injury, intoxication.</li>
+                </ul>
+                <div class="ja">用手的頭部固定 → C-カラー装着 → 3人以上でログロール → 体幹→骨盤→脚→最後に頭の順で固定 → 4肢の CSM 再確認。気道確保時以外カラーを外さない。適応: 受傷機転+意識障害／正中圧痛／神経学的異常／注意力低下／中毒。</div>
+            </div>
         </div>
-        <div class="check-item">
-            <div><span class="label-txt">🔥 ⑥ Burn Care (cool, cover, burn sheet)</span><span class="sub-lang">(熱傷ケア: 冷却・被覆・バーンシート)</span></div>
-            <button class="btn-ok" onclick="toggleGenericDone(this)">OK</button>
+
+        <div class="care-item" data-key="t-burn">
+            <div class="care-item-row">
+                <div><span class="label-txt">🔥 ⑥ Burn Care (cool, cover, burn sheet)</span><span class="sub-lang">(熱傷ケア: 冷却・被覆・バーンシート)</span></div>
+                <button class="btn-ok" onclick="toggleCareProtocol(this)">OK</button>
+            </div>
+            <div class="care-protocol-box">
+                <strong>Burn Care Protocol</strong>
+                <ul>
+                    <li><strong>Stop the burning process</strong> — remove from source, brush off chemicals, remove smoldering clothing & jewelry (not stuck-on).</li>
+                    <li><strong>Cool</strong> with room-temperature water for ≤ 20 min total (avoid in &gt; 20% TBSA — hypothermia risk).</li>
+                    <li>Cover with <strong>dry sterile burn sheet</strong>; do not pop blisters; do not apply ointments.</li>
+                    <li>Estimate TBSA: <em>Rule of 9s</em> (Adult) / <em>Rule of palm</em> (= 1%) / <em>Lund-Browder</em> (Peds).</li>
+                    <li><strong>Airway concern</strong>: facial burns, singed nasal hair, hoarseness, soot in mouth → high-flow O₂, anticipate intubation.</li>
+                    <li>Maintain warmth (large burns), monitor for shock.</li>
+                </ul>
+                <div class="ja">熱源を止める（化学物質は払い落とす）。常温水で20分以内冷却（広範囲熱傷では低体温リスクで短めに）。乾いた滅菌バーンシートで被覆、水疱は破らず軟膏は塗らない。TBSA は 9 の法則／手掌1%／Lund-Browder。気道熱傷疑い（顔面熱傷・鼻毛焦げ・嗄声・口腔煤）は高濃度O2＋挿管準備。</div>
+            </div>
         </div>
-        <div class="check-item">
-            <div><span class="label-txt">🧤 ⑦ Wound Care / Dressing / Bandage</span><span class="sub-lang">(創傷処置・包帯)</span></div>
-            <button class="btn-ok" onclick="toggleGenericDone(this)">OK</button>
+
+        <div class="care-item" data-key="t-wound">
+            <div class="care-item-row">
+                <div><span class="label-txt">🧤 ⑦ Wound Care / Dressing / Bandage</span><span class="sub-lang">(創傷処置・包帯)</span></div>
+                <button class="btn-ok" onclick="toggleCareProtocol(this)">OK</button>
+            </div>
+            <div class="care-protocol-box">
+                <strong>Wound Care Protocol</strong>
+                <ul>
+                    <li>Control bleeding first (pressure → TQ if needed).</li>
+                    <li>Irrigate gross debris with saline if available; <strong>do not delay transport</strong> for cleaning.</li>
+                    <li>Cover with <strong>sterile dressing</strong>, secure with bandage — snug but not tight.</li>
+                    <li><strong>Impaled object:</strong> stabilize in place, do NOT remove (except cheek airway compromise).</li>
+                    <li><strong>Evisceration:</strong> cover with moist sterile dressing + occlusive layer; do NOT push organs back.</li>
+                    <li><strong>Amputation:</strong> wrap part in damp sterile gauze → sealed bag → on ice (not direct); transport with patient.</li>
+                </ul>
+                <div class="ja">止血優先 → 生食で表面の異物を洗浄（搬送遅延させない）→ 滅菌ガーゼ被覆 → 適度な圧の包帯。刺入異物は固定し抜かない（頬の気道閉塞時のみ例外）。内臓脱出は湿潤ガーゼ＋密閉被覆、押し戻さない。切断指は湿潤滅菌ガーゼ→密閉袋→氷上（直接氷接触は禁止）で同送。</div>
+            </div>
         </div>
-        <div class="check-item">
-            <div><span class="label-txt">🌡 ⑧ Warmth / Hypothermia Prevention</span><span class="sub-lang">(保温・低体温予防)</span></div>
-            <button class="btn-ok" onclick="toggleGenericDone(this)">OK</button>
+
+        <div class="care-item" data-key="t-warmth">
+            <div class="care-item-row">
+                <div><span class="label-txt">🌡 ⑧ Warmth / Hypothermia Prevention</span><span class="sub-lang">(保温・低体温予防)</span></div>
+                <button class="btn-ok" onclick="toggleCareProtocol(this)">OK</button>
+            </div>
+            <div class="care-protocol-box">
+                <strong>Hypothermia Prevention</strong>
+                <ul>
+                    <li>Place a blanket <strong>under AND over</strong> the patient. Insulate from cold ground.</li>
+                    <li>Remove wet clothing, dry skin, then cover.</li>
+                    <li>Trauma patients are <strong>3× more likely to die</strong> if hypothermic on arrival — actively prevent heat loss.</li>
+                    <li>Warm IV fluids if available; close ambulance doors quickly.</li>
+                </ul>
+                <div class="ja">毛布を身体の下と上の両方に。冷たい地面から断熱。濡れた衣服を脱がせ拭いてから被覆。外傷患者は低体温で死亡率が3倍に上昇するため積極的保温。点滴は加温・救急車のドアは迅速に閉める。</div>
+            </div>
         </div>
-        <div class="check-item">
-            <div><span class="label-txt">💨 ⑨ Oxygen Administration (NRB / NC)</span><span class="sub-lang">(必要に応じて酸素投与)</span></div>
-            <button class="btn-ok" onclick="toggleGenericDone(this)">OK</button>
+
+        <div class="care-item" data-key="t-oxygen">
+            <div class="care-item-row">
+                <div><span class="label-txt">💨 ⑨ Oxygen Administration (NRB / NC)</span><span class="sub-lang">(必要に応じて酸素投与)</span></div>
+                <button class="btn-ok" onclick="toggleCareProtocol(this)">OK</button>
+            </div>
+            <div class="care-protocol-box">
+                <strong>Oxygen Administration</strong>
+                <ul>
+                    <li><strong>NRB (Non-Rebreather):</strong> 10–15 LPM (min 8), FiO₂ 80–95%. For shock, SpO₂ ≤ 95%, severe distress.</li>
+                    <li><strong>Nasal Cannula:</strong> 1–6 LPM, FiO₂ 24–44%. For mild hypoxia, COPD baseline.</li>
+                    <li><strong>BVM:</strong> if inadequate breathing or apnea — 15 LPM with reservoir.</li>
+                    <li>Inflate NRB reservoir bag <strong>before</strong> placing on patient.</li>
+                    <li>Replace O₂ cylinder when pressure drops below <strong>500 psi</strong>.</li>
+                </ul>
+                <div class="ja">NRB: 10〜15 LPM (最低8)、FiO2 80〜95% — ショック・SpO2≤95%・重度呼吸窮迫。経鼻カニューレ: 1〜6 LPM、FiO2 24〜44% — 軽度低酸素・COPD。BVM: 不十分呼吸・無呼吸 — リザーバー付15 LPM。装着前にリザーバーを膨らませる。シリンダー圧500 psi以下で交換。</div>
+            </div>
         </div>
-        <div class="check-item">
-            <div><span class="label-txt">🚑 ⑩ Packaging &amp; Rapid Transport Decision</span><span class="sub-lang">(固定・迅速搬送判断)</span></div>
-            <button class="btn-ok" onclick="toggleGenericDone(this)">OK</button>
+
+        <div class="care-item" data-key="t-transport">
+            <div class="care-item-row">
+                <div><span class="label-txt">🚑 ⑩ Packaging &amp; Rapid Transport Decision</span><span class="sub-lang">(固定・迅速搬送判断)</span></div>
+                <button class="btn-ok" onclick="toggleCareProtocol(this)">OK</button>
+            </div>
+            <div class="care-protocol-box">
+                <strong>Packaging &amp; Transport Decision</strong>
+                <ul>
+                    <li><strong>Load-and-go (≤ 10 min on scene)</strong> indicators: airway compromise, severe bleeding, shock, AMS, penetrating torso wound, traumatic arrest, pelvic instability.</li>
+                    <li>Choose destination: <strong>Level 1 trauma center</strong> if available within reasonable transport time.</li>
+                    <li>Notify receiving facility early — MIST report (Mechanism · Injuries · Signs · Treatment).</li>
+                    <li>Continue interventions en route — reassess every 5 min (unstable) or 15 min (stable).</li>
+                </ul>
+                <div class="ja">緊急搬送 (現場10分以内) の適応: 気道障害・大出血・ショック・意識障害・体幹刺創・外傷性心肺停止・骨盤動揺。適切な距離内ならレベル1外傷センターへ。受入病院に MIST 通報 (受傷機転・損傷・所見・処置)。搬送中も処置継続、不安定5分／安定15分毎に再評価。</div>
+            </div>
         </div>
     </div>
 
@@ -962,7 +1202,7 @@
         <h2>Secondary Assessment: Medical <span class="sub-lang">(急病詳細プロトコル)</span></h2>
 
         <h3>Vital Signs Check x5 <span class="sub-lang">(バイタルサイン測定・5回分)</span></h3>
-        <div style="font-size:0.7rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
+        <div style="font-size:0.95rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
             ⏰ Tap <strong>NOW</strong> for current time. Up/Down arrows or direct typing finalizes the value (text turns dark).
             <span class="sub-lang" style="display:block; margin-top:2px;">(NOWで現在時刻入力。▲▼または直接入力で確定して文字が濃くなります)</span>
         </div>
@@ -980,33 +1220,33 @@
             </thead>
             <tbody id="vitals-tbody"></tbody>
         </table>
-        <button class="btn-save" style="width:100%; margin-top:8px; background-color:var(--secondary);" onclick="saveMedicalVitals()">Save All 5 Vital Sets <span style="font-size:0.65rem; font-weight:400;">(全バイタルを保存)</span></button>
+        <button class="btn-save" style="width:100%; margin-top:8px; background-color:var(--secondary);" onclick="saveMedicalVitals()">Save All 5 Vital Sets <span style="font-size:0.92rem; font-weight:400;">(全バイタルを保存)</span></button>
 
         <!-- ───── Ongoing Reassessment (moved here under Vital Signs) ───── -->
         <h3 style="margin-top:14px;">Ongoing Reassessment Protocol <span class="sub-lang">(オンゴーイング・アセスメント／継続再評価)</span></h3>
         <div style="background:#eef2ff; border:1px solid #6366f1; border-radius:8px; padding:10px;">
-            <div style="font-size:0.78rem; line-height:1.5; color:#0f172a;">
+            <div style="font-size:1rem; line-height:1.5; color:#0f172a;">
                 <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:6px;">
-                    <span style="display:inline-block; min-width:60px; padding:3px 6px; background:#22c55e; color:#fff; border-radius:5px; font-weight:800; font-size:0.7rem; text-align:center;">STABLE</span>
+                    <span style="display:inline-block; min-width:60px; padding:3px 6px; background:#22c55e; color:#fff; border-radius:5px; font-weight:800; font-size:0.95rem; text-align:center;">STABLE</span>
                     <div>
                         <strong>Reassess vital signs every 15 minutes</strong>
-                        <div style="color:#64748b; font-size:0.7rem;">安定している患者：15分ごとに再評価</div>
+                        <div style="color:#64748b; font-size:0.95rem;">安定している患者：15分ごとに再評価</div>
                     </div>
                 </div>
                 <div style="display:flex; align-items:flex-start; gap:8px;">
-                    <span style="display:inline-block; min-width:60px; padding:3px 6px; background:#dc2626; color:#fff; border-radius:5px; font-weight:800; font-size:0.7rem; text-align:center;">UNSTABLE</span>
+                    <span style="display:inline-block; min-width:60px; padding:3px 6px; background:#dc2626; color:#fff; border-radius:5px; font-weight:800; font-size:0.95rem; text-align:center;">UNSTABLE</span>
                     <div>
                         <strong>Reassess vital signs every 5 minutes</strong>
-                        <div style="color:#64748b; font-size:0.7rem;">不安定な患者（ショック症状がある場合など）：5分ごとに再評価を繰り返す</div>
+                        <div style="color:#64748b; font-size:0.95rem;">不安定な患者（ショック症状がある場合など）：5分ごとに再評価を繰り返す</div>
                     </div>
                 </div>
-                <div style="margin-top:8px; padding-top:6px; border-top:1px dashed #c7d2fe; font-size:0.7rem; color:#475569;">
+                <div style="margin-top:8px; padding-top:6px; border-top:1px dashed #c7d2fe; font-size:0.95rem; color:#475569;">
                     Re-check: <strong>LOC (AVPU)</strong> · <strong>Airway</strong> · <strong>Breathing rate &amp; quality</strong> · <strong>Pulse rate &amp; quality</strong> · <strong>Skin</strong> · <strong>SpO₂</strong> · <strong>BP</strong> · effectiveness of interventions
                     <div style="color:#64748b; margin-top:2px;">再評価項目：意識・気道・呼吸・脈拍・皮膚状態・SpO₂・血圧・処置の有効性</div>
                 </div>
             </div>
-            <button id="btn-reassess-timer" class="btn-save" style="width:100%; margin-top:10px; background:linear-gradient(135deg, #6366f1 0%, #818cf8 100%);" onclick="startReassessTimer()">⏱ Start Reassessment Timer <span style="font-size:0.65rem; font-weight:400;">(再評価タイマー開始)</span></button>
-            <div id="reassess-status" style="margin-top:8px; display:none; padding:8px; background:#fff; border:1px solid #6366f1; border-radius:6px; font-size:0.78rem; text-align:center;"></div>
+            <button id="btn-reassess-timer" class="btn-save" style="width:100%; margin-top:10px; background:linear-gradient(135deg, #6366f1 0%, #818cf8 100%);" onclick="startReassessTimer()">⏱ Start Reassessment Timer <span style="font-size:0.92rem; font-weight:400;">(再評価タイマー開始)</span></button>
+            <div id="reassess-status" style="margin-top:8px; display:none; padding:8px; background:#fff; border:1px solid #6366f1; border-radius:6px; font-size:1rem; text-align:center;"></div>
         </div>
 
         <h3 style="margin-top:18px; color:#c2410c;">🧠 Stroke Assessment: FAST Scale <span class="sub-lang">(脳卒中特化 FAST評価)</span></h3>
@@ -1014,8 +1254,8 @@
             
             <div class="check-item" style="background:transparent; flex-direction:column; align-items:flex-start; gap:4px;">
                 <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-                    <span class="label-txt" style="font-size:0.75rem;">[F] Facial Droop <span class="sub-lang">(顔のゆがみ・片側麻痺)</span></span>
-                    <button class="btn-mic-sub" style="padding:2px 6px; font-size:0.6rem;" onclick="speak('Can you smile for me? Show me your teeth.')">🔊 Ask Smile</button>
+                    <span class="label-txt" style="font-size:0.98rem;">[F] Facial Droop <span class="sub-lang">(顔のゆがみ・片側麻痺)</span></span>
+                    <button class="btn-mic-sub" style="padding:2px 6px; font-size:0.88rem;" onclick="playAudio('fast-smile', 'Can you smile for me? Show me your teeth.')">🔊 Ask Smile</button>
                 </div>
                 <div style="width:100%; text-align:right;">
                     <button class="dots-btn" style="min-width:60px;" id="fast-f-norm" onclick="setFast('F', 'Normal', this)">Normal</button>
@@ -1025,8 +1265,8 @@
 
             <div class="check-item" style="background:transparent; flex-direction:column; align-items:flex-start; gap:4px;">
                 <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-                    <span class="label-txt" style="font-size:0.75rem;">[A] Arm Drift <span class="sub-lang">(腕の脱力・片側落下)</span></span>
-                    <button class="btn-mic-sub" style="padding:2px 6px; font-size:0.6rem;" onclick="speak('Close your eyes and hold both arms straight out with your palms up for ten seconds.')">🔊 Ask Arm Lift</button>
+                    <span class="label-txt" style="font-size:0.98rem;">[A] Arm Drift <span class="sub-lang">(腕の脱力・片側落下)</span></span>
+                    <button class="btn-mic-sub" style="padding:2px 6px; font-size:0.88rem;" onclick="playAudio('fast-arm', 'Close your eyes and hold both arms straight out with your palms up for ten seconds.')">🔊 Ask Arm Lift</button>
                 </div>
                 <div style="width:100%; text-align:right;">
                     <button class="dots-btn" style="min-width:60px;" id="fast-a-norm" onclick="setFast('A', 'Normal', this)">Normal</button>
@@ -1036,8 +1276,8 @@
 
             <div class="check-item" style="background:transparent; flex-direction:column; align-items:flex-start; gap:4px;">
                 <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-                    <span class="label-txt" style="font-size:0.75rem;">[S] Speech <span class="sub-lang">(発話・構音障害)</span></span>
-                    <button class="btn-mic-sub" style="padding:2px 6px; font-size:0.6rem;" onclick="speak('Please repeat this phrase after me: You can\'t teach an old dog new tricks.')">🔊 Ask Phrase</button>
+                    <span class="label-txt" style="font-size:0.98rem;">[S] Speech <span class="sub-lang">(発話・構音障害)</span></span>
+                    <button class="btn-mic-sub" style="padding:2px 6px; font-size:0.88rem;" onclick="playAudio('fast-speech', 'Please repeat this phrase after me: You can\'t teach an old dog new tricks.')">🔊 Ask Phrase</button>
                 </div>
                 <div style="width:100%; text-align:right;">
                     <button class="dots-btn" style="min-width:60px;" id="fast-s-norm" onclick="setFast('S', 'Normal', this)">Normal</button>
@@ -1077,15 +1317,15 @@
                 <div style="font-weight:800; color:#92400e; font-size:1rem; margin-bottom:8px;">
                     ⚠ Verify before assisting <span class="sub-lang" style="font-size:0.85rem; font-weight:400; color:#64748b;">(投薬補助前の3点確認)</span>
                 </div>
-                <button class="btn-audio" style="background:linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-left-color:#f59e0b; color:#92400e;" onclick="speak('Is this medication prescribed to you personally by a doctor? Please show me the label with your name on it.')">
+                <button class="btn-audio" style="background:linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-left-color:#f59e0b; color:#92400e;" onclick="playAudio('med-q1', 'Is this medication prescribed to you personally by a doctor? Please show me the label with your name on it.')">
                     "Is this medication prescribed to you personally by a doctor? Please show me the label with your name on it."
                     <span class="sub-lang">①その薬は本人に処方された薬ですか？お名前の書かれたラベルを見せてください。</span>
                 </button>
-                <button class="btn-audio" style="background:linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-left-color:#f59e0b; color:#92400e;" onclick="speak('How much of this medication do you usually take, and how often? Are you about to take the correct dose right now?')">
+                <button class="btn-audio" style="background:linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-left-color:#f59e0b; color:#92400e;" onclick="playAudio('med-q2', 'How much of this medication do you usually take, and how often? Are you about to take the correct dose right now?')">
                     "How much of this medication do you usually take, and how often? Are you about to take the correct dose right now?"
                     <span class="sub-lang">②普段はどのくらいの量を、どのくらいの頻度で服用していますか？今飲もうとしている量は適切ですか？</span>
                 </button>
-                <button class="btn-audio" style="background:linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-left-color:#f59e0b; color:#92400e;" onclick="speak('Are your current symptoms the same ones this medication is meant to treat? For example, is the chest pain the kind your nitroglycerin is for?')">
+                <button class="btn-audio" style="background:linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-left-color:#f59e0b; color:#92400e;" onclick="playAudio('med-q3', 'Are your current symptoms the same ones this medication is meant to treat? For example, is the chest pain the kind your nitroglycerin is for?')">
                     "Are your current symptoms the same ones this medication is meant to treat? For example, is the chest pain the kind your nitroglycerin is for?"
                     <span class="sub-lang">③今の症状は、その薬で治療する症状と一致していますか？（例：胸痛はニトロが効く種類の胸痛か等）</span>
                 </button>
@@ -1116,10 +1356,10 @@
 
     <div class="card hidden" id="sec-opqrst-box">
         <h2>OPQRST Mnemonic Assessment <span class="sub-lang">(OPQRST詳細問診・主症状の評価)</span></h2>
-        <div id="opqrst-context-label" style="background:#eff6ff; border-left:4px solid var(--primary); padding:6px 10px; border-radius:6px; font-size:0.75rem; font-weight:700; color:#1e3a8a; margin-bottom:10px;">Select Trauma or Medical flow above to load chips. (上記でTrauma/Medicalを選択してください)</div>
+        <div id="opqrst-context-label" style="background:#eff6ff; border-left:4px solid var(--primary); padding:6px 10px; border-radius:6px; font-size:0.98rem; font-weight:700; color:#1e3a8a; margin-bottom:10px;">Select Trauma or Medical flow above to load chips. (上記でTrauma/Medicalを選択してください)</div>
         
         <div class="flex-between"><h3>Onset — What were you doing? <span class="sub-lang">(この症状が起きた時、何をしていましたか？)</span></h3></div>
-        <button class="btn-audio" onclick="speak('When this symptom started, what were you doing at that exact moment?')">
+        <button class="btn-audio" onclick="playAudio('opqrst-o', 'When this symptom started, what were you doing at that exact moment?')">
             "When this symptom started, what were you doing at that exact moment?" <span class="sub-lang">(この症状が起きた瞬間、ちょうど何をしていましたか？)</span>
         </button>
         <div class="stt-info" id="stt-O"></div><label class="switch-container" id="sw-label-O"><input type="checkbox" id="sw-O"> 🔊 Read Text ON</label>
@@ -1127,7 +1367,7 @@
         <div class="input-flex"><input type="text" id="input-O" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveOpqrstField('O', 'Onset')">SAVE</button></div>
 
         <div class="flex-between"><h3>Provocation — What do you think caused it? <span class="sub-lang">(原因として思い当たる事は？)</span></h3></div>
-        <button class="btn-audio" onclick="speak('What do you think might have caused or triggered this? Anything you can think of?')">
+        <button class="btn-audio" onclick="playAudio('opqrst-p', 'What do you think might have caused or triggered this? Anything you can think of?')">
             "What do you think might have caused or triggered this? Anything you can think of?" <span class="sub-lang">(この症状の原因や引き金として、思い当たる事はありますか？)</span>
         </button>
         <div class="stt-info" id="stt-P"></div><label class="switch-container" id="sw-label-P"><input type="checkbox" id="sw-P"> 🔊 Read Text ON</label>
@@ -1135,7 +1375,7 @@
         <div class="input-flex"><input type="text" id="input-P" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveOpqrstField('P', 'Provocation')">SAVE</button></div>
 
         <div class="flex-between"><h3>Quality <span class="sub-lang">(痛みの性質)</span></h3></div>
-        <button class="btn-audio" onclick="speak('How would you describe the pain or sensation?')">
+        <button class="btn-audio" onclick="playAudio('opqrst-q', 'How would you describe the pain or sensation?')">
             "How would you describe the pain or sensation?" <span class="sub-lang">(その痛みや感覚はどのように表現できますか？)</span>
         </button>
         <div class="stt-info" id="stt-Q"></div><label class="switch-container" id="sw-label-Q"><input type="checkbox" id="sw-Q"> 🔊 Read Text ON</label>
@@ -1143,7 +1383,7 @@
         <div class="input-flex"><input type="text" id="input-Q" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveOpqrstField('Q', 'Quality')">SAVE</button></div>
 
         <div class="flex-between"><h3>Radiation <span class="sub-lang">(放散痛・局在部位)</span></h3></div>
-        <button class="btn-audio" onclick="speak('Where exactly is it, and does it spread anywhere?')">
+        <button class="btn-audio" onclick="playAudio('opqrst-r', 'Where exactly is it, and does it spread anywhere?')">
             "Where exactly is it, and does it spread anywhere?" <span class="sub-lang">(正確にどこですか？どこかに広がる感じはありますか？)</span>
         </button>
         <div class="stt-info" id="stt-R"></div><label class="switch-container" id="sw-label-R"><input type="checkbox" id="sw-R"> 🔊 Read Text ON</label>
@@ -1151,7 +1391,7 @@
         <div class="input-flex"><input type="text" id="input-R" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveOpqrstField('R', 'Radiation')">SAVE</button></div>
 
         <div class="flex-between"><h3>Severity <span class="sub-lang">(痛みの強度)</span></h3></div>
-        <button class="btn-audio" onclick="speak('On a scale of zero to ten, how severe is it right now?')">
+        <button class="btn-audio" onclick="playAudio('opqrst-s', 'On a scale of zero to ten, how severe is it right now?')">
             "On a scale of zero to ten, how severe is it right now?" <span class="sub-lang">(0から10で表すと、今の症状の強さはいくつですか？)</span>
         </button>
         <div class="stt-info" id="stt-S_OP"></div><label class="switch-container" id="sw-label-S_OP"><input type="checkbox" id="sw-S_OP"> 🔊 Read Text ON</label>
@@ -1159,7 +1399,7 @@
         <div class="input-flex"><input type="text" id="input-S_OP" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveOpqrstField('S_OP', 'Severity')">SAVE</button></div>
 
         <div class="flex-between"><h3>Time <span class="sub-lang">(経過・時間経過)</span></h3></div>
-        <button class="btn-audio" onclick="speak('How has the timing been since it started?')">
+        <button class="btn-audio" onclick="playAudio('opqrst-t', 'How has the timing been since it started?')">
             "How has the timing been since it started?" <span class="sub-lang">(始まってからの経過はどうですか？)</span>
         </button>
         <div class="stt-info" id="stt-T"></div><label class="switch-container" id="sw-label-T"><input type="checkbox" id="sw-T"> 🔊 Read Text ON</label>
@@ -1171,7 +1411,7 @@
         <h2>6/7. SAMPLE History Mnemonic <span class="sub-lang">(SAMPLE既往歴・病歴・背景問診)</span></h2>
         
         <div class="flex-between"><h3>Signs & Symptoms <span class="sub-lang">(随伴症状・客観的所見)</span></h3></div>
-        <button class="btn-audio" onclick="speak('Are you experiencing any other symptoms right now?')">
+        <button class="btn-audio" onclick="playAudio('sample-s', 'Are you experiencing any other symptoms right now?')">
             "Are you experiencing any other symptoms right now?" <span class="sub-lang">(他に何か症状はありますか？)</span>
         </button>
         <div class="stt-info" id="stt-S"></div><label class="switch-container" id="sw-label-S"><input type="checkbox" id="sw-S"> 🔊 Read Text ON</label>
@@ -1179,7 +1419,7 @@
         <div class="input-flex"><input type="text" id="input-S" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveSampleField('S', 'Symptoms')">SAVE</button></div>
 
         <div class="flex-between"><h3>Allergies <span class="sub-lang">(アレルギー情報)</span></h3></div>
-        <button class="btn-audio" onclick="speak('Do you have any known allergies?')">
+        <button class="btn-audio" onclick="playAudio('sample-a', 'Do you have any known allergies?')">
             "Do you have any known allergies?" <span class="sub-lang">(何かアレルギーはありますか？)</span>
         </button>
         <div class="stt-info" id="stt-A"></div><label class="switch-container" id="sw-label-A"><input type="checkbox" id="sw-A"> 🔊 Read Text ON</label>
@@ -1187,7 +1427,7 @@
         <div class="input-flex"><input type="text" id="input-A" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveSampleField('A', 'Allergies')">SAVE</button></div>
 
         <div class="flex-between"><h3>Medications <span class="sub-lang">(普段の服用薬・携帯薬)</span></h3></div>
-        <button class="btn-audio" onclick="speak('Are you taking any medications?')">
+        <button class="btn-audio" onclick="playAudio('sample-m', 'Are you taking any medications?')">
             "Are you taking any medications?" <span class="sub-lang">(何かお薬を飲んでいますか？)</span>
         </button>
         <div class="stt-info" id="stt-M"></div><label class="switch-container" id="sw-label-M"><input type="checkbox" id="sw-M"> 🔊 Read Text ON</label>
@@ -1195,7 +1435,7 @@
         <div class="input-flex"><input type="text" id="input-M" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveSampleField('M', 'Medications')">SAVE</button></div>
 
         <div class="flex-between"><h3>Past Medical History <span class="sub-lang">(既往歴・持病)</span></h3></div>
-        <button class="btn-audio" onclick="speak('Do you have any past medical history?')">
+        <button class="btn-audio" onclick="playAudio('sample-p', 'Do you have any past medical history?')">
             "Do you have any past medical history?" <span class="sub-lang">(これまでに大きな病気や持病はありますか？)</span>
         </button>
         <div class="stt-info" id="stt-P_SM"></div><label class="switch-container" id="sw-label-P_SM"><input type="checkbox" id="sw-P_SM"> 🔊 Read Text ON</label>
@@ -1203,7 +1443,7 @@
         <div class="input-flex"><input type="text" id="input-P_SM" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveSampleField('P_SM', 'Past History')">SAVE</button></div>
 
         <div class="flex-between"><h3>Last Oral Intake <span class="sub-lang">(最後に何を食べた？それは何時間前？)</span></h3></div>
-        <button class="btn-audio" onclick="speak('What did you last eat or drink, and how many hours ago was that?')">
+        <button class="btn-audio" onclick="playAudio('sample-l', 'What did you last eat or drink, and how many hours ago was that?')">
             "What did you last eat or drink, and how many hours ago was that?" <span class="sub-lang">(最後に何を食べましたか？それは何時間前ですか？)</span>
         </button>
         <div class="stt-info" id="stt-L"></div><label class="switch-container" id="sw-label-L"><input type="checkbox" id="sw-L"> 🔊 Read Text ON</label>
@@ -1211,7 +1451,7 @@
         <div class="input-flex"><input type="text" id="input-L" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveSampleField('L', 'Last Oral Intake')">SAVE</button></div>
 
         <div class="flex-between"><h3>Events - Anything unusual today? <span class="sub-lang">(普段と違う事はありましたか？)</span></h3></div>
-        <button class="btn-audio" onclick="speak('Was there anything different from your usual day today?')">
+        <button class="btn-audio" onclick="playAudio('sample-e', 'Was there anything different from your usual day today?')">
             "Was there anything different from your usual day today?" <span class="sub-lang">(今日は普段と違うことが何かありましたか？)</span>
         </button>
         <div class="stt-info" id="stt-E"></div><label class="switch-container" id="sw-label-E"><input type="checkbox" id="sw-E"> 🔊 Read Text ON</label>
@@ -1219,21 +1459,16 @@
         <div class="input-flex"><input type="text" id="input-E" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveSampleField('E', 'Events')">SAVE</button></div>
     </div>
 
-    <div class="card hidden" id="sec-equipment">
-        <h2>6/8. Equipment Used & Deployments <span class="sub-lang">(使用資機材チェックリスト)</span></h2>
-        <div class="equip-grid" id="equip-container"></div>
-    </div>
-
     <div class="card hidden" id="sec-disposition">
-        <h2>7/9. Patient Disposition <span class="sub-lang">(搬送意向＆搬送拒否確認)</span></h2>
-        <button class="btn-audio" onclick="speak('Do you want us to call an ambulance and take you to a Japanese hospital? Or do you refuse transport?')">
+        <h2>Patient Disposition <span class="sub-lang">(搬送意向＆搬送拒否確認)</span></h2>
+        <button class="btn-audio" onclick="playAudio('disp-intro', 'Do you want us to call an ambulance and take you to a Japanese hospital? Or do you refuse transport?')">
             "Do you want us to call an ambulance and take you to a Japanese hospital? Or do you refuse transport?"
             <span class="sub-lang">(日本の病院へ行くために救急車を要請しますか？それとも搬送を辞退・拒否されますか？)</span>
         </button>
         <div style="display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px;">
             <!-- Hospital transport option -->
             <div style="border:1px solid #cbd5e1; border-radius:8px; padding:10px; background:#f8fafc;">
-                <button class="btn-audio" onclick="speak('Would you like us to call a Japanese ambulance and take you to a hospital for further evaluation?')">
+                <button class="btn-audio" onclick="playAudio('disp-go', 'Would you like us to call a Japanese ambulance and take you to a hospital for further evaluation?')">
                     "Would you like us to call a Japanese ambulance and take you to a hospital for further evaluation?"
                     <span class="sub-lang">(日本の救急車を要請し、病院で詳しい診察を受けたいですか？)</span>
                 </button>
@@ -1242,11 +1477,11 @@
 
             <!-- Refuse transport option -->
             <div style="border:1px solid #fca5a5; border-radius:8px; padding:10px; background:#fef2f2;">
-                <button class="btn-audio" onclick="speak('Are you refusing transport to a hospital? Please understand that your condition may become worse without medical evaluation. Do you still refuse to be transported?')">
+                <button class="btn-audio" onclick="playAudio('disp-refuse', 'Are you refusing transport to a hospital? Please understand that your condition may become worse without medical evaluation. Do you still refuse to be transported?')">
                     "Are you refusing transport to a hospital? Please understand that your condition may become worse without medical evaluation. Do you still refuse to be transported?"
                     <span class="sub-lang">(病院への搬送を拒否されますか？医療機関で診察を受けないと容態が悪化する可能性があります。それでも搬送を拒否されますか？)</span>
                 </button>
-                <button class="btn-audio" style="background:linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-left-color:#dc2626; color:#991b1b;" onclick="speak('If you still refuse transport, please read and sign the Refusal of Medical Assistance document we have prepared. Your signature confirms that you understand the risks, including possible worsening of your condition, complications, or death.')">
+                <button class="btn-audio" style="background:linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-left-color:#dc2626; color:#991b1b;" onclick="playAudio('disp-sign', 'If you still refuse transport, please read and sign the Refusal of Medical Assistance document we have prepared. Your signature confirms that you understand the risks, including possible worsening of your condition, complications, or death.')">
                     "If you still refuse transport, please read and sign the Refusal of Medical Assistance document we have prepared. Your signature confirms that you understand the risks, including possible worsening of your condition, complications, or death."
                     <span class="sub-lang">(それでも搬送を拒否される場合は、お渡しする「搬送拒否同意書（AMA書類）」をお読みいただき、署名をお願いします。署名は、容態悪化・合併症・最悪の場合死亡のリスクを理解した上での拒否であることの確認となります)</span>
                 </button>
@@ -1256,22 +1491,27 @@
         <div class="chip-group hidden" id="chips-disp"></div>
     </div>
 
+    <div class="card hidden" id="sec-equipment">
+        <h2>Equipment Used & Deployments <span class="sub-lang">(使用資機材チェックリスト)</span></h2>
+        <div class="equip-grid" id="equip-container"></div>
+    </div>
+
     <div class="card">
         <h2>📋 Assessment Activity Log & Handoff Report</h2>
         <textarea id="log-area" readonly placeholder="活動履歴、および自動レポートがここに自動生成されます..."></textarea>
 
         <!-- Visual handoff preview (body map for trauma) -->
         <div id="handoff-visual" style="display:none; margin-top:10px; background:#fff; border:2px solid #2563eb; border-radius:10px; padding:14px;">
-            <div style="font-weight:800; color:#1e3a8a; font-size:0.85rem; margin-bottom:6px;">🩹 Trauma Body Map — DOTS / DCAP-BTLS Visual <span style="font-size:0.7rem; font-weight:400; color:#64748b;">(外傷部位図・所見反映)</span></div>
+            <div style="font-weight:800; color:#1e3a8a; font-size:0.85rem; margin-bottom:6px;">🩹 Trauma Body Map — DOTS / DCAP-BTLS Visual <span style="font-size:0.95rem; font-weight:400; color:#64748b;">(外傷部位図・所見反映)</span></div>
             <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
                 <div id="handoff-body-map" style="width:260px; flex-shrink:0;"></div>
-                <div id="handoff-findings-list" style="flex:1; font-size:0.72rem; min-width:200px;"></div>
+                <div id="handoff-findings-list" style="flex:1; font-size:0.95rem; min-width:200px;"></div>
             </div>
         </div>
 
         <div class="export-btn-group">
-            <button class="btn-main-act" onclick="generateHandoffReport()">📄 Generate Handoff Report <span style="font-size:0.75rem; font-weight:400; display:block;">(ハンドオフレポート生成・ビジュアル付きプレビュー)</span></button>
-            <button class="btn-email-act" onclick="sendReportEmail()">✉ Send via Email <span style="font-size:0.7rem; font-weight:400; display:block;">(メールアプリを起動して送信)</span></button>
+            <button class="btn-main-act" onclick="generateHandoffReport()">📄 Generate Handoff Report <span style="font-size:0.98rem; font-weight:400; display:block;">(ハンドオフレポート生成・ビジュアル付きプレビュー)</span></button>
+            <button class="btn-email-act" onclick="sendReportEmail()">✉ Send via Email <span style="font-size:0.95rem; font-weight:400; display:block;">(メールアプリを起動して送信)</span></button>
         </div>
     </div>
 
@@ -2253,13 +2493,13 @@
             list.innerHTML = '';
             PHILIPS_AED_PROMPTS.forEach((p, i) => {
                 const div = document.createElement('div');
-                div.style.cssText = 'display:flex; gap:6px; align-items:flex-start; padding:6px 8px; border-bottom:1px solid #e2e8f0; font-size:0.72rem;';
+                div.style.cssText = 'display:flex; gap:6px; align-items:flex-start; padding:6px 8px; border-bottom:1px solid #e2e8f0; font-size:0.95rem;';
                 // Build via DOM so quotes never break the onclick attribute
                 const btn = document.createElement('button');
                 btn.className = 'btn-mic-sub';
-                btn.style.cssText = 'flex-shrink:0; padding:3px 8px; font-size:0.65rem;';
+                btn.style.cssText = 'flex-shrink:0; padding:3px 8px; font-size:0.92rem;';
                 btn.textContent = '🔊';
-                btn.addEventListener('click', () => speak(p.en));
+                btn.addEventListener('click', () => playAudio('aed-' + slugify(p.en), p.en));
                 const txtBox = document.createElement('div');
                 txtBox.style.flex = '1';
                 txtBox.innerHTML = `<div style="font-weight:700; color:#0f766e;">"${escapeHtml(p.en)}"</div>
@@ -2445,17 +2685,20 @@
             if (!(cb && cb.checked)) return;
             // Extract English part (before newline / Japanese parens)
             const cleanText = fullText.split('\n')[0].trim();
-            // 1. Curated override (exact match on English); empty string = intentionally skip speech
+            // 1. Curated override (exact match on English); empty string = intentionally skip
             if (CHIP_QUESTION_OVERRIDES.hasOwnProperty(cleanText)) {
                 const phrase = CHIP_QUESTION_OVERRIDES[cleanText];
-                if (phrase) speak(phrase);
+                if (phrase) {
+                    // Try pre-rendered MP3 first, fall back to live TTS
+                    playAudio('chip-' + slugify(cleanText), phrase);
+                }
                 return;
             }
             // 2. Section-specific template fallback
             const tmpl = SECTION_QUESTION_PREFIX[key];
             if (tmpl) {
                 const out = tmpl(cleanText);
-                if (out && out.trim()) speak(out);  // skip empty (e.g. "patient unconscious" observational chips)
+                if (out && out.trim()) speak(out);  // dynamic fallback — TTS only (chip-specific MP3 won't exist)
                 return;
             }
             // 3. Last-resort generic
@@ -2629,11 +2872,110 @@
                         window.speechSynthesis.resume();
                     } catch (e) { /* ignore */ }
                 } else {
-                    // Queue is empty — stop the keep-alive
                     clearInterval(speechKeepAlive);
                     speechKeepAlive = null;
                 }
             }, 4000);
+        }
+
+        // === v2.5: Anti-GC reference holder ===
+        // On mobile (especially iOS Safari + Android Chrome), utterance objects
+        // created inside a function scope are sometimes garbage-collected
+        // mid-playback, cutting speech off mid-sentence. Keeping a strong
+        // reference on `window` prevents that.
+        if (!window.speechActiveQueue) window.speechActiveQueue = [];
+
+        function _registerUtterance(u) {
+            // Push to the global queue so the GC keeps it alive while speaking
+            window.speechActiveQueue.push(u);
+            const slot = window.speechActiveQueue.length - 1;
+            const drop = () => {
+                window.speechActiveQueue[slot] = null;
+                // Periodically compact the array so it doesn't grow without bound
+                if (window.speechActiveQueue.length > 200 &&
+                    window.speechActiveQueue.every(x => x === null)) {
+                    window.speechActiveQueue.length = 0;
+                }
+            };
+            return drop;
+        }
+
+        // === v2.7 Pre-recorded audio for critical / long prompts ===
+        // For these designated prompts we play a pre-rendered MP3 file (never gets
+        // cut off by iOS Safari's Web Speech bugs). If the file isn't available
+        // (e.g. user hasn't run the generator script yet) we silently fall back
+        // to the TTS speak() path.
+        const AUDIO_BASE = './audio/';
+        let _audioElement = null;
+        let _audioStatusCache = {};  // key → 'ok' | 'missing' (per session)
+
+        // Deterministic slug for filename keys — must match the shell version in generate_audio.sh
+        function slugify(s) {
+            return String(s)
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '')
+                .substring(0, 50);
+        }
+
+        function _ensureAudioElement() {
+            if (_audioElement) return _audioElement;
+            _audioElement = document.createElement('audio');
+            _audioElement.preload = 'auto';
+            _audioElement.style.display = 'none';
+            document.body.appendChild(_audioElement);
+            return _audioElement;
+        }
+
+        /**
+         * Play a pre-rendered audio clip. Falls back to live TTS if the file is missing.
+         * @param {string} key      — filename stem (e.g. "greeting", "cc-intro")
+         * @param {string} fallback — text to speak if no MP3 available
+         */
+        function playAudio(key, fallback) {
+            if (_audioStatusCache[key] === 'missing') {
+                // Already confirmed unavailable this session — go straight to TTS
+                if (fallback) speak(fallback);
+                return;
+            }
+            primeSpeech();  // also primes audio context on iOS
+            const audio = _ensureAudioElement();
+            const url = AUDIO_BASE + key + '.mp3';
+
+            const onErr = () => {
+                _audioStatusCache[key] = 'missing';
+                audio.removeEventListener('error', onErr);
+                audio.removeEventListener('canplay', onOk);
+                console.info('[playAudio] no file for', key, '— falling back to TTS');
+                if (fallback) speak(fallback);
+                updateSpeechStatusInline('🔊 TTS fallback');
+            };
+            const onOk = () => {
+                _audioStatusCache[key] = 'ok';
+                audio.removeEventListener('error', onErr);
+                audio.removeEventListener('canplay', onOk);
+                updateSpeechStatusInline('▶ Playing audio: ' + key);
+            };
+            audio.addEventListener('error', onErr, { once: true });
+            audio.addEventListener('canplay', onOk, { once: true });
+
+            try {
+                // Cancel any in-flight TTS so the recorded file plays cleanly
+                if ('speechSynthesis' in window) {
+                    try { window.speechSynthesis.cancel(); } catch (e) {}
+                }
+                audio.src = url;
+                audio.currentTime = 0;
+                const p = audio.play();
+                if (p && p.catch) {
+                    p.catch((err) => {
+                        // Autoplay rejection or file 404 — fall back to TTS
+                        onErr();
+                    });
+                }
+            } catch (e) {
+                onErr();
+            }
         }
 
         function speak(text) {
@@ -2653,8 +2995,8 @@
 
             updateSpeechStatusInline(`▶ Speaking (${chunks.length} chunk${chunks.length>1?'s':''})…`);
 
-            // Build utterances first — then queue them all immediately.
-            // We rely on the browser's native FIFO queue rather than onend chaining.
+            // Build utterances first, register each with the anti-GC holder,
+            // then queue them all immediately to the browser's native FIFO queue.
             const utterances = chunks.map((chunk, idx) => {
                 const u = new SpeechSynthesisUtterance(chunk);
                 u.lang   = 'en-US';
@@ -2662,19 +3004,24 @@
                 u.pitch  = 1.0;
                 u.volume = 1.0;
                 if (speechCache.enVoice) u.voice = speechCache.enVoice;
-                if (idx === chunks.length - 1) {
-                    u.onend = () => updateSpeechStatusInline('✓ Done');
-                }
+
+                // Anti-GC: keep a strong reference until the utterance ends.
+                const release = _registerUtterance(u);
+
+                u.onend = () => {
+                    release();
+                    if (idx === chunks.length - 1) updateSpeechStatusInline('✓ Done');
+                };
                 u.onerror = (e) => {
-                    // Most "interrupted" errors are benign (user clicked another button)
-                    if (e.error !== 'interrupted' && e.error !== 'canceled') {
+                    release();
+                    if (e && e.error !== 'interrupted' && e.error !== 'canceled') {
                         console.warn('TTS chunk error:', e.error || e);
                     }
                 };
                 return u;
             });
 
-            // Brief delay so cancel() finishes flushing, then queue everything
+            // Brief delay so cancel() finishes flushing on iOS, then queue everything
             setTimeout(() => {
                 utterances.forEach(u => {
                     try { window.speechSynthesis.speak(u); }
@@ -2897,8 +3244,8 @@
             const wordCount = raw.split(/\s+/).filter(w => w).length;
             const duration = transcriptStartedAt ? Math.floor((Date.now() - transcriptStartedAt.getTime()) / 1000) : 0;
 
-            let html = `<div style="font-weight:800; color:#1e3a8a; margin-bottom:6px;">✨ Conversation Summary <span style="font-size:0.7rem; color:#64748b; font-weight:400;">(会話要約)</span></div>`;
-            html += `<div style="font-size:0.7rem; color:#64748b; margin-bottom:8px;">• ${lines} utterances · ${wordCount} words · duration ${Math.floor(duration/60)}:${(duration%60).toString().padStart(2,'0')}</div>`;
+            let html = `<div style="font-weight:800; color:#1e3a8a; margin-bottom:6px;">✨ Conversation Summary <span style="font-size:0.95rem; color:#64748b; font-weight:400;">(会話要約)</span></div>`;
+            html += `<div style="font-size:0.95rem; color:#64748b; margin-bottom:8px;">• ${lines} utterances · ${wordCount} words · duration ${Math.floor(duration/60)}:${(duration%60).toString().padStart(2,'0')}</div>`;
             if (Object.keys(summary).length === 0) {
                 html += '<div style="color:#475569;"><em>No clinical keywords detected. Review transcript manually.</em></div>';
             } else {
@@ -3032,7 +3379,13 @@
         function triggerCPA() {
             logAction('CRITICAL', 'CPA Detected. Emergency Protocol Activation.');
             document.getElementById('sec-primary').classList.add('hidden'); document.getElementById('sec-branch').classList.add('hidden');
-            document.getElementById('sec-cpa-guide').classList.remove('hidden'); hideAllSubSections();
+            const cpa = document.getElementById('sec-cpa-guide');
+            cpa.classList.remove('hidden');
+            hideAllSubSections();
+            // Scroll the CPR card to the very top of the viewport
+            setTimeout(() => {
+                cpa.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 80);
         }
         function cancelCPA() {
             document.getElementById('sec-primary').classList.remove('hidden'); document.getElementById('sec-branch').classList.remove('hidden');
@@ -3042,6 +3395,22 @@
         function toggleGenericDone(btn) {
             btn.classList.toggle('active');
             btn.innerText = btn.classList.contains('active') ? "DONE" : "OK";
+        }
+
+        // Toggle a care item: marks done + expands its protocol notes box
+        function toggleCareProtocol(btn) {
+            btn.classList.toggle('active');
+            btn.innerText = btn.classList.contains('active') ? 'DONE' : 'OK';
+            const careItem = btn.closest('.care-item');
+            if (!careItem) return;
+            if (btn.classList.contains('active')) {
+                careItem.classList.add('expanded');
+                const key = careItem.getAttribute('data-key') || '';
+                const label = careItem.querySelector('.label-txt');
+                logAction('Care Protocol', `${label ? label.textContent : key} — DONE (protocol shown)`);
+            } else {
+                careItem.classList.remove('expanded');
+            }
         }
 
         function toggleMedAssist(btn) {
@@ -3066,7 +3435,7 @@
             cprCycleCount = 0;
             const ts = cprStartedAt.toLocaleTimeString();
             logAction('CPR START', `Compressions started at ${ts} — 100-120/min, 5-6cm depth, 30:2 with BVM`);
-            speak('CPR started. Push hard. Push fast. One hundred to one hundred twenty per minute.');
+            playAudio('cpr-start', 'CPR started. Push hard. Push fast. One hundred to one hundred twenty per minute.');
             document.getElementById('btn-cpr-start').style.display = 'none';
             document.getElementById('btn-cpr-cycle').style.display = '';
             document.getElementById('btn-cpr-stop').style.display = '';
@@ -3079,7 +3448,7 @@
             const sec = cprStartedAt ? Math.floor((Date.now() - cprStartedAt.getTime()) / 1000) : 0;
             const mm = Math.floor(sec / 60); const ss = sec % 60;
             logAction('CPR Cycle Mark', `Cycle ${cprCycleCount} at ${mm}:${ss.toString().padStart(2,'0')} — rhythm check / shock if advised`);
-            speak('Rhythm check. Stand clear of the patient.');
+            playAudio('cpr-rhythm-check', 'Rhythm check. Stand clear of the patient.');
             updateCprDisplay();
         }
         function stopCPR() {
@@ -3156,14 +3525,14 @@
             const box = document.getElementById('reassess-status');
             if (remain === 0) {
                 reassessCount++;
-                box.innerHTML = `<div style="color:${color}; font-weight:800; font-size:0.95rem;">⏰ REASSESS NOW</div><div style="color:#64748b; font-size:0.7rem;">Cycle ${reassessCount} · check LOC / ABC / SpO₂ / BP / interventions</div>`;
+                box.innerHTML = `<div style="color:${color}; font-weight:800; font-size:0.95rem;">⏰ REASSESS NOW</div><div style="color:#64748b; font-size:0.95rem;">Cycle ${reassessCount} · check LOC / ABC / SpO₂ / BP / interventions</div>`;
                 box.style.background = '#fef2f2';
                 logAction('Reassessment ALERT', `Cycle ${reassessCount} due — ${label} interval`);
-                speak(unstable ? 'Reassess vital signs. Unstable patient. Five minute interval.' : 'Reassess vital signs. Stable patient. Fifteen minute interval.');
+                unstable ? playAudio('reassess-unstable', 'Reassess vital signs. Unstable patient. Five minute interval.') : playAudio('reassess-stable', 'Reassess vital signs. Stable patient. Fifteen minute interval.');
                 reassessNextAt = Date.now() + reassessIntervalSec * 1000;
                 setTimeout(() => { box.style.background = '#fff'; }, 4000);
             } else {
-                box.innerHTML = `<div style="font-weight:700; color:${color};">Next reassessment in <span style="font-variant-numeric:tabular-nums;">${mm}:${ss.toString().padStart(2,'0')}</span></div><div style="color:#64748b; font-size:0.7rem;">${label} interval · ${reassessCount} cycle(s) completed</div>`;
+                box.innerHTML = `<div style="font-weight:700; color:${color};">Next reassessment in <span style="font-variant-numeric:tabular-nums;">${mm}:${ss.toString().padStart(2,'0')}</span></div><div style="color:#64748b; font-size:0.95rem;">${label} interval · ${reassessCount} cycle(s) completed</div>`;
             }
         }
 
@@ -3172,6 +3541,12 @@
         let tqTimer = null;
         function toggleTourniquet(btn) {
             btn.classList.toggle('active');
+            // Also expand the protocol box for this care item
+            const careItem = btn.closest('.care-item');
+            if (careItem) {
+                if (btn.classList.contains('active')) careItem.classList.add('expanded');
+                else careItem.classList.remove('expanded');
+            }
             const block = document.getElementById('tourniquet-time');
             if (btn.classList.contains('active')) {
                 btn.innerText = 'DONE';
@@ -3393,7 +3768,7 @@
                 html += '</div>';
             });
             html += `<div class="dcap-count-box">
-                <span>Findings recorded for this region <span class="sub-lang" style="font-size:0.65rem;">部位の所見数</span></span>
+                <span>Findings recorded for this region <span class="sub-lang" style="font-size:0.92rem;">部位の所見数</span></span>
                 <strong><span id="dcap-${regionId}-count">${set.size}</span> / 12</strong>
             </div>`;
             panel.innerHTML = html;
@@ -3746,7 +4121,7 @@
                 if (!sourceSvgs[idx]) return;
                 const col = document.createElement('div');
                 col.style.cssText = 'text-align:center; flex:1;';
-                col.innerHTML = `<div style="font-size:0.6rem; color:#475569; font-weight:700; margin-bottom:2px;">${label}</div>`;
+                col.innerHTML = `<div style="font-size:0.88rem; color:#475569; font-weight:700; margin-bottom:2px;">${label}</div>`;
                 const clone = sourceSvgs[idx].cloneNode(true);
                 clone.removeAttribute('class');
                 clone.setAttribute('style', 'width:100%; max-width:120px; height:auto;');
@@ -3765,7 +4140,7 @@
             mapDiv.appendChild(wrapper);
 
             // Legend + findings list
-            let html = `<div style="font-size:0.65rem; color:#475569; margin-bottom:6px;">
+            let html = `<div style="font-size:0.92rem; color:#475569; margin-bottom:6px;">
                 <span style="display:inline-block; width:10px; height:10px; background:#fde68a; border:1px solid #f59e0b; vertical-align:middle;"></span> 1
                 · <span style="display:inline-block; width:10px; height:10px; background:#fb923c; border:1px solid #ea580c; vertical-align:middle;"></span> 2
                 · <span style="display:inline-block; width:10px; height:10px; background:#dc2626; border:1px solid #991b1b; vertical-align:middle;"></span> 3+ findings
@@ -3777,7 +4152,7 @@
                     any = true;
                     const itemList = [...set].map(k => {
                         const it = DCAPBTLS_ITEMS.find(i => i.key === k);
-                        return `<span style="background:#fee2e2; color:#991b1b; padding:1px 5px; border-radius:3px; margin-right:3px; font-size:0.65rem;">${it.en.split(' - ')[1] || it.en}</span>`;
+                        return `<span style="background:#fee2e2; color:#991b1b; padding:1px 5px; border-radius:3px; margin-right:3px; font-size:0.92rem;">${it.en.split(' - ')[1] || it.en}</span>`;
                     }).join(' ');
                     html += `<div style="margin-bottom:4px;"><strong style="color:#1e3a8a;">${reg.en}</strong> <span style="color:#64748b;">${reg.ja}</span> <span style="font-weight:700; color:#dc2626;">[${set.size}/12]</span><br>${itemList}</div>`;
                 }
@@ -3788,7 +4163,7 @@
                 html += `<div style="margin-top:6px; padding-top:6px; border-top:1px dashed #cbd5e1;"><strong style="color:#b45309;">⚠ Critical findings:</strong><br>`;
                 html += sfKeys.map(id => {
                     const sf = specialFindings[id];
-                    return `<span style="background:#fef3c7; color:#78350f; padding:1px 5px; border-radius:3px; margin-right:3px; display:inline-block; margin-bottom:2px; font-size:0.65rem;">${sf.en}</span>`;
+                    return `<span style="background:#fef3c7; color:#78350f; padding:1px 5px; border-radius:3px; margin-right:3px; display:inline-block; margin-bottom:2px; font-size:0.92rem;">${sf.en}</span>`;
                 }).join('');
                 html += '</div>';
             }
@@ -3860,7 +4235,7 @@
                 showResult('tag-minor', '🟢 MINOR (軽症群 Ⅲ)', 'finishTriage', 'Walkable');
             } else {
                 showTriageNode('triage-node-breathing');
-                speak('Patient cannot walk. Checking for spontaneous breathing.');
+                playAudio('triage-no-walk', 'Patient cannot walk. Checking for spontaneous breathing.');
             }
             logAction('Triage (START)', `Walking: ${canWalk ? 'Yes' : 'No'}`);
         }
@@ -3868,11 +4243,11 @@
         function triageBreathing(hasBreathing) {
             hideTriageNode('triage-node-breathing');
             if (!hasBreathing) {
-                speak('No spontaneous breathing. Executing manual airway maneuver.');
+                playAudio('triage-no-breathing', 'No spontaneous breathing. Executing manual airway maneuver.');
                 showTriageNode('triage-node-airway-check');
             } else {
                 showTriageNode('triage-node-rr-check');
-                speak('Breathing exists. Counting respiratory rate.');
+                playAudio('triage-breathing-yes', 'Breathing exists. Counting respiratory rate.');
             }
             logAction('Triage (START)', `Breathing: ${hasBreathing ? 'Present' : 'Absent'}`);
         }
@@ -3880,11 +4255,11 @@
         function triageRreathingCount(rrRate) {
             hideTriageNode('triage-node-rr-check');
             if (rrRate === 'ge30') {
-                speak('Respiratory rate is 30 or more. Status is Immediate.');
+                playAudio('triage-rr-high', 'Respiratory rate is 30 or more. Status is Immediate.');
                 showResult('tag-immediate', '🔴 IMMEDIATE (最優先 Ⅰ)', 'finishTriage', 'RR ≥ 30/min');
             } else {
                 showTriageNode('triage-node-crt-pulse');
-                speak('Respiratory rate is 29 or less. Checking perfusion or pulse.');
+                playAudio('triage-rr-low', 'Respiratory rate is 29 or less. Checking perfusion or pulse.');
             }
             logAction('Triage (START)', `Respiratory Rate: ${rrRate === 'ge30' ? '≥ 30/min' : '≤ 29/min'}`);
         }
@@ -3892,11 +4267,11 @@
         function triageCrt(crtPulse) {
             hideTriageNode('triage-node-crt-pulse');
             if (crtPulse === 'gt2') {
-                speak('CRT is more than 2 seconds or pulse is absent. Status is Immediate.');
+                playAudio('triage-crt-bad', 'CRT is more than 2 seconds or pulse is absent. Status is Immediate.');
                 showResult('tag-immediate', '🔴 IMMEDIATE (最優先 Ⅰ)', 'finishTriage', 'No Pulse / CRT > 2s');
             } else {
                 showTriageNode('triage-node-commands');
-                speak('Perfusion checks out. Testing ability to obey commands.');
+                playAudio('triage-perfusion-ok', 'Perfusion checks out. Testing ability to obey commands.');
             }
             logAction('Triage (START)', `Perfusion: ${crtPulse === 'gt2' ? 'No Pulse / CRT > 2s' : 'Pulse exists / CRT ≤ 2s'}`);
         }
@@ -3905,10 +4280,10 @@
             hideTriageNode('triage-node-commands');
             if (obey) {
                 showResult('tag-delayed', '🟡 DELAYED (待機的 Ⅱ)', 'finishTriage', 'Obeys commands');
-                speak('Patient obeys simple commands. Status is Delayed.');
+                playAudio('triage-obeys', 'Patient obeys simple commands. Status is Delayed.');
             } else {
                 showResult('tag-immediate', '🔴 IMMEDIATE (最優先 Ⅰ)', 'finishTriage', 'Disobeys commands');
-                speak('Patient disobeys simple commands. Status is Immediate.');
+                playAudio('triage-disobeys', 'Patient disobeys simple commands. Status is Immediate.');
             }
             logAction('Triage (START)', `Commands: ${obey ? 'Obey' : 'Disobey'}`);
         }
@@ -3917,17 +4292,17 @@
         function triageAirwayManual(finish) {
             hideTriageNode('triage-node-airway-check');
             showTriageNode('triage-node-airway-breathing-check');
-            speak('Manual airway provided. Checking for spontaneous breathing again.');
+            playAudio('triage-manual-airway', 'Manual airway provided. Checking for spontaneous breathing again.');
         }
 
         function triageBreathingAirway(hasBreathing) {
             hideTriageNode('tway-node-airway-breathing-check');
             if (hasBreathing) {
                 showResult('tag-immediate', '🔴 IMMEDIATE (最優先 Ⅰ)', 'finishTriage', 'Breathing exists after manual airway');
-                speak('Breathing started after manual airway. Status is Immediate.');
+                playAudio('triage-airway-breathing', 'Breathing started after manual airway. Status is Immediate.');
             } else {
                 showResult('tag-deceased', '⚫ DECEASED (対象外)', 'finishTriage', 'Still no breathing after manual airway');
-                speak('Still no breathing after manual airway. Status is Deceased.');
+                playAudio('triage-deceased', 'Still no breathing after manual airway. Status is Deceased.');
             }
             logAction('Triage (START)', `Breathing after airway: ${hasBreathing ? 'Present' : 'Absent'}`);
         }
@@ -3956,7 +4331,7 @@
 
         function finishTriage() {
             logAction('Triage Decision', `Final Tag: ${selectedTriageNode}`);
-            speak('Triage complete. Moving to Flow Selection.');
+            playAudio('triage-complete', 'Triage complete. Moving to Flow Selection.');
             document.getElementById('sec-branch').scrollIntoView({ behavior: 'smooth' });
         }
 
