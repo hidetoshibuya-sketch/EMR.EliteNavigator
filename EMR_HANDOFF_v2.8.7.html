@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMR Elite Navigator — ハンドオフ v2.8.7</title>
+<style>
+  :root{--bg:#eef2f7;--card:#fff;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;--primary:#2563eb;--accent:#dc2626}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",Arial,sans-serif;line-height:1.65;padding:24px}
+  .wrap{max-width:880px;margin:0 auto}
+  h1{font-size:1.7rem;color:#0f172a;border-bottom:3px solid var(--primary);padding-bottom:12px;margin:0 0 4px}
+  .ver{color:var(--muted);font-size:0.95rem;margin-bottom:20px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:18px;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+  h2{font-size:1.1rem;color:var(--primary);margin:0 0 12px;letter-spacing:.5px}
+  ul{margin:8px 0;padding-left:22px}li{margin-bottom:6px}
+  code{background:#f1f5f9;border:1px solid var(--border);border-radius:5px;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;color:#0f172a}
+  pre{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:14px 16px;overflow:auto;font-size:.86rem;line-height:1.5}
+  pre code{background:none;border:none;color:inherit;padding:0}
+  a{color:var(--primary);word-break:break-all}
+  .tag{display:inline-block;background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;border-radius:20px;padding:2px 12px;font-size:.82rem;font-weight:600;margin-right:6px}
+  .new{background:#fef2f2;color:#991b1b;border-color:#fca5a5}
+  table{border-collapse:collapse;width:100%;font-size:.9rem}
+  td{border-bottom:1px solid var(--border);padding:6px 8px;vertical-align:top}
+  td:first-child{color:var(--muted);white-space:nowrap;width:110px}
+  .note{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:.9rem;color:#78350f}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>EMR Elite Navigator — ハンドオフ</h1>
+  <div class="ver"><span class="tag new">v2.8.7</span> 2026-06-02 ／ 新セッションの最初にこの内容を貼り付けて作業を依頼してください。</div>
+
+  <div class="card">
+    <h2>プロジェクト概要</h2>
+    <p>日本の救急隊員（消防士・救急救命士）が英語話者の傷病者を診る際に使う、バイリンガル(英/日)の HTML/PWA 単一ファイルアプリ。</p>
+    <table>
+      <tr><td>デプロイ先</td><td><a href="https://hidetoshibuya-sketch.github.io/EMR.EliteNavigator/">hidetoshibuya-sketch.github.io/EMR.EliteNavigator/</a></td></tr>
+      <tr><td>リポジトリ</td><td><a href="https://github.com/hidetoshibuya-sketch/EMR.EliteNavigator">github.com/hidetoshibuya-sketch/EMR.EliteNavigator</a></td></tr>
+      <tr><td>ローカル</td><td><code>~/Documents/EMR.EliteNavigator/</code></td></tr>
+      <tr><td>バージョン</td><td>v2.8.7</td></tr>
+      <tr><td>対応端末</td><td>iPhone Safari + Android Chrome（PWA ホーム画面追加可）</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>技術スタック</h2>
+    <ul>
+      <li>単一 HTML + 埋め込み JS/CSS（ビルドステップなし、index.html ~4751 行）</li>
+      <li>Web Speech API（SpeechSynthesis + SpeechRecognition）</li>
+      <li>事前録音音声: macOS <code>say -v Samantha -r 175</code>、<code>.m4a</code>(AAC)、audio/ に約546ファイル</li>
+      <li>PWA: Service Worker（assets は cache-first、HTML は network-first）+ manifest</li>
+      <li>jsPDF + html2canvas で 1ページ Letter PDF（内容量に応じ自動縮小）</li>
+      <li>Web Share API で iOS 共有シート連携（メール送信に使用）</li>
+      <li><strong>デザイン: フラット・不透明</strong>（旧 Liquid Glass は v2.8.5 で全廃。背景 #eef2f7、白カード+細枠線、ぼかしなし）</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>ファイル構成（リポジトリ・フラット）</h2>
+<pre><code>EMR.EliteNavigator/
+├── index.html               # メイン本体 (v2.8.7)
+├── sw.js                    # SW (CACHE_VERSION="emr-nav-v2.8-cpr-static-email-9")
+├── manifest.json
+├── icon-192.png, icon-512.png
+├── audio/                   # 約546 .m4a
+├── generate_audio.sh        # macOS say で音声生成
+├── EMR Elite Navigatorv2.8.html  # スタンドアロン版 (index.html と完全一致を維持)
+└── README.md</code></pre>
+    <div class="note"><strong>重要:</strong> <code>index.html</code> と <code>EMR Elite Navigatorv2.8.html</code> は中身を完全一致させて運用。どちらかを編集したら必ず両方に同じ変更を入れること。</div>
+  </div>
+
+  <div class="card">
+    <h2>変更履歴 (v2.8.2〜v2.8.7)</h2>
+    <ul>
+      <li><span class="tag">2.8.2</span> CPRフローチャートを縦1列スタック化、矢印削除</li>
+      <li><span class="tag">2.8.3</span> PDF生成エラー修正（finalDisposition→selectedDisposition）、ボタン補足文言削除</li>
+      <li><span class="tag">2.8.4</span> PDFデザイン刷新（細罫線・余白の1枚レイアウト）、html2canvas scale 2→1.7</li>
+      <li><span class="tag">2.8.5</span> <strong>Liquid Glass 全廃</strong>（backdrop-filter削除・光沢除去・背景単色・不透明化）</li>
+      <li><span class="tag">2.8.6</span> SSN/電話追加、生年月日→年齢自動計算、バイスタンダー新設、FAST→<strong>CPSS</strong>改名、作成者カード、PDF自動縮小で必ずレター1枚</li>
+      <li><span class="tag new">2.8.7</span> <strong>CPRフローチャートを表示専用化</strong>（クリックで色が変わる仕組み・タップ詳細パネルを削除、静的div化）／<strong>BUILD REPORT廃止</strong>→「📧 レポートをメールで送信（PDF化して送信）」ボタンに変更</li>
+    </ul>
+    <div class="note">関数 <code>toggleCprStep</code> と定数 <code>CPR_STEP_DETAILS</code> はソース上に残るが未使用（無害なデッドコード）。</div>
+  </div>
+
+  <div class="card">
+    <h2>重要なコード位置 (index.html, v2.8.7)</h2>
+    <table>
+      <tr><td>411</td><td>フラットテーマのコメント（Liquid Glass 撤去マーカー）</td></tr>
+      <tr><td>417</td><td><code>.cpr-flow-grid</code> 縦スタック／<code>.cpr-step</code> 表示専用(cursor:default)</td></tr>
+      <tr><td>459</td><td>タイトル <code>&lt;h1&gt;EMR Elite Navigator v2.8&lt;/h1&gt;</code></td></tr>
+      <tr><td>765–</td><td>CPRフローチャート（静的 div×6、矢印・詳細パネルなし）</td></tr>
+      <tr><td>828–</td><td><code>sec-demographics</code>（患者: Name/DOB→Age自動/SSN/Phone/Unit + バイスタンダー）</td></tr>
+      <tr><td>849</td><td><code>info-dob</code>（onchange=calcAge）／885–: バイスタンダー <code>by-*</code></td></tr>
+      <tr><td>1286</td><td>CPSS 見出し（旧 FAST Scale）</td></tr>
+      <tr><td>1670–</td><td><code>sec-equipment</code> ／ 1675–: <code>sec-report-author</code>（rep-unit/rep-name）</td></tr>
+      <tr><td>1702</td><td>「📧 レポートをメールで送信」ボタン（id=btn-build-report のまま）</td></tr>
+      <tr><td>4162</td><td><code>calcAge()</code></td></tr>
+      <tr><td>4212–</td><td><code>buildAutomationReport()</code>（テキストレポート）</td></tr>
+      <tr><td>4539–</td><td><code>buildStyledReportHtml()</code>（PDF用HTML）</td></tr>
+      <tr><td>4602–</td><td><code>_renderPDFBlob()</code>（1枚自動縮小）</td></tr>
+      <tr><td>4652–</td><td><code>buildReport(btn)</code>（PDF生成→Web Share/メール→失敗時DL）</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>デプロイ手順 (Mac)</h2>
+<pre><code>cd ~/Documents/EMR.EliteNavigator
+git add -A
+git commit -m "vX.X: 変更内容を記述"
+git push origin main</code></pre>
+    <div class="note"><strong>重要:</strong> コード変更時は <code>sw.js</code> の <code>CACHE_VERSION</code> を必ず変更（例 <code>...-9</code> → <code>...-10</code>）。忘れると古いキャッシュが残る。</div>
+    <p style="margin:10px 0 0">iPhone更新確認: アイコン長押し→Appを削除 → Safariでサイトを開く → 反映確認 → 共有→ホーム画面に追加。</p>
+  </div>
+
+  <div class="card">
+    <h2>既知の挙動・制約</h2>
+    <ul>
+      <li>音声は <code>.mp3 → .m4a → .wav → .ogg</code> 順フォールバック。<strong>ファイル不在時は live TTS</strong>。質問ボタン(ask-*)は事前録音なしで TTS 読み上げ（仕様）</li>
+      <li>iOS Speech API 対策: 90文字チャンク、anti-GC array、pause/resume keep-alive</li>
+      <li>PWAキャッシュ更新は <code>sw.js</code> の <code>CACHE_VERSION</code> 依存</li>
+      <li>CPRチャートは表示専用・音声なし。triage音声はファイル残るが未使用</li>
+      <li>メール送信は Web Share API 依存。非対応環境（PC等）は PDF ダウンロードにフォールバック</li>
+      <li><strong>SSN はマスクせず画面・PDFともそのまま表示</strong></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>残課題・改善候補</h2>
+    <ul>
+      <li>単独(Single)患者でも triage タグ番号入力できる選択肢</li>
+      <li>PDFにバイタル経時グラフ追加</li>
+      <li>多言語拡張（中国語/韓国語/スペイン語など）</li>
+      <li>ask-* 質問音声の事前録音化</li>
+      <li>SSN マスク表示オプション</li>
+      <li>未使用コード（toggleCprStep / CPR_STEP_DETAILS）の削除</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>連絡情報</h2>
+    <table>
+      <tr><td>ユーザー</td><td>HIDETO（hideto.shibuya@gmail.com）</td></tr>
+      <tr><td>GitHub</td><td>hidetoshibuya-sketch</td></tr>
+      <tr><td>git identity</td><td>"Hideto Shibuya" / hideto.shibuya@gmail.com（設定済み）</td></tr>
+      <tr><td>認証</td><td>PAT を Keychain に保存済み（push時プロンプトなし）</td></tr>
+    </table>
+  </div>
+</div>
+</body>
+</html>

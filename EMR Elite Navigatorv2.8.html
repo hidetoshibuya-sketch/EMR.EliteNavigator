@@ -189,7 +189,8 @@
         
         .other-input-container { background: #fffbeb; padding: 10px; border-radius: 8px; margin-bottom: 10px; display: none; border: 1px solid #fef3c7; }
 
-        .vital-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 1.02rem; background: white; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
+        .vital-table { width: 100%; min-width: 480px; border-collapse: collapse; margin-top: 0; font-size: 1.02rem; background: white; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
+        .vital-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 12px; border-radius: 8px; }
         .vital-table th, .vital-table td { border: 1px solid #e2e8f0; padding: 10px 8px; text-align: center; }
         .vital-table th { background: #f1f5f9; color: #1e3a8a; font-weight: 700; }
         .vital-table th .sub-lang { display: block; font-size: 0.88rem; color: #64748b; font-weight: 400; }
@@ -415,7 +416,7 @@
         .cpr-flow-head { background: #dc2626; color: #fff; padding: 8px 12px; border-radius: 8px; font-weight: 900; margin-bottom: 10px; }
         .cpr-flow-head span { font-size: 0.92rem; font-weight: 500; opacity: 0.94; }
         .cpr-flow-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
-        .cpr-step { border-radius: 14px; padding: 13px 14px; border: 1px solid #e2e8f0; background: #ffffff; text-align: left; width: 100%; cursor: default; box-shadow: none; }
+        .cpr-step { border-radius: 14px; padding: 13px 14px; border: 1px solid #e2e8f0; background: #ffffff; text-align: left; width: 100%; cursor: pointer; box-shadow: none; }
         .cpr-step b { display: block; font-size: 0.98rem; color: #0f172a; margin-bottom: 3px; }
         .cpr-step span { display: block; font-size: 0.9rem; line-height: 1.35; color: #334155; }
         .cpr-step em { display: block; margin-top: 4px; font-style: normal; font-size: 0.86rem; line-height: 1.35; color: #64748b; }
@@ -763,13 +764,14 @@
         <div class="cpr-flow-card">
             <div class="cpr-flow-head">① CPR Action Flowchart <span>(実施フローチャート)</span></div>
             <div class="cpr-flow-grid">
-                <div class="cpr-step critical"><b>1. Safety + Response</b><span>Scene safe, PPE, tap/shout. Infant: foot flick.</span><em>安全確認・PPE・反応確認。乳児は足底刺激。</em></div>
-                <div class="cpr-step critical"><b>2. Call + AED</b><span>Activate EMS, send for AED. If alone with child/infant: 2 min CPR first when unwitnessed.</span><em>119/AED要請。小児・乳児で単独かつ目撃なしは2分CPR後。</em></div>
-                <div class="cpr-step critical"><b>3. Breathing + Pulse ≤10 sec</b><span>Adult/child: carotid. Infant: brachial. No normal breathing or no pulse = CPR.</span><em>10秒以内。成人/小児は頸動脈、乳児は上腕動脈。正常呼吸なし/脈なしでCPR。</em></div>
-                <div class="cpr-step red"><b>4. Start Compressions</b><span>Rate 100-120/min. Full recoil. Minimize pauses under 10 sec.</span><em>100-120回/分。完全リコイル。中断10秒未満。</em></div>
-                <div class="cpr-step blue"><b>5. 30:2 or 15:2</b><span>Adult: 30:2. Child/infant: 30:2 one rescuer, 15:2 two rescuers.</span><em>成人30:2。小児/乳児は単独30:2、2人15:2。</em></div>
-                <div class="cpr-step green"><b>6. AED Analyze Every 2 min</b><span>Clear patient, shock if advised, resume CPR immediately.</span><em>2分毎解析。離れてショック、直ちにCPR再開。</em></div>
+                <div class="cpr-step critical" onclick="showCprNote('safety')"><b>1. Safety + Response</b><span>Scene safe, PPE, tap/shout. Infant: foot flick.</span><em>安全確認・PPE・反応確認。乳児は足底刺激。</em></div>
+                <div class="cpr-step critical" onclick="showCprNote('call-aed')"><b>2. Call + AED</b><span>Activate EMS, send for AED. If alone with child/infant: 2 min CPR first when unwitnessed.</span><em>119/AED要請。小児・乳児で単独かつ目撃なしは2分CPR後。</em></div>
+                <div class="cpr-step critical" onclick="showCprNote('pulse-breath')"><b>3. Breathing + Pulse ≤10 sec</b><span>Adult/child: carotid. Infant: brachial. No normal breathing or no pulse = CPR.</span><em>10秒以内。成人/小児は頸動脈、乳児は上腕動脈。正常呼吸なし/脈なしでCPR。</em></div>
+                <div class="cpr-step red" onclick="showCprNote('compressions')"><b>4. Start Compressions</b><span>Rate 100-120/min. Full recoil. Minimize pauses under 10 sec.</span><em>100-120回/分。完全リコイル。中断10秒未満。</em></div>
+                <div class="cpr-step blue" onclick="showCprNote('ventilation')"><b>5. 30:2 or 15:2</b><span>Adult: 30:2. Child/infant: 30:2 one rescuer, 15:2 two rescuers.</span><em>成人30:2。小児/乳児は単独30:2、2人15:2。</em></div>
+                <div class="cpr-step green" onclick="showCprNote('aed-cycle')"><b>6. AED Analyze Every 2 min</b><span>Clear patient, shock if advised, resume CPR immediately.</span><em>2分毎解析。離れてショック、直ちにCPR再開。</em></div>
             </div>
+            <div id="cpr-step-detail" class="cpr-step-detail">Tap a step for detailed operational notes. <span>各ステップをタップすると詳細な注意事項を表示します。</span></div>
             <div class="cpr-protocol-grid">
                 <div class="cpr-protocol red"><h4>Adult / 成人</h4><p><b>Hands:</b> two hands on lower half of sternum. <b>Depth:</b> 5-6 cm. <b>Ratio:</b> 30:2. <b>Airway:</b> BVM with O2, 1 sec breath to visible chest rise.</p><p>両手を胸骨下半分へ。深さ5-6cm。比率30:2。BVM+酸素で胸が上がる程度に1秒換気。</p></div>
                 <div class="cpr-protocol amber"><h4>Child / 小児</h4><p><b>Hands:</b> one or two hands. <b>Depth:</b> about 5 cm or 1/3 chest depth. <b>Ratio:</b> 30:2 one rescuer, 15:2 two rescuers. Use pediatric AED pads if available.</p><p>片手または両手。深さ約5cm/胸郭1/3。単独30:2、2人15:2。小児用AEDパッドを優先。</p></div>
@@ -1029,7 +1031,7 @@
             ⏰ Tap <strong>NOW</strong> for current time. Up/Down arrows or direct typing finalizes the value.
             <span class="sub-lang" style="display:block; margin-top:2px;">(NOWで現在時刻入力。▲▼または直接入力で確定して文字が濃くなります)</span>
         </div>
-        <table class="vital-table" id="trauma-vitals-table">
+        <div class="vital-scroll"><table class="vital-table" id="trauma-vitals-table">
             <thead>
                 <tr>
                     <th>#</th>
@@ -1042,7 +1044,7 @@
                 </tr>
             </thead>
             <tbody id="trauma-vitals-tbody"></tbody>
-        </table>
+        </table></div>
         <button class="btn-save" style="width:100%; margin-top:8px; background-color:var(--secondary);" onclick="saveTraumaVitals()">Save All 5 Vital Sets <span style="font-size:0.92rem; font-weight:400;">(全バイタルを保存)</span></button>
         <div id="trauma-oxygen-advisory" class="guide-box alert-box hidden" style="margin-top:8px;">
             ⚠️ <strong>O₂ Administration Recommended <span class="sub-lang">(酸素投与を推奨)</span></strong>
@@ -1240,7 +1242,7 @@
             ⏰ Tap <strong>NOW</strong> for current time. Up/Down arrows or direct typing finalizes the value (text turns dark).
             <span class="sub-lang" style="display:block; margin-top:2px;">(NOWで現在時刻入力。▲▼または直接入力で確定して文字が濃くなります)</span>
         </div>
-        <table class="vital-table" id="vitals-table-5x">
+        <div class="vital-scroll"><table class="vital-table" id="vitals-table-5x">
             <thead>
                 <tr>
                     <th>#</th>
@@ -1253,7 +1255,7 @@
                 </tr>
             </thead>
             <tbody id="vitals-tbody"></tbody>
-        </table>
+        </table></div>
         <button class="btn-save" style="width:100%; margin-top:8px; background-color:var(--secondary);" onclick="saveMedicalVitals()">Save All 5 Vital Sets <span style="font-size:0.92rem; font-weight:400;">(全バイタルを保存)</span></button>
 
         <!-- ───── Ongoing Reassessment (moved here under Vital Signs) ───── -->
@@ -1686,7 +1688,7 @@
     </div>
 
     <div class="card">
-        <h2>📋 Assessment Activity Log & Handoff Report</h2>
+        <h2>Assessment Activity Log & Handoff Report</h2>
         <textarea id="log-area" readonly placeholder="活動履歴、および自動レポートがここに自動生成されます..."></textarea>
 
         <!-- Visual handoff preview (body map for trauma) -->
@@ -1699,7 +1701,7 @@
         </div>
 
         <div class="export-btn-group">
-            <button id="btn-build-report" class="btn-email-act" onclick="buildReport(this)">📧 レポートをメールで送信 <span style="font-size:0.92rem; font-weight:400; display:block;">(PDF化して送信 / Email this report as PDF)</span></button>
+            <button id="btn-build-report" class="btn-email-act" onclick="buildReport(this)">レポートをメールで送信 <span style="font-size:0.92rem; font-weight:400; display:block;">(PDF化して送信 / Email this report as PDF)</span></button>
         </div>
     </div>
 
@@ -3582,6 +3584,10 @@
             'aed-cycle': '<b>AED cycle:</b> Stop touching during analysis. If shock advised, clear loudly, shock, and immediately resume CPR for 2 minutes. Keep pads attached after ROSC.<span>AEDサイクル: 解析中は接触禁止。ショック適応なら離脱確認、ショック、直ちに2分CPR再開。ROSC後もパッド装着継続。</span>'
         };
 
+        function showCprNote(key) {
+            const detail = document.getElementById('cpr-step-detail');
+            if (detail) detail.innerHTML = CPR_STEP_DETAILS[key] || '';
+        }
         function toggleCprStep(btn, key) {
             btn.classList.toggle('done');
             const detail = document.getElementById('cpr-step-detail');
@@ -4237,7 +4243,7 @@
                 return ' '.repeat(pad) + t;
             };
             const sectionHdr = (icon, en, ja) => {
-                return `\n┏${heavyLine()}┓\n┃ ${icon}  ${en}\n┃    ${ja}\n┗${heavyLine()}┛\n`;
+                return `\n┏${heavyLine()}┓\n┃ ${en}\n┃ ${ja}\n┗${heavyLine()}┛\n`;
             };
             const kv = (label, val) => `  ▸ ${label.padEnd(22)} ${val}`;
             const sub = (txt) => `       ${txt}`;
@@ -4245,7 +4251,7 @@
             // ── Header ──
             let report = '';
             report += doubLine() + '\n';
-            report += center('🚑  E M R   E L I T E   N A V I G A T O R') + '\n';
+            report += center('E M R   E L I T E   N A V I G A T O R') + '\n';
             report += center('Professional Assessment Report') + '\n';
             report += doubLine() + '\n';
             report += `  Report ID  : EMR-${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2,'0')}${now.getDate().toString().padStart(2,'0')}-${now.getHours().toString().padStart(2,'0')}${now.getMinutes().toString().padStart(2,'0')}${now.getSeconds().toString().padStart(2,'0')}\n`;
@@ -4283,8 +4289,8 @@
             // ── Section 2: Primary Survey ──
             report += sectionHdr('⚡', 'PRIMARY SURVEY', '初期評価・重要状態');
             report += kv('ABC Status',           activeAbcStatus || 'Stable / Completed') + '\n';
-            report += kv('Major Bleeding',       isBleedingActive ? '⚠ YES — 大出血あり' : 'NO') + '\n';
-            report += kv('Shock Signs',          isShockActive ? '⚠ PRESENT — ショック徴候あり' : 'NONE') + '\n';
+            report += kv('Major Bleeding',       isBleedingActive ? 'YES — 大出血あり' : 'NO') + '\n';
+            report += kv('Shock Signs',          isShockActive ? 'PRESENT — ショック徴候あり' : 'NONE') + '\n';
             report += kv('Chief Complaints',     selectedCC.length ? '' : '— None selected —') + '\n';
             if (selectedCC.length) {
                 selectedCC.forEach(c => { report += sub('• ' + c) + '\n'; });
@@ -4300,9 +4306,9 @@
                 report += kv('S — Severity',     document.getElementById('input-S_OP').value || '—') + '\n';
                 report += kv('T — Time',         document.getElementById('input-T').value || '—') + '\n';
                 report += '  ' + line() + '\n';
-                report += kv('CPSS — Face Droop', fastScaleResults.F + (fastScaleResults.F==='Abnormal'?' ⚠':'')) + '\n';
-                report += kv('CPSS — Arm Drift',  fastScaleResults.A + (fastScaleResults.A==='Abnormal'?' ⚠':'')) + '\n';
-                report += kv('CPSS — Speech',     fastScaleResults.S + (fastScaleResults.S==='Abnormal'?' ⚠':'')) + '\n';
+                report += kv('CPSS — Face Droop', fastScaleResults.F + (fastScaleResults.F==='Abnormal'?'':'')) + '\n';
+                report += kv('CPSS — Arm Drift',  fastScaleResults.A + (fastScaleResults.A==='Abnormal'?'':'')) + '\n';
+                report += kv('CPSS — Speech',     fastScaleResults.S + (fastScaleResults.S==='Abnormal'?'':'')) + '\n';
 
                 // Vitals summary
                 report += sectionHdr('📊', 'VITAL SIGNS LOG (×5)', 'バイタル測定記録');
@@ -4536,6 +4542,17 @@
             BODY_REGIONS.forEach(reg => { const set = regionFindings[reg.id]; if (set && set.size > 0) out.push(reg.en + ': ' + Array.from(set).slice(0, 4).join('/')); });
             return out.slice(0, limit).join(' | ') || 'No DCAP-BTLS findings recorded';
         }
+        function buildTextReportHtml() {
+            buildAutomationReport();
+            const reportText = document.getElementById('log-area').value || '';
+            const esc = (t) => String(t).replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+            let html = '<!DOCTYPE html><html><head><meta charset="utf-8"><style>';
+            html += 'html,body{margin:0;padding:0}*{box-sizing:border-box}body{background:#fff}';
+            html += '.sheet{width:816px;min-height:1056px;padding:40px 44px;background:#fff}';
+            html += 'pre{margin:0;white-space:pre-wrap;word-break:break-word;font-family:"SFMono-Regular",Menlo,Consolas,"Courier New",monospace;font-size:11px;line-height:1.45;color:#0f172a}';
+            html += '</style></head><body><div class="sheet"><pre>' + esc(reportText) + '</pre></div></body></html>';
+            return html;
+        }
         function buildStyledReportHtml() {
             buildAutomationReport();
             const pName = cleanReportValue(document.getElementById('info-name').value, 'Unconfirmed');
@@ -4601,7 +4618,7 @@
         // and embed page by page into a jsPDF document. Returns a Promise resolving to a Blob.
         async function _renderPDFBlob() {
             buildAutomationReport();   // refresh underlying text + visual
-            const html = buildStyledReportHtml();
+            const html = buildTextReportHtml();
 
             // Create offscreen container
             const cont = document.createElement('div');
@@ -4655,7 +4672,7 @@
             btn = btn || document.getElementById('btn-build-report');
             const origHTML = btn ? btn.innerHTML : '';
             try {
-                if (btn) { btn.disabled = true; btn.innerHTML = '⏳ PDF作成中… / Generating…'; }
+                if (btn) { btn.disabled = true; btn.innerHTML = 'PDF作成中… / Generating…'; }
 
                 // 1. Refresh the underlying report text + visual body map
                 try { buildAutomationReport(); } catch (e) { console.warn('buildAutomationReport warning:', e); }
@@ -4713,7 +4730,7 @@
                 console.error('buildReport error:', e);
                 alert('レポート生成エラー / Report generation failed:\n' + (e?.message || e));
             } finally {
-                if (btn) { btn.disabled = false; btn.innerHTML = origHTML || '📧 レポートをメールで送信'; }
+                if (btn) { btn.disabled = false; btn.innerHTML = origHTML || 'レポートをメールで送信'; }
             }
         }
 
