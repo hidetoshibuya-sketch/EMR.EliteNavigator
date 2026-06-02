@@ -21,9 +21,9 @@
     <title>EMR Elite Assessment & Protocols Navigator</title>
     <style>
         :root {
-            --bg-gradient: linear-gradient(145deg, #eaf2ff 0%, #f7fbff 42%, #e9f7f4 100%);
-            --card-bg: rgba(255, 255, 255, 0.58);
-            --card-border: rgba(255, 255, 255, 0.72);
+            --bg-gradient: #eef2f7;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
             --glass-highlight: rgba(255, 255, 255, 0.82);
             --glass-lowlight: rgba(15, 23, 42, 0.08);
             --text-main: #122033;
@@ -35,9 +35,9 @@
             --accent-light: rgba(227, 61, 84, 0.1);
             --success: #10a875;
             --warning: #d59b11;
-            --input-bg: rgba(255, 255, 255, 0.62);
-            --shadow: 0 18px 48px rgba(22, 48, 79, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.75);
-            --glass-blur: blur(22px) saturate(160%);
+            --input-bg: #ffffff;
+            --shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+            --glass-blur: none;
         }
 
         body {
@@ -57,19 +57,17 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-            background: linear-gradient(115deg, rgba(255,255,255,0.62), rgba(255,255,255,0.05) 38%, rgba(22,119,255,0.08) 68%, rgba(16,168,117,0.1));
-            mix-blend-mode: screen;
+            background: none;
         }
         h1 {
             text-align: center; color: #1e3a8a; font-size: 2.4rem; margin: 0 0 28px; font-weight: 800;
             letter-spacing: 0.5px; border-bottom: 6px solid var(--primary); padding-bottom: 16px;
         }
         h2 {
-            font-size: 1.55rem; background: rgba(22, 119, 255, 0.78); color: white;
+            font-size: 1.55rem; background: #2563eb; color: white;
             padding: 18px 22px; border-radius: 14px; margin-top: 0; margin-bottom: 18px; font-weight: 700;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 12px 28px rgba(22,119,255,0.24);
-            backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%);
-            border: 1px solid rgba(255,255,255,0.34);
+            box-shadow: none;
+            border: none;
         }
         h2 .sub-lang { display: block; font-size: 1.05rem; font-weight: 400; color: #bfdbfe; margin-top: 5px; }
         h3 {
@@ -82,12 +80,11 @@
             position: relative; overflow: hidden;
             background: var(--card-bg); border-radius: 18px; padding: 24px; box-shadow: var(--shadow);
             margin-bottom: 24px; border: 1px solid var(--card-border);
-            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
         }
         .card::before {
             content: ""; position: absolute; inset: 0; pointer-events: none;
-            background: linear-gradient(145deg, rgba(255,255,255,0.74), rgba(255,255,255,0.18) 42%, rgba(255,255,255,0.04));
-            opacity: 0.72;
+            background: none;
+            opacity: 0;
         }
         .card > * { position: relative; z-index: 1; }
         .check-item {
@@ -104,12 +101,12 @@
         }
         button:active { transform: translateY(1px); }
 
-        .btn-ok { background: rgba(255,255,255,0.55); color: var(--text-main); min-width: 110px; border: 1px solid rgba(255,255,255,0.7); backdrop-filter: blur(12px) saturate(140%); -webkit-backdrop-filter: blur(12px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 6px 14px rgba(22,48,79,0.08); }
+        .btn-ok { background: #ffffff; color: var(--text-main); min-width: 110px; border: 1px solid #cbd5e1; box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 6px 14px rgba(22,48,79,0.08); }
         .btn-ok.active { background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%); color: white; border-color: transparent; box-shadow: 0 10px 24px rgba(16,163,74,0.32); }
-        .btn-danger-toggle { background: rgba(255,255,255,0.55); color: var(--text-main); min-width: 110px; border: 1px solid rgba(255,255,255,0.7); backdrop-filter: blur(12px) saturate(140%); -webkit-backdrop-filter: blur(12px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 6px 14px rgba(22,48,79,0.08); }
+        .btn-danger-toggle { background: #ffffff; color: var(--text-main); min-width: 110px; border: 1px solid #cbd5e1; box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 6px 14px rgba(22,48,79,0.08); }
         .btn-danger-toggle.active { background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); color: white; border-color: transparent; box-shadow: 0 10px 24px rgba(220,38,38,0.32); }
 
-        .btn-branch { width: 49%; padding: 20px 16px; font-size: 1.22rem; border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.55); color: #1e3a8a; min-height: 64px; backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.78), 0 8px 18px rgba(22,48,79,0.1); }
+        .btn-branch { width: 49%; padding: 20px 16px; font-size: 1.22rem; border: 1px solid #cbd5e1; background: #ffffff; color: #1e3a8a; min-height: 64px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.78), 0 8px 18px rgba(22,48,79,0.1); }
         .btn-branch.active { background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); color: white; font-weight: 800; border-color: transparent; box-shadow: 0 10px 24px rgba(37,99,235,0.34); }
 
         .btn-audio {
@@ -129,10 +126,9 @@
 
         .chip-group { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
         .chip {
-            background: rgba(255,255,255,0.55); color: var(--text-main); padding: 14px 20px; border-radius: 26px;
-            font-size: 1.1rem; cursor: pointer; border: 1px solid rgba(255,255,255,0.7); font-weight: 600; line-height: 1.45;
+            background: #ffffff; color: var(--text-main); padding: 14px 20px; border-radius: 26px;
+            font-size: 1.1rem; cursor: pointer; border: 1px solid #cbd5e1; font-weight: 600; line-height: 1.45;
             min-height: 52px; display: inline-flex; flex-direction: column; justify-content: center;
-            backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.78), 0 6px 14px rgba(22,48,79,0.08);
             transition: all 0.18s ease;
         }
@@ -187,7 +183,7 @@
         .dots-btn.active { background: var(--accent); color: white; border-color: transparent; }
 
         .input-flex { display: flex; gap: 12px; margin-bottom: 14px; }
-        .input-text { flex: 1; padding: 16px 18px; border: 1px solid rgba(255,255,255,0.7); border-radius: 12px; font-size: 1.15rem; background: var(--input-bg); color: var(--text-main); transition: border-color 0.15s, box-shadow 0.15s; min-height: 56px; backdrop-filter: blur(10px) saturate(140%); -webkit-backdrop-filter: blur(10px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.62), 0 4px 12px rgba(22,48,79,0.06); }
+        .input-text { flex: 1; padding: 16px 18px; border: 1px solid #cbd5e1; border-radius: 12px; font-size: 1.15rem; background: var(--input-bg); color: var(--text-main); transition: border-color 0.15s, box-shadow 0.15s; min-height: 56px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.62), 0 4px 12px rgba(22,48,79,0.06); }
         .input-text:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(37,99,235,0.15); }
         .btn-save { background: linear-gradient(135deg, #5266d8 0%, #6c7ff0 100%); color: white; padding: 14px 26px; border-radius: 10px; font-size: 1.1rem; font-weight: 700; min-width: 100px; box-shadow: 0 8px 20px rgba(82,102,216,0.32), inset 0 1px 0 rgba(255,255,255,0.32); }
         
@@ -382,24 +378,21 @@
             .card { padding: 26px; }
         }
 
-        button, .chip, .switch-container, .input-text, textarea, .vital-table, .equip-item, .guide-box, .care-protocol-box, .branch-point, .result-node {
-            backdrop-filter: blur(16px) saturate(150%); -webkit-backdrop-filter: blur(16px) saturate(150%);
-        }
         .btn-ok, .btn-danger-toggle, .btn-branch, .chip, .dots-btn, .equip-item, .input-text, textarea {
-            background-color: rgba(255,255,255,0.48); border-color: rgba(255,255,255,0.72);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 8px 20px rgba(15,23,42,0.08);
+            background-color: #ffffff; border-color: #cbd5e1;
+            box-shadow: none;
         }
         .btn-ok.active, .btn-branch.active, .chip.active {
-            background: linear-gradient(135deg, rgba(22,119,255,0.92), rgba(82,102,216,0.88));
+            background: #2563eb;
         }
-        .btn-danger-toggle.active { background: linear-gradient(135deg, rgba(227,61,84,0.94), rgba(239,68,68,0.9)); }
-        .btn-ok.active, .chip.cc-chip.active { background: linear-gradient(135deg, rgba(16,168,117,0.94), rgba(34,197,94,0.88)); color: white; }
+        .btn-danger-toggle.active { background: #dc2626; }
+        .btn-ok.active, .chip.cc-chip.active { background: #16a34a; color: white; }
         .chip.cc-chip.active .sub-lang { color: rgba(220,252,231,0.94); }
         .btn-audio {
-            background: rgba(255,255,255,0.48); border-color: rgba(22,119,255,0.28); border-left-color: rgba(22,119,255,0.82);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.74), 0 10px 24px rgba(22,48,79,0.1);
+            background: #eff6ff; border-color: #bfdbfe; border-left-color: var(--primary);
+            box-shadow: none;
         }
-        .triage-tag-panel { display: none; gap: 10px; align-items: center; flex-wrap: wrap; margin: 0 0 14px; padding: 12px; border-radius: 14px; background: rgba(255,255,255,0.46); border: 1px solid rgba(255,255,255,0.68); box-shadow: inset 0 1px 0 rgba(255,255,255,0.75); }
+        .triage-tag-panel { display: none; gap: 10px; align-items: center; flex-wrap: wrap; margin: 0 0 14px; padding: 12px; border-radius: 14px; background: #f8fafc; border: 1px solid #cbd5e1; box-shadow: none; }
         .triage-tag-panel.visible { display: flex; }
         .triage-tag-panel label { font-weight: 800; color: #12315a; }
         .triage-tag-panel input { max-width: 180px; }
@@ -415,18 +408,20 @@
         }
         .branch-point .btn-branch.active, .branch-point .btn-main-act.active { box-shadow: 0 0 0 3px rgba(22,119,255,0.25), inset 0 1px 0 rgba(255,255,255,0.55); }
 
+        /* Flat opaque theme — Liquid Glass (blur + translucent surfaces) removed. */
 
-        .cpr-flow-card { background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.7); border-radius: 18px; padding: 14px; margin-bottom: 14px; backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); box-shadow: 0 18px 44px rgba(220,38,38,0.18), inset 0 1px 0 rgba(255,255,255,0.78); }
+
+        .cpr-flow-card { background: #ffffff; border: 1px solid #fecaca; border-radius: 18px; padding: 14px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(15,23,42,0.08); }
         .cpr-flow-head { background: #dc2626; color: #fff; padding: 8px 12px; border-radius: 8px; font-weight: 900; margin-bottom: 10px; }
         .cpr-flow-head span { font-size: 0.92rem; font-weight: 500; opacity: 0.94; }
         .cpr-flow-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
-        .cpr-step { border-radius: 14px; padding: 13px 14px; border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.62); text-align: left; width: 100%; cursor: pointer; backdrop-filter: blur(12px) saturate(140%); -webkit-backdrop-filter: blur(12px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.74), 0 8px 18px rgba(22,48,79,0.08); transition: all 0.18s ease; }
+        .cpr-step { border-radius: 14px; padding: 13px 14px; border: 1px solid #e2e8f0; background: #ffffff; text-align: left; width: 100%; cursor: pointer; box-shadow: none; transition: all 0.18s ease; }
         .cpr-step b { display: block; font-size: 0.98rem; color: #0f172a; margin-bottom: 3px; }
         .cpr-step span { display: block; font-size: 0.9rem; line-height: 1.35; color: #334155; }
         .cpr-step em { display: block; margin-top: 4px; font-style: normal; font-size: 0.86rem; line-height: 1.35; color: #64748b; }
         .cpr-step.done { background: linear-gradient(135deg, rgba(22,163,74,0.92) 0%, rgba(34,197,94,0.92) 100%); border-color: transparent; box-shadow: 0 0 0 3px rgba(22,163,74,0.32), 0 12px 26px rgba(16,89,46,0.28); color: #fff; }
         .cpr-step.done b, .cpr-step.done span, .cpr-step.done em { color: #fff !important; }
-        .cpr-step-detail { margin-top: 10px; padding: 13px 14px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.7); background: rgba(239,246,255,0.65); color: #12315a; font-size: 0.98rem; line-height: 1.5; font-weight: 650; backdrop-filter: blur(12px) saturate(140%); -webkit-backdrop-filter: blur(12px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.74); }
+        .cpr-step-detail { margin-top: 10px; padding: 13px 14px; border-radius: 14px; border: 1px solid #bfdbfe; background: #eff6ff; color: #12315a; font-size: 0.98rem; line-height: 1.5; font-weight: 650; box-shadow: none; }
         .cpr-step-detail span { display: block; margin-top: 4px; color: #475569; font-weight: 500; }
         .cpr-step.critical { border-left: 5px solid #991b1b; }
         .cpr-step.red { border-left: 5px solid #dc2626; }
@@ -854,10 +849,30 @@
 
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
-                <span style="font-size:0.98rem; font-weight:bold;">Age <span style="font-weight:normal; color:var(--text-sub);">(年齢)</span></span>
-                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="playAudio('ask-age', 'How old are you?')">🔊 Ask Age</button>
+                <span style="font-size:0.98rem; font-weight:bold;">Date of Birth <span style="font-weight:normal; color:var(--text-sub);">(生年月日)</span></span>
+                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="playAudio('ask-dob', 'What is your date of birth? Month, day, and year please.')">🔊 Ask DOB</button>
             </div>
-            <input type="text" id="info-age" class="input-text" style="width:100%; box-sizing:border-box;" placeholder="e.g. 28">
+            <input type="date" id="info-dob" class="input-text" style="width:100%; box-sizing:border-box;" onchange="calcAge('info-dob','info-age')">
+            <div style="display:flex; align-items:center; gap:10px; margin-top:8px;">
+                <span style="font-size:0.98rem; font-weight:bold; white-space:nowrap;">Age <span style="font-weight:normal; color:var(--text-sub);">(年齢)</span></span>
+                <input type="text" id="info-age" class="input-text" readonly style="flex:1; box-sizing:border-box; background:#f1f5f9;" placeholder="auto / 自動計算">
+            </div>
+        </div>
+
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+                <span style="font-size:0.98rem; font-weight:bold;">SSN <span style="font-weight:normal; color:var(--text-sub);">(社会保障番号)</span></span>
+                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="playAudio('ask-ssn', 'What is your Social Security Number?')">🔊 Ask SSN</button>
+            </div>
+            <input type="text" id="info-ssn" class="input-text" style="width:100%; box-sizing:border-box;" placeholder="e.g. 123-45-6789" inputmode="numeric" autocomplete="off">
+        </div>
+
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+                <span style="font-size:0.98rem; font-weight:bold;">Phone <span style="font-weight:normal; color:var(--text-sub);">(電話番号)</span></span>
+                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="playAudio('ask-phone', 'What is your phone number?')">🔊 Ask Phone</button>
+            </div>
+            <input type="tel" id="info-phone" class="input-text" style="width:100%; box-sizing:border-box;" placeholder="e.g. 090-1234-5678" inputmode="tel" autocomplete="off">
         </div>
 
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
@@ -869,6 +884,29 @@
         </div>
 
         <button class="btn-save" style="width:100%; background:var(--primary);" onclick="saveDemographics()">Save Demographics <span style="font-size:0.92rem; font-weight:400;">(個人情報を記録)</span></button>
+
+        <h3 style="margin-top:24px;">Bystander / Witness <span class="sub-lang">(バイスタンダー・関係者)</span></h3>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <span style="font-size:0.98rem; font-weight:bold;">Name <span style="font-weight:normal; color:var(--text-sub);">(氏名)</span></span>
+            <input type="text" id="by-name" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. Jane Doe">
+        </div>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <span style="font-size:0.98rem; font-weight:bold;">Date of Birth <span style="font-weight:normal; color:var(--text-sub);">(生年月日)</span></span>
+            <input type="date" id="by-dob" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" onchange="calcAge('by-dob','by-age')">
+            <div style="display:flex; align-items:center; gap:10px; margin-top:8px;">
+                <span style="font-size:0.98rem; font-weight:bold; white-space:nowrap;">Age <span style="font-weight:normal; color:var(--text-sub);">(年齢)</span></span>
+                <input type="text" id="by-age" class="input-text" readonly style="flex:1; box-sizing:border-box; background:#f1f5f9;" placeholder="auto / 自動計算">
+            </div>
+        </div>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <span style="font-size:0.98rem; font-weight:bold;">SSN <span style="font-weight:normal; color:var(--text-sub);">(社会保障番号)</span></span>
+            <input type="text" id="by-ssn" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. 123-45-6789" inputmode="numeric" autocomplete="off">
+        </div>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <span style="font-size:0.98rem; font-weight:bold;">Phone <span style="font-weight:normal; color:var(--text-sub);">(電話番号)</span></span>
+            <input type="tel" id="by-phone" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. 090-1234-5678" inputmode="tel" autocomplete="off">
+        </div>
+        <button class="btn-save" style="width:100%; background:var(--secondary);" onclick="saveBystander()">Save Bystander <span style="font-size:0.92rem; font-weight:400;">(バイスタンダー情報を記録)</span></button>
     </div>
 
     <div class="card hidden" id="sec-trauma-flow">
@@ -1251,7 +1289,7 @@
             <div id="reassess-status" style="margin-top:8px; display:none; padding:8px; background:#fff; border:1px solid #6366f1; border-radius:6px; font-size:1rem; text-align:center;"></div>
         </div>
 
-        <h3 style="margin-top:18px; color:#c2410c;">🧠 Stroke Assessment: FAST Scale <span class="sub-lang">(脳卒中特化 FAST評価)</span></h3>
+        <h3 style="margin-top:18px; color:#c2410c;">🧠 Stroke Assessment: CPSS <span class="sub-lang">(脳卒中評価・シンシナティ病院前脳卒中スケール)</span></h3>
         <div style="background:#fff7ed; padding:10px; border-radius:8px; border:1px solid #ffedd5;">
             
             <div class="check-item" style="background:transparent; flex-direction:column; align-items:flex-start; gap:4px;">
@@ -1640,6 +1678,19 @@
         <div class="equip-grid" id="equip-container"></div>
     </div>
 
+    <div class="card" id="sec-report-author">
+        <h2>Report Author <span class="sub-lang">(レポート作成者情報)</span></h2>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <span style="font-size:0.98rem; font-weight:bold;">Unit <span style="font-weight:normal; color:var(--text-sub);">(所属・部隊)</span></span>
+            <input type="text" id="rep-unit" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. Yokosuka Fire Dept. Engine 1">
+        </div>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <span style="font-size:0.98rem; font-weight:bold;">Name <span style="font-weight:normal; color:var(--text-sub);">(氏名)</span></span>
+            <input type="text" id="rep-name" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. Hideto Shibuya">
+        </div>
+        <button class="btn-save" style="width:100%; background:var(--primary);" onclick="saveReportAuthor()">Save Author <span style="font-size:0.92rem; font-weight:400;">(作成者情報を記録)</span></button>
+    </div>
+
     <div class="card">
         <h2>📋 Assessment Activity Log & Handoff Report</h2>
         <textarea id="log-area" readonly placeholder="活動履歴、および自動レポートがここに自動生成されます..."></textarea>
@@ -1654,7 +1705,7 @@
         </div>
 
         <div class="export-btn-group">
-            <button id="btn-build-report" class="btn-main-act" style="background:linear-gradient(135deg, #dc2626 0%, #ef4444 100%);" onclick="buildReport(this)">📄 BUILD REPORT <span style="font-size:0.98rem; font-weight:400; display:block;">(レポート生成 → PDF ダウンロード)</span></button>
+            <button id="btn-build-report" class="btn-main-act" style="background:linear-gradient(135deg, #dc2626 0%, #ef4444 100%);" onclick="buildReport(this)">📄 BUILD REPORT</button>
         </div>
     </div>
 
@@ -4114,10 +4165,32 @@
             return out;
         }
 
+        function calcAge(dobId, ageId) {
+            const dobEl = document.getElementById(dobId), ageEl = document.getElementById(ageId);
+            if (!dobEl || !ageEl) return;
+            const v = dobEl.value;
+            if (!v) { ageEl.value = ''; return; }
+            const d = new Date(v); if (isNaN(d.getTime())) { ageEl.value = ''; return; }
+            const now = new Date();
+            let age = now.getFullYear() - d.getFullYear();
+            const m = now.getMonth() - d.getMonth();
+            if (m < 0 || (m === 0 && now.getDate() < d.getDate())) age--;
+            ageEl.value = (age >= 0 && age < 150) ? String(age) : '';
+        }
         function saveDemographics() {
-            const name = document.getElementById('info-name').value; const age = document.getElementById('info-age').value; const unit = document.getElementById('info-unit').value;
-            logAction('Demographics', `Name: ${name || 'N/A'}, Age: ${age || 'N/A'}, Unit: ${unit || 'N/A'}`);
+            const name = document.getElementById('info-name').value; const dob = document.getElementById('info-dob').value; const age = document.getElementById('info-age').value; const unit = document.getElementById('info-unit').value; const ssn = document.getElementById('info-ssn').value; const phone = document.getElementById('info-phone').value;
+            logAction('Demographics', `Name: ${name || 'N/A'}, DOB: ${dob || 'N/A'}, Age: ${age || 'N/A'}, SSN: ${ssn || 'N/A'}, Phone: ${phone || 'N/A'}, Unit: ${unit || 'N/A'}`);
             alert("Demographics data successfully recorded.");
+        }
+        function saveBystander() {
+            const n = document.getElementById('by-name').value, a = document.getElementById('by-age').value, s = document.getElementById('by-ssn').value, p = document.getElementById('by-phone').value;
+            logAction('Bystander', `Name: ${n || 'N/A'}, Age: ${a || 'N/A'}, SSN: ${s || 'N/A'}, Phone: ${p || 'N/A'}`);
+            alert("Bystander information recorded.");
+        }
+        function saveReportAuthor() {
+            const u = document.getElementById('rep-unit').value, n = document.getElementById('rep-name').value;
+            logAction('Report Author', `Unit: ${u || 'N/A'}, Name: ${n || 'N/A'}`);
+            alert("Report author recorded.");
         }
 
         let selectedDisposition = '';
@@ -4146,6 +4219,16 @@
             const pName = document.getElementById('info-name').value || '— Unconfirmed / 未確認 —';
             const pAge  = document.getElementById('info-age').value  || 'N/A';
             const pUnit = document.getElementById('info-unit').value || 'N/A';
+            const pDob  = document.getElementById('info-dob').value  || 'N/A';
+            const pSsn  = document.getElementById('info-ssn').value  || 'N/A';
+            const pPhone= document.getElementById('info-phone').value|| 'N/A';
+            const byName = document.getElementById('by-name').value || 'N/A';
+            const byDob  = document.getElementById('by-dob').value  || 'N/A';
+            const byAge  = document.getElementById('by-age').value  || 'N/A';
+            const bySsn  = document.getElementById('by-ssn').value  || 'N/A';
+            const byPhone= document.getElementById('by-phone').value|| 'N/A';
+            const repUnit = document.getElementById('rep-unit').value || 'N/A';
+            const repName = document.getElementById('rep-name').value || 'N/A';
             const now   = new Date();
 
             let finalDisposition = selectedDisposition || '— Undecided —';
@@ -4175,12 +4258,24 @@
             report += `  Generated  : ${now.toLocaleString()}\n`;
             report += `  Type       : ${currentFlowType === 'trauma' ? 'TRAUMA (外傷)' : currentFlowType === 'medical' ? 'MEDICAL (急病)' : 'PENDING'}\n`;
             if (patientCountMode) report += `  Patients   : ${patientCountMode}${triageTagNumber ? ' / Triage Tag No. ' + triageTagNumber : ''}\n`;
+            report += `  Recorded by: ${repUnit} / ${repName}\n`;
 
             // ── Section 1: Demographics ──
             report += sectionHdr('👤', 'PATIENT DEMOGRAPHICS', '傷病者情報');
             report += kv('Name / 氏名',          pName) + '\n';
+            report += kv('Date of Birth / 生年月日', pDob) + '\n';
             report += kv('Age / 年齢',           pAge) + '\n';
+            report += kv('SSN / 社会保障番号',    pSsn) + '\n';
+            report += kv('Phone / 電話番号',      pPhone) + '\n';
             report += kv('Unit-Command / 所属',  pUnit) + '\n';
+
+            // ── Bystander ──
+            report += sectionHdr('🧍', 'BYSTANDER / WITNESS', 'バイスタンダー・関係者');
+            report += kv('Name / 氏名',          byName) + '\n';
+            report += kv('Date of Birth / 生年月日', byDob) + '\n';
+            report += kv('Age / 年齢',           byAge) + '\n';
+            report += kv('SSN / 社会保障番号',    bySsn) + '\n';
+            report += kv('Phone / 電話番号',      byPhone) + '\n';
 
             // ── Section: Initial Discovery ──
             if (selectedInitialFindings.length || initialManualNotes.length) {
@@ -4211,9 +4306,9 @@
                 report += kv('S — Severity',     document.getElementById('input-S_OP').value || '—') + '\n';
                 report += kv('T — Time',         document.getElementById('input-T').value || '—') + '\n';
                 report += '  ' + line() + '\n';
-                report += kv('FAST — Face Droop', fastScaleResults.F + (fastScaleResults.F==='Abnormal'?' ⚠':'')) + '\n';
-                report += kv('FAST — Arm Drift',  fastScaleResults.A + (fastScaleResults.A==='Abnormal'?' ⚠':'')) + '\n';
-                report += kv('FAST — Speech',     fastScaleResults.S + (fastScaleResults.S==='Abnormal'?' ⚠':'')) + '\n';
+                report += kv('CPSS — Face Droop', fastScaleResults.F + (fastScaleResults.F==='Abnormal'?' ⚠':'')) + '\n';
+                report += kv('CPSS — Arm Drift',  fastScaleResults.A + (fastScaleResults.A==='Abnormal'?' ⚠':'')) + '\n';
+                report += kv('CPSS — Speech',     fastScaleResults.S + (fastScaleResults.S==='Abnormal'?' ⚠':'')) + '\n';
 
                 // Vitals summary
                 report += sectionHdr('📊', 'VITAL SIGNS LOG (×5)', 'バイタル測定記録');
@@ -4452,6 +4547,16 @@
             const pName = cleanReportValue(document.getElementById('info-name').value, 'Unconfirmed');
             const pAge  = cleanReportValue(document.getElementById('info-age').value, 'N/A');
             const pUnit = cleanReportValue(document.getElementById('info-unit').value, 'N/A');
+            const pDob  = cleanReportValue(document.getElementById('info-dob')?.value, 'N/A');
+            const pSsn  = cleanReportValue(document.getElementById('info-ssn')?.value, 'N/A');
+            const pPhone= cleanReportValue(document.getElementById('info-phone')?.value, 'N/A');
+            const byName = cleanReportValue(document.getElementById('by-name')?.value, '—');
+            const byDob  = cleanReportValue(document.getElementById('by-dob')?.value, '—');
+            const byAge  = cleanReportValue(document.getElementById('by-age')?.value, '—');
+            const bySsn  = cleanReportValue(document.getElementById('by-ssn')?.value, '—');
+            const byPhone= cleanReportValue(document.getElementById('by-phone')?.value, '—');
+            const repUnit = cleanReportValue(document.getElementById('rep-unit')?.value, '—');
+            const repName = cleanReportValue(document.getElementById('rep-name')?.value, '—');
             const now = new Date();
             const reportId = 'EMR-' + now.getFullYear() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + '-' + String(now.getHours()).padStart(2,'0') + String(now.getMinutes()).padStart(2,'0') + String(now.getSeconds()).padStart(2,'0');
             const vitals = getLatestVitals(currentFlowType === 'trauma' ? 'tv' : 'v');
@@ -4463,18 +4568,38 @@
             const critical = [isBleedingActive ? 'Major bleeding / 大出血' : '', isShockActive ? 'Shock signs / ショック徴候' : '', activeAbcStatus ? 'ABC: ' + activeAbcStatus : ''].filter(Boolean).join(' · ') || 'No critical flags recorded';
             const special = Object.keys(specialFindings || {}).slice(0, 5).map(id => specialFindings[id].en).join(' · ') || '—';
             const esc = escapeHtml;
-            let html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>EMR One Page Report</title><style>';
-            html += '*{box-sizing:border-box} body{margin:0;background:#fff;color:#0f172a;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",Arial,sans-serif}.sheet{width:816px;height:1056px;padding:26px 28px;background:#fff;overflow:hidden}.top{display:grid;grid-template-columns:1.5fr .9fr;gap:12px;align-items:stretch;border-bottom:3px solid #1d4ed8;padding-bottom:10px}.brand{background:#0f3f8c;color:#fff;border-radius:10px;padding:13px 15px}.brand h1{margin:0;font-size:24px;letter-spacing:.2px}.brand div{font-size:12px;opacity:.96;margin-top:4px}.meta{border:1px solid #cbd5e1;border-radius:10px;padding:9px 10px;font-size:11px;line-height:1.35}.meta b{color:#1e3a8a}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.box{border:1px solid #d7dee8;border-left:5px solid #2563eb;border-radius:8px;padding:8px 9px;min-height:72px}.box.red{border-left-color:#dc2626}.box.green{border-left-color:#16a34a}.box.amber{border-left-color:#d97706}.box h2{font-size:13px;margin:0 0 4px;color:#1e3a8a}.box p{font-size:10.5px;line-height:1.32;margin:0;color:#172033}.kv{display:grid;grid-template-columns:92px 1fr;gap:4px;font-size:10.5px;line-height:1.28;margin:2px 0}.kv b{color:#334155}.vitals{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}.vitals div{border:1px solid #e2e8f0;border-radius:5px;padding:3px;text-align:center;font-size:9.2px}.vitals b{display:block;color:#1e3a8a;font-size:8.6px}.signature{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:9px}.sig{font-size:9.5px;color:#334155}.line{border-bottom:1px solid #64748b;height:20px}.foot{text-align:center;font-size:8.8px;color:#64748b;margin-top:5px}.small{font-size:9.5px;color:#475569}.wide{grid-column:1/-1}';
-            html += '</style></head><body><div class="sheet"><div class="top"><div class="brand"><h1>EMR Elite Navigator</h1><div>One-Page Letter Handoff Report / レター1枚引継ぎレポート</div></div><div class="meta"><div><b>Report:</b> ' + esc(reportId) + '</div><div><b>Generated:</b> ' + esc(now.toLocaleString()) + '</div><div><b>Type:</b> ' + esc(typeLabel) + '</div><div><b>Patients:</b> ' + esc(triage) + '</div></div></div>';
-            html += '<div class="grid"><div class="box"><h2>Patient / 傷病者</h2><div class="kv"><b>Name</b><span>' + esc(pName) + '</span></div><div class="kv"><b>Age</b><span>' + esc(pAge) + '</span></div><div class="kv"><b>Unit</b><span>' + esc(pUnit) + '</span></div></div>';
-            html += '<div class="box red"><h2>Critical Status / 重要状態</h2><p>' + esc(critical) + '</p><p class="small">Chief complaint: ' + esc(selectedListSummary(selectedCC)) + '</p></div>';
-            html += '<div class="box wide"><h2>Latest Vitals / 最新バイタル</h2><div class="vitals"><div><b>Time</b>' + esc(vitals?.time || '—') + '</div><div><b>BP</b>' + esc(vitals?.bp || '—') + '</div><div><b>Pulse</b>' + esc(vitals?.pulse || '—') + '</div><div><b>RR</b>' + esc(vitals?.rr || '—') + '</div><div><b>SpO2</b>' + esc(vitals?.spo2 || '—') + '</div><div><b>Temp</b>' + esc(vitals?.temp || '—') + '</div><div><b>AVPU</b>' + esc(vitals?.avpu || '—') + '</div></div></div>';
-            html += '<div class="box"><h2>OPQRST / 詳細問診</h2><div class="kv"><b>O</b><span>' + esc(opO) + '</span></div><div class="kv"><b>P</b><span>' + esc(opP) + '</span></div><div class="kv"><b>Q/R</b><span>' + esc(opQ) + ' / ' + esc(opR) + '</span></div><div class="kv"><b>S/T</b><span>' + esc(opS) + ' / ' + esc(opT) + '</span></div></div>';
-            html += '<div class="box"><h2>SAMPLE / 既往歴</h2><div class="kv"><b>S/A</b><span>' + esc(smS) + ' / ' + esc(smA) + '</span></div><div class="kv"><b>M/P</b><span>' + esc(smM) + ' / ' + esc(smP) + '</span></div><div class="kv"><b>L/E</b><span>' + esc(smL) + ' / ' + esc(smE) + '</span></div></div>';
-            html += '<div class="box amber"><h2>Trauma / Neuro / 特記事項</h2><p>FAST: ' + esc(fast) + '</p><p class="small">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</p><p class="small">Special: ' + esc(special) + '</p></div>';
-            html += '<div class="box green"><h2>Treatment & Disposition / 処置・搬送</h2><p>Equipment: ' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '</p><p class="small">Disposition: ' + esc(selectedDisposition || '—') + '</p></div>';
-            html += '<div class="box wide"><h2>Initial Findings / Discovery / 発見時情報</h2><p>' + esc(selectedListSummary(selectedInitialFindings, '—')) + '</p><p class="small">Notes: ' + esc((initialManualNotes || []).slice(-2).map(n => '[' + n.t + '] ' + n.text).join(' | ') || '—') + '</p></div></div>';
-            html += '<div class="signature"><div class="sig">Provider Signature<div class="line"></div></div><div class="sig">Receiving Facility<div class="line"></div></div><div class="sig">Handoff Time<div class="line"></div></div></div><div class="foot">Generated by EMR Elite Navigator v2.8 · PDF is intentionally compressed to one US Letter page. Full detail remains in the activity log.</div></div></body></html>';
+            let html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>EMR Handoff Report</title><style>';
+            html += 'html,body{margin:0;padding:0}*{box-sizing:border-box}body{background:#fff;color:#1e293b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",Arial,sans-serif;-webkit-font-smoothing:antialiased}';
+            html += '.sheet{width:816px;min-height:1056px;padding:46px 50px;background:#fff;display:flex;flex-direction:column}';
+            html += '.hd{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #0f172a;padding-bottom:16px}';
+            html += '.hd .nm{font-size:24px;font-weight:700;letter-spacing:5px;color:#0f172a;line-height:1}.hd .sb{font-size:10.5px;color:#64748b;margin-top:7px;letter-spacing:1.5px;text-transform:uppercase}';
+            html += '.hd .mt{text-align:right;font-size:10px;color:#64748b;line-height:1.7}.hd .mt b{color:#0f172a;font-weight:600}';
+            html += '.pt{display:flex;flex-wrap:wrap;gap:9px 26px;margin-top:14px}.pt div b{color:#94a3b8;font-weight:600;font-size:8.5px;letter-spacing:.8px;text-transform:uppercase;display:block;margin-bottom:2px}.pt div span{color:#0f172a;font-weight:600;font-size:12px}';
+            html += '.sec{margin-top:13px}.sec h2{font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;color:#2563eb;font-weight:700;margin:0 0 6px;padding-bottom:4px;border-bottom:1px solid #e2e8f0}';
+            html += '.kv{display:grid;grid-template-columns:70px 1fr;gap:4px 12px;font-size:11.5px;line-height:1.5}.kv b{color:#94a3b8;font-weight:600}.kv span{color:#1e293b}';
+            html += '.txt{font-size:11.5px;line-height:1.55;color:#1e293b;margin:0}.txt .mut{color:#64748b;font-size:10.5px;display:block;margin-top:4px}.crit{color:#dc2626;font-weight:700}';
+            html += '.vit{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}.vit div{text-align:center}.vit b{display:block;font-size:8.5px;letter-spacing:.5px;text-transform:uppercase;color:#94a3b8;font-weight:600;margin-bottom:4px}.vit span{font-size:15px;font-weight:600;color:#0f172a}';
+            html += '.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 46px}.main{flex:1 1 auto}';
+            html += '.sig{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:24px}.sig div{font-size:9px;color:#94a3b8;letter-spacing:.5px;text-transform:uppercase}.sig .ln{border-bottom:1px solid #94a3b8;height:30px;margin-bottom:5px}';
+            html += '.ft{text-align:center;font-size:8.5px;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:11px;margin-top:14px}';
+            html += '</style></head><body><div class="sheet"><div class="main">';
+            html += '<div class="hd"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sb">Patient Assessment &amp; Handoff Report</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Generated</b> ' + esc(now.toLocaleString()) + '</div></div></div>';
+            html += '<div class="pt"><div><b>Name</b><span>' + esc(pName) + '</span></div><div><b>DOB</b><span>' + esc(pDob) + '</span></div><div><b>Age</b><span>' + esc(pAge) + '</span></div><div><b>SSN</b><span>' + esc(pSsn) + '</span></div><div><b>Phone</b><span>' + esc(pPhone) + '</span></div><div><b>Unit</b><span>' + esc(pUnit) + '</span></div><div><b>Type</b><span>' + esc(typeLabel) + '</span></div><div><b>Patients</b><span>' + esc(triage) + '</span></div></div>';
+            html += '<div class="sec"><h2>Critical Status / 重要状態</h2><p class="txt"><span class="crit">' + esc(critical) + '</span><span class="mut">Chief complaint / 主訴: ' + esc(selectedListSummary(selectedCC)) + '</span></p></div>';
+            html += '<div class="sec"><h2>Latest Vitals / 最新バイタル</h2><div class="vit"><div><b>Time</b><span>' + esc(vitals?.time || '—') + '</span></div><div><b>BP</b><span>' + esc(vitals?.bp || '—') + '</span></div><div><b>Pulse</b><span>' + esc(vitals?.pulse || '—') + '</span></div><div><b>RR</b><span>' + esc(vitals?.rr || '—') + '</span></div><div><b>SpO2</b><span>' + esc(vitals?.spo2 || '—') + '</span></div><div><b>Temp</b><span>' + esc(vitals?.temp || '—') + '</span></div><div><b>AVPU</b><span>' + esc(vitals?.avpu || '—') + '</span></div></div></div>';
+            html += '<div class="cols"><div>';
+            html += '<div class="sec"><h2>OPQRST / 詳細問診</h2><div class="kv"><b>O</b><span>' + esc(opO) + '</span><b>P</b><span>' + esc(opP) + '</span><b>Q / R</b><span>' + esc(opQ) + ' / ' + esc(opR) + '</span><b>S / T</b><span>' + esc(opS) + ' / ' + esc(opT) + '</span></div></div>';
+            html += '<div class="sec"><h2>SAMPLE / 既往歴</h2><div class="kv"><b>S / A</b><span>' + esc(smS) + ' / ' + esc(smA) + '</span><b>M / P</b><span>' + esc(smM) + ' / ' + esc(smP) + '</span><b>L / E</b><span>' + esc(smL) + ' / ' + esc(smE) + '</span></div></div>';
+            html += '</div><div>';
+            html += '<div class="sec"><h2>Trauma / Neuro / 特記</h2><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div>';
+            html += '<div class="sec"><h2>Treatment &amp; Disposition / 処置・搬送</h2><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '</span></p></div>';
+            html += '</div></div>';
+            html += '<div class="sec"><h2>Initial Findings / 発見時情報</h2><p class="txt">' + esc(selectedListSummary(selectedInitialFindings, '—')) + '<span class="mut">Notes: ' + esc((initialManualNotes || []).slice(-2).map(n => '[' + n.t + '] ' + n.text).join(' | ') || '—') + '</span></p></div>';
+            html += '<div class="sec"><h2>Bystander / バイスタンダー</h2><div class="kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB / Age</b><span>' + esc(byDob) + ' / ' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span></div></div>';
+            html += '</div>';
+            html += '<div class="sig"><div>Provider Signature / 記録者<div class="ln"></div></div><div>Receiving Facility / 引継先<div class="ln"></div></div><div>Handoff Time / 引継時刻<div class="ln"></div></div></div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.8  ·  One US Letter page / レター1枚</div>';
+            html += '</div></body></html>';
             return html;
         }
 
@@ -4486,7 +4611,7 @@
 
             // Create offscreen container
             const cont = document.createElement('div');
-            cont.style.cssText = 'position:fixed; top:-10000px; left:0; width:816px; height:1056px; background:#fff; z-index:-1; overflow:hidden;';
+            cont.style.cssText = 'position:fixed; top:-10000px; left:0; width:816px; background:#fff; z-index:-1;';
             cont.innerHTML = html.match(/<body[\s\S]*?<\/body>/i)[0].replace(/<\/?body[^>]*>/gi, '');
             // Re-inject the styles into <head> (idempotent — use a marker)
             if (!document.getElementById('emr-pdf-style')) {
@@ -4507,7 +4632,8 @@
                 if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
                     throw new Error('PDF libraries not loaded yet — please retry in a moment.');
                 }
-                const canvas = await html2canvas(cont, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false, windowWidth: 816, windowHeight: 1056 });
+                const _h = Math.max(1056, cont.scrollHeight);
+                const canvas = await html2canvas(cont, { scale: 1.7, backgroundColor: '#ffffff', useCORS: true, logging: false, windowWidth: 816, windowHeight: _h, height: _h });
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF({ unit: 'mm', format: 'letter', orientation: 'portrait' });
                 const pageW = pdf.internal.pageSize.getWidth();

@@ -1,6 +1,6 @@
 // EMR Elite Navigator — Service Worker
 // Bump CACHE_VERSION whenever you publish a new build.
-const CACHE_VERSION = 'emr-nav-v2.8-pdf-fix-noarrow-5';
+const CACHE_VERSION = 'emr-nav-v2.8-fields-cpss-author-8';
 const ASSETS = [
   './',
   './index.html',
