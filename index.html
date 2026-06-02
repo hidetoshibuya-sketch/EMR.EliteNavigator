@@ -1654,9 +1654,7 @@
         </div>
 
         <div class="export-btn-group">
-            <button class="btn-main-act" onclick="generateHandoffReport()">📄 Build Report Data <span style="font-size:0.98rem; font-weight:400; display:block;">(PDF用データ生成)</span></button>
-            <button class="btn-main-act" style="background:linear-gradient(135deg, #dc2626 0%, #ef4444 100%);" onclick="downloadPDFReport()">📕 Letter 1-Page PDF <span style="font-size:0.98rem; font-weight:400; display:block;">(レター1枚PDF)</span></button>
-            <button class="btn-email-act" onclick="sendReportEmail()">✉ Email with PDF <span style="font-size:0.95rem; font-weight:400; display:block;">(PDF を添付してメール送信)</span></button>
+            <button id="btn-build-report" class="btn-main-act" style="background:linear-gradient(135deg, #dc2626 0%, #ef4444 100%);" onclick="buildReport(this)">📄 BUILD REPORT <span style="font-size:0.98rem; font-weight:400; display:block;">(レポート生成 → PDF ダウンロード)</span></button>
         </div>
     </div>
 
@@ -4524,65 +4522,86 @@
             }
         }
 
-        async function downloadPDFReport() {
+        // ============================================================
+        // ===== UNIFIED BUILD REPORT (v2.8.1) =====
+        // Single entry point: rebuilds report data, renders styled HTML
+        // to canvas, embeds in jsPDF, downloads PDF, and offers Web
+        // Share for email. Robust against missing libraries and
+        // missing DOM fields.
+        // ============================================================
+        async function buildReport(btn) {
+            // Resolve button reference robustly (works whether called from
+            // onclick="buildReport(this)" or inline event handlers).
+            btn = btn || document.getElementById('btn-build-report');
+            const origHTML = btn ? btn.innerHTML : '';
             try {
-                const btn = event && event.target;
-                if (btn) { btn.disabled = true; btn.innerText = '⏳ Generating PDF…'; }
+                if (btn) { btn.disabled = true; btn.innerHTML = '⏳ Generating PDF…'; }
+
+                // 1. Refresh the underlying report text + visual body map
+                try { buildAutomationReport(); } catch (e) { console.warn('buildAutomationReport warning:', e); }
+
+                // 2. Wait for PDF libraries to be ready (they are loaded with `defer`)
+                let waited = 0;
+                while ((typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') && waited < 4000) {
+                    await new Promise(r => setTimeout(r, 200));
+                    waited += 200;
+                }
+                if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
+                    throw new Error('PDF library not loaded — please reload the page and try again. (PDFライブラリが読み込めません。ページを再読み込みしてください)');
+                }
+
+                // 3. Render PDF blob
                 const blob = await _renderPDFBlob();
-                const pName = document.getElementById('info-name').value || 'Patient';
-                const fileName = `EMR_${pName.replace(/[^A-Za-z0-9_-]+/g, '_')}_${new Date().toISOString().slice(0,10)}.pdf`;
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url; a.download = fileName;
-                document.body.appendChild(a); a.click(); document.body.removeChild(a);
-                setTimeout(() => URL.revokeObjectURL(url), 500);
-                logAction('PDF Report', `Downloaded ${fileName}`);
-            } catch (e) {
-                alert('PDF generation failed: ' + e.message);
-            } finally {
-                const b = event && event.target;
-                if (b) { b.disabled = false; b.innerHTML = '📕 Letter 1-Page PDF <span style="font-size:0.98rem; font-weight:400; display:block;">(レター1枚PDF)</span>'; }
-            }
-        }
 
-        async function sendReportEmail() {
-            try {
-                const btn = event && event.target;
-                if (btn) { btn.disabled = true; btn.innerText = '⏳ Preparing email…'; }
+                // 4. Build a clean filename
+                const pName = (document.getElementById('info-name')?.value || 'Patient')
+                                .replace(/[^A-Za-z0-9_\-ぁ-んァ-ヶ一-龯]+/g, '_').slice(0, 40) || 'Patient';
+                const stamp = new Date().toISOString().slice(0,10);
+                const fileName = `EMR_${pName}_${stamp}.pdf`;
 
-                const blob = await _renderPDFBlob();
-                const pName = document.getElementById('info-name').value || 'Patient';
-                const fileName = `EMR_${pName.replace(/[^A-Za-z0-9_-]+/g, '_')}_${new Date().toISOString().slice(0,10)}.pdf`;
-                const subject = `[EMR Handoff Report] ${pName} — ${new Date().toLocaleDateString()}`;
-                const body = `EMR Elite Navigator Handoff Report\nPatient: ${pName}\nGenerated: ${new Date().toLocaleString()}\n\nPlease find the full report attached as PDF.`;
-
-                // Modern Web Share API with files (iOS Safari, modern Android Chrome)
+                // 5. Try Web Share API (iOS Safari + modern Android Chrome) — lets the user
+                //    save to Files, send to AirDrop, attach to email, etc. in one tap.
+                let sharedOK = false;
                 if (navigator.canShare && navigator.share) {
-                    const file = new File([blob], fileName, { type: 'application/pdf' });
-                    if (navigator.canShare({ files: [file] })) {
-                        await navigator.share({ files: [file], title: subject, text: body });
-                        logAction('Email', `Shared PDF via Web Share API (${fileName})`);
-                        return;
+                    try {
+                        const file = new File([blob], fileName, { type: 'application/pdf' });
+                        if (navigator.canShare({ files: [file] })) {
+                            await navigator.share({
+                                files: [file],
+                                title: '[EMR Handoff Report] ' + pName,
+                                text: `EMR Elite Navigator Handoff Report\nPatient: ${pName}\nGenerated: ${new Date().toLocaleString()}`
+                            });
+                            sharedOK = true;
+                            logAction('Report', `Shared PDF via Web Share API (${fileName})`);
+                        }
+                    } catch (shareErr) {
+                        // User canceled the share sheet — fall through to download
+                        console.warn('Share canceled or failed:', shareErr);
                     }
                 }
 
-                // Fallback: download the PDF + open mail client
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url; a.download = fileName;
-                document.body.appendChild(a); a.click(); document.body.removeChild(a);
-                setTimeout(() => URL.revokeObjectURL(url), 500);
-
-                // Open mail client with subject/body (no attachment possible via mailto)
-                window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body + '\n\n(PDF has been downloaded — please attach it manually before sending.)')}`;
-                alert('PDF downloaded. Your email app should open — please attach the PDF manually before sending.\n(PDF をダウンロードしました。メールアプリが開いたら手動で添付してください)');
+                // 6. Always also download (as a backup in case share didn't fire)
+                if (!sharedOK) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url; a.download = fileName;
+                    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                    setTimeout(() => URL.revokeObjectURL(url), 1000);
+                    logAction('Report', `Downloaded ${fileName}`);
+                }
             } catch (e) {
-                alert('Email preparation failed: ' + e.message);
+                console.error('buildReport error:', e);
+                alert('レポート生成エラー / Report generation failed:\n' + (e?.message || e));
             } finally {
-                const b = event && event.target;
-                if (b) { b.disabled = false; b.innerHTML = '✉ Email with PDF <span style="font-size:0.95rem; font-weight:400; display:block;">(PDF を添付してメール送信)</span>'; }
+                if (btn) { btn.disabled = false; btn.innerHTML = origHTML || '📄 BUILD REPORT <span style="font-size:0.98rem; font-weight:400; display:block;">(レポート生成 → PDF ダウンロード)</span>'; }
             }
         }
+
+        // Legacy wrappers kept for any stray onclick references — both delegate to buildReport.
+        async function downloadPDFReport() { return buildReport(document.getElementById('btn-build-report')); }
+
+        async function sendReportEmail() { return buildReport(document.getElementById('btn-build-report')); }
+        async function generateHandoffReport() { return buildReport(document.getElementById('btn-build-report')); }
 
         function resetFlowState() { if(confirm("Are you sure you want to reset all data parameters for a new scene?")) { location.reload(); } }
 
