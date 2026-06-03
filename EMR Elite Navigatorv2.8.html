@@ -397,10 +397,9 @@
         .triage-tag-panel.visible { display: flex; }
         .triage-tag-panel label { font-weight: 800; color: #12315a; }
         .triage-tag-panel input { max-width: 180px; }
-        .branch-point.triage-locked { opacity: 0.78; filter: grayscale(0.15); }
-        .branch-point.triage-locked button:disabled,
-        .branch-point.triage-locked button { pointer-events: none; cursor: not-allowed; }
-        .branch-point.triage-locked button:not(.triage-chosen) { opacity: 0.45; }
+        .branch-point.triage-locked { opacity: 0.95; }
+        .branch-point.triage-locked button:not(.triage-chosen) { pointer-events: none; cursor: not-allowed; opacity: 0.4; }
+        .branch-point.triage-locked button.triage-chosen { pointer-events: auto; cursor: pointer; }
         .btn-branch.triage-chosen, .btn-main-act.triage-chosen {
             background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%) !important;
             color: #fff !important; border-color: transparent !important;
@@ -457,7 +456,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.1</h1>
+    <h1>EMR Elite Navigator v2.9.2</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -495,55 +494,55 @@
             <div class="branch-point" id="triage-node-walking">
                 <h4>Walking? <span class="sub-lang">(歩行可能？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triageWalk(true); lockTriageNode(this);">Yes <span class="sub-lang">(可能)</span></button>
-                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageWalk(false); lockTriageNode(this);">No <span class="sub-lang">(不可)</span></button>
+                    <button class="btn-branch" onclick="triageToggle(this, () => triageWalk(true));">Yes <span class="sub-lang">(可能)</span></button>
+                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageToggle(this, () => triageWalk(false));">No <span class="sub-lang">(不可)</span></button>
                 </div>
             </div>
 
             <div id="triage-node-breathing" class="branch-point hidden">
                 <h4>Spontaneous Breathing? <span class="sub-lang">(自発呼吸あり？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triageBreathing(true); lockTriageNode(this);">Yes <span class="sub-lang">(あり)</span></button>
-                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageBreathing(false); lockTriageNode(this);">No <span class="sub-lang">(なし)</span></button>
+                    <button class="btn-branch" onclick="triageToggle(this, () => triageBreathing(true));">Yes <span class="sub-lang">(あり)</span></button>
+                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageToggle(this, () => triageBreathing(false));">No <span class="sub-lang">(なし)</span></button>
                 </div>
             </div>
 
             <div id="triage-node-rr-check" class="branch-point hidden">
                 <h4>Respiratory Rate (RR)? <span class="sub-lang">(呼吸数は？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageRreathingCount('ge30'); lockTriageNode(this);">&ge;30 /min <span class="sub-lang">(30回以上)</span></button>
-                    <button class="btn-branch" onclick="triageRreathingCount('le29'); lockTriageNode(this);">&le;29 /min <span class="sub-lang">(29回以内)</span></button>
+                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageToggle(this, () => triageRreathingCount('ge30'));">&ge;30 /min <span class="sub-lang">(30回以上)</span></button>
+                    <button class="btn-branch" onclick="triageToggle(this, () => triageRreathingCount('le29'));">&le;29 /min <span class="sub-lang">(29回以内)</span></button>
                 </div>
             </div>
 
             <div id="triage-node-crt-pulse" class="branch-point hidden">
                 <h4>Perfusion / Pulse Check? <span class="sub-lang">(循環/橈骨動脈は？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triageCrt('le2'); lockTriageNode(this);">CRT &le;2s / Pulse 〇 <span class="sub-lang">(CRT 2秒内/触知可能)</span></button>
-                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageCrt('gt2'); lockTriageNode(this);">CRT &gt;2s / No Pulse <span class="sub-lang">(CRT 2秒超/触知不可)</span></button>
+                    <button class="btn-branch" onclick="triageToggle(this, () => triageCrt('le2'));">CRT &le;2s / Pulse 〇 <span class="sub-lang">(CRT 2秒内/触知可能)</span></button>
+                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageToggle(this, () => triageCrt('gt2'));">CRT &gt;2s / No Pulse <span class="sub-lang">(CRT 2秒超/触知不可)</span></button>
                 </div>
             </div>
 
             <div id="triage-node-commands" class="branch-point hidden">
                 <h4>Obey Commands? <span class="sub-lang">(簡単な指示に応じる？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triageCommands(true); lockTriageNode(this);">Obey <span class="sub-lang">(応じる)</span></button>
-                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageCommands(false); lockTriageNode(this);">Disobey <span class="sub-lang">(応じない)</span></button>
+                    <button class="btn-branch" onclick="triageToggle(this, () => triageCommands(true));">Obey <span class="sub-lang">(応じる)</span></button>
+                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageToggle(this, () => triageCommands(false));">Disobey <span class="sub-lang">(応じない)</span></button>
                 </div>
             </div>
 
             <div id="triage-node-airway-check" class="branch-point hidden alert-box">
                 <h4>No spontaneous breathing. Provide manual airway. <span class="sub-lang">(自発呼吸なし。用手気道確保)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-main-act" onclick="triageAirwayManual('airway-breath'); lockTriageNode(this);">DONE <span class="sub-lang">(実施済)</span></button>
+                    <button class="btn-main-act" onclick="triageToggle(this, () => triageAirwayManual('airway-breath'));">DONE <span class="sub-lang">(実施済)</span></button>
                 </div>
             </div>
             
             <div id="triage-node-airway-breathing-check" class="branch-point hidden">
                 <h4>Spontaneous Breathing (post airway)? <span class="sub-lang">(用手気道確保後、呼吸あり？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triageBreathingAirway(true); lockTriageNode(this);">Yes <span class="sub-lang">(あり)</span></button>
-                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageBreathingAirway(false); lockTriageNode(this);">No <span class="sub-lang">(なし)</span></button>
+                    <button class="btn-branch" onclick="triageToggle(this, () => triageBreathingAirway(true));">Yes <span class="sub-lang">(あり)</span></button>
+                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageToggle(this, () => triageBreathingAirway(false));">No <span class="sub-lang">(なし)</span></button>
                 </div>
             </div>
 
@@ -1026,7 +1025,7 @@
         </div>
         <div id="dots-manual-list" style="margin-top:6px; font-size:0.95rem; color:#475569;"></div>
 
-        <h3>Vital Signs Check x5 <span class="sub-lang">(バイタルサイン測定・5回分)</span></h3>
+        <h3>Vital Signs Check <span class="sub-lang">(バイタルサイン測定)</span></h3>
         <div style="font-size:0.95rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
             ⏰ Tap <strong>NOW</strong> for current time. Up/Down arrows or direct typing finalizes the value.
             <span class="sub-lang" style="display:block; margin-top:2px;">(NOWで現在時刻入力。▲▼または直接入力で確定して文字が濃くなります)</span>
@@ -1036,11 +1035,11 @@
                 <tr>
                     <th>#</th>
                     <th>Time<br><span class="sub-lang">時間</span></th>
-                    <th>HR<br><span class="sub-lang">心拍</span></th>
                     <th>RR<br><span class="sub-lang">呼吸数</span></th>
-                    <th>BP (sys/dia)<br><span class="sub-lang">血圧</span></th>
                     <th>SpO2 %<br><span class="sub-lang">酸素飽和</span></th>
+                    <th>HR<br><span class="sub-lang">心拍</span></th>
                     <th>BT ℃<br><span class="sub-lang">体温</span></th>
+                    <th>BP (sys/dia)<br><span class="sub-lang">血圧</span></th>
                 </tr>
             </thead>
             <tbody id="trauma-vitals-tbody"></tbody>
@@ -1237,7 +1236,7 @@
     <div class="card hidden" id="sec-medical-flow">
         <h2>Secondary Assessment: Medical <span class="sub-lang">(急病詳細プロトコル)</span></h2>
 
-        <h3>Vital Signs Check x5 <span class="sub-lang">(バイタルサイン測定・5回分)</span></h3>
+        <h3>Vital Signs Check <span class="sub-lang">(バイタルサイン測定)</span></h3>
         <div style="font-size:0.95rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
             ⏰ Tap <strong>NOW</strong> for current time. Up/Down arrows or direct typing finalizes the value (text turns dark).
             <span class="sub-lang" style="display:block; margin-top:2px;">(NOWで現在時刻入力。▲▼または直接入力で確定して文字が濃くなります)</span>
@@ -1247,11 +1246,11 @@
                 <tr>
                     <th>#</th>
                     <th>Time<br><span class="sub-lang">時間</span></th>
-                    <th>HR<br><span class="sub-lang">心拍</span></th>
                     <th>RR<br><span class="sub-lang">呼吸数</span></th>
-                    <th>BP (sys/dia)<br><span class="sub-lang">血圧</span></th>
                     <th>SpO2 %<br><span class="sub-lang">酸素飽和</span></th>
+                    <th>HR<br><span class="sub-lang">心拍</span></th>
                     <th>BT ℃<br><span class="sub-lang">体温</span></th>
+                    <th>BP (sys/dia)<br><span class="sub-lang">血圧</span></th>
                 </tr>
             </thead>
             <tbody id="vitals-tbody"></tbody>
@@ -1677,9 +1676,21 @@
     <div class="card" id="sec-report-author">
         <h2>Report Author <span class="sub-lang">(レポート作成者情報)</span></h2>
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
-            <span style="font-size:0.98rem; font-weight:bold;">Unit <span style="font-weight:normal; color:var(--text-sub);">(所属・部隊)</span></span>
-            <input type="text" id="rep-unit" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. Yokosuka Fire Dept. Engine 1">
+            <span style="font-size:0.98rem; font-weight:bold;">Station <span style="font-weight:normal; color:var(--text-sub);">(所属基地)</span></span>
+            <select id="rep-station" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" onchange="composeRepUnit()">
+                <option value="">-- Select Station / 基地を選択 --</option>
+                <option value="ZAMA">ZAMA</option>
+                <option value="KAHP">KAHP</option>
+                <option value="SHA">SHA</option>
+                <option value="SGD">SGD</option>
+                <option value="YND">YND</option>
+            </select>
         </div>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <span style="font-size:0.98rem; font-weight:bold;">Engine No. <span style="font-weight:normal; color:var(--text-sub);">(エンジン番号)</span></span>
+            <input type="text" id="rep-engine" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. 1" inputmode="numeric" autocomplete="off" oninput="composeRepUnit()">
+        </div>
+        <input type="hidden" id="rep-unit">
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
             <span style="font-size:0.98rem; font-weight:bold;">Name <span style="font-weight:normal; color:var(--text-sub);">(氏名)</span></span>
             <input type="text" id="rep-name" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. Hideto Shibuya">
@@ -2822,11 +2833,11 @@
                 tr.innerHTML = `
                     <td><strong>${i+1}</strong></td>
                     <td>${vitalCell(prefix, i, 'time', '', null)}</td>
-                    <td>${vitalCell(prefix, i, 'hr', '80', 'hr')}</td>
                     <td>${vitalCell(prefix, i, 'rr', '16', 'rr')}</td>
-                    <td>${vitalCell(prefix, i, 'bp', '120/80', 'bp')}</td>
                     <td>${vitalCell(prefix, i, 'spo2', '98', 'spo2')}</td>
+                    <td>${vitalCell(prefix, i, 'hr', '80', 'hr')}</td>
                     <td>${vitalCell(prefix, i, 'bt', '36.5', 'bt')}</td>
+                    <td>${vitalCell(prefix, i, 'bp', '120/80', 'bp')}</td>
                 `;
                 tb.appendChild(tr);
             }
@@ -3459,8 +3470,21 @@
             const node = clickedBtn.closest('.branch-point');
             if (!node) return;
             node.classList.add('triage-locked');
-            node.querySelectorAll('button').forEach(b => { b.disabled = true; });
+            node.querySelectorAll('button').forEach(b => { b.disabled = (b !== clickedBtn); });
             clickedBtn.classList.add('triage-chosen');
+        }
+        function triageToggle(btn, fn) {
+            if (btn.classList.contains('triage-chosen')) {
+                const node = btn.closest('.branch-point');
+                btn.classList.remove('triage-chosen', 'active');
+                if (node) { node.classList.remove('triage-locked'); node.querySelectorAll('button').forEach(b => { b.disabled = false; }); }
+                enableAllTriageChoices();
+                hideResult();
+                logAction('Triage (START)', 'Selection canceled / 選択取消');
+                return;
+            }
+            fn();
+            lockTriageNode(btn);
         }
 
         function checkSizeUpCompletion() {
@@ -4223,9 +4247,16 @@
             logAction('Bystander', `Name: ${n || 'N/A'}, Age: ${a || 'N/A'}, SSN: ${s || 'N/A'}, Phone: ${p || 'N/A'}`);
             alert("Bystander information recorded.");
         }
+        function composeRepUnit() {
+            const st = document.getElementById('rep-station') ? document.getElementById('rep-station').value : '';
+            const eng = (document.getElementById('rep-engine') ? document.getElementById('rep-engine').value : '').trim();
+            const unit = [st, eng ? 'Engine ' + eng : ''].filter(Boolean).join(' ');
+            const ru = document.getElementById('rep-unit'); if (ru) ru.value = unit;
+            return unit;
+        }
         function saveReportAuthor() {
-            const u = document.getElementById('rep-unit').value, n = document.getElementById('rep-name').value;
-            logAction('Report Author', `Unit: ${u || 'N/A'}, Name: ${n || 'N/A'}`);
+            const u = composeRepUnit(), n = document.getElementById('rep-name').value;
+            logAction('Report Author', `Station/Unit: ${u || 'N/A'}, Name: ${n || 'N/A'}`);
             alert("Report author recorded.");
         }
 
@@ -4649,7 +4680,7 @@
             html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span></div></div>';
             html += '</div>';
             html += '<div class="sig"><div>Provider Signature / 記録者<div class="ln"></div></div><div>Receiving Facility / 引継先<div class="ln"></div></div><div>Handoff Time / 引継時刻<div class="ln"></div></div></div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.1  ·  Patient Assessment &amp; Handoff Report</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.2  ·  Patient Assessment &amp; Handoff Report</div>';
             html += '</div></body></html>';
             return html;
         }
