@@ -235,8 +235,8 @@
         .care-protocol-box {
             display: none;
             margin-top: 10px;
-            background: #fff;
-            border: 2px solid #2563eb;
+            background: #fef2f2;
+            border: 2px solid #dc2626;
             border-radius: 8px;
             padding: 10px 12px;
             font-size: 0.95rem;
@@ -247,9 +247,9 @@
         .care-protocol-box strong { color: #1e3a8a; font-size: 1.05rem; }
         .care-protocol-box ul { margin: 6px 0; padding-left: 22px; }
         .care-protocol-box ul li { margin-bottom: 4px; }
-        .care-protocol-box strong { display: none; }
+        .care-protocol-box strong { display: block; color: #991b1b; font-weight: 800; font-size: 1rem; margin-bottom: 6px; }
         .care-protocol-box ul { display: none; }
-        .care-protocol-box .ja { margin-top: 0; padding-top: 0; border-top: none; color: #0f172a; font-size: 1rem; line-height: 1.6; }
+        .care-protocol-box .ja { margin-top: 0; padding-top: 0; border-top: none; color: #0f172a; font-size: 0.95rem; line-height: 1.7; }
 
         .disabled { opacity: 0.3; pointer-events: none; filter: grayscale(40%); }
         .hidden { display: none !important; }
@@ -322,9 +322,8 @@
         .sf-protocol-box {
             display: none;
             margin-top: 8px;
-            background: #fffbeb;
-            border: 1.5px solid #f59e0b;
-            border-left: 5px solid #d97706;
+            background: #fef2f2;
+            border: 2px solid #dc2626;
             border-radius: 8px;
             padding: 12px 14px;
             font-size: 0.98rem;
@@ -332,10 +331,10 @@
             color: #0f172a;
         }
         .sf-wrap.expanded .sf-protocol-box { display: block; }
-        .sf-protocol-box .sf-prot-section strong { display: none; }
+        .sf-protocol-box .sf-prot-section strong { display: block; color: #991b1b; font-weight: 800; font-size: 0.95rem; margin-bottom: 2px; }
         .sf-protocol-box .sf-prot-section > div:not(.ja) { display: none; }
         .sf-protocol-box .sf-prot-section .ja { margin-top: 0; padding-top: 0; border-top: none; color: #0f172a; font-size: 0.95rem; }
-        .sf-prot-title { font-weight: 800; color: #92400e; font-size: 1.05rem; margin-bottom: 8px; }
+        .sf-prot-title { font-weight: 800; color: #991b1b; font-size: 1.05rem; margin-bottom: 8px; }
         .sf-prot-section { margin-bottom: 8px; }
         .sf-prot-section:last-child { margin-bottom: 0; }
         .sf-prot-section strong { color: #b45309; font-size: 1rem; display: block; margin-bottom: 3px; }
@@ -470,7 +469,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.10</h1>
+    <h1>EMR Elite Navigator v2.9.12</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -2804,6 +2803,7 @@
             // 5x Vitals ビルド (medical + trauma)
             buildVitals5x('vitals-tbody', 'v');
             buildVitals5x('trauma-vitals-tbody', 'tv');
+            formatProtocolJa();
 
             // DOTS DCAP-BTLS ビルド
             buildDotsDcapBtls();
@@ -4238,7 +4238,7 @@
                     const box = document.createElement('div');
                     box.className = 'sf-protocol-box';
                     box.innerHTML = `
-                        <div class="sf-prot-title">⚠ ${escapeHtml(sf.ja || sf.en)}</div>
+                        <div class="sf-prot-title">⚠ ${escapeHtml(sf.en)}</div>
                         <div class="sf-prot-section">
                             <strong>📋 Criteria / Judgement:</strong>
                             <div>${sf.criteria || ''}</div>
@@ -4254,7 +4254,44 @@
                     wrap.appendChild(box);
                     sfGrid.appendChild(wrap);
                 });
+                formatProtocolJa();
             }
+        }
+
+        function formatProtocolJa() {
+            document.querySelectorAll('.care-protocol-box .ja, .sf-protocol-box .ja').forEach(el => {
+                if (el.dataset.bulleted === '1') return;
+                const raw = (el.textContent || '').trim();
+                el.dataset.bulleted = '1';
+                if (!raw) { el.innerHTML = ''; return; }
+                const parts = raw.split('。').map(s => s.trim()).filter(Boolean);
+                el.innerHTML = parts.map(p => '・' + escapeHtml(p) + '。').join('<br>');
+            });
+            ['guide-medical-shock', 'cpss-protocol-box'].forEach(formatProtoCardBox);
+        }
+        // Convert hand-built bilingual protocol cards (Shock / CPSS) to EN title + JP bullets
+        function formatProtoCardBox(boxId) {
+            const box = document.getElementById(boxId);
+            if (!box || box.dataset.reformatted === '1') return;
+            box.dataset.reformatted = '1';
+            // Titles (font-weight 800): keep English, drop Japanese span
+            box.querySelectorAll('div').forEach(d => {
+                if (d.style && d.style.fontWeight === '800') {
+                    const span = d.querySelector('span');
+                    if (span) span.remove();
+                }
+            });
+            // List items: keep Japanese only, prefix with ・
+            box.querySelectorAll('ul').forEach(ul => {
+                ul.style.listStyle = 'none';
+                ul.style.paddingLeft = '2px';
+                ul.querySelectorAll('li').forEach(li => {
+                    const jp = li.querySelector('div');
+                    const txt = (jp ? jp.textContent : li.textContent).trim();
+                    li.innerHTML = '・' + escapeHtml(txt);
+                    li.style.marginBottom = '3px';
+                });
+            });
         }
 
         function toggleSpecialFinding(id, checked) {
@@ -4953,7 +4990,7 @@
             html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span><b>Rel.</b><span>' + esc(byRel) + '</span></div></div>';
             html += '<div class="sec"><div class="sl">Location &amp; Remarks / 発生場所・特記事項</div><div class="card2"><p class="txt">Location: ' + esc(repLoc) + '<span class="mut">Remarks: ' + esc(repRemarks) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.10  ·  Patient Assessment &amp; Handoff Report</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.12  ·  Patient Assessment &amp; Handoff Report</div>';
             html += '</div></body></html>';
             return html;
         }
