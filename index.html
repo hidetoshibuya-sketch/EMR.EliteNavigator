@@ -457,7 +457,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9</h1>
+    <h1>EMR Elite Navigator v2.9.1</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -4624,7 +4624,7 @@
             html += '.body{flex:1;display:flex;flex-direction:column;gap:10px;padding-top:12px}';
             html += '.idbar{display:flex;flex-wrap:wrap;gap:8px 26px;padding:11px 16px;background:#f1f5f9;border-radius:8px}';
             html += '.idbar div b{display:block;font-size:8px;letter-spacing:.6px;text-transform:uppercase;color:#94a3b8;font-weight:700;margin-bottom:1px}.idbar div span{font-size:12.5px;font-weight:600;color:#0f172a}';
-            html += '.sec h2{font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:#1d4ed8;font-weight:700;margin:0 0 6px;padding-left:9px;border-left:4px solid #2563eb;line-height:1.15}';
+            html += '.sl{display:block;background:none;border:none;border-left:4px solid #2563eb;border-radius:0;box-shadow:none;margin:0 0 6px;padding:2px 0 2px 9px;font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:#1d4ed8;font-weight:700;line-height:1.15}';
             html += '.card2{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}';
             html += '.kv{display:grid;grid-template-columns:46px 1fr;gap:3px 10px;font-size:11px;line-height:1.4}.kv b{color:#94a3b8;font-weight:700}.kv span{color:#1e293b}';
             html += '.txt{font-size:11px;line-height:1.45;color:#1e293b;margin:0}.txt .mut{color:#64748b;font-size:10.5px;display:block;margin-top:4px}.crit{color:#b91c1c;font-weight:700}';
@@ -4637,19 +4637,19 @@
             html += '<div class="hd"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sb">Patient Assessment &amp; Handoff Report</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Generated</b> ' + esc(now.toLocaleString()) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
             html += '<div class="body">';
             html += '<div class="idbar"><div><b>Name</b><span>' + esc(pName) + '</span></div><div><b>DOB</b><span>' + esc(pDob) + '</span></div><div><b>Age</b><span>' + esc(pAge) + '</span></div><div><b>SSN</b><span>' + esc(pSsn) + '</span></div><div><b>Phone</b><span>' + esc(pPhone) + '</span></div><div><b>Unit</b><span>' + esc(pUnit) + '</span></div><div><b>Patients</b><span>' + esc(triage) + '</span></div></div>';
-            html += '<div class="sec"><h2>Critical Status / 重要状態</h2><p class="txt"><span class="crit">' + esc(critical) + '</span><span class="mut">Chief complaint / 主訴: ' + esc(selectedListSummary(selectedCC)) + '</span></p></div>';
-            html += '<div class="sec"><h2>Latest Vitals / 最新バイタル</h2><div class="vit"><div><b>Time</b><span>' + esc(vitals?.time || '—') + '</span></div><div><b>BP</b><span>' + esc(vitals?.bp || '—') + '</span></div><div><b>Pulse</b><span>' + esc(vitals?.pulse || '—') + '</span></div><div><b>RR</b><span>' + esc(vitals?.rr || '—') + '</span></div><div><b>SpO2</b><span>' + esc(vitals?.spo2 || '—') + '</span></div><div><b>Temp</b><span>' + esc(vitals?.temp || '—') + '</span></div><div><b>AVPU</b><span>' + esc(vitals?.avpu || '—') + '</span></div></div></div>';
+            html += '<div class="sec"><div class="sl">Critical Status / 重要状態</div><p class="txt"><span class="crit">' + esc(critical) + '</span><span class="mut">Chief complaint / 主訴: ' + esc(selectedListSummary(selectedCC)) + '</span></p></div>';
+            html += '<div class="sec"><div class="sl">Latest Vitals / 最新バイタル</div><div class="vit"><div><b>Time</b><span>' + esc(vitals?.time || '—') + '</span></div><div><b>BP</b><span>' + esc(vitals?.bp || '—') + '</span></div><div><b>Pulse</b><span>' + esc(vitals?.pulse || '—') + '</span></div><div><b>RR</b><span>' + esc(vitals?.rr || '—') + '</span></div><div><b>SpO2</b><span>' + esc(vitals?.spo2 || '—') + '</span></div><div><b>Temp</b><span>' + esc(vitals?.temp || '—') + '</span></div><div><b>AVPU</b><span>' + esc(vitals?.avpu || '—') + '</span></div></div></div>';
             html += '<div class="cols">';
-            html += '<div class="sec"><h2>OPQRST / 詳細問診</h2><div class="card2 kv"><b>O</b><span>' + esc(opO) + '</span><b>P</b><span>' + esc(opP) + '</span><b>Q</b><span>' + esc(opQ) + '</span><b>R</b><span>' + esc(opR) + '</span><b>S</b><span>' + esc(opS) + '</span><b>T</b><span>' + esc(opT) + '</span></div></div>';
-            html += '<div class="sec"><h2>SAMPLE / 既往歴</h2><div class="card2 kv"><b>S</b><span>' + esc(smS) + '</span><b>A</b><span>' + esc(smA) + '</span><b>M</b><span>' + esc(smM) + '</span><b>P</b><span>' + esc(smP) + '</span><b>L</b><span>' + esc(smL) + '</span><b>E</b><span>' + esc(smE) + '</span></div></div>';
-            html += '<div class="sec"><h2>CPSS / Trauma / 特記</h2><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
-            html += '<div class="sec"><h2>Treatment &amp; Disposition / 処置・搬送</h2><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '</span></p></div></div>';
+            html += '<div class="sec"><div class="sl">OPQRST / 詳細問診</div><div class="card2 kv"><b>O</b><span>' + esc(opO) + '</span><b>P</b><span>' + esc(opP) + '</span><b>Q</b><span>' + esc(opQ) + '</span><b>R</b><span>' + esc(opR) + '</span><b>S</b><span>' + esc(opS) + '</span><b>T</b><span>' + esc(opT) + '</span></div></div>';
+            html += '<div class="sec"><div class="sl">SAMPLE / 既往歴</div><div class="card2 kv"><b>S</b><span>' + esc(smS) + '</span><b>A</b><span>' + esc(smA) + '</span><b>M</b><span>' + esc(smM) + '</span><b>P</b><span>' + esc(smP) + '</span><b>L</b><span>' + esc(smL) + '</span><b>E</b><span>' + esc(smE) + '</span></div></div>';
+            html += '<div class="sec"><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
+            html += '<div class="sec"><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="sec"><h2>Initial Findings / 発見時情報</h2><div class="card2"><p class="txt">' + esc(selectedListSummary(selectedInitialFindings, '—')) + '<span class="mut">Notes: ' + esc((initialManualNotes || []).slice(-2).map(n => '[' + n.t + '] ' + n.text).join(' | ') || '—') + '</span></p></div></div>';
-            html += '<div class="sec"><h2>Bystander / バイスタンダー</h2><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span></div></div>';
+            html += '<div class="sec"><div class="sl">Initial Findings / 発見時情報</div><div class="card2"><p class="txt">' + esc(selectedListSummary(selectedInitialFindings, '—')) + '<span class="mut">Notes: ' + esc((initialManualNotes || []).slice(-2).map(n => '[' + n.t + '] ' + n.text).join(' | ') || '—') + '</span></p></div></div>';
+            html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span></div></div>';
             html += '</div>';
             html += '<div class="sig"><div>Provider Signature / 記録者<div class="ln"></div></div><div>Receiving Facility / 引継先<div class="ln"></div></div><div>Handoff Time / 引継時刻<div class="ln"></div></div></div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9  ·  Patient Assessment &amp; Handoff Report</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.1  ·  Patient Assessment &amp; Handoff Report</div>';
             html += '</div></body></html>';
             return html;
         }
