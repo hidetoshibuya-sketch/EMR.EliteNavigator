@@ -458,7 +458,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.3</h1>
+    <h1>EMR Elite Navigator v2.9.4</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -494,57 +494,57 @@
         </div>
         <div class="decision-tree">
             <div class="branch-point" id="triage-node-walking">
-                <h4>Walking? <span class="sub-lang">(歩行可能？)</span></h4>
+                <h4>1. Walking? <span class="sub-lang">(歩行可能？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triageToggle(this, () => triageWalk(true));">Yes <span class="sub-lang">(可能)</span></button>
-                    <button class="btn-branch" onclick="triageToggle(this, () => triageWalk(false));">No <span class="sub-lang">(不可)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'walk','yes')">Yes <span class="sub-lang">(可能)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'walk','no')">No <span class="sub-lang">(不可)</span></button>
                 </div>
             </div>
 
-            <div id="triage-node-breathing" class="branch-point hidden">
-                <h4>Spontaneous Breathing? <span class="sub-lang">(自発呼吸あり？)</span></h4>
+            <div id="triage-node-breathing" class="branch-point triage-disabled">
+                <h4>2. Spontaneous Breathing? <span class="sub-lang">(自発呼吸あり？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" data-breath="yes" onclick="triageToggle(this, () => triageBreathing(true));">Yes <span class="sub-lang">(あり)</span></button>
-                    <button class="btn-branch" data-breath="no" onclick="triageToggle(this, () => triageBreathing(false));">No <span class="sub-lang">(なし)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'breathing','yes')">Yes <span class="sub-lang">(あり)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'breathing','no')">No <span class="sub-lang">(なし)</span></button>
                 </div>
             </div>
 
-            <div id="triage-node-rr-check" class="branch-point hidden">
-                <h4>Respiratory Rate (RR)? <span class="sub-lang">(呼吸数は？)</span></h4>
+            <div id="triage-node-rr-check" class="branch-point triage-disabled">
+                <h4>3. Respiratory Rate? <span class="sub-lang">(呼吸数は？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triageToggle(this, () => triageRreathingCount('ge30'));">&ge;30 /min <span class="sub-lang">(30回以上)</span></button>
-                    <button class="btn-branch" onclick="triageToggle(this, () => triageRreathingCount('le29'));">&le;29 /min <span class="sub-lang">(29回以内)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'rr','norm')">10–29 /min <span class="sub-lang">(正常範囲)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'rr','abn')">&ge;30 or &le;9 /min <span class="sub-lang">(30回以上/9回以下)</span></button>
                 </div>
             </div>
 
-            <div id="triage-node-crt-pulse" class="branch-point hidden">
-                <h4>Perfusion / Pulse Check? <span class="sub-lang">(循環/橈骨動脈は？)</span></h4>
+            <div id="triage-node-crt-pulse" class="branch-point triage-disabled">
+                <h4>4. Perfusion / Pulse? <span class="sub-lang">(循環・脈拍は？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triageToggle(this, () => triageCrt('le2'));">CRT &le;2s / Pulse 〇 <span class="sub-lang">(CRT 2秒内/触知可能)</span></button>
-                    <button class="btn-branch" onclick="triageToggle(this, () => triageCrt('gt2'));">CRT &gt;2s / No Pulse <span class="sub-lang">(CRT 2秒超/触知不可)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'pulse','norm')">Pulse OK / CRT &le;2s <span class="sub-lang">(触知可・CRT2秒内・HR&lt;120)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'pulse','abn')">No pulse / CRT &gt;2s / HR &ge;120 <span class="sub-lang">(触知不可・CRT2秒超・HR120以上)</span></button>
                 </div>
             </div>
 
-            <div id="triage-node-commands" class="branch-point hidden">
-                <h4>Obey Commands? <span class="sub-lang">(簡単な指示に応じる？)</span></h4>
+            <div id="triage-node-commands" class="branch-point triage-disabled">
+                <h4>5. Obey Commands? <span class="sub-lang">(簡単な指示に応じる？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triageToggle(this, () => triageCommands(true));">Obey <span class="sub-lang">(応じる)</span></button>
-                    <button class="btn-branch" onclick="triageToggle(this, () => triageCommands(false));">Disobey <span class="sub-lang">(応じない)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'commands','obey')">Obey <span class="sub-lang">(応じる)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'commands','disobey')">Disobey <span class="sub-lang">(応じない)</span></button>
                 </div>
             </div>
 
-            <div id="triage-node-airway-check" class="branch-point hidden alert-box">
-                <h4>No spontaneous breathing. Provide manual airway. <span class="sub-lang">(自発呼吸なし。用手気道確保)</span></h4>
+            <div id="triage-node-airway-check" class="branch-point triage-disabled alert-box">
+                <h4>Open airway (no breathing). <span class="sub-lang">(自発呼吸なし。気道確保)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-main-act" onclick="triageToggle(this, () => triageAirwayManual('airway-breath'));">DONE <span class="sub-lang">(実施済)</span></button>
+                    <button class="btn-main-act" onclick="triagePick(this,'airway','done')">Airway Done <span class="sub-lang">(気道確保 実施)</span></button>
                 </div>
             </div>
-            
-            <div id="triage-node-airway-breathing-check" class="branch-point hidden">
-                <h4>Spontaneous Breathing (post airway)? <span class="sub-lang">(用手気道確保後、呼吸あり？)</span></h4>
+
+            <div id="triage-node-airway-breathing-check" class="branch-point triage-disabled">
+                <h4>Breathing after airway? <span class="sub-lang">(気道確保後の呼吸あり？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triageToggle(this, () => triageBreathingAirway(true));">Yes <span class="sub-lang">(あり)</span></button>
-                    <button class="btn-branch" onclick="triageToggle(this, () => triageBreathingAirway(false));">No <span class="sub-lang">(なし)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'airwayBreath','yes')">Yes <span class="sub-lang">(あり)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'airwayBreath','no')">No <span class="sub-lang">(なし)</span></button>
                 </div>
             </div>
 
@@ -1675,6 +1675,29 @@
         <div class="equip-grid" id="equip-container"></div>
     </div>
 
+    <div class="card" id="sec-remarks">
+        <h2>Remarks <span class="sub-lang">(特記事項)</span></h2>
+        <textarea id="rep-remarks" style="width:100%; box-sizing:border-box; height:90px; border:1px solid #cbd5e1; border-radius:10px; padding:12px; font-family:inherit; font-size:1.05rem; color:var(--text-main); font-weight:400; line-height:1.5;" placeholder="Any special remarks / 特記事項を入力"></textarea>
+        <button class="btn-save" style="width:100%; background:var(--primary); margin-top:8px;" onclick="saveRemarks()">Save Remarks <span style="font-size:0.92rem; font-weight:400;">(特記事項を記録)</span></button>
+    </div>
+
+    <div class="card" id="sec-location">
+        <h2>Incident Location <span class="sub-lang">(発生場所)</span></h2>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <span style="font-size:0.98rem; font-weight:bold;">Type <span style="font-weight:normal; color:var(--text-sub);">(屋内/屋外)</span></span>
+            <select id="loc-type" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" onchange="composeLocation()">
+                <option value="Indoor">Indoor / 屋内</option>
+                <option value="Outdoor">Outdoor / 屋外</option>
+            </select>
+        </div>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <span style="font-size:0.98rem; font-weight:bold;">Details <span style="font-weight:normal; color:var(--text-sub);">(場所詳細)</span></span>
+            <input type="text" id="loc-detail" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="Indoor: Bldg 1 Rm 203  /  Outdoor: Block 5 East Side" oninput="composeLocation()">
+        </div>
+        <input type="hidden" id="loc-text">
+        <button class="btn-save" style="width:100%; background:var(--primary);" onclick="saveLocation()">Save Location <span style="font-size:0.92rem; font-weight:400;">(発生場所を記録)</span></button>
+    </div>
+
     <div class="card" id="sec-report-author">
         <h2>Report Author <span class="sub-lang">(レポート作成者情報)</span></h2>
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
@@ -1738,6 +1761,7 @@
             'Alert and conversing\n(意識清明・会話可能)',
             'Drowsy but rousable\n(傾眠・呼びかけで反応)',
             'Unresponsive / Unconscious\n(無反応・意識消失)',
+            'Disoriented / Confused\n(見当識障害・混乱)',
             'Standing / Walking\n(立位・歩行可能)',
             'Sitting upright\n(座位)',
             'Lying supine on the ground\n(地面に仰向け)',
@@ -3449,21 +3473,91 @@
         }
 
         // Show every node of the START triage chart at once (no progressive reveal)
-        function showAllTriageNodes() {
-            ['triage-node-walking', 'triage-node-breathing', 'triage-node-rr-check', 'triage-node-crt-pulse',
-             'triage-node-commands', 'triage-node-airway-check', 'triage-node-airway-breathing-check']
-                .forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) {
-                        el.classList.remove('hidden');
-                        el.classList.remove('triage-locked');
-                        // Re-enable buttons & remove "selected" marker
-                        el.querySelectorAll('button').forEach(b => {
-                            b.disabled = false;
-                            b.classList.remove('triage-chosen');
-                        });
+        // ===== START Triage — sequential state machine (v2.9.4) =====
+        const TRIAGE_NODE_IDS = ['triage-node-walking','triage-node-breathing','triage-node-rr-check','triage-node-crt-pulse','triage-node-commands','triage-node-airway-check','triage-node-airway-breathing-check'];
+        const TRIAGE_KEY_BY_NODE = { 'triage-node-walking':'walk','triage-node-breathing':'breathing','triage-node-rr-check':'rr','triage-node-crt-pulse':'pulse','triage-node-commands':'commands','triage-node-airway-check':'airway','triage-node-airway-breathing-check':'airwayBreath' };
+        let triageAns = { walk:null, breathing:null, rr:null, pulse:null, commands:null, airway:null, airwayBreath:null };
+
+        function triagePick(btn, key, val) {
+            const node = btn.closest('.branch-point');
+            if (node && node.classList.contains('triage-disabled')) return;
+            const wasChosen = btn.classList.contains('triage-chosen');
+            if (node) node.querySelectorAll('button').forEach(b => b.classList.remove('triage-chosen','active'));
+            if (wasChosen) { triageAns[key] = null; }
+            else { triageAns[key] = val; btn.classList.add('triage-chosen'); }
+            evaluateTriage();
+            logAction('Triage (START)', key + ': ' + (triageAns[key] || 'cleared'));
+        }
+
+        function evaluateTriage() {
+            const A = triageAns;
+            const en = { 'triage-node-walking':true, 'triage-node-breathing':false, 'triage-node-rr-check':false, 'triage-node-crt-pulse':false, 'triage-node-commands':false, 'triage-node-airway-check':false, 'triage-node-airway-breathing-check':false };
+            let result = null;
+            if (A.walk === 'yes') {
+                result = ['green', 'GREEN — Minor / 軽症 (区分III)'];
+            } else if (A.walk === 'no') {
+                en['triage-node-breathing'] = true;
+                if (A.breathing === 'no') {
+                    en['triage-node-airway-check'] = true;
+                    if (A.airway === 'done') {
+                        en['triage-node-airway-breathing-check'] = true;
+                        if (A.airwayBreath === 'yes') result = ['red', 'RED — Immediate / 最優先 (区分I)'];
+                        else if (A.airwayBreath === 'no') result = ['black', 'BLACK — Deceased / 無呼吸・死亡 (区分0)'];
                     }
-                });
+                } else if (A.breathing === 'yes') {
+                    en['triage-node-rr-check'] = true;
+                    if (A.rr === 'abn') {
+                        result = ['red', 'RED — Immediate / 最優先 (区分I)'];
+                    } else if (A.rr === 'norm') {
+                        en['triage-node-crt-pulse'] = true;
+                        if (A.pulse === 'abn') {
+                            result = ['red', 'RED — Immediate / 最優先 (区分I)'];
+                        } else if (A.pulse === 'norm') {
+                            en['triage-node-commands'] = true;
+                            if (A.commands === 'disobey') result = ['red', 'RED — Immediate / 最優先 (区分I)'];
+                            else if (A.commands === 'obey') result = ['yellow', 'YELLOW — Delayed / 待機 (区分II)'];
+                        }
+                    }
+                }
+            }
+            applyTriageEnable(en);
+            if (result) showTriageResult(result[0], result[1]);
+            else hideResult();
+        }
+
+        function applyTriageEnable(en) {
+            TRIAGE_NODE_IDS.forEach(id => {
+                const el = document.getElementById(id); if (!el) return;
+                const on = !!en[id];
+                el.classList.toggle('triage-disabled', !on);
+                if (!on) {
+                    el.querySelectorAll('button').forEach(b => b.classList.remove('triage-chosen','active'));
+                    const key = TRIAGE_KEY_BY_NODE[id];
+                    if (key) triageAns[key] = null;
+                }
+            });
+        }
+
+        function showTriageResult(color, text) {
+            selectedTriageNode = text;
+            const r = document.getElementById('triage-result'); if (!r) return;
+            const styles = {
+                green:  'background:#16a34a;color:#fff;border:2px solid #15803d;',
+                yellow: 'background:#facc15;color:#1e293b;border:2px solid #ca8a04;',
+                red:    'background:#dc2626;color:#fff;border:2px solid #b91c1c;',
+                black:  'background:#0f172a;color:#fff;border:2px solid #000;'
+            };
+            r.className = 'result-node';
+            r.setAttribute('style', (styles[color] || '') + 'border-radius:10px;padding:16px;font-weight:800;font-size:1.15rem;');
+            r.textContent = text;
+            r.classList.remove('hidden');
+        }
+
+        function showAllTriageNodes() {
+            triageAns = { walk:null, breathing:null, rr:null, pulse:null, commands:null, airway:null, airwayBreath:null };
+            TRIAGE_NODE_IDS.forEach(id => { const el = document.getElementById(id); if (el) { el.classList.remove('hidden'); el.querySelectorAll('button').forEach(b => b.classList.remove('triage-chosen','active')); } });
+            hideResult();
+            evaluateTriage();
         }
 
         // Lock a triage node so its buttons can't be pressed again.
@@ -4268,6 +4362,23 @@
             logAction('Bystander', `Name: ${n || 'N/A'}, Age: ${a || 'N/A'}, SSN: ${s || 'N/A'}, Phone: ${p || 'N/A'}`);
             alert("Bystander information recorded.");
         }
+        function saveRemarks() {
+            const v = document.getElementById('rep-remarks') ? document.getElementById('rep-remarks').value : '';
+            logAction('Remarks', v || 'N/A');
+            alert("Remarks recorded.");
+        }
+        function composeLocation() {
+            const t = document.getElementById('loc-type') ? document.getElementById('loc-type').value : '';
+            const d = (document.getElementById('loc-detail') ? document.getElementById('loc-detail').value : '').trim();
+            const loc = [t, d].filter(Boolean).join(' — ');
+            const lt = document.getElementById('loc-text'); if (lt) lt.value = loc;
+            return loc;
+        }
+        function saveLocation() {
+            const loc = composeLocation();
+            logAction('Incident Location', loc || 'N/A');
+            alert("Incident location recorded.");
+        }
         function composeRepUnit() {
             const st = document.getElementById('rep-station') ? document.getElementById('rep-station').value : '';
             const eng = (document.getElementById('rep-engine') ? document.getElementById('rep-engine').value : '').trim();
@@ -4317,6 +4428,8 @@
             const byPhone= document.getElementById('by-phone').value|| 'N/A';
             const repUnit = document.getElementById('rep-unit').value || 'N/A';
             const repName = document.getElementById('rep-name').value || 'N/A';
+            const repRemarks = document.getElementById('rep-remarks') ? (document.getElementById('rep-remarks').value || 'N/A') : 'N/A';
+            const repLoc = (document.getElementById('loc-text') && document.getElementById('loc-text').value) ? document.getElementById('loc-text').value : (typeof composeLocation==='function' ? (composeLocation() || 'N/A') : 'N/A');
             const now   = new Date();
 
             let finalDisposition = selectedDisposition || '— Undecided —';
@@ -4347,6 +4460,8 @@
             report += `  Type       : ${currentFlowType === 'trauma' ? 'TRAUMA (外傷)' : currentFlowType === 'medical' ? 'MEDICAL (急病)' : 'PENDING'}\n`;
             if (patientCountMode) report += `  Patients   : ${patientCountMode}${triageTagNumber ? ' / Triage Tag No. ' + triageTagNumber : ''}\n`;
             report += `  Recorded by: ${repUnit} / ${repName}\n`;
+            report += `  Location   : ${repLoc}\n`;
+            report += `  Remarks    : ${repRemarks}\n`;
 
             // ── Section 1: Demographics ──
             report += sectionHdr('👤', 'PATIENT DEMOGRAPHICS', '傷病者情報');
@@ -4471,9 +4586,6 @@
 
             // ── Footer / Signature ──
             report += '\n' + line('─') + '\n';
-            report += '  Provider Signature : ____________________________\n';
-            report += '  Receiving Facility : ____________________________\n';
-            report += '  Handoff Time       : ____________________________\n';
             report += line('─') + '\n';
             report += center('— END OF REPORT / 以上 —') + '\n';
             report += doubLine() + '\n';
@@ -4656,6 +4768,8 @@
             const byPhone= cleanReportValue(document.getElementById('by-phone')?.value, '—');
             const repUnit = cleanReportValue(document.getElementById('rep-unit')?.value, '—');
             const repName = cleanReportValue(document.getElementById('rep-name')?.value, '—');
+            const repRemarks = cleanReportValue(document.getElementById('rep-remarks')?.value, '—');
+            const repLoc = cleanReportValue((document.getElementById('loc-text') && document.getElementById('loc-text').value) || (typeof composeLocation==='function' ? composeLocation() : ''), '—');
             const now = new Date();
             const reportId = 'EMR-' + now.getFullYear() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + '-' + String(now.getHours()).padStart(2,'0') + String(now.getMinutes()).padStart(2,'0') + String(now.getSeconds()).padStart(2,'0');
             const vitals = getLatestVitals(currentFlowType === 'trauma' ? 'tv' : 'v');
@@ -4699,9 +4813,9 @@
             html += '</div>';
             html += '<div class="sec"><div class="sl">Initial Findings / 発見時情報</div><div class="card2"><p class="txt">' + esc(selectedListSummary(selectedInitialFindings, '—')) + '<span class="mut">Notes: ' + esc((initialManualNotes || []).slice(-2).map(n => '[' + n.t + '] ' + n.text).join(' | ') || '—') + '</span></p></div></div>';
             html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span></div></div>';
+            html += '<div class="sec"><div class="sl">Location &amp; Remarks / 発生場所・特記事項</div><div class="card2"><p class="txt">Location: ' + esc(repLoc) + '<span class="mut">Remarks: ' + esc(repRemarks) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="sig"><div>Provider Signature / 記録者<div class="ln"></div></div><div>Receiving Facility / 引継先<div class="ln"></div></div><div>Handoff Time / 引継時刻<div class="ln"></div></div></div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.3  ·  Patient Assessment &amp; Handoff Report</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.4  ·  Patient Assessment &amp; Handoff Report</div>';
             html += '</div></body></html>';
             return html;
         }
