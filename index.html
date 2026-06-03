@@ -217,7 +217,8 @@
         .vcell .vspin .vnow { background:#2563eb; color:#fff; border-color:#1e40af; padding:6px 12px; font-weight:700; min-width:54px; }
 
         .equip-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 1.05rem; }
-        .equip-item { display: flex; align-items: center; gap: 12px; background: #f8fafc; padding: 14px 16px; border-radius: 8px; border: 1px solid #cbd5e1; font-weight: 600; min-height: 56px; }
+        .equip-item { display: flex; align-items: center; gap: 12px; background: #f8fafc; padding: 14px 16px; border-radius: 8px; border: 1px solid #cbd5e1; font-weight: 600; min-height: 56px; cursor: pointer; }
+        .equip-item.active { background: #16a34a; color: #fff; border-color: transparent; }
         .equip-item input { width: 24px; height: 24px; cursor: pointer; accent-color: var(--primary); }
 
         textarea { width: 100%; height: 240px; border-radius: 10px; border: 1px solid #cbd5e1; padding: 14px; box-sizing: border-box; background: #fafafa; color: #1e40af; font-family: monospace; font-size: 0.95rem; margin-bottom: 12px; line-height: 1.5; font-weight: 600; }
@@ -385,12 +386,13 @@
             background-color: #ffffff; border-color: #cbd5e1;
             box-shadow: none;
         }
-        .btn-ok.active, .btn-branch.active, .chip.active {
+        .btn-ok.active, .btn-branch.active {
             background: #2563eb;
         }
         .btn-danger-toggle.active { background: #dc2626; }
-        .btn-ok.active, .chip.cc-chip.active { background: #16a34a; color: white; }
-        .chip.cc-chip.active .sub-lang { color: rgba(220,252,231,0.94); }
+        .btn-ok.active, .chip.active, .chip.cc-chip.active { background: #16a34a; color: white; }
+        .chip.active .sub-lang, .chip.cc-chip.active .sub-lang { color: rgba(220,252,231,0.94); }
+        .btn-ok.avpu-mid.active { background: #facc15 !important; color: #1e293b; border-color: transparent; }
         .btn-audio {
             background: #eff6ff; border-color: #bfdbfe; border-left-color: var(--primary);
             box-shadow: none;
@@ -460,7 +462,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.5</h1>
+    <h1>EMR Elite Navigator v2.9.7</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -584,8 +586,8 @@
 
         <h3>ABC Evaluation <span class="sub-lang">(ABC評価)</span></h3>
         <div style="display:flex; gap:8px; margin-bottom:10px;">
-            <button class="btn-ok" style="flex:1;" id="btn-abc-ok" onclick="setAbcStatus('ABC OK')">ABC OK <span style="font-size:0.92rem; font-weight:400; display:block;">(安定)</span></button>
             <button class="btn-danger-toggle" style="flex:1;" id="btn-abc-cpa" onclick="setAbcStatus('CPA')">CPA <span style="font-size:0.92rem; font-weight:400; display:block;">(心肺停止)</span></button>
+            <button class="btn-ok" style="flex:1;" id="btn-abc-ok" onclick="setAbcStatus('ABC OK')">ABC OK <span style="font-size:0.92rem; font-weight:400; display:block;">(安定)</span></button>
         </div>
 
         <h3>Major Bleeding? <span class="sub-lang">(活動性の大出血あり/なし)</span></h3>
@@ -626,8 +628,8 @@
         <h3>AVPU Scale <span class="sub-lang">(意識レベル評価)</span></h3>
         <div style="display:flex; gap:4px; margin-bottom:4px;">
             <button class="btn-ok" style="flex:1;" id="avpu-A" onclick="toggleAvpu('A')">A</button>
-            <button class="btn-ok" style="flex:1;" id="avpu-V" onclick="toggleAvpu('V')">V</button>
-            <button class="btn-ok" style="flex:1;" id="avpu-P" onclick="toggleAvpu('P')">P</button>
+            <button class="btn-ok avpu-mid" style="flex:1;" id="avpu-V" onclick="toggleAvpu('V')">V</button>
+            <button class="btn-ok avpu-mid" style="flex:1;" id="avpu-P" onclick="toggleAvpu('P')">P</button>
             <button class="btn-danger-toggle" style="flex:1;" id="avpu-U" onclick="toggleAvpu('U')">U</button>
         </div>
         <div id="avpu-guide-text" class="guide-txt-area" style="font-size:0.95rem;">Select AVPU to show Japanese guide. <span style="font-weight:normal;">(AVPUを選択すると日本語ガイドが表示されます。)</span></div>
@@ -725,7 +727,7 @@
             <div id="oxygen-advisory-reason" style="margin-top:4px; font-size:0.95rem;"></div>
         </div>
         <div style="display:flex; gap:8px;">
-            <button class="btn-ok" style="flex:1;" id="btn-oxygen-yes" onclick="toggleMedicalOk('Oxygen', true)">Oxygen Administered <span style="font-size:0.92rem; font-weight:400; display:block;">(投与あり)</span></button>
+            <button class="btn-danger-toggle" style="flex:1;" id="btn-oxygen-yes" onclick="toggleMedicalOk('Oxygen', true)">Oxygen Administered <span style="font-size:0.92rem; font-weight:400; display:block;">(投与あり)</span></button>
             <button class="btn-ok" style="flex:1;" id="btn-oxygen-no" onclick="toggleMedicalOk('Oxygen', false)">Not Required / Normal <span style="font-size:0.92rem; font-weight:400; display:block;">(投与不要/正常)</span></button>
         </div>
 
@@ -928,6 +930,7 @@
                 <span class="chip" onclick="selectByRel(this,'Friend')">Friend <span class="sub-lang">(友人)</span></span>
                 <span class="chip" onclick="selectByRel(this,'Coworker')">Coworker <span class="sub-lang">(同僚)</span></span>
                 <span class="chip" onclick="selectByRel(this,'Passerby / Witness')">Passerby <span class="sub-lang">(通行人)</span></span>
+                <span class="chip" onclick="selectByRel(this,'Supervisor / Superior')">Supervisor <span class="sub-lang">(上官・上司)</span></span>
             </div>
             <input type="text" id="by-rel-other" class="input-text" style="width:100%; box-sizing:border-box; margin-top:8px;" placeholder="Other / その他 (自由入力)" oninput="setByRelOther(this.value)">
             <input type="hidden" id="by-rel">
@@ -1316,16 +1319,16 @@
         </div>
 
         <h3 style="margin-top:18px; color:#c2410c;">🧠 Stroke Assessment: CPSS <span class="sub-lang">(脳卒中評価・シンシナティ病院前脳卒中スケール)</span></h3>
-        <div style="background:#fff7ed; padding:10px; border-radius:8px; border:1px solid #ffedd5;">
+        <div style="padding:0;">
             
             <div class="check-item" style="background:transparent; flex-direction:column; align-items:flex-start; gap:4px;">
                 <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
                     <span class="label-txt" style="font-size:0.98rem;">[F] Facial Droop <span class="sub-lang">(顔のゆがみ・片側麻痺)</span></span>
                     <button class="btn-mic-sub" style="padding:2px 6px; font-size:0.88rem;" onclick="playAudio('fast-smile', 'Can you smile for me? Show me your teeth.')">🔊 Ask Smile</button>
                 </div>
-                <div style="width:100%; text-align:right;">
-                    <button class="dots-btn" style="min-width:60px;" id="fast-f-norm" onclick="setFast('F', 'Normal', this)">Normal</button>
-                    <button class="dots-btn" style="min-width:60px;" id="fast-f-abnorm" onclick="setFast('F', 'Abnormal', this)">Abnormal</button>
+                <div style="display:flex; gap:8px; width:100%; margin-top:6px;">
+                    <button class="btn-danger-toggle" style="flex:1;" id="fast-f-abnorm" onclick="setFast('F','Abnormal',this)">Abnormal <span style="font-size:0.88rem; font-weight:400; display:block;">(異常)</span></button>
+                    <button class="btn-ok" style="flex:1;" id="fast-f-norm" onclick="setFast('F','Normal',this)">Normal <span style="font-size:0.88rem; font-weight:400; display:block;">(正常)</span></button>
                 </div>
             </div>
 
@@ -1334,9 +1337,9 @@
                     <span class="label-txt" style="font-size:0.98rem;">[A] Arm Drift <span class="sub-lang">(腕の脱力・片側落下)</span></span>
                     <button class="btn-mic-sub" style="padding:2px 6px; font-size:0.88rem;" onclick="playAudio('fast-arm', 'Close your eyes and hold both arms straight out with your palms up for ten seconds.')">🔊 Ask Arm Lift</button>
                 </div>
-                <div style="width:100%; text-align:right;">
-                    <button class="dots-btn" style="min-width:60px;" id="fast-a-norm" onclick="setFast('A', 'Normal', this)">Normal</button>
-                    <button class="dots-btn" style="min-width:60px;" id="fast-a-abnorm" onclick="setFast('A', 'Abnormal', this)">Abnormal</button>
+                <div style="display:flex; gap:8px; width:100%; margin-top:6px;">
+                    <button class="btn-danger-toggle" style="flex:1;" id="fast-a-abnorm" onclick="setFast('A','Abnormal',this)">Abnormal <span style="font-size:0.88rem; font-weight:400; display:block;">(異常)</span></button>
+                    <button class="btn-ok" style="flex:1;" id="fast-a-norm" onclick="setFast('A','Normal',this)">Normal <span style="font-size:0.88rem; font-weight:400; display:block;">(正常)</span></button>
                 </div>
             </div>
 
@@ -1345,9 +1348,9 @@
                     <span class="label-txt" style="font-size:0.98rem;">[S] Speech <span class="sub-lang">(発話・構音障害)</span></span>
                     <button class="btn-mic-sub" style="padding:2px 6px; font-size:0.88rem;" onclick="playAudio('fast-speech', 'Please repeat this phrase after me: You can\'t teach an old dog new tricks.')">🔊 Ask Phrase</button>
                 </div>
-                <div style="width:100%; text-align:right;">
-                    <button class="dots-btn" style="min-width:60px;" id="fast-s-norm" onclick="setFast('S', 'Normal', this)">Normal</button>
-                    <button class="dots-btn" style="min-width:60px;" id="fast-s-abnorm" onclick="setFast('S', 'Abnormal', this)">Abnormal</button>
+                <div style="display:flex; gap:8px; width:100%; margin-top:6px;">
+                    <button class="btn-danger-toggle" style="flex:1;" id="fast-s-abnorm" onclick="setFast('S','Abnormal',this)">Abnormal <span style="font-size:0.88rem; font-weight:400; display:block;">(異常)</span></button>
+                    <button class="btn-ok" style="flex:1;" id="fast-s-norm" onclick="setFast('S','Normal',this)">Normal <span style="font-size:0.88rem; font-weight:400; display:block;">(正常)</span></button>
                 </div>
             </div>
         </div>
@@ -1828,7 +1831,9 @@
             'Pale / Cyanotic / Mottled skin\n(蒼白・チアノーゼ・斑状皮膚)',
             'Sweating profusely / Cold skin\n(冷汗・湿潤冷感)',
             'Agitated / Combative\n(興奮・暴れている)',
-            'Trapped / Pinned by object\n(挟まれ・脱出困難)'
+            'Trapped / Pinned by object\n(挟まれ・脱出困難)',
+            'In a vehicle\n(車内)',
+            'In an aircraft\n(機内)'
         ];
 
         const CC_List = [
@@ -2706,10 +2711,10 @@
         let sampleChipsData = sampleMedicalChips;
 
         const equipmentList = [
-            "High-Flow Oxygen Mask (高濃度酸素マスク)", "Nasal Cannula (経鼻カニューレ)", "BVM - Bag Valve Mask (バッグバルブマスク)", "OPA - Oropharyngeal Airway (経口気道確保筒)", "NPA - Nasopharyngeal Airway (経鼻気道確保筒)",
-            "Suction Unit & Catheter (吸引器セット)", "AED - Defibrillator (AED・除細動器)", "Pulse Oximeter (パルスオキシメーター)", "Blood Pressure Cuff (血圧計)", "Thermometer (体温計)",
-            "C-Collar / Cervical Collar (ネックカラー)", "Spine Board / Backboard (バックボード)", "Head Immobilizer (ヘッドイモビライザー)", "Tourniquet / CAT (止血帯・ターニケット)", "Hemostatic Dressing (止血ガーゼ)",
-            "Sterile Gauze Packs (滅菌ガーゼ)", "Burn Sheet (バーンシート)", "Bandage / Elastic Roll (バンテージ・弾性包帯)",
+            "O2 Cylinder (酸素ボンベ)", "High-Flow Oxygen Mask (高濃度酸素マスク)", "Nasal Cannula (経鼻カニューレ)", "BVM - Bag Valve Mask (バッグバルブマスク)", "OPA - Oropharyngeal Airway (経口気道確保筒)", "NPA - Nasopharyngeal Airway (経鼻気道確保筒)", "Suction Unit & Catheter (吸引器セット)",
+            "AED - Defibrillator (AED・除細動器)", "Pulse Oximeter (パルスオキシメーター)", "Blood Pressure Cuff (血圧計)", "Thermometer (体温計)",
+            "C-Collar / Cervical Collar (ネックカラー)", "Spine Board / Backboard (バックボード)", "Head Immobilizer (ヘッドイモビライザー)",
+            "Tourniquet / CAT (止血帯・ターニケット)", "Hemostatic Dressing (止血ガーゼ)", "Burn Sheet (バーンシート)", "Bandage / Elastic Roll (バンテージ・弾性包帯)",
             "Splints / SAM Splint (副子 / サムスプリント)", "Cold Packs (コールドパック)"
         ];
 
@@ -2755,8 +2760,13 @@
             // 資機材ビルド
             const equipContainer = document.getElementById('equip-container');
             equipmentList.forEach((equip, index) => {
-                const div = document.createElement('div'); div.className = 'equip-item';
-                div.innerHTML = `<input type="checkbox" id="equip-${index}" onchange="trackEquipment('${equip}', this.checked)"> <label for="equip-${index}">${equip}</label>`;
+                const div = document.createElement('div'); div.className = 'equip-item'; div.id = 'equip-' + index;
+                div.textContent = equip;
+                div.addEventListener('click', () => {
+                    const on = !div.classList.contains('active');
+                    div.classList.toggle('active', on);
+                    trackEquipment(equip, on);
+                });
                 equipContainer.appendChild(div);
             });
 
@@ -3311,6 +3321,10 @@
          * @param {string} key      — filename stem (e.g. "greeting", "cc-intro")
          * @param {string} fallback — text to speak if no audio file available
          */
+        function stopAnnouncements() {
+            try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch (e) {}
+            if (_audioElement) { try { _audioElement.pause(); _audioElement.currentTime = 0; } catch (e) {} }
+        }
         function playAudio(key, fallback) {
             if (_audioStatusCache[key] === 'missing') {
                 // Already confirmed all extensions 404 this session — straight to TTS
@@ -3319,8 +3333,8 @@
             }
             primeSpeech();  // also primes audio context on iOS
 
-            // Cancel any in-flight TTS first
-            try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch (e) {}
+            // Stop any in-flight announcement (recorded audio + TTS) before starting a new one
+            stopAnnouncements();
 
             const cached = _audioStatusCache[key];
             // If we already know the working extension, go direct
@@ -3403,8 +3417,8 @@
             primeSpeech();
             if (!speechCache.voices.length) loadVoices();
 
-            // Cancel any currently queued utterance so the new request plays cleanly
-            try { window.speechSynthesis.cancel(); } catch (e) {}
+            // Stop any in-flight announcement (recorded audio + TTS) before starting a new one
+            stopAnnouncements();
 
             const chunks = chunkForSpeech(text);
             if (!chunks.length) return;
@@ -4343,9 +4357,8 @@
         function setFast(part, status, btn) {
             const pNorm = document.getElementById(`fast-${part.toLowerCase()}-norm`);
             const pAbnorm = document.getElementById(`fast-${part.toLowerCase()}-abnorm`);
-            pNorm.classList.remove('active','norm-active','abn-active'); pAbnorm.classList.remove('active','norm-active','abn-active');
+            pNorm.classList.remove('active'); pAbnorm.classList.remove('active');
             btn.classList.add('active');
-            btn.classList.add(status === 'Normal' ? 'norm-active' : 'abn-active');
             fastScaleResults[part] = status;
             logAction('FAST/CPSS', `${part} evaluated as ${status}`);
         }
@@ -4906,7 +4919,7 @@
             html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span><b>Rel.</b><span>' + esc(byRel) + '</span></div></div>';
             html += '<div class="sec"><div class="sl">Location &amp; Remarks / 発生場所・特記事項</div><div class="card2"><p class="txt">Location: ' + esc(repLoc) + '<span class="mut">Remarks: ' + esc(repRemarks) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.5  ·  Patient Assessment &amp; Handoff Report</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.7  ·  Patient Assessment &amp; Handoff Report</div>';
             html += '</div></body></html>';
             return html;
         }
