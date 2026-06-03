@@ -247,7 +247,9 @@
         .care-protocol-box strong { color: #1e3a8a; font-size: 1.05rem; }
         .care-protocol-box ul { margin: 6px 0; padding-left: 22px; }
         .care-protocol-box ul li { margin-bottom: 4px; }
-        .care-protocol-box .ja { margin-top: 6px; padding-top: 6px; border-top: 1px dashed #cbd5e1; color: #475569; font-size: 0.95rem; }
+        .care-protocol-box strong { display: none; }
+        .care-protocol-box ul { display: none; }
+        .care-protocol-box .ja { margin-top: 0; padding-top: 0; border-top: none; color: #0f172a; font-size: 1rem; line-height: 1.6; }
 
         .disabled { opacity: 0.3; pointer-events: none; filter: grayscale(40%); }
         .hidden { display: none !important; }
@@ -330,6 +332,9 @@
             color: #0f172a;
         }
         .sf-wrap.expanded .sf-protocol-box { display: block; }
+        .sf-protocol-box .sf-prot-section strong { display: none; }
+        .sf-protocol-box .sf-prot-section > div:not(.ja) { display: none; }
+        .sf-protocol-box .sf-prot-section .ja { margin-top: 0; padding-top: 0; border-top: none; color: #0f172a; font-size: 0.95rem; }
         .sf-prot-title { font-weight: 800; color: #92400e; font-size: 1.05rem; margin-bottom: 8px; }
         .sf-prot-section { margin-bottom: 8px; }
         .sf-prot-section:last-child { margin-bottom: 0; }
@@ -392,6 +397,7 @@
         .btn-ok.active, .chip.active, .chip.cc-chip.active { background: #16a34a; color: white; }
         .chip.active .sub-lang, .chip.cc-chip.active .sub-lang { color: rgba(220,252,231,0.94); }
         .btn-ok.avpu-mid.active { background: #facc15 !important; color: #1e293b; border-color: transparent; }
+        #btn-trauma.active, #btn-medical.active { background: #16a34a !important; color: #fff !important; border-color: transparent !important; }
         .btn-audio {
             background: #eff6ff; border-color: #bfdbfe; border-left-color: var(--primary);
             box-shadow: none;
@@ -464,7 +470,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.9</h1>
+    <h1>EMR Elite Navigator v2.9.10</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -4232,7 +4238,7 @@
                     const box = document.createElement('div');
                     box.className = 'sf-protocol-box';
                     box.innerHTML = `
-                        <div class="sf-prot-title">⚠ ${escapeHtml(sf.en)}</div>
+                        <div class="sf-prot-title">⚠ ${escapeHtml(sf.ja || sf.en)}</div>
                         <div class="sf-prot-section">
                             <strong>📋 Criteria / Judgement:</strong>
                             <div>${sf.criteria || ''}</div>
@@ -4947,7 +4953,7 @@
             html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span><b>Rel.</b><span>' + esc(byRel) + '</span></div></div>';
             html += '<div class="sec"><div class="sl">Location &amp; Remarks / 発生場所・特記事項</div><div class="card2"><p class="txt">Location: ' + esc(repLoc) + '<span class="mut">Remarks: ' + esc(repRemarks) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.9  ·  Patient Assessment &amp; Handoff Report</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.10  ·  Patient Assessment &amp; Handoff Report</div>';
             html += '</div></body></html>';
             return html;
         }
