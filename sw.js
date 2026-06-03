@@ -1,6 +1,6 @@
 // EMR Elite Navigator — Service Worker
 // Bump CACHE_VERSION whenever you publish a new build.
-const CACHE_VERSION = 'emr-nav-v2.9.7-ui-colors-equip-20';
+const CACHE_VERSION = 'emr-nav-v2.9.8-layout-swaps-cc-21';
 const ASSETS = [
   './',
   './index.html',

@@ -462,7 +462,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.7</h1>
+    <h1>EMR Elite Navigator v2.9.8</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -479,8 +479,8 @@
         <div class="check-item">
             <div style="flex:1; min-width:0;"><span class="label-txt">Number of Patients</span><span class="sub-lang">(傷病者数の確認)</span></div>
             <div style="display:flex; gap:6px; flex-shrink:0;">
-                <button class="btn-ok" id="btn-pat-single" onclick="setPatientCount('Single', this)">Single</button>
                 <button class="btn-ok" id="btn-pat-multiple" onclick="setPatientCount('Multiple', this)">Multiple</button>
+                <button class="btn-ok" id="btn-pat-single" onclick="setPatientCount('Single', this)">Single</button>
             </div>
         </div>
         <div class="check-item">
@@ -508,32 +508,32 @@
             <div id="triage-node-breathing" class="branch-point triage-disabled">
                 <h4>2. Spontaneous Breathing? <span class="sub-lang">(自発呼吸あり？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triagePick(this,'breathing','yes')">Yes <span class="sub-lang">(あり)</span></button>
                     <button class="btn-branch" onclick="triagePick(this,'breathing','no')">No <span class="sub-lang">(なし)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'breathing','yes')">Yes <span class="sub-lang">(あり)</span></button>
                 </div>
             </div>
 
             <div id="triage-node-rr-check" class="branch-point triage-disabled">
                 <h4>3. Respiratory Rate? <span class="sub-lang">(呼吸数は？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triagePick(this,'rr','norm')">10–29 /min <span class="sub-lang">(正常範囲)</span></button>
                     <button class="btn-branch" onclick="triagePick(this,'rr','abn')">&ge;30 or &le;9 /min <span class="sub-lang">(30回以上/9回以下)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'rr','norm')">10–29 /min <span class="sub-lang">(正常範囲)</span></button>
                 </div>
             </div>
 
             <div id="triage-node-crt-pulse" class="branch-point triage-disabled">
                 <h4>4. Perfusion / Pulse? <span class="sub-lang">(循環・脈拍は？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triagePick(this,'pulse','norm')">Pulse OK / CRT &le;2s <span class="sub-lang">(触知可・CRT2秒内・HR&lt;120)</span></button>
                     <button class="btn-branch" onclick="triagePick(this,'pulse','abn')">No pulse / CRT &gt;2s / HR &ge;120 <span class="sub-lang">(触知不可・CRT2秒超・HR120以上)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'pulse','norm')">Pulse OK / CRT &le;2s <span class="sub-lang">(触知可・CRT2秒内・HR&lt;120)</span></button>
                 </div>
             </div>
 
             <div id="triage-node-commands" class="branch-point triage-disabled">
                 <h4>5. Obey Commands? <span class="sub-lang">(簡単な指示に応じる？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triagePick(this,'commands','obey')">Obey <span class="sub-lang">(応じる)</span></button>
                     <button class="btn-branch" onclick="triagePick(this,'commands','disobey')">Disobey <span class="sub-lang">(応じない)</span></button>
+                    <button class="btn-branch" onclick="triagePick(this,'commands','obey')">Obey <span class="sub-lang">(応じる)</span></button>
                 </div>
             </div>
 
@@ -2739,7 +2739,7 @@
             // CC ビルド
             const containerCC = document.getElementById('chips-CC');
             CC_List.forEach(val => {
-                const span = document.createElement('span'); span.className = 'chip cc-chip'; 
+                const span = document.createElement('span'); span.className = 'chip'; 
                 span.innerHTML = val.replace('\n', '<br>');
                 span.onclick = function() {
                     span.classList.toggle('active');
@@ -4919,7 +4919,7 @@
             html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span><b>Rel.</b><span>' + esc(byRel) + '</span></div></div>';
             html += '<div class="sec"><div class="sl">Location &amp; Remarks / 発生場所・特記事項</div><div class="card2"><p class="txt">Location: ' + esc(repLoc) + '<span class="mut">Remarks: ' + esc(repRemarks) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.7  ·  Patient Assessment &amp; Handoff Report</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.8  ·  Patient Assessment &amp; Handoff Report</div>';
             html += '</div></body></html>';
             return html;
         }
