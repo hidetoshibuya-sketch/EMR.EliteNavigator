@@ -235,13 +235,12 @@
         .care-protocol-box {
             display: none;
             margin-top: 10px;
-            background: #f8fafc;
-            border: 1.5px solid #cbd5e1;
-            border-left: 5px solid #2563eb;
+            background: #fff;
+            border: 2px solid #2563eb;
             border-radius: 8px;
-            padding: 12px 14px;
-            font-size: 1rem;
-            line-height: 1.55;
+            padding: 10px 12px;
+            font-size: 0.95rem;
+            line-height: 1.5;
             color: #0f172a;
         }
         .care-item.expanded .care-protocol-box { display: block; }
@@ -412,6 +411,9 @@
             font-weight: 900; box-shadow: 0 0 0 3px rgba(22,163,74,0.35), 0 8px 18px rgba(16,89,46,0.2) !important;
             opacity: 1 !important;
         }
+        .btn-branch.tri-red.triage-chosen { background: #dc2626 !important; color: #fff !important; box-shadow: 0 0 0 3px rgba(220,38,38,0.35), 0 8px 18px rgba(127,29,29,0.25) !important; }
+        .btn-branch.tri-yellow.triage-chosen { background: #facc15 !important; color: #1e293b !important; box-shadow: 0 0 0 3px rgba(202,138,4,0.35) !important; }
+        .btn-branch.tri-black.triage-chosen { background: #0f172a !important; color: #fff !important; box-shadow: 0 0 0 3px rgba(0,0,0,0.4) !important; }
         .branch-point .btn-branch.active, .branch-point .btn-main-act.active { box-shadow: 0 0 0 3px rgba(22,119,255,0.25), inset 0 1px 0 rgba(255,255,255,0.55); }
 
         /* Flat opaque theme — Liquid Glass (blur + translucent surfaces) removed. */
@@ -462,7 +464,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.8</h1>
+    <h1>EMR Elite Navigator v2.9.9</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -508,7 +510,7 @@
             <div id="triage-node-breathing" class="branch-point triage-disabled">
                 <h4>2. Spontaneous Breathing? <span class="sub-lang">(自発呼吸あり？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triagePick(this,'breathing','no')">No <span class="sub-lang">(なし)</span></button>
+                    <button class="btn-branch tri-red" onclick="triagePick(this,'breathing','no')">No <span class="sub-lang">(なし)</span></button>
                     <button class="btn-branch" onclick="triagePick(this,'breathing','yes')">Yes <span class="sub-lang">(あり)</span></button>
                 </div>
             </div>
@@ -516,7 +518,7 @@
             <div id="triage-node-rr-check" class="branch-point triage-disabled">
                 <h4>3. Respiratory Rate? <span class="sub-lang">(呼吸数は？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triagePick(this,'rr','abn')">&ge;30 or &le;9 /min <span class="sub-lang">(30回以上/9回以下)</span></button>
+                    <button class="btn-branch tri-red" onclick="triagePick(this,'rr','abn')">&ge;30 or &le;9 /min <span class="sub-lang">(30回以上/9回以下)</span></button>
                     <button class="btn-branch" onclick="triagePick(this,'rr','norm')">10–29 /min <span class="sub-lang">(正常範囲)</span></button>
                 </div>
             </div>
@@ -524,7 +526,7 @@
             <div id="triage-node-crt-pulse" class="branch-point triage-disabled">
                 <h4>4. Perfusion / Pulse? <span class="sub-lang">(循環・脈拍は？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triagePick(this,'pulse','abn')">No pulse / CRT &gt;2s / HR &ge;120 <span class="sub-lang">(触知不可・CRT2秒超・HR120以上)</span></button>
+                    <button class="btn-branch tri-red" onclick="triagePick(this,'pulse','abn')">No pulse / CRT &gt;2s / HR &ge;120 <span class="sub-lang">(触知不可・CRT2秒超・HR120以上)</span></button>
                     <button class="btn-branch" onclick="triagePick(this,'pulse','norm')">Pulse OK / CRT &le;2s <span class="sub-lang">(触知可・CRT2秒内・HR&lt;120)</span></button>
                 </div>
             </div>
@@ -532,23 +534,23 @@
             <div id="triage-node-commands" class="branch-point triage-disabled">
                 <h4>5. Obey Commands? <span class="sub-lang">(簡単な指示に応じる？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triagePick(this,'commands','disobey')">Disobey <span class="sub-lang">(応じない)</span></button>
-                    <button class="btn-branch" onclick="triagePick(this,'commands','obey')">Obey <span class="sub-lang">(応じる)</span></button>
+                    <button class="btn-branch tri-red" onclick="triagePick(this,'commands','disobey')">Disobey <span class="sub-lang">(応じない)</span></button>
+                    <button class="btn-branch tri-yellow" onclick="triagePick(this,'commands','obey')">Obey <span class="sub-lang">(応じる)</span></button>
                 </div>
             </div>
 
             <div id="triage-node-airway-check" class="branch-point triage-disabled alert-box">
                 <h4>Open airway (no breathing). <span class="sub-lang">(自発呼吸なし。気道確保)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-main-act" onclick="triagePick(this,'airway','done')">Airway Done <span class="sub-lang">(気道確保 実施)</span></button>
+                    <button class="btn-main-act" onclick="triagePick(this,'airway','done')">DONE <span class="sub-lang">(気道確保 実施)</span></button>
                 </div>
             </div>
 
             <div id="triage-node-airway-breathing-check" class="branch-point triage-disabled">
                 <h4>Breathing after airway? <span class="sub-lang">(気道確保後の呼吸あり？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triagePick(this,'airwayBreath','yes')">Yes <span class="sub-lang">(あり)</span></button>
-                    <button class="btn-branch" onclick="triagePick(this,'airwayBreath','no')">No <span class="sub-lang">(なし)</span></button>
+                    <button class="btn-branch tri-red" onclick="triagePick(this,'airwayBreath','yes')">Yes <span class="sub-lang">(あり)</span></button>
+                    <button class="btn-branch tri-black" onclick="triagePick(this,'airwayBreath','no')">No <span class="sub-lang">(なし)</span></button>
                 </div>
             </div>
 
@@ -1352,6 +1354,29 @@
                     <button class="btn-danger-toggle" style="flex:1;" id="fast-s-abnorm" onclick="setFast('S','Abnormal',this)">Abnormal <span style="font-size:0.88rem; font-weight:400; display:block;">(異常)</span></button>
                     <button class="btn-ok" style="flex:1;" id="fast-s-norm" onclick="setFast('S','Normal',this)">Normal <span style="font-size:0.88rem; font-weight:400; display:block;">(正常)</span></button>
                 </div>
+            </div>
+        </div>
+
+        <div id="cpss-protocol-box" class="guide-box alert-box hidden" style="line-height:1.5; margin-top:10px;">
+            <div style="font-size:0.85rem; font-weight:800; color:#991b1b; margin-bottom:8px;">
+                ⚠️ STROKE / CPSS PROTOCOL ACTIVATED <span class="sub-lang" style="font-size:0.95rem; font-weight:400;">(脳卒中プロトコル発動)</span>
+            </div>
+            <div style="background:#fff; border:2px solid #dc2626; border-radius:8px; padding:8px 10px; margin-bottom:8px;">
+                <div style="font-weight:800; color:#991b1b; font-size:1rem; margin-bottom:4px;">🧠 Suspect Acute Stroke <span style="font-size:0.92rem; font-weight:400; color:#64748b;">急性脳卒中を疑う</span></div>
+                <ul style="margin:0; padding-left:18px; font-size:0.95rem; color:#0f172a;">
+                    <li><strong>Record exact "Last Known Well" time.</strong><div style="color:#64748b;">最終健常確認時刻を正確に記録する。</div></li>
+                    <li>Check blood glucose — correct hypoglycemia.<div style="color:#64748b;">血糖を測定し、低血糖があれば是正する。</div></li>
+                    <li>Give O₂ only if SpO₂ &lt; 94%.<div style="color:#64748b;">SpO₂ 94%未満のときのみ酸素を投与する。</div></li>
+                    <li>NPO — nothing by mouth (aspiration risk).<div style="color:#991b1b;">絶飲食（誤嚥リスクのため）。</div></li>
+                </ul>
+            </div>
+            <div style="background:#fff; border:2px solid #dc2626; border-radius:8px; padding:8px 10px; margin-bottom:8px;">
+                <div style="font-weight:800; color:#991b1b; font-size:1rem; margin-bottom:4px;">🚑 Rapid Transport <span style="font-size:0.92rem; font-weight:400; color:#64748b;">迅速搬送</span></div>
+                <ul style="margin:0; padding-left:18px; font-size:0.95rem; color:#0f172a;">
+                    <li>Transport to a <strong>stroke-capable center</strong> without delay.<div style="color:#64748b;">脳卒中対応施設へ遅滞なく搬送する。</div></li>
+                    <li>Pre-notify the hospital (stroke alert) with onset time.<div style="color:#64748b;">発症時刻を添えて病院へ事前通報（ストロークアラート）。</div></li>
+                    <li>Keep head neutral/slightly elevated; protect the airway.<div style="color:#64748b;">頭部は中立〜軽度挙上に保ち、気道を保護する。</div></li>
+                </ul>
             </div>
         </div>
 
@@ -4360,6 +4385,9 @@
             pNorm.classList.remove('active'); pAbnorm.classList.remove('active');
             btn.classList.add('active');
             fastScaleResults[part] = status;
+            const anyAbn = Object.values(fastScaleResults).some(v => v === 'Abnormal');
+            const cpssBox = document.getElementById('cpss-protocol-box');
+            if (cpssBox) cpssBox.classList.toggle('hidden', !anyAbn);
             logAction('FAST/CPSS', `${part} evaluated as ${status}`);
         }
 
@@ -4919,7 +4947,7 @@
             html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span><b>Rel.</b><span>' + esc(byRel) + '</span></div></div>';
             html += '<div class="sec"><div class="sl">Location &amp; Remarks / 発生場所・特記事項</div><div class="card2"><p class="txt">Location: ' + esc(repLoc) + '<span class="mut">Remarks: ' + esc(repRemarks) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.8  ·  Patient Assessment &amp; Handoff Report</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.9  ·  Patient Assessment &amp; Handoff Report</div>';
             html += '</div></body></html>';
             return html;
         }
