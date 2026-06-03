@@ -400,6 +400,8 @@
         .branch-point.triage-locked { opacity: 0.95; }
         .branch-point.triage-locked button:not(.triage-chosen) { pointer-events: none; cursor: not-allowed; opacity: 0.4; }
         .branch-point.triage-locked button.triage-chosen { pointer-events: auto; cursor: pointer; }
+        .branch-point.triage-disabled { opacity: 0.4; }
+        .branch-point.triage-disabled button { pointer-events: none; cursor: not-allowed; }
         .btn-branch.triage-chosen, .btn-main-act.triage-chosen {
             background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%) !important;
             color: #fff !important; border-color: transparent !important;
@@ -456,7 +458,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.2</h1>
+    <h1>EMR Elite Navigator v2.9.3</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -495,22 +497,22 @@
                 <h4>Walking? <span class="sub-lang">(歩行可能？)</span></h4>
                 <div class="branch-btn-group">
                     <button class="btn-branch" onclick="triageToggle(this, () => triageWalk(true));">Yes <span class="sub-lang">(可能)</span></button>
-                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageToggle(this, () => triageWalk(false));">No <span class="sub-lang">(不可)</span></button>
+                    <button class="btn-branch" onclick="triageToggle(this, () => triageWalk(false));">No <span class="sub-lang">(不可)</span></button>
                 </div>
             </div>
 
             <div id="triage-node-breathing" class="branch-point hidden">
                 <h4>Spontaneous Breathing? <span class="sub-lang">(自発呼吸あり？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" onclick="triageToggle(this, () => triageBreathing(true));">Yes <span class="sub-lang">(あり)</span></button>
-                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageToggle(this, () => triageBreathing(false));">No <span class="sub-lang">(なし)</span></button>
+                    <button class="btn-branch" data-breath="yes" onclick="triageToggle(this, () => triageBreathing(true));">Yes <span class="sub-lang">(あり)</span></button>
+                    <button class="btn-branch" data-breath="no" onclick="triageToggle(this, () => triageBreathing(false));">No <span class="sub-lang">(なし)</span></button>
                 </div>
             </div>
 
             <div id="triage-node-rr-check" class="branch-point hidden">
                 <h4>Respiratory Rate (RR)? <span class="sub-lang">(呼吸数は？)</span></h4>
                 <div class="branch-btn-group">
-                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageToggle(this, () => triageRreathingCount('ge30'));">&ge;30 /min <span class="sub-lang">(30回以上)</span></button>
+                    <button class="btn-branch" onclick="triageToggle(this, () => triageRreathingCount('ge30'));">&ge;30 /min <span class="sub-lang">(30回以上)</span></button>
                     <button class="btn-branch" onclick="triageToggle(this, () => triageRreathingCount('le29'));">&le;29 /min <span class="sub-lang">(29回以内)</span></button>
                 </div>
             </div>
@@ -519,7 +521,7 @@
                 <h4>Perfusion / Pulse Check? <span class="sub-lang">(循環/橈骨動脈は？)</span></h4>
                 <div class="branch-btn-group">
                     <button class="btn-branch" onclick="triageToggle(this, () => triageCrt('le2'));">CRT &le;2s / Pulse 〇 <span class="sub-lang">(CRT 2秒内/触知可能)</span></button>
-                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageToggle(this, () => triageCrt('gt2'));">CRT &gt;2s / No Pulse <span class="sub-lang">(CRT 2秒超/触知不可)</span></button>
+                    <button class="btn-branch" onclick="triageToggle(this, () => triageCrt('gt2'));">CRT &gt;2s / No Pulse <span class="sub-lang">(CRT 2秒超/触知不可)</span></button>
                 </div>
             </div>
 
@@ -527,7 +529,7 @@
                 <h4>Obey Commands? <span class="sub-lang">(簡単な指示に応じる？)</span></h4>
                 <div class="branch-btn-group">
                     <button class="btn-branch" onclick="triageToggle(this, () => triageCommands(true));">Obey <span class="sub-lang">(応じる)</span></button>
-                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageToggle(this, () => triageCommands(false));">Disobey <span class="sub-lang">(応じない)</span></button>
+                    <button class="btn-branch" onclick="triageToggle(this, () => triageCommands(false));">Disobey <span class="sub-lang">(応じない)</span></button>
                 </div>
             </div>
 
@@ -542,7 +544,7 @@
                 <h4>Spontaneous Breathing (post airway)? <span class="sub-lang">(用手気道確保後、呼吸あり？)</span></h4>
                 <div class="branch-btn-group">
                     <button class="btn-branch" onclick="triageToggle(this, () => triageBreathingAirway(true));">Yes <span class="sub-lang">(あり)</span></button>
-                    <button class="btn-branch" style="background:#dc2626; color:white;" onclick="triageToggle(this, () => triageBreathingAirway(false));">No <span class="sub-lang">(なし)</span></button>
+                    <button class="btn-branch" onclick="triageToggle(this, () => triageBreathingAirway(false));">No <span class="sub-lang">(なし)</span></button>
                 </div>
             </div>
 
@@ -3473,18 +3475,37 @@
             node.querySelectorAll('button').forEach(b => { b.disabled = (b !== clickedBtn); });
             clickedBtn.classList.add('triage-chosen');
         }
+        function applyTriageBranching() {
+            const bNode = document.getElementById('triage-node-breathing');
+            const chosen = bNode ? bNode.querySelector('.triage-chosen') : null;
+            const state = chosen ? chosen.getAttribute('data-breath') : null; // 'yes' | 'no' | null
+            const yesPath = ['triage-node-rr-check', 'triage-node-crt-pulse', 'triage-node-commands'];
+            const noPath  = ['triage-node-airway-check', 'triage-node-airway-breathing-check'];
+            const setEnabled = (ids, on) => ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.classList.toggle('triage-disabled', !on);
+                el.querySelectorAll('button').forEach(b => { b.disabled = !on; if (!on) b.classList.remove('triage-chosen', 'active'); });
+            });
+            if (state === 'no') { setEnabled(yesPath, false); setEnabled(noPath, true); }
+            else if (state === 'yes') { setEnabled(yesPath, true); setEnabled(noPath, false); }
+            else { setEnabled(yesPath, true); setEnabled(noPath, true); }
+        }
         function triageToggle(btn, fn) {
-            if (btn.classList.contains('triage-chosen')) {
-                const node = btn.closest('.branch-point');
-                btn.classList.remove('triage-chosen', 'active');
-                if (node) { node.classList.remove('triage-locked'); node.querySelectorAll('button').forEach(b => { b.disabled = false; }); }
-                enableAllTriageChoices();
-                hideResult();
+            if (btn.disabled || (btn.closest('.branch-point') && btn.closest('.branch-point').classList.contains('triage-disabled'))) return;
+            const node = btn.closest('.branch-point');
+            const wasChosen = btn.classList.contains('triage-chosen');
+            // Clear any prior selection within this node (enables switching)
+            if (node) node.querySelectorAll('button').forEach(b => b.classList.remove('triage-chosen', 'active'));
+            hideResult();
+            if (wasChosen) {
                 logAction('Triage (START)', 'Selection canceled / 選択取消');
+                applyTriageBranching();
                 return;
             }
-            fn();
-            lockTriageNode(btn);
+            fn();                          // medical logic: may showResult()
+            btn.classList.add('triage-chosen');
+            applyTriageBranching();
         }
 
         function checkSizeUpCompletion() {
@@ -4680,7 +4701,7 @@
             html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span></div></div>';
             html += '</div>';
             html += '<div class="sig"><div>Provider Signature / 記録者<div class="ln"></div></div><div>Receiving Facility / 引継先<div class="ln"></div></div><div>Handoff Time / 引継時刻<div class="ln"></div></div></div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.2  ·  Patient Assessment &amp; Handoff Report</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.3  ·  Patient Assessment &amp; Handoff Report</div>';
             html += '</div></body></html>';
             return html;
         }
@@ -4814,9 +4835,9 @@
             'triage-node-walking': 1, 'triage-node-breathing': 2, 'triage-node-rr-check': 3, 'triage-node-crt-pulse': 4,
             'triage-node-commands': 5, 'triage-node-airway-check': 6, 'triage-node-airway-breathing-check': 7
         };
-        function markTriageChoice(btn) { if (!btn) return; const point = btn.closest('.branch-point'); if (!point) return; point.querySelectorAll('button').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+        function markTriageChoice(btn) { /* selection handled by triageToggle — green only */ }
         function enableAllTriageChoices() { Object.keys(TRIAGE_STEP_MAP).forEach(id => { const el = document.getElementById(id); if (!el) return; el.classList.remove('triage-locked'); el.querySelectorAll('button').forEach(btn => btn.disabled = false); }); }
-        function lockTriageAfter(step) { enableAllTriageChoices(); Object.entries(TRIAGE_STEP_MAP).forEach(([id, order]) => { const el = document.getElementById(id); if (!el || order <= step) return; el.classList.add('triage-locked'); el.querySelectorAll('button').forEach(btn => btn.disabled = true); }); }
+        function lockTriageAfter(step) { enableAllTriageChoices(); }
         function triageWalk(canWalk) { markTriageChoice(event && event.currentTarget); enableAllTriageChoices(); hideResult(); if (canWalk) showResult('tag-minor', '🟢 MINOR (軽症群 Ⅲ)', 'finishTriage', 'Walkable', 1); logAction('Triage (START)', 'Walking: ' + (canWalk ? 'Yes (Minor)' : 'No')); }
         function triageBreathing(hasBreathing) { markTriageChoice(event && event.currentTarget); enableAllTriageChoices(); hideResult(); logAction('Triage (START)', hasBreathing ? 'Breathing present — evaluate RR' : 'No breathing — manual airway required'); }
         function triageRreathingCount(rrRate) { markTriageChoice(event && event.currentTarget); enableAllTriageChoices(); hideResult(); if (rrRate === 'ge30') showResult('tag-immediate', '🔴 IMMEDIATE (最優先 Ⅰ)', 'finishTriage', 'RR ≥ 30/min', 3); logAction('Triage (START)', 'RR: ' + (rrRate === 'ge30' ? '≥30 (Immediate)' : '≤29')); }
