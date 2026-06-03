@@ -1,6 +1,6 @@
 // EMR Elite Navigator — Service Worker
 // Bump CACHE_VERSION whenever you publish a new build.
-const CACHE_VERSION = 'emr-nav-v2.8-textpdf-cprnotes-vitals-10';
+const CACHE_VERSION = 'emr-nav-v2.8-2page-report-log-11';
 const ASSETS = [
   './',
   './index.html',

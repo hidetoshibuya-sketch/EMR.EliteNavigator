@@ -4580,83 +4580,90 @@
             const special = Object.keys(specialFindings || {}).slice(0, 5).map(id => specialFindings[id].en).join(' · ') || '—';
             const esc = escapeHtml;
             let html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>EMR Handoff Report</title><style>';
-            html += 'html,body{margin:0;padding:0}*{box-sizing:border-box}body{background:#fff;color:#1e293b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",Arial,sans-serif;-webkit-font-smoothing:antialiased}';
-            html += '.sheet{width:816px;min-height:1056px;padding:46px 50px;background:#fff;display:flex;flex-direction:column}';
-            html += '.hd{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #0f172a;padding-bottom:16px}';
-            html += '.hd .nm{font-size:24px;font-weight:700;letter-spacing:5px;color:#0f172a;line-height:1}.hd .sb{font-size:10.5px;color:#64748b;margin-top:7px;letter-spacing:1.5px;text-transform:uppercase}';
-            html += '.hd .mt{text-align:right;font-size:10px;color:#64748b;line-height:1.7}.hd .mt b{color:#0f172a;font-weight:600}';
-            html += '.pt{display:flex;flex-wrap:wrap;gap:9px 26px;margin-top:14px}.pt div b{color:#94a3b8;font-weight:600;font-size:8.5px;letter-spacing:.8px;text-transform:uppercase;display:block;margin-bottom:2px}.pt div span{color:#0f172a;font-weight:600;font-size:12px}';
-            html += '.sec{margin-top:13px}.sec h2{font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;color:#2563eb;font-weight:700;margin:0 0 6px;padding-bottom:4px;border-bottom:1px solid #e2e8f0}';
-            html += '.kv{display:grid;grid-template-columns:70px 1fr;gap:4px 12px;font-size:11.5px;line-height:1.5}.kv b{color:#94a3b8;font-weight:600}.kv span{color:#1e293b}';
-            html += '.txt{font-size:11.5px;line-height:1.55;color:#1e293b;margin:0}.txt .mut{color:#64748b;font-size:10.5px;display:block;margin-top:4px}.crit{color:#dc2626;font-weight:700}';
-            html += '.vit{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}.vit div{text-align:center}.vit b{display:block;font-size:8.5px;letter-spacing:.5px;text-transform:uppercase;color:#94a3b8;font-weight:600;margin-bottom:4px}.vit span{font-size:15px;font-weight:600;color:#0f172a}';
-            html += '.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 46px}.main{flex:1 1 auto}';
-            html += '.sig{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:24px}.sig div{font-size:9px;color:#94a3b8;letter-spacing:.5px;text-transform:uppercase}.sig .ln{border-bottom:1px solid #94a3b8;height:30px;margin-bottom:5px}';
-            html += '.ft{text-align:center;font-size:8.5px;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:11px;margin-top:14px}';
-            html += '</style></head><body><div class="sheet"><div class="main">';
-            html += '<div class="hd"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sb">Patient Assessment &amp; Handoff Report</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Generated</b> ' + esc(now.toLocaleString()) + '</div></div></div>';
-            html += '<div class="pt"><div><b>Name</b><span>' + esc(pName) + '</span></div><div><b>DOB</b><span>' + esc(pDob) + '</span></div><div><b>Age</b><span>' + esc(pAge) + '</span></div><div><b>SSN</b><span>' + esc(pSsn) + '</span></div><div><b>Phone</b><span>' + esc(pPhone) + '</span></div><div><b>Unit</b><span>' + esc(pUnit) + '</span></div><div><b>Type</b><span>' + esc(typeLabel) + '</span></div><div><b>Patients</b><span>' + esc(triage) + '</span></div></div>';
+            html += '*{box-sizing:border-box}body{margin:0;background:#fff;color:#1e293b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",Arial,sans-serif;-webkit-font-smoothing:antialiased}';
+            html += '.sheet{width:816px;height:1056px;padding:44px 48px;background:#fff;display:flex;flex-direction:column;overflow:hidden}';
+            html += '.hd{background:#0f172a;color:#fff;border-radius:12px;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}';
+            html += '.hd .nm{font-size:23px;font-weight:700;letter-spacing:4px;line-height:1}.hd .sb{font-size:9.5px;color:#94a3b8;letter-spacing:2px;text-transform:uppercase;margin-top:6px}';
+            html += '.hd .mt{text-align:right;font-size:10px;color:#cbd5e1;line-height:1.7}.hd .mt b{color:#fff;font-weight:600}';
+            html += '.body{flex:1;display:flex;flex-direction:column;justify-content:space-between;padding-top:16px}';
+            html += '.idbar{display:flex;flex-wrap:wrap;gap:11px 30px;padding:14px 18px;background:#f1f5f9;border-radius:10px}';
+            html += '.idbar div b{display:block;font-size:8px;letter-spacing:.8px;text-transform:uppercase;color:#94a3b8;font-weight:700;margin-bottom:2px}.idbar div span{font-size:13px;font-weight:600;color:#0f172a}';
+            html += '.sec h2{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#2563eb;font-weight:700;margin:0 0 7px;display:flex;align-items:center;gap:8px}';
+            html += '.sec h2::before{content:"";width:4px;height:13px;background:#2563eb;border-radius:2px;display:inline-block}';
+            html += '.card2{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px}';
+            html += '.kv{display:grid;grid-template-columns:62px 1fr;gap:5px 12px;font-size:12px;line-height:1.45}.kv b{color:#94a3b8;font-weight:600}.kv span{color:#1e293b}';
+            html += '.txt{font-size:12px;line-height:1.5;color:#1e293b;margin:0}.txt .mut{color:#64748b;font-size:11px;display:block;margin-top:5px}.crit{color:#b91c1c;font-weight:700}';
+            html += '.vit{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.vit div{text-align:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:9px 4px}';
+            html += '.vit b{display:block;font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:#94a3b8;font-weight:700;margin-bottom:4px}.vit span{font-size:16px;font-weight:700;color:#0f172a}';
+            html += '.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px 38px}';
+            html += '.sig{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding-top:6px}.sig div{font-size:9px;color:#94a3b8;letter-spacing:.5px;text-transform:uppercase}.sig .ln{border-bottom:1px solid #94a3b8;height:34px;margin-bottom:5px}';
+            html += '.ft{text-align:center;font-size:9px;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:11px;margin-top:12px}';
+            html += '</style></head><body><div class="sheet">';
+            html += '<div class="hd"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sb">Patient Assessment &amp; Handoff Report</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Generated</b> ' + esc(now.toLocaleString()) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
+            html += '<div class="body">';
+            html += '<div class="idbar"><div><b>Name</b><span>' + esc(pName) + '</span></div><div><b>DOB</b><span>' + esc(pDob) + '</span></div><div><b>Age</b><span>' + esc(pAge) + '</span></div><div><b>SSN</b><span>' + esc(pSsn) + '</span></div><div><b>Phone</b><span>' + esc(pPhone) + '</span></div><div><b>Unit</b><span>' + esc(pUnit) + '</span></div><div><b>Patients</b><span>' + esc(triage) + '</span></div></div>';
             html += '<div class="sec"><h2>Critical Status / 重要状態</h2><p class="txt"><span class="crit">' + esc(critical) + '</span><span class="mut">Chief complaint / 主訴: ' + esc(selectedListSummary(selectedCC)) + '</span></p></div>';
             html += '<div class="sec"><h2>Latest Vitals / 最新バイタル</h2><div class="vit"><div><b>Time</b><span>' + esc(vitals?.time || '—') + '</span></div><div><b>BP</b><span>' + esc(vitals?.bp || '—') + '</span></div><div><b>Pulse</b><span>' + esc(vitals?.pulse || '—') + '</span></div><div><b>RR</b><span>' + esc(vitals?.rr || '—') + '</span></div><div><b>SpO2</b><span>' + esc(vitals?.spo2 || '—') + '</span></div><div><b>Temp</b><span>' + esc(vitals?.temp || '—') + '</span></div><div><b>AVPU</b><span>' + esc(vitals?.avpu || '—') + '</span></div></div></div>';
-            html += '<div class="cols"><div>';
-            html += '<div class="sec"><h2>OPQRST / 詳細問診</h2><div class="kv"><b>O</b><span>' + esc(opO) + '</span><b>P</b><span>' + esc(opP) + '</span><b>Q / R</b><span>' + esc(opQ) + ' / ' + esc(opR) + '</span><b>S / T</b><span>' + esc(opS) + ' / ' + esc(opT) + '</span></div></div>';
-            html += '<div class="sec"><h2>SAMPLE / 既往歴</h2><div class="kv"><b>S / A</b><span>' + esc(smS) + ' / ' + esc(smA) + '</span><b>M / P</b><span>' + esc(smM) + ' / ' + esc(smP) + '</span><b>L / E</b><span>' + esc(smL) + ' / ' + esc(smE) + '</span></div></div>';
-            html += '</div><div>';
-            html += '<div class="sec"><h2>Trauma / Neuro / 特記</h2><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div>';
-            html += '<div class="sec"><h2>Treatment &amp; Disposition / 処置・搬送</h2><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '</span></p></div>';
-            html += '</div></div>';
-            html += '<div class="sec"><h2>Initial Findings / 発見時情報</h2><p class="txt">' + esc(selectedListSummary(selectedInitialFindings, '—')) + '<span class="mut">Notes: ' + esc((initialManualNotes || []).slice(-2).map(n => '[' + n.t + '] ' + n.text).join(' | ') || '—') + '</span></p></div>';
-            html += '<div class="sec"><h2>Bystander / バイスタンダー</h2><div class="kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB / Age</b><span>' + esc(byDob) + ' / ' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span></div></div>';
+            html += '<div class="cols">';
+            html += '<div class="sec"><h2>OPQRST / 詳細問診</h2><div class="card2 kv"><b>O</b><span>' + esc(opO) + '</span><b>P</b><span>' + esc(opP) + '</span><b>Q / R</b><span>' + esc(opQ) + ' / ' + esc(opR) + '</span><b>S / T</b><span>' + esc(opS) + ' / ' + esc(opT) + '</span></div></div>';
+            html += '<div class="sec"><h2>SAMPLE / 既往歴</h2><div class="card2 kv"><b>S / A</b><span>' + esc(smS) + ' / ' + esc(smA) + '</span><b>M / P</b><span>' + esc(smM) + ' / ' + esc(smP) + '</span><b>L / E</b><span>' + esc(smL) + ' / ' + esc(smE) + '</span></div></div>';
+            html += '<div class="sec"><h2>CPSS / Trauma / 特記</h2><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
+            html += '<div class="sec"><h2>Treatment &amp; Disposition / 処置・搬送</h2><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '</span></p></div></div>';
             html += '</div>';
+            html += '<div class="sec"><h2>Initial Findings / 発見時情報</h2><div class="card2"><p class="txt">' + esc(selectedListSummary(selectedInitialFindings, '—')) + '<span class="mut">Notes: ' + esc((initialManualNotes || []).slice(-2).map(n => '[' + n.t + '] ' + n.text).join(' | ') || '—') + '</span></p></div></div>';
+            html += '<div class="sec"><h2>Bystander / バイスタンダー</h2><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB / Age</b><span>' + esc(byDob) + ' / ' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span></div></div>';
             html += '<div class="sig"><div>Provider Signature / 記録者<div class="ln"></div></div><div>Receiving Facility / 引継先<div class="ln"></div></div><div>Handoff Time / 引継時刻<div class="ln"></div></div></div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.8  ·  One US Letter page / レター1枚</div>';
+            html += '</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.8  ·  Page 1 of 2 — Report / Page 2 — Full Activity Log</div>';
             html += '</div></body></html>';
             return html;
         }
 
         // Render the styled HTML in a hidden offscreen container, capture with html2canvas,
         // and embed page by page into a jsPDF document. Returns a Promise resolving to a Blob.
-        async function _renderPDFBlob() {
-            buildAutomationReport();   // refresh underlying text + visual
-            const html = buildTextReportHtml();
-
-            // Create offscreen container
+        async function _htmlToCanvas(html, styleId) {
             const cont = document.createElement('div');
             cont.style.cssText = 'position:fixed; top:-10000px; left:0; width:816px; background:#fff; z-index:-1;';
-            cont.innerHTML = html.match(/<body[\s\S]*?<\/body>/i)[0].replace(/<\/?body[^>]*>/gi, '');
-            // Re-inject the styles into <head> (idempotent — use a marker)
-            if (!document.getElementById('emr-pdf-style')) {
-                const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/);
-                if (styleMatch) {
-                    const styleEl = document.createElement('style');
-                    styleEl.id = 'emr-pdf-style';
-                    styleEl.textContent = styleMatch[1];
-                    document.head.appendChild(styleEl);
-                }
-            }
+            const bodyMatch = html.match(/<body[\s\S]*?<\/body>/i);
+            cont.innerHTML = (bodyMatch ? bodyMatch[0] : html).replace(/<\/?body[^>]*>/gi, '');
+            const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/);
+            const styleEl = document.createElement('style');
+            styleEl.id = styleId;
+            styleEl.textContent = styleMatch ? styleMatch[1] : '';
+            document.head.appendChild(styleEl);
             document.body.appendChild(cont);
-
             try {
-                // Wait briefly for any async layout
-                await new Promise(r => setTimeout(r, 100));
-
-                if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
-                    throw new Error('PDF libraries not loaded yet — please retry in a moment.');
-                }
+                await new Promise(r => setTimeout(r, 80));
                 const _h = Math.max(1056, cont.scrollHeight);
-                const canvas = await html2canvas(cont, { scale: 1.7, backgroundColor: '#ffffff', useCORS: true, logging: false, windowWidth: 816, windowHeight: _h, height: _h });
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF({ unit: 'mm', format: 'letter', orientation: 'portrait' });
-                const pageW = pdf.internal.pageSize.getWidth();
-                const pageH = pdf.internal.pageSize.getHeight();
-                const ratio = Math.min(pageW / canvas.width, pageH / canvas.height);
-                const imgW = canvas.width * ratio;
-                const imgH = canvas.height * ratio;
-                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', (pageW - imgW) / 2, (pageH - imgH) / 2, imgW, imgH);
-                return pdf.output('blob');
+                return await html2canvas(cont, { scale: 1.7, backgroundColor: '#ffffff', useCORS: true, logging: false, windowWidth: 816, windowHeight: _h, height: _h });
             } finally {
                 document.body.removeChild(cont);
+                styleEl.remove();
             }
+        }
+
+        // Render a 2-page PDF: Page 1 = stylish one-page report (fills the letter page),
+        // Page 2 = the full Activity Log text (auto-scaled to fit one letter page).
+        async function _renderPDFBlob() {
+            buildAutomationReport();
+            if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
+                throw new Error('PDF libraries not loaded yet — please retry in a moment.');
+            }
+            const reportCanvas = await _htmlToCanvas(buildStyledReportHtml(), 'emr-pdf-style-report');
+            const logCanvas    = await _htmlToCanvas(buildTextReportHtml(),  'emr-pdf-style-log');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({ unit: 'mm', format: 'letter', orientation: 'portrait' });
+            const pageW = pdf.internal.pageSize.getWidth();
+            const pageH = pdf.internal.pageSize.getHeight();
+            const place = (canvas, first) => {
+                if (!first) pdf.addPage();
+                const ratio = Math.min(pageW / canvas.width, pageH / canvas.height);
+                const imgW = canvas.width * ratio, imgH = canvas.height * ratio;
+                pdf.addImage(canvas.toDataURL('image/png'), 'PNG', (pageW - imgW) / 2, (pageH - imgH) / 2, imgW, imgH);
+            };
+            place(reportCanvas, true);
+            place(logCanvas, false);
+            return pdf.output('blob');
         }
 
         // ============================================================
