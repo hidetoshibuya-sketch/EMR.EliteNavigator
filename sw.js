@@ -1,6 +1,6 @@
 // EMR Elite Navigator — Service Worker
 // Bump CACHE_VERSION whenever you publish a new build.
-const CACHE_VERSION = 'emr-nav-v2.9.4-start-logic-remarks-loc-17';
+const CACHE_VERSION = 'emr-nav-v2.9.5-bystander-cpss-location-18';
 const ASSETS = [
   './',
   './index.html',

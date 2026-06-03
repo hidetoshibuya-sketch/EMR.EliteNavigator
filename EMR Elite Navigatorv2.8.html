@@ -181,6 +181,8 @@
         .dots-btn-group { display: flex; gap: 4px; }
         .dots-btn { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 6px 10px; font-size: 0.85rem; font-weight: 700; border-radius: 4px; min-width: 32px; text-align: center; }
         .dots-btn.active { background: var(--accent); color: white; border-color: transparent; }
+        .dots-btn.norm-active { background: #16a34a !important; color: #fff; border-color: transparent; }
+        .dots-btn.abn-active { background: #dc2626 !important; color: #fff; border-color: transparent; }
 
         .input-flex { display: flex; gap: 12px; margin-bottom: 14px; }
         .input-text { flex: 1; padding: 16px 18px; border: 1px solid #cbd5e1; border-radius: 12px; font-size: 1.15rem; background: var(--input-bg); color: var(--text-main); transition: border-color 0.15s, box-shadow 0.15s; min-height: 56px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.62), 0 4px 12px rgba(22,48,79,0.06); }
@@ -458,7 +460,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.4</h1>
+    <h1>EMR Elite Navigator v2.9.5</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -884,24 +886,51 @@
 
         <h3 style="margin-top:24px;">Bystander / Witness <span class="sub-lang">(バイスタンダー・関係者)</span></h3>
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
-            <span style="font-size:0.98rem; font-weight:bold;">Name <span style="font-weight:normal; color:var(--text-sub);">(氏名)</span></span>
-            <input type="text" id="by-name" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. Jane Doe">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+                <span style="font-size:0.98rem; font-weight:bold;">Name <span style="font-weight:normal; color:var(--text-sub);">(氏名)</span></span>
+                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="playAudio('ask-name', 'What is your name?')">🔊 Ask Name</button>
+            </div>
+            <input type="text" id="by-name" class="input-text" style="width:100%; box-sizing:border-box;" placeholder="e.g. Jane Doe">
         </div>
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
-            <span style="font-size:0.98rem; font-weight:bold;">Date of Birth <span style="font-weight:normal; color:var(--text-sub);">(生年月日)</span></span>
-            <input type="date" id="by-dob" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" onchange="calcAge('by-dob','by-age')">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+                <span style="font-size:0.98rem; font-weight:bold;">Date of Birth <span style="font-weight:normal; color:var(--text-sub);">(生年月日)</span></span>
+                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="playAudio('ask-dob', 'What is your date of birth? Month, day, and year please.')">🔊 Ask DOB</button>
+            </div>
+            <input type="date" id="by-dob" class="input-text" style="width:100%; box-sizing:border-box;" onchange="calcAge('by-dob','by-age')">
             <div style="display:flex; align-items:center; gap:10px; margin-top:8px;">
                 <span style="font-size:0.98rem; font-weight:bold; white-space:nowrap;">Age <span style="font-weight:normal; color:var(--text-sub);">(年齢)</span></span>
                 <input type="text" id="by-age" class="input-text" readonly style="flex:1; box-sizing:border-box; background:#f1f5f9;" placeholder="auto / 自動計算">
             </div>
         </div>
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
-            <span style="font-size:0.98rem; font-weight:bold;">SSN <span style="font-weight:normal; color:var(--text-sub);">(社会保障番号)</span></span>
-            <input type="text" id="by-ssn" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. 123-45-6789" inputmode="numeric" autocomplete="off">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+                <span style="font-size:0.98rem; font-weight:bold;">SSN <span style="font-weight:normal; color:var(--text-sub);">(社会保障番号)</span></span>
+                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="playAudio('ask-ssn', 'What is your Social Security Number?')">🔊 Ask SSN</button>
+            </div>
+            <input type="text" id="by-ssn" class="input-text" style="width:100%; box-sizing:border-box;" placeholder="e.g. 123-45-6789" inputmode="numeric" autocomplete="off">
         </div>
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
-            <span style="font-size:0.98rem; font-weight:bold;">Phone <span style="font-weight:normal; color:var(--text-sub);">(電話番号)</span></span>
-            <input type="tel" id="by-phone" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. 090-1234-5678" inputmode="tel" autocomplete="off">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+                <span style="font-size:0.98rem; font-weight:bold;">Phone <span style="font-weight:normal; color:var(--text-sub);">(電話番号)</span></span>
+                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="playAudio('ask-phone', 'What is your phone number?')">🔊 Ask Phone</button>
+            </div>
+            <input type="tel" id="by-phone" class="input-text" style="width:100%; box-sizing:border-box;" placeholder="e.g. 090-1234-5678" inputmode="tel" autocomplete="off">
+        </div>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+                <span style="font-size:0.98rem; font-weight:bold;">Relationship to patient <span style="font-weight:normal; color:var(--text-sub);">(患者との関係)</span></span>
+                <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="playAudio('ask-relationship', 'What is your relationship to the patient?')">🔊 Ask</button>
+            </div>
+            <div class="chip-group" id="by-rel-chips">
+                <span class="chip" onclick="selectByRel(this,'Family')">Family <span class="sub-lang">(家族)</span></span>
+                <span class="chip" onclick="selectByRel(this,'Spouse / Partner')">Spouse / Partner <span class="sub-lang">(配偶者)</span></span>
+                <span class="chip" onclick="selectByRel(this,'Friend')">Friend <span class="sub-lang">(友人)</span></span>
+                <span class="chip" onclick="selectByRel(this,'Coworker')">Coworker <span class="sub-lang">(同僚)</span></span>
+                <span class="chip" onclick="selectByRel(this,'Passerby / Witness')">Passerby <span class="sub-lang">(通行人)</span></span>
+            </div>
+            <input type="text" id="by-rel-other" class="input-text" style="width:100%; box-sizing:border-box; margin-top:8px;" placeholder="Other / その他 (自由入力)" oninput="setByRelOther(this.value)">
+            <input type="hidden" id="by-rel">
         </div>
         <button class="btn-save" style="width:100%; background:var(--secondary);" onclick="saveBystander()">Save Bystander <span style="font-size:0.92rem; font-weight:400;">(バイスタンダー情報を記録)</span></button>
     </div>
@@ -1685,14 +1714,40 @@
         <h2>Incident Location <span class="sub-lang">(発生場所)</span></h2>
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
             <span style="font-size:0.98rem; font-weight:bold;">Type <span style="font-weight:normal; color:var(--text-sub);">(屋内/屋外)</span></span>
-            <select id="loc-type" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" onchange="composeLocation()">
+            <select id="loc-type" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" onchange="updateLocationFields(); composeLocation();">
                 <option value="Indoor">Indoor / 屋内</option>
                 <option value="Outdoor">Outdoor / 屋外</option>
             </select>
         </div>
-        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
-            <span style="font-size:0.98rem; font-weight:bold;">Details <span style="font-weight:normal; color:var(--text-sub);">(場所詳細)</span></span>
-            <input type="text" id="loc-detail" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="Indoor: Bldg 1 Rm 203  /  Outdoor: Block 5 East Side" oninput="composeLocation()">
+        <div id="loc-indoor" style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;">
+                    <span style="font-size:0.98rem; font-weight:bold;">Bldg <span style="font-weight:normal; color:var(--text-sub);">(棟)</span></span>
+                    <input type="text" id="loc-bldg" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" inputmode="numeric" placeholder="e.g. 1" oninput="composeLocation()">
+                </div>
+                <div style="flex:1;">
+                    <span style="font-size:0.98rem; font-weight:bold;">Rm <span style="font-weight:normal; color:var(--text-sub);">(部屋)</span></span>
+                    <input type="text" id="loc-rm" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" inputmode="numeric" placeholder="e.g. 203" oninput="composeLocation()">
+                </div>
+            </div>
+        </div>
+        <div id="loc-outdoor" style="display:none; border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;">
+                    <span style="font-size:0.98rem; font-weight:bold;">Block <span style="font-weight:normal; color:var(--text-sub);">(ブロック)</span></span>
+                    <input type="text" id="loc-block" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" inputmode="numeric" placeholder="e.g. 5" oninput="composeLocation()">
+                </div>
+                <div style="flex:1;">
+                    <span style="font-size:0.98rem; font-weight:bold;">Side <span style="font-weight:normal; color:var(--text-sub);">(方角)</span></span>
+                    <select id="loc-side" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" onchange="composeLocation()">
+                        <option value="">-- Select --</option>
+                        <option value="East">East / 東</option>
+                        <option value="West">West / 西</option>
+                        <option value="North">North / 北</option>
+                        <option value="South">South / 南</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <input type="hidden" id="loc-text">
         <button class="btn-save" style="width:100%; background:var(--primary);" onclick="saveLocation()">Save Location <span style="font-size:0.92rem; font-weight:400;">(発生場所を記録)</span></button>
@@ -4288,8 +4343,9 @@
         function setFast(part, status, btn) {
             const pNorm = document.getElementById(`fast-${part.toLowerCase()}-norm`);
             const pAbnorm = document.getElementById(`fast-${part.toLowerCase()}-abnorm`);
-            pNorm.classList.remove('active'); pAbnorm.classList.remove('active');
+            pNorm.classList.remove('active','norm-active','abn-active'); pAbnorm.classList.remove('active','norm-active','abn-active');
             btn.classList.add('active');
+            btn.classList.add(status === 'Normal' ? 'norm-active' : 'abn-active');
             fastScaleResults[part] = status;
             logAction('FAST/CPSS', `${part} evaluated as ${status}`);
         }
@@ -4357,9 +4413,24 @@
             logAction('Demographics', `Name: ${name || 'N/A'}, DOB: ${dob || 'N/A'}, Age: ${age || 'N/A'}, SSN: ${ssn || 'N/A'}, Phone: ${phone || 'N/A'}, Unit: ${unit || 'N/A'}`);
             alert("Demographics data successfully recorded.");
         }
+        function setByRel(v) { const el = document.getElementById('by-rel'); if (el) el.value = v; }
+        function selectByRel(chip, val) {
+            const chips = document.querySelectorAll('#by-rel-chips .chip');
+            const wasActive = chip.classList.contains('active');
+            chips.forEach(c => c.classList.remove('active'));
+            const other = document.getElementById('by-rel-other'); if (other) other.value = '';
+            if (wasActive) { setByRel(''); return; }
+            chip.classList.add('active');
+            setByRel(val);
+        }
+        function setByRelOther(v) {
+            document.querySelectorAll('#by-rel-chips .chip').forEach(c => c.classList.remove('active'));
+            setByRel(v.trim());
+        }
         function saveBystander() {
             const n = document.getElementById('by-name').value, a = document.getElementById('by-age').value, s = document.getElementById('by-ssn').value, p = document.getElementById('by-phone').value;
-            logAction('Bystander', `Name: ${n || 'N/A'}, Age: ${a || 'N/A'}, SSN: ${s || 'N/A'}, Phone: ${p || 'N/A'}`);
+            const rel = document.getElementById('by-rel') ? document.getElementById('by-rel').value : '';
+            logAction('Bystander', `Name: ${n || 'N/A'}, Age: ${a || 'N/A'}, SSN: ${s || 'N/A'}, Phone: ${p || 'N/A'}, Relationship: ${rel || 'N/A'}`);
             alert("Bystander information recorded.");
         }
         function saveRemarks() {
@@ -4367,10 +4438,27 @@
             logAction('Remarks', v || 'N/A');
             alert("Remarks recorded.");
         }
+        function updateLocationFields() {
+            const type = document.getElementById('loc-type') ? document.getElementById('loc-type').value : 'Indoor';
+            const indoor = document.getElementById('loc-indoor'), outdoor = document.getElementById('loc-outdoor');
+            if (indoor) indoor.style.display = (type === 'Indoor') ? '' : 'none';
+            if (outdoor) outdoor.style.display = (type === 'Outdoor') ? '' : 'none';
+        }
         function composeLocation() {
-            const t = document.getElementById('loc-type') ? document.getElementById('loc-type').value : '';
-            const d = (document.getElementById('loc-detail') ? document.getElementById('loc-detail').value : '').trim();
-            const loc = [t, d].filter(Boolean).join(' — ');
+            const type = document.getElementById('loc-type') ? document.getElementById('loc-type').value : 'Indoor';
+            const val = id => { const el = document.getElementById(id); return el ? String(el.value || '').trim() : ''; };
+            let loc = '';
+            if (type === 'Indoor') {
+                const parts = [];
+                if (val('loc-bldg')) parts.push('Bldg ' + val('loc-bldg'));
+                if (val('loc-rm')) parts.push('Rm ' + val('loc-rm'));
+                loc = 'Indoor' + (parts.length ? ' — ' + parts.join(' ') : '');
+            } else {
+                const parts = [];
+                if (val('loc-block')) parts.push('Block ' + val('loc-block'));
+                if (val('loc-side')) parts.push(val('loc-side') + ' Side');
+                loc = 'Outdoor' + (parts.length ? ' — ' + parts.join(' ') : '');
+            }
             const lt = document.getElementById('loc-text'); if (lt) lt.value = loc;
             return loc;
         }
@@ -4426,6 +4514,7 @@
             const byAge  = document.getElementById('by-age').value  || 'N/A';
             const bySsn  = document.getElementById('by-ssn').value  || 'N/A';
             const byPhone= document.getElementById('by-phone').value|| 'N/A';
+            const byRel  = document.getElementById('by-rel') ? (document.getElementById('by-rel').value || 'N/A') : 'N/A';
             const repUnit = document.getElementById('rep-unit').value || 'N/A';
             const repName = document.getElementById('rep-name').value || 'N/A';
             const repRemarks = document.getElementById('rep-remarks') ? (document.getElementById('rep-remarks').value || 'N/A') : 'N/A';
@@ -4479,6 +4568,7 @@
             report += kv('Age / 年齢',           byAge) + '\n';
             report += kv('SSN / 社会保障番号',    bySsn) + '\n';
             report += kv('Phone / 電話番号',      byPhone) + '\n';
+            report += kv('Relationship / 関係',   byRel) + '\n';
 
             // ── Section: Initial Discovery ──
             if (selectedInitialFindings.length || initialManualNotes.length) {
@@ -4766,6 +4856,7 @@
             const byAge  = cleanReportValue(document.getElementById('by-age')?.value, '—');
             const bySsn  = cleanReportValue(document.getElementById('by-ssn')?.value, '—');
             const byPhone= cleanReportValue(document.getElementById('by-phone')?.value, '—');
+            const byRel  = cleanReportValue(document.getElementById('by-rel')?.value, '—');
             const repUnit = cleanReportValue(document.getElementById('rep-unit')?.value, '—');
             const repName = cleanReportValue(document.getElementById('rep-name')?.value, '—');
             const repRemarks = cleanReportValue(document.getElementById('rep-remarks')?.value, '—');
@@ -4812,10 +4903,10 @@
             html += '<div class="sec"><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '</span></p></div></div>';
             html += '</div>';
             html += '<div class="sec"><div class="sl">Initial Findings / 発見時情報</div><div class="card2"><p class="txt">' + esc(selectedListSummary(selectedInitialFindings, '—')) + '<span class="mut">Notes: ' + esc((initialManualNotes || []).slice(-2).map(n => '[' + n.t + '] ' + n.text).join(' | ') || '—') + '</span></p></div></div>';
-            html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span></div></div>';
+            html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span><b>Rel.</b><span>' + esc(byRel) + '</span></div></div>';
             html += '<div class="sec"><div class="sl">Location &amp; Remarks / 発生場所・特記事項</div><div class="card2"><p class="txt">Location: ' + esc(repLoc) + '<span class="mut">Remarks: ' + esc(repRemarks) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.4  ·  Patient Assessment &amp; Handoff Report</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.5  ·  Patient Assessment &amp; Handoff Report</div>';
             html += '</div></body></html>';
             return html;
         }

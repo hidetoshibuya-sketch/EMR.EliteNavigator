@@ -664,3 +664,4 @@ generate "chip-pollen-environmental" "Do you have pollen or environmental allerg
 generate "chip-pregnancy-related-symptoms" "Could your symptoms be related to pregnancy?"
 generate "chip-recent-infection-cold" "Have you had a recent cold or infection?"
 generate "chip-shellfish" "Are you allergic to shellfish?"
+generate "ask-relationship" "What is your relationship to the patient?"
