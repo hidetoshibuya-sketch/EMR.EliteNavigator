@@ -469,7 +469,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.13</h1>
+    <h1>EMR Elite Navigator v2.9.14</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -4960,40 +4960,49 @@
             const esc = escapeHtml;
             let html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>EMR Handoff Report</title><style>';
             html += '*{box-sizing:border-box}body{margin:0;background:#fff;color:#1e293b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",Arial,sans-serif;-webkit-font-smoothing:antialiased}';
-            html += '.sheet{width:816px;height:1056px;padding:38px 42px;background:#fff;display:flex;flex-direction:column;overflow:hidden}';
-            html += '.hd{background:#0f172a;color:#fff;border-radius:10px;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}';
-            html += '.hd .nm{font-size:21px;font-weight:700;letter-spacing:3px;line-height:1}.hd .sb{font-size:9px;color:#94a3b8;letter-spacing:2px;text-transform:uppercase;margin-top:5px}';
-            html += '.hd .mt{text-align:right;font-size:9.5px;color:#cbd5e1;line-height:1.6}.hd .mt b{color:#fff;font-weight:600}';
-            html += '.body{flex:1;display:flex;flex-direction:column;gap:10px;padding-top:12px}';
-            html += '.idbar{display:flex;flex-wrap:wrap;gap:8px 26px;padding:11px 16px;background:#f1f5f9;border-radius:8px}';
-            html += '.idbar div b{display:block;font-size:8px;letter-spacing:.6px;text-transform:uppercase;color:#94a3b8;font-weight:700;margin-bottom:1px}.idbar div span{font-size:12.5px;font-weight:600;color:#0f172a}';
-            html += '.sl{display:block;background:none;border:none;border-left:4px solid #2563eb;border-radius:0;box-shadow:none;margin:0 0 6px;padding:2px 0 2px 9px;font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:#1d4ed8;font-weight:700;line-height:1.15}';
-            html += '.card2{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}';
-            html += '.kv{display:grid;grid-template-columns:46px 1fr;gap:3px 10px;font-size:11px;line-height:1.4}.kv b{color:#94a3b8;font-weight:700}.kv span{color:#1e293b}';
-            html += '.txt{font-size:11px;line-height:1.45;color:#1e293b;margin:0}.txt .mut{color:#64748b;font-size:10.5px;display:block;margin-top:4px}.crit{color:#b91c1c;font-weight:700}';
-            html += '.vit{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.vit div{text-align:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:7px;padding:7px 3px}';
-            html += '.vit b{display:block;font-size:7.5px;letter-spacing:.4px;text-transform:uppercase;color:#94a3b8;font-weight:700;margin-bottom:3px}.vit span{font-size:14px;font-weight:700;color:#0f172a}';
-            html += '.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px 34px}';
-            html += '.sig{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:8px}.sig div{font-size:8.5px;color:#94a3b8;letter-spacing:.4px;text-transform:uppercase}.sig .ln{border-bottom:1px solid #94a3b8;height:28px;margin-bottom:4px}';
-            html += '.ft{text-align:center;font-size:8.5px;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:9px;margin-top:10px}';
-            html += '</style></head><body><div class="sheet">';
+            html += '.sheet{width:816px;height:1056px;padding:54px 58px;background:#fff;display:flex;flex-direction:column;overflow:hidden}';
+            html += '.hd{background:#0f172a;color:#fff;border-radius:12px;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}';
+            html += '.hd .nm{font-size:25px;font-weight:700;letter-spacing:4px;line-height:1}.hd .sb{font-size:10px;color:#94a3b8;letter-spacing:2px;text-transform:uppercase;margin-top:7px}';
+            html += '.hd .mt{text-align:right;font-size:11px;color:#cbd5e1;line-height:1.7}.hd .mt b{color:#fff;font-weight:600}';
+            html += '.hd2{background:#1e293b;color:#fff;border-radius:10px;padding:13px 22px;display:flex;justify-content:space-between;align-items:center}';
+            html += '.hd2 .nm{font-size:15px;font-weight:700;letter-spacing:2px}.hd2 .mt{font-size:10px;color:#cbd5e1;text-align:right;line-height:1.6}.hd2 .mt b{color:#fff}';
+            html += '.body{flex:1;display:flex;flex-direction:column;gap:16px;padding-top:18px}';
+            html += '.idbar{display:flex;flex-wrap:wrap;gap:12px 34px;padding:16px 20px;background:#f1f5f9;border-radius:10px}';
+            html += '.idbar div b{display:block;font-size:9px;letter-spacing:.6px;text-transform:uppercase;color:#94a3b8;font-weight:700;margin-bottom:2px}.idbar div span{font-size:14px;font-weight:600;color:#0f172a}';
+            html += '.sl{display:block;border-left:5px solid #2563eb;padding:3px 0 3px 11px;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#1d4ed8;font-weight:700;margin-bottom:8px}';
+            html += '.card2{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px}';
+            html += '.kv{display:grid;grid-template-columns:54px 1fr;gap:7px 14px;font-size:13px;line-height:1.5}.kv b{color:#94a3b8;font-weight:700}.kv span{color:#1e293b}';
+            html += '.txt{font-size:13px;line-height:1.6;color:#1e293b;margin:0}.txt .mut{color:#64748b;font-size:12px;display:block;margin-top:6px}.crit{color:#b91c1c;font-weight:700}';
+            html += '.vit{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}.vit div{text-align:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:11px 4px}';
+            html += '.vit b{display:block;font-size:9px;letter-spacing:.4px;text-transform:uppercase;color:#94a3b8;font-weight:700;margin-bottom:5px}.vit span{font-size:18px;font-weight:700;color:#0f172a}';
+            html += '.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px}';
+            html += '.ft{text-align:center;font-size:9.5px;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:14px}';
+            html += '</style></head><body>';
+            html += '<div class="sheet">';
             html += '<div class="hd"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sb">Patient Assessment &amp; Handoff Report</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Generated</b> ' + esc(now.toLocaleString()) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
             html += '<div class="body">';
             html += '<div class="idbar"><div><b>Name</b><span>' + esc(pName) + '</span></div><div><b>DOB</b><span>' + esc(pDob) + '</span></div><div><b>Age</b><span>' + esc(pAge) + '</span></div><div><b>SSN</b><span>' + esc(pSsn) + '</span></div><div><b>Phone</b><span>' + esc(pPhone) + '</span></div><div><b>Unit</b><span>' + esc(pUnit) + '</span></div><div><b>Patients</b><span>' + esc(triage) + '</span></div></div>';
-            html += '<div class="sec"><div class="sl">Critical Status / 重要状態</div><p class="txt"><span class="crit">' + esc(critical) + '</span><span class="mut">Chief complaint / 主訴: ' + esc(selectedListSummary(selectedCC)) + '</span></p></div>';
-            html += '<div class="sec"><div class="sl">Latest Vitals / 最新バイタル</div><div class="vit"><div><b>Time</b><span>' + esc(vitals?.time || '—') + '</span></div><div><b>BP</b><span>' + esc(vitals?.bp || '—') + '</span></div><div><b>Pulse</b><span>' + esc(vitals?.pulse || '—') + '</span></div><div><b>RR</b><span>' + esc(vitals?.rr || '—') + '</span></div><div><b>SpO2</b><span>' + esc(vitals?.spo2 || '—') + '</span></div><div><b>Temp</b><span>' + esc(vitals?.temp || '—') + '</span></div><div><b>AVPU</b><span>' + esc(vitals?.avpu || '—') + '</span></div></div></div>';
+            html += '<div><div class="sl">Critical Status / 重要状態</div><div class="card2"><p class="txt"><span class="crit">' + esc(critical) + '</span><span class="mut">Chief complaint / 主訴: ' + esc(selectedListSummary(selectedCC)) + '</span></p></div></div>';
+            html += '<div><div class="sl">Latest Vitals / 最新バイタル</div><div class="vit"><div><b>Time</b><span>' + esc(vitals?.time || '—') + '</span></div><div><b>RR</b><span>' + esc(vitals?.rr || '—') + '</span></div><div><b>HR</b><span>' + esc(vitals?.pulse || '—') + '</span></div><div><b>SpO2</b><span>' + esc(vitals?.spo2 || '—') + '</span></div><div><b>BP</b><span>' + esc(vitals?.bp || '—') + '</span></div><div><b>Temp</b><span>' + esc(vitals?.temp || '—') + '</span></div><div><b>AVPU</b><span>' + esc(vitals?.avpu || '—') + '</span></div></div></div>';
             html += '<div class="cols">';
-            html += '<div class="sec"><div class="sl">OPQRST / 詳細問診</div><div class="card2 kv"><b>O</b><span>' + esc(opO) + '</span><b>P</b><span>' + esc(opP) + '</span><b>Q</b><span>' + esc(opQ) + '</span><b>R</b><span>' + esc(opR) + '</span><b>S</b><span>' + esc(opS) + '</span><b>T</b><span>' + esc(opT) + '</span></div></div>';
-            html += '<div class="sec"><div class="sl">SAMPLE / 既往歴</div><div class="card2 kv"><b>S</b><span>' + esc(smS) + '</span><b>A</b><span>' + esc(smA) + '</span><b>M</b><span>' + esc(smM) + '</span><b>P</b><span>' + esc(smP) + '</span><b>L</b><span>' + esc(smL) + '</span><b>E</b><span>' + esc(smE) + '</span></div></div>';
-            html += '<div class="sec"><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
-            html += '<div class="sec"><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '</span></p></div></div>';
+            html += '<div><div class="sl">OPQRST / 詳細問診</div><div class="card2 kv"><b>O</b><span>' + esc(opO) + '</span><b>P</b><span>' + esc(opP) + '</span><b>Q</b><span>' + esc(opQ) + '</span><b>R</b><span>' + esc(opR) + '</span><b>S</b><span>' + esc(opS) + '</span><b>T</b><span>' + esc(opT) + '</span></div></div>';
+            html += '<div><div class="sl">SAMPLE / 既往歴</div><div class="card2 kv"><b>S</b><span>' + esc(smS) + '</span><b>A</b><span>' + esc(smA) + '</span><b>M</b><span>' + esc(smM) + '</span><b>P</b><span>' + esc(smP) + '</span><b>L</b><span>' + esc(smL) + '</span><b>E</b><span>' + esc(smE) + '</span></div></div>';
             html += '</div>';
-            html += '<div class="sec"><div class="sl">Initial Findings / 発見時情報</div><div class="card2"><p class="txt">' + esc(selectedListSummary(selectedInitialFindings, '—')) + '<span class="mut">Notes: ' + esc((initialManualNotes || []).slice(-2).map(n => '[' + n.t + '] ' + n.text).join(' | ') || '—') + '</span></p></div></div>';
-            html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span><b>Rel.</b><span>' + esc(byRel) + '</span></div></div>';
-            html += '<div class="sec"><div class="sl">Location &amp; Remarks / 発生場所・特記事項</div><div class="card2"><p class="txt">Location: ' + esc(repLoc) + '<span class="mut">Remarks: ' + esc(repRemarks) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.13  ·  Patient Assessment &amp; Handoff Report</div>';
-            html += '</div></body></html>';
+            html += '<div class="ft">Page 1 of 2 — Patient / History  ·  EMR Elite Navigator v2.9.14</div>';
+            html += '</div>';
+            html += '<div class="sheet">';
+            html += '<div class="hd2"><div class="nm">EMR ELITE NAVIGATOR <span style="font-weight:400;color:#94a3b8;font-size:11px;letter-spacing:1px;">— ' + esc(pName) + '</span></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
+            html += '<div class="body">';
+            html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
+            html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '</span></p></div></div>';
+            html += '<div><div class="sl">Initial Findings / 発見時情報</div><div class="card2"><p class="txt">' + esc(selectedListSummary(selectedInitialFindings, '—')) + '<span class="mut">Notes: ' + esc((initialManualNotes || []).slice(-3).map(n => '[' + n.t + '] ' + n.text).join(' | ') || '—') + '</span></p></div></div>';
+            html += '<div><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span><b>Rel.</b><span>' + esc(byRel) + '</span></div></div>';
+            html += '<div><div class="sl">Location &amp; Remarks / 発生場所・特記事項</div><div class="card2"><p class="txt">Location: ' + esc(repLoc) + '<span class="mut">Remarks: ' + esc(repRemarks) + '</span></p></div></div>';
+            html += '</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page 2 of 2  ·  EMR Elite Navigator v2.9.14</div>';
+            html += '</div>';
+            html += '</body></html>';
             return html;
         }
 
@@ -5027,14 +5036,24 @@
             if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
                 throw new Error('PDF libraries not loaded yet — please retry in a moment.');
             }
-            const reportCanvas = await _htmlToCanvas(buildStyledReportHtml(), 'emr-pdf-style-report');
+            const canvas = await _htmlToCanvas(buildStyledReportHtml(), 'emr-pdf-style-report');
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF({ unit: 'mm', format: 'letter', orientation: 'portrait' });
             const pageW = pdf.internal.pageSize.getWidth();
             const pageH = pdf.internal.pageSize.getHeight();
-            const ratio = Math.min(pageW / reportCanvas.width, pageH / reportCanvas.height);
-            const imgW = reportCanvas.width * ratio, imgH = reportCanvas.height * ratio;
-            pdf.addImage(reportCanvas.toDataURL('image/png'), 'PNG', (pageW - imgW) / 2, (pageH - imgH) / 2, imgW, imgH);
+            const imgW = pageW;
+            const imgH = canvas.height * imgW / canvas.width;   // full content height (mm), each 816x1056 sheet = one page
+            const dataURL = canvas.toDataURL('image/png');
+            let heightLeft = imgH;
+            let position = 0;
+            pdf.addImage(dataURL, 'PNG', 0, position, imgW, imgH);
+            heightLeft -= pageH;
+            while (heightLeft > 0.5) {
+                position -= pageH;
+                pdf.addPage();
+                pdf.addImage(dataURL, 'PNG', 0, position, imgW, imgH);
+                heightLeft -= pageH;
+            }
             return pdf.output('blob');
         }
 
