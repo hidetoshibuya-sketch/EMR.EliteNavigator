@@ -469,7 +469,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.12</h1>
+    <h1>EMR Elite Navigator v2.9.13</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -794,8 +794,8 @@
         </div>
 
         <!-- ==================== PHILIPS HS1 AED PROTOCOL ==================== -->
-        <div style="background:#fff; border:2px solid #1d4ed8; border-radius:8px; padding:10px; margin-bottom:10px;">
-            <div style="background:#1d4ed8; color:#fff; padding:5px 8px; border-radius:5px; font-weight:800; font-size:0.95rem; margin:-5px -5px 8px -5px;">
+        <div id="aed-hs1-protocol" style="background:#fef2f2; border:2px solid #dc2626; border-radius:8px; padding:10px; margin-bottom:10px;">
+            <div style="background:#dc2626; color:#fff; padding:5px 8px; border-radius:5px; font-weight:800; font-size:0.95rem; margin:-5px -5px 8px -5px;">
                 ② Philips HeartStart HS1 (M5066A) Protocol <span style="font-size:1rem; font-weight:400;">(フィリップス HeartStart HS1 使用手順)</span>
             </div>
             <ol style="font-size:0.98rem; line-height:1.6; padding-left:20px; margin:0 0 6px 0;">
@@ -1077,10 +1077,10 @@
                     <th>#</th>
                     <th>Time<br><span class="sub-lang">時間</span></th>
                     <th>RR<br><span class="sub-lang">呼吸数</span></th>
-                    <th>SpO2 %<br><span class="sub-lang">酸素飽和</span></th>
                     <th>HR<br><span class="sub-lang">心拍</span></th>
-                    <th>BT ℃<br><span class="sub-lang">体温</span></th>
+                    <th>SpO2 %<br><span class="sub-lang">酸素飽和</span></th>
                     <th>BP (sys/dia)<br><span class="sub-lang">血圧</span></th>
+                    <th>BT ℃<br><span class="sub-lang">体温</span></th>
                 </tr>
             </thead>
             <tbody id="trauma-vitals-tbody"></tbody>
@@ -1288,10 +1288,10 @@
                     <th>#</th>
                     <th>Time<br><span class="sub-lang">時間</span></th>
                     <th>RR<br><span class="sub-lang">呼吸数</span></th>
-                    <th>SpO2 %<br><span class="sub-lang">酸素飽和</span></th>
                     <th>HR<br><span class="sub-lang">心拍</span></th>
-                    <th>BT ℃<br><span class="sub-lang">体温</span></th>
+                    <th>SpO2 %<br><span class="sub-lang">酸素飽和</span></th>
                     <th>BP (sys/dia)<br><span class="sub-lang">血圧</span></th>
+                    <th>BT ℃<br><span class="sub-lang">体温</span></th>
                 </tr>
             </thead>
             <tbody id="vitals-tbody"></tbody>
@@ -2956,10 +2956,10 @@
                     <td><strong>${i+1}</strong></td>
                     <td>${vitalCell(prefix, i, 'time', '', null)}</td>
                     <td>${vitalCell(prefix, i, 'rr', '16', 'rr')}</td>
-                    <td>${vitalCell(prefix, i, 'spo2', '98', 'spo2')}</td>
                     <td>${vitalCell(prefix, i, 'hr', '80', 'hr')}</td>
-                    <td>${vitalCell(prefix, i, 'bt', '36.5', 'bt')}</td>
+                    <td>${vitalCell(prefix, i, 'spo2', '98', 'spo2')}</td>
                     <td>${vitalCell(prefix, i, 'bp', '120/80', 'bp')}</td>
+                    <td>${vitalCell(prefix, i, 'bt', '36.5', 'bt')}</td>
                 `;
                 tb.appendChild(tr);
             }
@@ -4267,7 +4267,7 @@
                 const parts = raw.split('。').map(s => s.trim()).filter(Boolean);
                 el.innerHTML = parts.map(p => '・' + escapeHtml(p) + '。').join('<br>');
             });
-            ['guide-medical-shock', 'cpss-protocol-box'].forEach(formatProtoCardBox);
+            ['guide-medical-shock', 'cpss-protocol-box', 'aed-hs1-protocol'].forEach(formatProtoCardBox);
         }
         // Convert hand-built bilingual protocol cards (Shock / CPSS) to EN title + JP bullets
         function formatProtoCardBox(boxId) {
@@ -4281,13 +4281,15 @@
                     if (span) span.remove();
                 }
             });
-            // List items: keep Japanese only, prefix with ・
-            box.querySelectorAll('ul').forEach(ul => {
-                ul.style.listStyle = 'none';
-                ul.style.paddingLeft = '2px';
-                ul.querySelectorAll('li').forEach(li => {
-                    const jp = li.querySelector('div');
-                    const txt = (jp ? jp.textContent : li.textContent).trim();
+            // List items (ul + ol): keep Japanese only, prefix with ・
+            box.querySelectorAll('ul, ol').forEach(list => {
+                list.style.listStyle = 'none';
+                list.style.paddingLeft = '2px';
+                list.querySelectorAll('li').forEach(li => {
+                    const divs = li.querySelectorAll('div');
+                    const txt = divs.length
+                        ? Array.from(divs).map(d => d.textContent.trim()).filter(Boolean).join(' ')
+                        : li.textContent.trim();
                     li.innerHTML = '・' + escapeHtml(txt);
                     li.style.marginBottom = '3px';
                 });
@@ -4990,7 +4992,7 @@
             html += '<div class="sec"><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span><b>Rel.</b><span>' + esc(byRel) + '</span></div></div>';
             html += '<div class="sec"><div class="sl">Location &amp; Remarks / 発生場所・特記事項</div><div class="card2"><p class="txt">Location: ' + esc(repLoc) + '<span class="mut">Remarks: ' + esc(repRemarks) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.12  ·  Patient Assessment &amp; Handoff Report</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  EMR Elite Navigator v2.9.13  ·  Patient Assessment &amp; Handoff Report</div>';
             html += '</div></body></html>';
             return html;
         }
