@@ -469,7 +469,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.14</h1>
+    <h1>EMR Elite Navigator v2.9.15</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -4905,13 +4905,22 @@
             return list.map(x => String(x).replace(/\n/g, ' ').replace(/\s*\([^)]*\)/g, '').trim()).filter(Boolean).slice(0, 5).join(' · ');
         }
         function getLatestVitals(prefix) {
-            const rows = [], ids = ['time','bp','pulse','rr','spo2','temp','avpu'];
-            for (let i = 1; i <= 5; i++) {
-                const row = {};
-                ids.forEach(id => { const el = document.getElementById(prefix + id + i); row[id] = el ? cleanReportValue(el.value, '') : ''; });
-                if (Object.values(row).some(Boolean)) rows.push(row);
+            const fields = ['time','hr','rr','bp','spo2','bt'];
+            let latest = null;
+            for (let i = 0; i < 5; i++) {
+                const row = {}; let any = false;
+                fields.forEach(f => {
+                    const el = document.getElementById(`${prefix}-${i}-${f}`);
+                    let v = '';
+                    if (el && el.value && el.value !== (el.dataset ? el.dataset.placeholder : '')) v = String(el.value).trim();
+                    row[f] = v; if (v) any = true;
+                });
+                if (any) latest = row;
             }
-            return rows.length ? rows[rows.length - 1] : null;
+            if (!latest) return null;
+            let avpu = '';
+            ['A','V','P','U'].forEach(l => { const b = document.getElementById('avpu-' + l); if (b && b.classList.contains('active')) avpu = l; });
+            return { time: latest.time, bp: latest.bp, pulse: latest.hr, rr: latest.rr, spo2: latest.spo2, temp: latest.bt, avpu: avpu };
         }
         function bodyMapSummary(limit = 8) {
             const out = [];
@@ -4989,7 +4998,7 @@
             html += '<div><div class="sl">SAMPLE / 既往歴</div><div class="card2 kv"><b>S</b><span>' + esc(smS) + '</span><b>A</b><span>' + esc(smA) + '</span><b>M</b><span>' + esc(smM) + '</span><b>P</b><span>' + esc(smP) + '</span><b>L</b><span>' + esc(smL) + '</span><b>E</b><span>' + esc(smE) + '</span></div></div>';
             html += '</div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of 2 — Patient / History  ·  EMR Elite Navigator v2.9.14</div>';
+            html += '<div class="ft">Page 1 of 2 — Patient / History  ·  EMR Elite Navigator v2.9.15</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div class="nm">EMR ELITE NAVIGATOR <span style="font-weight:400;color:#94a3b8;font-size:11px;letter-spacing:1px;">— ' + esc(pName) + '</span></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5000,7 +5009,7 @@
             html += '<div><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span><b>Rel.</b><span>' + esc(byRel) + '</span></div></div>';
             html += '<div><div class="sl">Location &amp; Remarks / 発生場所・特記事項</div><div class="card2"><p class="txt">Location: ' + esc(repLoc) + '<span class="mut">Remarks: ' + esc(repRemarks) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page 2 of 2  ·  EMR Elite Navigator v2.9.14</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page 2 of 2  ·  EMR Elite Navigator v2.9.15</div>';
             html += '</div>';
             html += '</body></html>';
             return html;
