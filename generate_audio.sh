@@ -665,3 +665,12 @@ generate "chip-pregnancy-related-symptoms" "Could your symptoms be related to pr
 generate "chip-recent-infection-cold" "Have you had a recent cold or infection?"
 generate "chip-shellfish" "Are you allergic to shellfish?"
 generate "ask-relationship" "What is your relationship to the patient?"
+# v2.9.16 audio fixes: personal-info prompts (MP3) + P-cause question + new O chips
+generate "ask-name" "What is your name?"
+generate "ask-dob" "What is your date of birth? Month, day, and year please."
+generate "ask-ssn" "What is your Social Security Number?"
+generate "ask-phone" "What is your phone number?"
+generate "ask-unit" "What is your unit or command?"
+generate "opqrst-p-cause" "Can you think of anything that may have caused this? Is there anything that comes to mind?"
+generate "chip-working-outdoors" "Were you working outdoors when it started?"
+generate "chip-on-regular-duty-working" "Were you on your regular duties when it started?"

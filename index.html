@@ -469,7 +469,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.15</h1>
+    <h1>EMR Elite Navigator v2.9.16</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -1498,7 +1498,7 @@
                     "How much of this medication do you usually take, and how often? Are you about to take the correct dose right now?"
                     <span class="sub-lang">②普段の服用量・頻度は？今飲もうとしている量は適切？</span>
                 </button>
-                <button class="btn-audio" style="background:linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-left-color:#f59e0b; color:#92400e;" onclick="playAudio('med-q3', 'Are your current symptoms the same ones this medication is meant to treat?')">
+                <button class="btn-audio" style="background:linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%); border-left-color:#f59e0b; color:#92400e;" onclick="playAudio('med-q3', 'Are your current symptoms the same ones this medication is meant to treat? For example, is the chest pain the kind your nitroglycerin is for?')">
                     "Are your current symptoms the same ones this medication is meant to treat?"
                     <span class="sub-lang">③今の症状はその薬で治療する症状と一致？</span>
                 </button>
@@ -1607,9 +1607,9 @@
         <div class="chip-group" id="chips-O"></div>
         <div class="input-flex"><input type="text" id="input-O" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveOpqrstField('O', 'Onset')">SAVE</button></div>
 
-        <div class="flex-between"><h3>Provocation / Palliation — Better or worse? <span class="sub-lang">(悪化・軽快する条件は？)</span></h3></div>
-        <button class="btn-audio" onclick="playAudio('opqrst-p', 'What makes it worse, and what makes it better?')">
-            "What makes it worse, and what makes it better?" <span class="sub-lang">(何をすると悪くなり、何をすると楽になりますか？)</span>
+        <div class="flex-between"><h3>Possible Trigger / Cause <span class="sub-lang">(思い当たる原因・きっかけ)</span></h3></div>
+        <button class="btn-audio" onclick="playAudio('opqrst-p-cause', 'Can you think of anything that may have caused this? Is there anything that comes to mind?')">
+            "Can you think of anything that may have caused this?" <span class="sub-lang">(思い当たることはありますか？)</span>
         </button>
         <div class="stt-info" id="stt-P"></div><label class="switch-container" id="sw-label-P"><input type="checkbox" id="sw-P"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-P"></div>
@@ -1918,6 +1918,8 @@
             'Standing / Walking':              'Were you standing or walking when it started?',
             'Running / Exercising':            'Were you running or exercising when it started?',
             'Working / Lifting heavy':         'Were you working or lifting something heavy when it started?',
+            'Working outdoors':                'Were you working outdoors when it started?',
+            'On regular duty / working':       'Were you on your regular duties when it started?',
             'Climbing stairs':                 'Were you climbing stairs when it started?',
             'Eating a meal':                   'Were you eating when it started?',
             'Drinking alcohol':                'Were you drinking alcohol when it started?',
@@ -2533,18 +2535,18 @@
         const opqrstMedicalChips = {
             O: [
                 'Sitting / Watching TV\n(座っていた・テレビ視聴中)', 'Standing / Walking\n(立っていた・歩いていた)', 'Running / Exercising\n(走っていた・運動中)',
-                'Working / Lifting heavy\n(仕事中・重い物を持ち上げていた)', 'Climbing stairs\n(階段を上っていた)', 'Eating a meal\n(食事中)',
+                'Working / Lifting heavy\n(仕事中・重い物を持ち上げていた)', 'Working outdoors\n(屋外作業中)', 'On regular duty / working\n(通常勤務中)', 'Climbing stairs\n(階段を上っていた)', 'Eating a meal\n(食事中)',
                 'Drinking alcohol\n(飲酒中)', 'Sleeping / In bed\n(就寝中)', 'Just woke up\n(起床直後)', 'In the bath / shower\n(入浴中)',
                 'On the toilet\n(トイレ中)', 'Driving\n(運転中)', 'In a hot environment\n(暑い場所にいた)', 'In a cold environment\n(寒い場所にいた)',
                 'Arguing / Emotional stress\n(口論・強い精神的ストレス)', 'Taking medication\n(薬を飲んでいた)', 'After an injury\n(怪我をした直後)',
                 'Nothing in particular\n(特に何もしていなかった)', 'Recurring episode (same as before)\n(以前と同じ症状の再発)', 'Cannot remember\n(覚えていない)'
             ],
             P: [
-                'Worse with exertion\n(動くと悪化)', 'Worse with deep breath\n(深呼吸で悪化)', 'Worse with cough\n(咳で悪化)', 'Worse after eating\n(食後に悪化)',
-                'Worse when lying flat\n(横になると悪化)', 'Worse when standing\n(立位で悪化)', 'Worse with stress\n(ストレスで悪化)', 'Worse in heat / cold\n(暑さ・寒さで悪化)',
-                'Better with rest\n(安静で軽快)', 'Better sitting forward\n(前かがみで軽快)', 'Better lying still\n(動かず横になると軽快)', 'Better after medication\n(薬で軽快)',
-                'Better after inhaler\n(吸入薬で軽快)', 'Better after vomiting\n(嘔吐後に軽快)', 'Better after bowel movement\n(排便後に軽快)', 'No position helps\n(楽な姿勢なし)',
-                'Comes with activity\n(活動時に出る)', 'Comes at rest\n(安静時にも出る)', 'Touch does not change it\n(触れても変化なし)', 'Other pattern\n(その他の変化)'
+                'Stress / Anxiety\n(ストレス・不安)', 'Overwork / Fatigue\n(過労・疲労)', 'Lack of sleep\n(睡眠不足)', 'New medication\n(新しい薬)',
+                'Skipped routine medication\n(常用薬の飲み忘れ)', 'Specific food (suspect)\n(特定の食べ物)', 'Alcohol\n(飲酒)', 'Recent injury / accident\n(最近の怪我・事故)',
+                'Heavy lifting / physical strain\n(重労働・身体的負荷)', 'Sudden temperature change\n(急な温度変化)', 'Allergic exposure\n(アレルゲンへの曝露)', 'Insect bite / sting\n(虫刺され)',
+                'Family member has same illness\n(家族に同じ病気)', 'Past similar episode\n(過去に同様の症状)', 'Travel / new environment\n(旅行・新しい環境)', 'Chronic disease flare-up\n(持病の悪化)',
+                'Pregnancy / Menstrual cycle\n(妊娠・月経)', 'Recent surgery / procedure\n(最近の手術・処置)', 'No idea / Cannot identify\n(思い当たらない)'
             ],
             Q: [
                 'Sharp stabbing pain\n(刺すような鋭い痛み)', 'Dull heavy ache\n(重苦しい鈍痛)', 'Squeezing / Tightness\n(締め付けられる絞扼痛)',
@@ -4998,7 +5000,7 @@
             html += '<div><div class="sl">SAMPLE / 既往歴</div><div class="card2 kv"><b>S</b><span>' + esc(smS) + '</span><b>A</b><span>' + esc(smA) + '</span><b>M</b><span>' + esc(smM) + '</span><b>P</b><span>' + esc(smP) + '</span><b>L</b><span>' + esc(smL) + '</span><b>E</b><span>' + esc(smE) + '</span></div></div>';
             html += '</div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of 2 — Patient / History  ·  EMR Elite Navigator v2.9.15</div>';
+            html += '<div class="ft">Page 1 of 2 — Patient / History  ·  EMR Elite Navigator v2.9.16</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div class="nm">EMR ELITE NAVIGATOR <span style="font-weight:400;color:#94a3b8;font-size:11px;letter-spacing:1px;">— ' + esc(pName) + '</span></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5009,7 +5011,7 @@
             html += '<div><div class="sl">Bystander / バイスタンダー</div><div class="card2 kv"><b>Name</b><span>' + esc(byName) + '</span><b>DOB</b><span>' + esc(byDob) + '</span><b>Age</b><span>' + esc(byAge) + '</span><b>SSN</b><span>' + esc(bySsn) + '</span><b>Phone</b><span>' + esc(byPhone) + '</span><b>Rel.</b><span>' + esc(byRel) + '</span></div></div>';
             html += '<div><div class="sl">Location &amp; Remarks / 発生場所・特記事項</div><div class="card2"><p class="txt">Location: ' + esc(repLoc) + '<span class="mut">Remarks: ' + esc(repRemarks) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page 2 of 2  ·  EMR Elite Navigator v2.9.15</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page 2 of 2  ·  EMR Elite Navigator v2.9.16</div>';
             html += '</div>';
             html += '</body></html>';
             return html;
