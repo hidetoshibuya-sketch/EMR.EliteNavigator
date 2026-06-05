@@ -1,6 +1,6 @@
 // EMR Elite Navigator — Service Worker
 // Bump CACHE_VERSION whenever you publish a new build.
-const CACHE_VERSION = 'emr-nav-v3.0-bodymap-both-31';
+const CACHE_VERSION = 'emr-nav-v3.0-logless-timelinepages-32';
 const ASSETS = [
   './',
   './index.html',

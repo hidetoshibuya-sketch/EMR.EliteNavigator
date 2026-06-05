@@ -590,8 +590,7 @@
         </div>
         <div class="chip-group" id="chips-INIT"></div>
         <div class="input-flex">
-            <input type="text" id="input-INIT_Manual" class="input-text" placeholder="Additional discovery findings / 追加の発見時所見をテキスト入力">
-            <button class="btn-save" onclick="saveInitialManualInput()">SAVE</button>
+            <input type="text" id="input-INIT_Manual" class="input-text" placeholder="Additional discovery findings / 追加の発見時所見をテキスト入力" onkeydown="if(event.key==='Enter'){event.preventDefault();saveInitialManualInput();}">
         </div>
         <div id="init-manual-list" style="margin-top:6px; font-size:0.95rem; color:#475569;"></div>
 
@@ -894,7 +893,6 @@
             <input type="text" id="info-unit" class="input-text" style="width:100%; box-sizing:border-box;" placeholder="e.g. Yokosuka Naval Base">
         </div>
 
-        <button class="btn-save" style="width:100%; background:var(--primary);" onclick="saveDemographics()">Save Demographics <span style="font-size:0.92rem; font-weight:400;">(個人情報を記録)</span></button>
 
         <h3 style="margin-top:24px;">Bystander / Witness <span class="sub-lang">(バイスタンダー・関係者)</span></h3>
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
@@ -1324,7 +1322,11 @@
                     <div style="color:#64748b; margin-top:2px;">再評価項目：意識・気道・呼吸・脈拍・皮膚状態・SpO₂・血圧・処置の有効性</div>
                 </div>
             </div>
-            <button id="btn-reassess-timer" class="btn-save" style="width:100%; margin-top:10px; background:linear-gradient(135deg, #6366f1 0%, #818cf8 100%);" onclick="startReassessTimer()">⏱ Start Reassessment Timer <span style="font-size:0.92rem; font-weight:400;">(再評価タイマー開始)</span></button>
+            <div style="display:flex; gap:8px; margin-top:10px;">
+                <button id="btn-reassess-15" class="btn-ok" style="flex:1;" onclick="startReassessTimer(15)">⏱ 15 min <span style="font-size:0.9rem; font-weight:400; display:block;">(安定)</span></button>
+                <button id="btn-reassess-5" class="btn-danger-toggle" style="flex:1;" onclick="startReassessTimer(5)">⏱ 5 min <span style="font-size:0.9rem; font-weight:400; display:block;">(不安定)</span></button>
+            </div>
+            <button id="btn-reassess-stop" class="btn-save" style="width:100%; margin-top:8px; background:#94a3b8; display:none;" onclick="stopReassessTimer()">⏹ Stop Timer <span style="font-size:0.9rem; font-weight:400;">(タイマー停止)</span></button>
             <div id="reassess-status" style="margin-top:8px; display:none; padding:8px; background:#fff; border:1px solid #6366f1; border-radius:6px; font-size:1rem; text-align:center;"></div>
         </div>
 
@@ -1813,7 +1815,7 @@
 
     <div class="card" id="sec-transport">
         <h2>Transport <span class="sub-lang">(搬送情報)</span></h2>
-        <button id="btn-onscene" class="btn-ok" style="width:100%;" onclick="recordOnScene(this)">On Scene <span style="font-size:0.92rem; font-weight:400; display:block;">(現着時刻を記録)</span></button>
+        <button id="btn-onscene" class="btn-ok" style="width:100%;" onclick="recordOnScene(this)">JP Ambulance on Scene <span style="font-size:0.92rem; font-weight:400; display:block;">(救急車 現着時刻を記録)</span></button>
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin:10px 0; background:#fafafa;">
             <span style="font-size:0.98rem; font-weight:bold;">Destination Hospital <span style="font-weight:normal; color:var(--text-sub);">(搬送先病院名)</span></span>
             <input type="text" id="transport-hospital" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. Yokosuka General Hospital">
@@ -1822,20 +1824,10 @@
     </div>
 
     <div class="card">
-        <h2>Assessment Activity Log & Handoff Report</h2>
-        <textarea id="log-area" readonly placeholder="活動履歴、および自動レポートがここに自動生成されます..."></textarea>
-
-        <!-- Visual handoff preview (body map for trauma) -->
-        <div id="handoff-visual" style="display:none; margin-top:10px; background:#fff; border:2px solid #2563eb; border-radius:10px; padding:14px;">
-            <div style="font-weight:800; color:#1e3a8a; font-size:0.85rem; margin-bottom:6px;">🩹 Trauma Body Map — DOTS / DCAP-BTLS Visual <span style="font-size:0.95rem; font-weight:400; color:#64748b;">(外傷部位図・所見反映)</span></div>
-            <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-                <div id="handoff-body-map" style="width:260px; flex-shrink:0;"></div>
-                <div id="handoff-findings-list" style="flex:1; font-size:0.95rem; min-width:200px;"></div>
-            </div>
-        </div>
-
+        <textarea id="log-area" readonly style="display:none;"></textarea>
+        <div id="handoff-visual" style="display:none;"><div id="handoff-body-map"></div><div id="handoff-findings-list"></div></div>
         <div class="export-btn-group">
-            <button id="btn-build-report" class="btn-email-act" onclick="buildReport(this)">Email Report (PDF) <span style="font-size:0.92rem; font-weight:400; display:block;">(レポートをメールで送信)</span></button>
+            <button id="btn-build-report" class="btn-email-act" onclick="buildReport(this)">Email Report (PDF) <span style="font-size:0.92rem; font-weight:400; display:block;">(Assessment Activity Log &amp; Handoff Report)</span></button>
         </div>
     </div>
 
@@ -3986,18 +3978,14 @@
         let reassessNextAt = null;
         let reassessIntervalSec = 0;
         let reassessCount = 0;
-        function startReassessTimer() {
-            const unstable = isShockActive || isBleedingActive || activeAbcStatus === 'CPA';
-            reassessIntervalSec = unstable ? 5 * 60 : 15 * 60;
-            const label = unstable ? 'UNSTABLE (5-min)' : 'STABLE (15-min)';
+        function startReassessTimer(mins) {
+            mins = (mins === 5) ? 5 : 15;
+            reassessIntervalSec = mins * 60;
+            const label = mins === 5 ? 'UNSTABLE (5-min)' : 'STABLE (15-min)';
             reassessNextAt = Date.now() + reassessIntervalSec * 1000;
             reassessCount = 0;
-            const box = document.getElementById('reassess-status');
-            const btn = document.getElementById('btn-reassess-timer');
-            box.style.display = 'block';
-            btn.innerText = '⏹ Stop Reassessment Timer';
-            btn.style.background = '#94a3b8';
-            btn.onclick = stopReassessTimer;
+            document.getElementById('reassess-status').style.display = 'block';
+            const stop = document.getElementById('btn-reassess-stop'); if (stop) stop.style.display = 'block';
             logAction('Reassessment Timer', `Started — ${label} interval`);
             if (reassessTimer) clearInterval(reassessTimer);
             reassessTimer = setInterval(updateReassessDisplay, 500);
@@ -4006,12 +3994,8 @@
         function stopReassessTimer() {
             if (reassessTimer) { clearInterval(reassessTimer); reassessTimer = null; }
             reassessNextAt = null;
-            const box = document.getElementById('reassess-status');
-            const btn = document.getElementById('btn-reassess-timer');
-            box.style.display = 'none';
-            btn.innerText = '⏱ Start Reassessment Timer';
-            btn.style.background = 'linear-gradient(135deg, #6366f1 0%, #818cf8 100%)';
-            btn.onclick = startReassessTimer;
+            document.getElementById('reassess-status').style.display = 'none';
+            const stop = document.getElementById('btn-reassess-stop'); if (stop) stop.style.display = 'none';
             logAction('Reassessment Timer', `Stopped after ${reassessCount} reassessment cycles`);
         }
         function updateReassessDisplay() {
@@ -4625,7 +4609,7 @@
             window.onSceneTime = onSceneTime;
             const el = document.getElementById('onscene-time'); if (el) el.textContent = onSceneTime;
             btn.classList.add('active');
-            btn.innerHTML = 'On Scene \u2713 ' + onSceneTime + ' <span style="font-size:0.92rem; font-weight:400; display:block;">(現着 記録済み)</span>';
+            btn.innerHTML = 'JP Ambulance on Scene \u2713 ' + onSceneTime + ' <span style="font-size:0.92rem; font-weight:400; display:block;">(現着 記録済み)</span>';
             logAction('Transport', 'On scene at ' + onSceneTime);
         }
         function saveReportAuthor() {
@@ -5061,8 +5045,10 @@
             const special = Object.keys(specialFindings || {}).slice(0, 5).map(id => specialFindings[id].en).join(' · ') || '—';
             const esc = escapeHtml;
             const bodyMapHtml = (typeof buildReportBodyMap === 'function') ? buildReportBodyMap() : '';
-            const _tl = (window.timelineLog || []).slice(-55);
-            const tlRows = _tl.length ? _tl.map(function(e){ return '<tr><td class="tlt">' + esc(e.t) + '</td><td class="tlc">' + esc(e.cat) + '</td><td class="tlm">' + esc(e.msg) + '</td></tr>'; }).join('') : '<tr><td colspan="3" style="color:#94a3b8;padding:10px;">No timeline entries recorded / 記録なし</td></tr>';
+            const _allTl = (window.timelineLog || []);
+            const _perPage = 30;
+            const _tlPageCount = Math.max(1, Math.ceil(_allTl.length / _perPage));
+            const _totalPages = 2 + _tlPageCount;
             let html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>EMR Handoff Report</title><style>';
             html += '*{box-sizing:border-box}body{margin:0;background:#fff;color:#1e293b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",Arial,sans-serif;-webkit-font-smoothing:antialiased}';
             html += '.sheet{width:816px;height:1056px;padding:50px 54px;background:#fff;display:flex;flex-direction:column;overflow:hidden}';
@@ -5087,7 +5073,7 @@
             html += '.ft{text-align:center;font-size:9px;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:11px;margin-top:12px}';
             html += '</style></head><body>';
             html += '<div class="sheet">';
-            html += '<div class="hd"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sb">Patient Assessment &amp; Handoff Report</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Generated</b> ' + esc(now.toLocaleString()) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
+            html += '<div class="hd"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sb">Assessment Activity Log &amp; Handoff Report</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Generated</b> ' + esc(now.toLocaleString()) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
             html += '<div class="body">';
             html += '<div class="idbar"><div><b>Name</b><span>' + esc(pName) + '</span></div><div><b>DOB</b><span>' + esc(pDob) + '</span></div><div><b>Age</b><span>' + esc(pAge) + '</span></div><div><b>SSN</b><span>' + esc(pSsn) + '</span></div><div><b>Phone</b><span>' + esc(pPhone) + '</span></div><div><b>Unit</b><span>' + esc(pUnit) + '</span></div><div><b>Patients</b><span>' + esc(triage) + '</span></div></div>';
             html += '<div><div class="sl">Critical Status / 重要状態</div><div class="card2"><p class="txt"><span class="crit">' + esc(critical) + '</span><span class="mut">Chief complaint / 主訴: ' + esc(selectedListSummary(selectedCC)) + '</span></p></div></div>';
@@ -5100,7 +5086,7 @@
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of 3 — Overview &amp; Body Map  ·  EMR Elite Navigator v3.0</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.0</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5110,15 +5096,20 @@
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of 3 — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.0</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.0</div>';
             html += '</div>';
-            html += '<div class="sheet">';
-            html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">Handoff Timeline — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div></div></div>';
-            html += '<div class="body">';
-            html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + tlRows + '</tbody></table></div></div>';
-            html += '</div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page 3 of 3  ·  EMR Elite Navigator v3.0</div>';
-            html += '</div>';
+            for (let _p = 0; _p < _tlPageCount; _p++) {
+                const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
+                const _rows = _chunk.length ? _chunk.map(function(e){ return '<tr><td class="tlt">' + esc(e.t) + '</td><td class="tlc">' + esc(e.cat) + '</td><td class="tlm">' + esc(e.msg) + '</td></tr>'; }).join('') : '<tr><td colspan="3" style="color:#94a3b8;padding:10px;">No timeline entries recorded / 記録なし</td></tr>';
+                const _cont = _tlPageCount > 1 ? ' (' + (_p + 1) + '/' + _tlPageCount + ')' : '';
+                html += '<div class="sheet">';
+                html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">Handoff Timeline' + _cont + ' — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div></div></div>';
+                html += '<div class="body">';
+                html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
+                html += '</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.0</div>';
+                html += '</div>';
+            }
             html += '</body></html>';
             return html;
         }
