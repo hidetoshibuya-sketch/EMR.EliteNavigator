@@ -419,7 +419,7 @@
         .btn-branch.tri-red.triage-chosen { background: #dc2626 !important; color: #fff !important; box-shadow: 0 0 0 3px rgba(220,38,38,0.35), 0 8px 18px rgba(127,29,29,0.25) !important; }
         .btn-branch.tri-yellow.triage-chosen { background: #facc15 !important; color: #1e293b !important; box-shadow: 0 0 0 3px rgba(202,138,4,0.35) !important; }
         .btn-branch.tri-black.triage-chosen { background: #0f172a !important; color: #fff !important; box-shadow: 0 0 0 3px rgba(0,0,0,0.4) !important; }
-        .btn-branch.tri-airway { background: #fff !important; border: 2px solid #dc2626 !important; color: #991b1b !important; }
+        .btn-branch.tri-airway { background: #fff !important; border: 2px solid #dc2626 !important; color: #991b1b !important; width: 100% !important; }
         .btn-branch.tri-airway.triage-chosen { background: #16a34a !important; border-color: transparent !important; color: #fff !important; }
         .btn-branch.tri-airway.triage-chosen .ablbl { display: none; }
         .btn-branch.tri-airway.triage-chosen::after { content: "DONE"; font-weight: 900; }
@@ -473,7 +473,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v2.9.18</h1>
+    <h1>EMR Elite Navigator v3.0</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -1608,7 +1608,7 @@
         </button>
         <div class="stt-info" id="stt-O"></div><label class="switch-container" id="sw-label-O"><input type="checkbox" id="sw-O"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-O"></div>
-        <div class="input-flex"><input type="text" id="input-O" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveOpqrstField('O', 'Onset')">SAVE</button></div>
+        <input type="hidden" id="input-O">
 
         <div class="flex-between"><h3>Possible Trigger / Cause <span class="sub-lang">(思い当たる原因・きっかけ)</span></h3></div>
         <button class="btn-audio" onclick="playAudio('opqrst-p-cause', 'Can you think of anything that may have caused this? Is there anything that comes to mind?')">
@@ -1616,7 +1616,7 @@
         </button>
         <div class="stt-info" id="stt-P"></div><label class="switch-container" id="sw-label-P"><input type="checkbox" id="sw-P"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-P"></div>
-        <div class="input-flex"><input type="text" id="input-P" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveOpqrstField('P', 'Provocation')">SAVE</button></div>
+        <input type="hidden" id="input-P">
 
         <div class="flex-between"><h3>Quality <span class="sub-lang">(痛みの性質)</span></h3></div>
         <button class="btn-audio" onclick="playAudio('opqrst-q', 'How would you describe the pain or sensation?')">
@@ -1624,7 +1624,7 @@
         </button>
         <div class="stt-info" id="stt-Q"></div><label class="switch-container" id="sw-label-Q"><input type="checkbox" id="sw-Q"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-Q"></div>
-        <div class="input-flex"><input type="text" id="input-Q" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveOpqrstField('Q', 'Quality')">SAVE</button></div>
+        <input type="hidden" id="input-Q">
 
         <div class="flex-between"><h3>Region / Radiation <span class="sub-lang">(部位・放散)</span></h3></div>
         <button class="btn-audio" onclick="playAudio('opqrst-r', 'Where exactly is it, and does it spread anywhere?')">
@@ -1632,7 +1632,7 @@
         </button>
         <div class="stt-info" id="stt-R"></div><label class="switch-container" id="sw-label-R"><input type="checkbox" id="sw-R"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-R"></div>
-        <div class="input-flex"><input type="text" id="input-R" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveOpqrstField('R', 'Radiation')">SAVE</button></div>
+        <input type="hidden" id="input-R">
 
         <div class="flex-between"><h3>Severity <span class="sub-lang">(痛みの強度)</span></h3></div>
         <button class="btn-audio" onclick="playAudio('opqrst-s', 'On a scale of zero to ten, how severe is it right now?')">
@@ -1640,7 +1640,7 @@
         </button>
         <div class="stt-info" id="stt-S_OP"></div><label class="switch-container" id="sw-label-S_OP"><input type="checkbox" id="sw-S_OP"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-S_OP"></div>
-        <div class="input-flex"><input type="text" id="input-S_OP" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveOpqrstField('S_OP', 'Severity')">SAVE</button></div>
+        <input type="hidden" id="input-S_OP">
 
         <div class="flex-between"><h3>Time <span class="sub-lang">(経過・時間経過)</span></h3></div>
         <button class="btn-audio" onclick="playAudio('opqrst-t', 'How has the timing been since it started?')">
@@ -1648,7 +1648,7 @@
         </button>
         <div class="stt-info" id="stt-T"></div><label class="switch-container" id="sw-label-T"><input type="checkbox" id="sw-T"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-T"></div>
-        <div class="input-flex"><input type="text" id="input-T" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveOpqrstField('T', 'Time')">SAVE</button></div>
+        <input type="hidden" id="input-T">
     </div>
 
     <div class="card hidden" id="sec-sample-box">
@@ -1660,7 +1660,7 @@
         </button>
         <div class="stt-info" id="stt-S"></div><label class="switch-container" id="sw-label-S"><input type="checkbox" id="sw-S"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-S"></div>
-        <div class="input-flex"><input type="text" id="input-S" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveSampleField('S', 'Symptoms')">SAVE</button></div>
+        <input type="hidden" id="input-S">
 
         <div class="flex-between"><h3>Allergies <span class="sub-lang">(アレルギー情報)</span></h3></div>
         <button class="btn-audio" onclick="playAudio('sample-a', 'Do you have any known allergies?')">
@@ -1668,7 +1668,7 @@
         </button>
         <div class="stt-info" id="stt-A"></div><label class="switch-container" id="sw-label-A"><input type="checkbox" id="sw-A"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-A"></div>
-        <div class="input-flex"><input type="text" id="input-A" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveSampleField('A', 'Allergies')">SAVE</button></div>
+        <input type="hidden" id="input-A">
 
         <div class="flex-between"><h3>Medications <span class="sub-lang">(普段の服用薬・携帯薬)</span></h3></div>
         <button class="btn-audio" onclick="playAudio('sample-m', 'Are you taking any medications?')">
@@ -1676,7 +1676,7 @@
         </button>
         <div class="stt-info" id="stt-M"></div><label class="switch-container" id="sw-label-M"><input type="checkbox" id="sw-M"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-M"></div>
-        <div class="input-flex"><input type="text" id="input-M" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveSampleField('M', 'Medications')">SAVE</button></div>
+        <input type="hidden" id="input-M">
 
         <div class="flex-between"><h3>Past Medical History <span class="sub-lang">(既往歴・持病)</span></h3></div>
         <button class="btn-audio" onclick="playAudio('sample-p', 'Do you have any past medical history?')">
@@ -1684,7 +1684,7 @@
         </button>
         <div class="stt-info" id="stt-P_SM"></div><label class="switch-container" id="sw-label-P_SM"><input type="checkbox" id="sw-P_SM"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-P_SM"></div>
-        <div class="input-flex"><input type="text" id="input-P_SM" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveSampleField('P_SM', 'Past History')">SAVE</button></div>
+        <input type="hidden" id="input-P_SM">
 
         <div class="flex-between"><h3>Last Oral Intake <span class="sub-lang">(最後に何を食べた？それは何時間前？)</span></h3></div>
         <button class="btn-audio" onclick="playAudio('sample-l', 'What did you last eat or drink, and how many hours ago was that?')">
@@ -1692,7 +1692,7 @@
         </button>
         <div class="stt-info" id="stt-L"></div><label class="switch-container" id="sw-label-L"><input type="checkbox" id="sw-L"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-L"></div>
-        <div class="input-flex"><input type="text" id="input-L" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveSampleField('L', 'Last Oral Intake')">SAVE</button></div>
+        <input type="hidden" id="input-L">
 
         <div class="flex-between"><h3>Events - Anything unusual today? <span class="sub-lang">(普段と違う事はありましたか？)</span></h3></div>
         <button class="btn-audio" onclick="playAudio('sample-e', 'Was there anything different from your usual day today?')">
@@ -1700,7 +1700,7 @@
         </button>
         <div class="stt-info" id="stt-E"></div><label class="switch-container" id="sw-label-E"><input type="checkbox" id="sw-E"> 🔊 Read Text ON</label>
         <div class="chip-group" id="chips-E"></div>
-        <div class="input-flex"><input type="text" id="input-E" class="input-text" placeholder="Selected text..."><button class="btn-save" onclick="saveSampleField('E', 'Events')">SAVE</button></div>
+        <input type="hidden" id="input-E">
     </div>
 
     <div class="card hidden" id="sec-disposition">
@@ -1743,7 +1743,6 @@
     <div class="card" id="sec-remarks">
         <h2>Remarks <span class="sub-lang">(特記事項)</span></h2>
         <textarea id="rep-remarks" style="width:100%; box-sizing:border-box; height:90px; border:1px solid #cbd5e1; border-radius:10px; padding:12px; font-family:inherit; font-size:1.05rem; color:var(--text-main); font-weight:400; line-height:1.5;" placeholder="Any special remarks / 特記事項を入力"></textarea>
-        <button class="btn-save" style="width:100%; background:var(--primary); margin-top:8px;" onclick="saveRemarks()">Save Remarks <span style="font-size:0.92rem; font-weight:400;">(特記事項を記録)</span></button>
     </div>
 
     <div class="card" id="sec-location">
@@ -1786,7 +1785,6 @@
             </div>
         </div>
         <input type="hidden" id="loc-text">
-        <button class="btn-save" style="width:100%; background:var(--primary);" onclick="saveLocation()">Save Location <span style="font-size:0.92rem; font-weight:400;">(発生場所を記録)</span></button>
     </div>
 
     <div class="card" id="sec-report-author">
@@ -1811,7 +1809,16 @@
             <span style="font-size:0.98rem; font-weight:bold;">Name <span style="font-weight:normal; color:var(--text-sub);">(氏名)</span></span>
             <input type="text" id="rep-name" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. Hideto Shibuya">
         </div>
-        <button class="btn-save" style="width:100%; background:var(--primary);" onclick="saveReportAuthor()">Save Author <span style="font-size:0.92rem; font-weight:400;">(作成者情報を記録)</span></button>
+    </div>
+
+    <div class="card" id="sec-transport">
+        <h2>Transport <span class="sub-lang">(搬送情報)</span></h2>
+        <button id="btn-onscene" class="btn-ok" style="width:100%;" onclick="recordOnScene(this)">On Scene <span style="font-size:0.92rem; font-weight:400; display:block;">(現着時刻を記録)</span></button>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin:10px 0; background:#fafafa;">
+            <span style="font-size:0.98rem; font-weight:bold;">Destination Hospital <span style="font-weight:normal; color:var(--text-sub);">(搬送先病院名)</span></span>
+            <input type="text" id="transport-hospital" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. Yokosuka General Hospital">
+        </div>
+        <div style="font-size:0.95rem; color:#475569;">On-scene time / 現着: <strong id="onscene-time">—</strong></div>
     </div>
 
     <div class="card">
@@ -3159,15 +3166,20 @@
         }
 
         function buildOtherChip(container, key) {
-            const span = document.createElement('span'); span.className = 'chip other-chip'; span.innerText = '+ Other (テキスト入力)';
-            span.onclick = function() { showOtherInput(key); };
-            container.appendChild(span);
-            
-            if(!document.getElementById('other-' + key)) {
-                const div = document.createElement('div'); div.id = 'other-' + key; div.className = 'other-input-container';
-                div.innerHTML = `<div class="input-flex"><input type="text" id="input-other-${key}" class="input-text" placeholder="テキスト入力..."><button class="btn-save" onclick="saveOtherInput('${key}')">SAVE</button></div>`;
-                container.parentNode.insertBefore(div, container.nextSibling);
-            }
+            if (document.getElementById('other-' + key)) return;
+            const div = document.createElement('div'); div.id = 'other-' + key; div.style.cssText = 'margin-top:8px;';
+            div.innerHTML = `<input type="text" id="input-other-${key}" class="input-text" style="width:100%; box-sizing:border-box;" placeholder="+ Other / その他 — 入力して Enter で追加" onkeydown="if(event.key==='Enter'){event.preventDefault();addOtherText('${key}');}">`;
+            container.parentNode.insertBefore(div, container.nextSibling);
+        }
+        function addOtherText(key) {
+            const inEl = document.getElementById('input-other-' + key);
+            if (!inEl) return;
+            const text = inEl.value.trim();
+            if (!text) { inEl.blur(); return; }
+            if (key === 'CC_Manual') { selectedCC.push('Manual: ' + text); logAction('CC-Manual', text); }
+            else if (key === 'DOTS_Manual') { logAction('Trauma-Manual', text); }
+            else { const main = document.getElementById('input-' + key); if (main) main.value = main.value ? main.value + ', ' + text : text; logAction('CustomInput-' + key, text); }
+            inEl.value = '';
         }
 
         function showOtherInput(key) {
@@ -3617,6 +3629,10 @@
             else { triageAns[key] = val; btn.classList.add('triage-chosen'); }
             evaluateTriage();
             logAction('Triage (START)', key + ': ' + (triageAns[key] || 'cleared'));
+            if (key === 'breathing' && triageAns.breathing === 'no') {
+                const n = document.getElementById('triage-node-airway-check');
+                if (n) setTimeout(() => n.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60);
+            }
         }
 
         function evaluateTriage() {
@@ -4602,6 +4618,16 @@
             const ru = document.getElementById('rep-unit'); if (ru) ru.value = unit;
             return unit;
         }
+        let onSceneTime = '';
+        function recordOnScene(btn) {
+            const d = new Date();
+            onSceneTime = `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+            window.onSceneTime = onSceneTime;
+            const el = document.getElementById('onscene-time'); if (el) el.textContent = onSceneTime;
+            btn.classList.add('active');
+            btn.innerHTML = 'On Scene \u2713 ' + onSceneTime + ' <span style="font-size:0.92rem; font-weight:400; display:block;">(現着 記録済み)</span>';
+            logAction('Transport', 'On scene at ' + onSceneTime);
+        }
         function saveReportAuthor() {
             const u = composeRepUnit(), n = document.getElementById('rep-name').value;
             logAction('Report Author', `Station/Unit: ${u || 'N/A'}, Name: ${n || 'N/A'}`);
@@ -4980,6 +5006,29 @@
             html += '</style></head><body><div class="sheet"><pre>' + esc(reportText) + '</pre></div></body></html>';
             return html;
         }
+        function buildReportBodyMap() {
+            const sourceSvgs = document.querySelectorAll('#sec-trauma-flow .anatomy-svg');
+            if (!sourceSvgs.length) return '';
+            let out = '<div style="display:flex; gap:8px; justify-content:center;">';
+            ['Anterior / 前面', 'Posterior / 背面'].forEach(function(label, idx) {
+                if (!sourceSvgs[idx]) return;
+                const clone = sourceSvgs[idx].cloneNode(true);
+                clone.removeAttribute('class');
+                clone.setAttribute('style', 'width:100%; max-width:120px; height:auto;');
+                clone.querySelectorAll('[onclick]').forEach(function(el){ el.removeAttribute('onclick'); });
+                clone.querySelectorAll('.anatomy-region').forEach(function(reg){
+                    let fill = '#e2e8f0', stroke = '#94a3b8';
+                    if (reg.classList.contains('sev-3')) { fill = '#dc2626'; stroke = '#991b1b'; }
+                    else if (reg.classList.contains('sev-2')) { fill = '#fb923c'; stroke = '#ea580c'; }
+                    else if (reg.classList.contains('sev-1')) { fill = '#fde68a'; stroke = '#f59e0b'; }
+                    else if (reg.classList.contains('injured')) { fill = '#ef4444'; stroke = '#b91c1c'; }
+                    reg.setAttribute('fill', fill); reg.setAttribute('stroke', stroke);
+                });
+                out += '<div style="text-align:center; flex:1;"><div style="font-size:0.78rem; color:#475569; font-weight:700; margin-bottom:2px;">' + label + '</div>' + clone.outerHTML + '</div>';
+            });
+            out += '</div>';
+            return out;
+        }
         function buildStyledReportHtml() {
             buildAutomationReport();
             const pName = cleanReportValue(document.getElementById('info-name').value, 'Unconfirmed');
@@ -4996,6 +5045,8 @@
             const byRel  = cleanReportValue(document.getElementById('by-rel')?.value, '—');
             const repUnit = cleanReportValue(document.getElementById('rep-unit')?.value, '—');
             const repName = cleanReportValue(document.getElementById('rep-name')?.value, '—');
+            const repHospital = cleanReportValue(document.getElementById('transport-hospital')?.value, '—');
+            const repOnScene = (window.onSceneTime || '—');
             const repRemarks = cleanReportValue(document.getElementById('rep-remarks')?.value, '—');
             const repLoc = cleanReportValue((document.getElementById('loc-text') && document.getElementById('loc-text').value) || (typeof composeLocation==='function' ? composeLocation() : ''), '—');
             const now = new Date();
@@ -5009,7 +5060,7 @@
             const critical = [isBleedingActive ? 'Major bleeding / 大出血' : '', isShockActive ? 'Shock signs / ショック徴候' : '', activeAbcStatus ? 'ABC: ' + activeAbcStatus : ''].filter(Boolean).join(' · ') || 'No critical flags recorded';
             const special = Object.keys(specialFindings || {}).slice(0, 5).map(id => specialFindings[id].en).join(' · ') || '—';
             const esc = escapeHtml;
-            const bodyMapHtml = (currentFlowType === 'trauma' && document.getElementById('handoff-body-map') && document.getElementById('handoff-body-map').innerHTML.trim()) ? document.getElementById('handoff-body-map').innerHTML : '';
+            const bodyMapHtml = (typeof buildReportBodyMap === 'function') ? buildReportBodyMap() : '';
             const _tl = (window.timelineLog || []).slice(-55);
             const tlRows = _tl.length ? _tl.map(function(e){ return '<tr><td class="tlt">' + esc(e.t) + '</td><td class="tlc">' + esc(e.cat) + '</td><td class="tlm">' + esc(e.msg) + '</td></tr>'; }).join('') : '<tr><td colspan="3" style="color:#94a3b8;padding:10px;">No timeline entries recorded / 記録なし</td></tr>';
             let html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>EMR Handoff Report</title><style>';
@@ -5049,7 +5100,7 @@
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of 3 — Overview &amp; Body Map  ·  EMR Elite Navigator v2.9.18</div>';
+            html += '<div class="ft">Page 1 of 3 — Overview &amp; Body Map  ·  EMR Elite Navigator v3.0</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5057,16 +5108,16 @@
             html += '<div class="cols"><div><div class="sl">OPQRST / 詳細問診</div><div class="card2 kv"><b>O</b><span>' + esc(opO) + '</span><b>P</b><span>' + esc(opP) + '</span><b>Q</b><span>' + esc(opQ) + '</span><b>R</b><span>' + esc(opR) + '</span><b>S</b><span>' + esc(opS) + '</span><b>T</b><span>' + esc(opT) + '</span></div></div>';
             html += '<div><div class="sl">SAMPLE / 既往歴</div><div class="card2 kv"><b>S</b><span>' + esc(smS) + '</span><b>A</b><span>' + esc(smA) + '</span><b>M</b><span>' + esc(smM) + '</span><b>P</b><span>' + esc(smP) + '</span><b>L</b><span>' + esc(smL) + '</span><b>E</b><span>' + esc(smE) + '</span></div></div></div>';
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
-            html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '</span></p></div></div>';
+            html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of 3 — Assessment &amp; Treatment  ·  EMR Elite Navigator v2.9.18</div>';
+            html += '<div class="ft">Page 2 of 3 — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.0</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">Handoff Timeline — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div></div></div>';
             html += '<div class="body">';
             html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + tlRows + '</tbody></table></div></div>';
             html += '</div>';
-            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page 3 of 3  ·  EMR Elite Navigator v2.9.18</div>';
+            html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page 3 of 3  ·  EMR Elite Navigator v3.0</div>';
             html += '</div>';
             html += '</body></html>';
             return html;
