@@ -943,7 +943,6 @@
             <input type="text" id="by-rel-other" class="input-text" style="width:100%; box-sizing:border-box; margin-top:8px;" placeholder="Other / その他 (自由入力)" oninput="setByRelOther(this.value)">
             <input type="hidden" id="by-rel">
         </div>
-        <button class="btn-save" style="width:100%; background:var(--secondary);" onclick="saveBystander()">Save Bystander <span style="font-size:0.92rem; font-weight:400;">(バイスタンダー情報を記録)</span></button>
     </div>
 
     <div class="card hidden" id="sec-trauma-flow">
@@ -4604,12 +4603,21 @@
         }
         let onSceneTime = '';
         function recordOnScene(btn) {
+            if (btn.classList.contains('active')) {
+                // cancel
+                onSceneTime = ''; window.onSceneTime = '';
+                const el0 = document.getElementById('onscene-time'); if (el0) el0.textContent = '—';
+                btn.classList.remove('active');
+                btn.innerHTML = 'JP Ambulance on Scene <span style="font-size:0.92rem; font-weight:400; display:block;">(救急車 現着時刻を記録)</span>';
+                logAction('Transport', 'On-scene time canceled');
+                return;
+            }
             const d = new Date();
             onSceneTime = `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
             window.onSceneTime = onSceneTime;
             const el = document.getElementById('onscene-time'); if (el) el.textContent = onSceneTime;
             btn.classList.add('active');
-            btn.innerHTML = 'JP Ambulance on Scene \u2713 ' + onSceneTime + ' <span style="font-size:0.92rem; font-weight:400; display:block;">(現着 記録済み)</span>';
+            btn.innerHTML = 'JP Ambulance on Scene \u2713 ' + onSceneTime + ' <span style="font-size:0.92rem; font-weight:400; display:block;">(現着 記録済み・もう一度でキャンセル)</span>';
             logAction('Transport', 'On scene at ' + onSceneTime);
         }
         function saveReportAuthor() {
@@ -5049,7 +5057,7 @@
             const _perPage = 30;
             const _tlPageCount = Math.max(1, Math.ceil(_allTl.length / _perPage));
             const _totalPages = 2 + _tlPageCount;
-            let html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>EMR Handoff Report</title><style>';
+            let html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Assessment Activity Log & Handoff Report</title><style>';
             html += '*{box-sizing:border-box}body{margin:0;background:#fff;color:#1e293b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",Arial,sans-serif;-webkit-font-smoothing:antialiased}';
             html += '.sheet{width:816px;height:1056px;padding:50px 54px;background:#fff;display:flex;flex-direction:column;overflow:hidden}';
             html += '.hd{background:#0f172a;color:#fff;border-radius:12px;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}';
@@ -5211,7 +5219,7 @@
                         if (navigator.canShare({ files: [file] })) {
                             await navigator.share({
                                 files: [file],
-                                title: '[EMR Handoff Report] ' + pName,
+                                title: 'Assessment Activity Log & Handoff Report — ' + pName,
                                 text: `EMR Elite Navigator Handoff Report\nPatient: ${pName}\nGenerated: ${new Date().toLocaleString()}`
                             });
                             sharedOK = true;
