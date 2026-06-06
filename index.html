@@ -473,7 +473,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v3.0</h1>
+    <h1>EMR Elite Navigator v3.1</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -490,7 +490,7 @@
         <div class="check-item">
             <div style="flex:1; min-width:0;"><span class="label-txt">Number of Patients</span><span class="sub-lang">(傷病者数の確認)</span></div>
             <div style="display:flex; gap:6px; flex-shrink:0;">
-                <button class="btn-ok" id="btn-pat-multiple" onclick="setPatientCount('Multiple', this)">Multiple</button>
+                <button class="btn-danger-toggle" id="btn-pat-multiple" onclick="setPatientCount('Multiple', this)">Multiple</button>
                 <button class="btn-ok" id="btn-pat-single" onclick="setPatientCount('Single', this)">Single</button>
             </div>
         </div>
@@ -504,8 +504,7 @@
         <h2>🚑 START Triage Protocol <span class="sub-lang">(トリアージ START法 チャート)</span></h2>
         <div class="triage-tag-panel" id="triage-tag-panel">
             <label for="input-triage-tag">Triage Tag No. <span class="sub-lang">(トリアージタグ番号)</span></label>
-            <input type="text" id="input-triage-tag" class="input-text" inputmode="numeric" placeholder="例: 001 / A-12" oninput="setTriageTagNumber(this.value)">
-            <button class="btn-save" onclick="saveTriageTagNumber()">SAVE</button>
+            <input type="text" id="input-triage-tag" class="input-text" inputmode="numeric" placeholder="例: 001 / A-12" oninput="setTriageTagNumber(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();saveTriageTagNumber();this.blur();}">
         </div>
         <div class="decision-tree">
             <div class="branch-point" id="triage-node-walking">
@@ -1826,7 +1825,7 @@
         <textarea id="log-area" readonly style="display:none;"></textarea>
         <div id="handoff-visual" style="display:none;"><div id="handoff-body-map"></div><div id="handoff-findings-list"></div></div>
         <div class="export-btn-group">
-            <button id="btn-build-report" class="btn-email-act" onclick="buildReport(this)">Email Report (PDF) <span style="font-size:0.92rem; font-weight:400; display:block;">(Assessment Activity Log &amp; Handoff Report)</span></button>
+            <button id="btn-build-report" class="btn-email-act" onclick="buildReport(this)">Assessment Activity Log &amp; Handoff Report <span style="font-size:0.92rem; font-weight:400; display:block;">(PDFをメールで送信 / Email)</span></button>
         </div>
     </div>
 
@@ -5094,7 +5093,7 @@
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.0</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.1</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5104,7 +5103,7 @@
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.0</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.1</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5115,7 +5114,7 @@
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.0</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.1</div>';
                 html += '</div>';
             }
             html += '</body></html>';
@@ -5244,7 +5243,7 @@
                 console.error('buildReport error:', e);
                 alert('レポート生成エラー / Report generation failed:\n' + (e?.message || e));
             } finally {
-                if (btn) { btn.disabled = false; btn.innerHTML = origHTML || 'Email Report (PDF)'; }
+                if (btn) { btn.disabled = false; btn.innerHTML = origHTML || 'Assessment Activity Log & Handoff Report'; }
             }
         }
 

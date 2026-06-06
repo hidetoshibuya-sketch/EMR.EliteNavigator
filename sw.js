@@ -1,6 +1,6 @@
 // EMR Elite Navigator — Service Worker
 // Bump CACHE_VERSION whenever you publish a new build.
-const CACHE_VERSION = 'emr-nav-v3.0-bystander-title-onscene-33';
+const CACHE_VERSION = 'emr-nav-v3.1-triagetag-multi-offline-35';
 const ASSETS = [
   './',
   './index.html',
