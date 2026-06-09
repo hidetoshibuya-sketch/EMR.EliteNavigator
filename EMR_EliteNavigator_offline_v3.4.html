@@ -895,7 +895,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v3.3 (Offline)</h1>
+    <h1>EMR Elite Navigator v3.4 (Offline)</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -2256,12 +2256,12 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             <div style="margin-top:6px; font-size:0.95rem; color:#475569;">走行距離 / Distance: <strong id="disp-distance">—</strong> km</div>
         </div>
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
-            <span style="font-size:0.98rem; font-weight:bold;">Response / In-Station <span style="font-weight:normal; color:var(--text-sub);">(出動・帰署時刻)</span></span>
-            <div style="display:flex; gap:8px; margin-top:6px;">
-                <button id="btn-response" class="btn-ok" style="flex:1;" onclick="stampActivity('response',this)">Response <span class="sub-lang">(出動)</span></button>
-                <button id="btn-instation" class="btn-ok" style="flex:1;" onclick="stampActivity('instation',this)">In Station <span class="sub-lang">(帰署)</span></button>
+            <span style="font-size:0.98rem; font-weight:bold;">Response / In-Station <span style="font-weight:normal; color:var(--text-sub);">(出動・帰署時刻 手動入力)</span></span>
+            <div style="display:flex; gap:10px; margin-top:6px;">
+                <div style="flex:1;"><span style="font-size:0.9rem; color:var(--text-sub);">Response (出動)</span><input type="time" id="rep-response" class="input-text" style="width:100%; box-sizing:border-box; margin-top:4px;" oninput="updateDuration()"></div>
+                <div style="flex:1;"><span style="font-size:0.9rem; color:var(--text-sub);">In Station (帰署)</span><input type="time" id="rep-instation" class="input-text" style="width:100%; box-sizing:border-box; margin-top:4px;" oninput="updateDuration()"></div>
             </div>
-            <div style="margin-top:6px; font-size:0.95rem; color:#475569;">出動 <strong id="disp-response">—</strong> ／ 帰署 <strong id="disp-instation">—</strong> ／ 稼働時間 <strong id="disp-duration">—</strong></div>
+            <div style="margin-top:6px; font-size:0.95rem; color:#475569;">稼働時間 / Active: <strong id="disp-duration">—</strong></div>
         </div>
         <input type="hidden" id="rep-unit">
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
@@ -5092,28 +5092,15 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
         }
         function _clk(d){ return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0'); }
         function getActiveDuration() {
-            if (responseAt && instationAt) {
-                let mins = Math.round((instationAt - responseAt) / 60000);
-                if (mins < 0) mins += 1440;
-                return Math.floor(mins/60) + 'h ' + (mins%60) + 'm';
-            }
-            return '—';
+            const r = (document.getElementById('rep-response')||{}).value;
+            const i = (document.getElementById('rep-instation')||{}).value;
+            if (!r || !i) return '—';
+            const rp = r.split(':').map(Number), ip = i.split(':').map(Number);
+            let mins = (ip[0]*60 + ip[1]) - (rp[0]*60 + rp[1]);
+            if (mins < 0) mins += 1440;
+            return Math.floor(mins/60) + 'h ' + (mins%60) + 'm';
         }
         function updateDuration() { const el = document.getElementById('disp-duration'); if (el) el.textContent = getActiveDuration(); }
-        function stampActivity(kind, btn) {
-            if (btn.classList.contains('active')) {
-                btn.classList.remove('active');
-                if (kind === 'response') responseAt = null; else instationAt = null;
-                const d0 = document.getElementById('disp-' + kind); if (d0) d0.textContent = '—';
-            } else {
-                const d = new Date();
-                btn.classList.add('active');
-                if (kind === 'response') responseAt = d; else instationAt = d;
-                const de = document.getElementById('disp-' + kind); if (de) de.textContent = _clk(d);
-                logAction('Activity', (kind === 'response' ? 'Response' : 'In-station') + ' at ' + _clk(d));
-            }
-            updateDuration();
-        }
         // ===== Annual response data (localStorage + CSV) =====
         const ANNUAL_KEY = 'emr-annual-log';
         function loadAnnual() { try { return JSON.parse(localStorage.getItem(ANNUAL_KEY) || '[]'); } catch(e) { return []; } }
@@ -5648,7 +5635,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.3</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.4</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5658,7 +5645,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km  ·  Active: ' + esc(repDuration) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.3</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.4</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5669,7 +5656,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.3</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.4</div>';
                 html += '</div>';
             }
             html += '</body></html>';
