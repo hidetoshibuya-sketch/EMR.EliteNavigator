@@ -397,6 +397,7 @@
         .chip.active .sub-lang, .chip.cc-chip.active .sub-lang { color: rgba(220,252,231,0.94); }
         .btn-ok.avpu-mid.active { background: #facc15 !important; color: #1e293b; border-color: transparent; }
         #btn-trauma.active, #btn-medical.active { background: #16a34a !important; color: #fff !important; border-color: transparent !important; }
+        .btn-branch.sex-on { background: #16a34a !important; color: #fff !important; border-color: transparent !important; }
         .btn-audio {
             background: #eff6ff; border-color: #bfdbfe; border-left-color: var(--primary);
             box-shadow: none;
@@ -473,7 +474,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v3.1</h1>
+    <h1>EMR Elite Navigator v3.2</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -857,6 +858,16 @@
         </div>
 
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <span style="font-size:0.98rem; font-weight:bold;">Sex <span style="font-weight:normal; color:var(--text-sub);">(性別)</span></span>
+            <div class="branch-btn-group" id="sex-btns" style="margin-top:6px; gap:8px;">
+                <button type="button" class="btn-branch" onclick="selectSex(this,'Male')">Male <span class="sub-lang">(男性)</span></button>
+                <button type="button" class="btn-branch" onclick="selectSex(this,'Female')">Female <span class="sub-lang">(女性)</span></button>
+                <button type="button" class="btn-branch" onclick="selectSex(this,'Non-binary')">Non-binary <span class="sub-lang">(ノンバイナリー)</span></button>
+            </div>
+            <input type="hidden" id="info-sex">
+        </div>
+
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
                 <span style="font-size:0.98rem; font-weight:bold;">Date of Birth <span style="font-weight:normal; color:var(--text-sub);">(生年月日)</span></span>
                 <button class="btn-mic-sub" style="padding:2px 8px; font-size:0.92rem;" onclick="playAudio('ask-dob', 'What is your date of birth? Month, day, and year please.')">🔊 Ask DOB</button>
@@ -1066,6 +1077,9 @@
         <div id="dots-manual-list" style="margin-top:6px; font-size:0.95rem; color:#475569;"></div>
 
         <h3>Vital Signs Check <span class="sub-lang">(バイタルサイン測定)</span></h3>
+        <button class="btn-audio" onclick="playAudio('vitals-intro', 'I am going to check your vital signs now. Please relax and stay still.')">
+            "I am going to check your vital signs now. Please relax and stay still." <span class="sub-lang">(これからバイタルサイン（生命兆候）を測定します。楽にしていてください。)</span>
+        </button>
         <div style="font-size:0.95rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
             ⏰ Tap <strong>NOW</strong> for current time. Up/Down arrows or direct typing finalizes the value.
             <span class="sub-lang" style="display:block; margin-top:2px;">(NOWで現在時刻入力。▲▼または直接入力で確定して文字が濃くなります)</span>
@@ -1277,6 +1291,9 @@
         <h2>Secondary Assessment: Medical <span class="sub-lang">(急病詳細プロトコル)</span></h2>
 
         <h3>Vital Signs Check <span class="sub-lang">(バイタルサイン測定)</span></h3>
+        <button class="btn-audio" onclick="playAudio('vitals-intro', 'I am going to check your vital signs now. Please relax and stay still.')">
+            "I am going to check your vital signs now. Please relax and stay still." <span class="sub-lang">(これからバイタルサイン（生命兆候）を測定します。楽にしていてください。)</span>
+        </button>
         <div style="font-size:0.95rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
             ⏰ Tap <strong>NOW</strong> for current time. Up/Down arrows or direct typing finalizes the value (text turns dark).
             <span class="sub-lang" style="display:block; margin-top:2px;">(NOWで現在時刻入力。▲▼または直接入力で確定して文字が濃くなります)</span>
@@ -1803,6 +1820,18 @@
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
             <span style="font-size:0.98rem; font-weight:bold;">Engine No. <span style="font-weight:normal; color:var(--text-sub);">(エンジン番号)</span></span>
             <input type="text" id="rep-engine" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" placeholder="e.g. 1" inputmode="numeric" autocomplete="off" oninput="composeRepUnit()">
+        </div>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <div style="display:flex; gap:10px;">
+                <div style="flex:1;">
+                    <span style="font-size:0.98rem; font-weight:bold;">OMS <span style="font-weight:normal; color:var(--text-sub);">(走行開始 km)</span></span>
+                    <input type="text" id="rep-oms" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" inputmode="numeric" placeholder="Start km">
+                </div>
+                <div style="flex:1;">
+                    <span style="font-size:0.98rem; font-weight:bold;">OME <span style="font-weight:normal; color:var(--text-sub);">(走行終了 km)</span></span>
+                    <input type="text" id="rep-ome" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" inputmode="numeric" placeholder="End km">
+                </div>
+            </div>
         </div>
         <input type="hidden" id="rep-unit">
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
@@ -4534,6 +4563,16 @@
             if (m < 0 || (m === 0 && now.getDate() < d.getDate())) age--;
             ageEl.value = (age >= 0 && age < 150) ? String(age) : '';
         }
+        function selectSex(btn, val) {
+            const grp = document.getElementById('sex-btns');
+            const was = btn.classList.contains('sex-on');
+            grp.querySelectorAll('button').forEach(b => b.classList.remove('sex-on','active'));
+            const el = document.getElementById('info-sex');
+            if (was) { if (el) el.value = ''; logAction('Demographics', 'Sex cleared'); return; }
+            btn.classList.add('sex-on');
+            if (el) el.value = val;
+            logAction('Demographics', 'Sex: ' + val);
+        }
         function saveDemographics() {
             const name = document.getElementById('info-name').value; const dob = document.getElementById('info-dob').value; const age = document.getElementById('info-age').value; const unit = document.getElementById('info-unit').value; const ssn = document.getElementById('info-ssn').value; const phone = document.getElementById('info-phone').value;
             logAction('Demographics', `Name: ${name || 'N/A'}, DOB: ${dob || 'N/A'}, Age: ${age || 'N/A'}, SSN: ${ssn || 'N/A'}, Phone: ${phone || 'N/A'}, Unit: ${unit || 'N/A'}`);
@@ -5038,6 +5077,9 @@
             const repName = cleanReportValue(document.getElementById('rep-name')?.value, '—');
             const repHospital = cleanReportValue(document.getElementById('transport-hospital')?.value, '—');
             const repOnScene = (window.onSceneTime || '—');
+            const pSex = cleanReportValue(document.getElementById('info-sex')?.value, '—');
+            const repOms = cleanReportValue(document.getElementById('rep-oms')?.value, '—');
+            const repOme = cleanReportValue(document.getElementById('rep-ome')?.value, '—');
             const repRemarks = cleanReportValue(document.getElementById('rep-remarks')?.value, '—');
             const repLoc = cleanReportValue((document.getElementById('loc-text') && document.getElementById('loc-text').value) || (typeof composeLocation==='function' ? composeLocation() : ''), '—');
             const now = new Date();
@@ -5082,8 +5124,8 @@
             html += '<div class="sheet">';
             html += '<div class="hd"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sb">Assessment Activity Log &amp; Handoff Report</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Generated</b> ' + esc(now.toLocaleString()) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
             html += '<div class="body">';
-            html += '<div class="idbar"><div><b>Name</b><span>' + esc(pName) + '</span></div><div><b>DOB</b><span>' + esc(pDob) + '</span></div><div><b>Age</b><span>' + esc(pAge) + '</span></div><div><b>SSN</b><span>' + esc(pSsn) + '</span></div><div><b>Phone</b><span>' + esc(pPhone) + '</span></div><div><b>Unit</b><span>' + esc(pUnit) + '</span></div><div><b>Patients</b><span>' + esc(triage) + '</span></div></div>';
-            html += '<div><div class="sl">Critical Status / 重要状態</div><div class="card2"><p class="txt"><span class="crit">' + esc(critical) + '</span><span class="mut">Chief complaint / 主訴: ' + esc(selectedListSummary(selectedCC)) + '</span></p></div></div>';
+            html += '<div class="idbar"><div><b>Name</b><span>' + esc(pName) + '</span></div><div><b>DOB</b><span>' + esc(pDob) + '</span></div><div><b>Age</b><span>' + esc(pAge) + '</span></div><div><b>Sex</b><span>' + esc(pSex) + '</span></div><div><b>SSN</b><span>' + esc(pSsn) + '</span></div><div><b>Phone</b><span>' + esc(pPhone) + '</span></div><div><b>Unit</b><span>' + esc(pUnit) + '</span></div><div><b>Patients</b><span>' + esc(triage) + '</span></div></div>';
+            html += '<div><div class="sl">Chief Complaint &amp; Critical Status / 主訴・重要状態</div><div class="card2"><p style="margin:0;"><span style="color:#dc2626; font-weight:800; font-size:15px; display:block; margin-bottom:5px;">主訴 / CC: ' + esc(selectedListSummary(selectedCC)) + '</span><span style="color:#475569; font-size:11.5px;">' + esc(critical) + '</span></p></div></div>';
             html += '<div><div class="sl">Latest Vitals / 最新バイタル</div><div class="vit"><div><b>Time</b><span>' + esc(vitals?.time || '—') + '</span></div><div><b>RR</b><span>' + esc(vitals?.rr || '—') + '</span></div><div><b>HR</b><span>' + esc(vitals?.pulse || '—') + '</span></div><div><b>SpO2</b><span>' + esc(vitals?.spo2 || '—') + '</span></div><div><b>BP</b><span>' + esc(vitals?.bp || '—') + '</span></div><div><b>Temp</b><span>' + esc(vitals?.temp || '—') + '</span></div><div><b>AVPU</b><span>' + esc(vitals?.avpu || '—') + '</span></div></div></div>';
             html += '<div class="cols"><div>';
             html += '<div><div class="sl">Initial Findings / 発見時情報</div><div class="card2"><p class="txt">' + esc(selectedListSummary(selectedInitialFindings, '—')) + '<span class="mut">Notes: ' + esc((initialManualNotes || []).slice(-2).map(n => '[' + n.t + '] ' + n.text).join(' | ') || '—') + '</span></p></div></div>';
@@ -5093,7 +5135,7 @@
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.1</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.2</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5101,9 +5143,9 @@
             html += '<div class="cols"><div><div class="sl">OPQRST / 詳細問診</div><div class="card2 kv"><b>O</b><span>' + esc(opO) + '</span><b>P</b><span>' + esc(opP) + '</span><b>Q</b><span>' + esc(opQ) + '</span><b>R</b><span>' + esc(opR) + '</span><b>S</b><span>' + esc(opS) + '</span><b>T</b><span>' + esc(opT) + '</span></div></div>';
             html += '<div><div class="sl">SAMPLE / 既往歴</div><div class="card2 kv"><b>S</b><span>' + esc(smS) + '</span><b>A</b><span>' + esc(smA) + '</span><b>M</b><span>' + esc(smM) + '</span><b>P</b><span>' + esc(smP) + '</span><b>L</b><span>' + esc(smL) + '</span><b>E</b><span>' + esc(smE) + '</span></div></div></div>';
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
-            html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '</span></p></div></div>';
+            html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.1</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.2</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5114,7 +5156,7 @@
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.1</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.2</div>';
                 html += '</div>';
             }
             html += '</body></html>';
