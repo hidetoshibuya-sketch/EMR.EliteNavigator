@@ -474,7 +474,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v3.2</h1>
+    <h1>EMR Elite Navigator v3.3</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -1825,13 +1825,22 @@
             <div style="display:flex; gap:10px;">
                 <div style="flex:1;">
                     <span style="font-size:0.98rem; font-weight:bold;">OMS <span style="font-weight:normal; color:var(--text-sub);">(走行開始 km)</span></span>
-                    <input type="text" id="rep-oms" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" inputmode="numeric" placeholder="Start km">
+                    <input type="text" id="rep-oms" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" inputmode="numeric" placeholder="Start km" oninput="calcMileage()">
                 </div>
                 <div style="flex:1;">
                     <span style="font-size:0.98rem; font-weight:bold;">OME <span style="font-weight:normal; color:var(--text-sub);">(走行終了 km)</span></span>
-                    <input type="text" id="rep-ome" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" inputmode="numeric" placeholder="End km">
+                    <input type="text" id="rep-ome" class="input-text" style="width:100%; box-sizing:border-box; margin-top:6px;" inputmode="numeric" placeholder="End km" oninput="calcMileage()">
                 </div>
             </div>
+            <div style="margin-top:6px; font-size:0.95rem; color:#475569;">走行距離 / Distance: <strong id="disp-distance">—</strong> km</div>
+        </div>
+        <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
+            <span style="font-size:0.98rem; font-weight:bold;">Response / In-Station <span style="font-weight:normal; color:var(--text-sub);">(出動・帰署時刻)</span></span>
+            <div style="display:flex; gap:8px; margin-top:6px;">
+                <button id="btn-response" class="btn-ok" style="flex:1;" onclick="stampActivity('response',this)">Response <span class="sub-lang">(出動)</span></button>
+                <button id="btn-instation" class="btn-ok" style="flex:1;" onclick="stampActivity('instation',this)">In Station <span class="sub-lang">(帰署)</span></button>
+            </div>
+            <div style="margin-top:6px; font-size:0.95rem; color:#475569;">出動 <strong id="disp-response">—</strong> ／ 帰署 <strong id="disp-instation">—</strong> ／ 稼働時間 <strong id="disp-duration">—</strong></div>
         </div>
         <input type="hidden" id="rep-unit">
         <div style="border: 1px dashed var(--card-border); padding: 8px; border-radius: 6px; margin-bottom: 10px; background: #fafafa;">
@@ -1856,6 +1865,14 @@
         <div class="export-btn-group">
             <button id="btn-build-report" class="btn-email-act" onclick="buildReport(this)">Assessment Activity Log &amp; Handoff Report <span style="font-size:0.92rem; font-weight:400; display:block;">(PDFをメールで送信 / Email)</span></button>
         </div>
+    </div>
+
+    <div class="card" id="sec-annual">
+        <h2>Annual Response Data <span class="sub-lang">(年間レスポンスデータ)</span></h2>
+        <div style="font-size:0.95rem; color:#475569; margin-bottom:8px;">Saved records / 保存件数: <strong id="annual-count">0</strong></div>
+        <button class="btn-ok active" style="width:100%; background:var(--primary); color:#fff;" onclick="addAnnualRecord()">＋ Add This Call to Annual Log <span style="font-size:0.92rem; font-weight:400; display:block;">(この出動を年間データに追加)</span></button>
+        <button class="btn-email-act" style="width:100%; margin-top:8px;" onclick="exportAnnualCSV()">⬇ Export Annual Data (Excel / CSV) <span style="font-size:0.92rem; font-weight:400; display:block;">(年間データを書き出し)</span></button>
+        <button class="btn-reset-top" style="margin-top:8px;" onclick="clearAnnualData()">Clear All Records <span style="font-weight:400;">(全削除)</span></button>
     </div>
 
     <script>
@@ -2843,6 +2860,7 @@
             buildVitals5x('vitals-tbody', 'v');
             buildVitals5x('trauma-vitals-tbody', 'tv');
             formatProtocolJa();
+            if (typeof updateAnnualCount === 'function') updateAnnualCount();
             document.addEventListener('keydown', function(e) {
                 if (e.key !== 'Enter') return;
                 const t = e.target;
@@ -4639,6 +4657,79 @@
             const ru = document.getElementById('rep-unit'); if (ru) ru.value = unit;
             return unit;
         }
+        let responseAt = null, instationAt = null;
+        function calcMileage() {
+            const oms = parseFloat((document.getElementById('rep-oms')||{}).value);
+            const ome = parseFloat((document.getElementById('rep-ome')||{}).value);
+            const el = document.getElementById('disp-distance'); if (!el) return;
+            el.textContent = (!isNaN(oms) && !isNaN(ome) && ome >= oms) ? (ome - oms).toFixed(1) : '—';
+        }
+        function getDistance() {
+            const oms = parseFloat((document.getElementById('rep-oms')||{}).value);
+            const ome = parseFloat((document.getElementById('rep-ome')||{}).value);
+            return (!isNaN(oms) && !isNaN(ome) && ome >= oms) ? (ome - oms).toFixed(1) : '';
+        }
+        function _clk(d){ return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0'); }
+        function getActiveDuration() {
+            if (responseAt && instationAt) {
+                let mins = Math.round((instationAt - responseAt) / 60000);
+                if (mins < 0) mins += 1440;
+                return Math.floor(mins/60) + 'h ' + (mins%60) + 'm';
+            }
+            return '—';
+        }
+        function updateDuration() { const el = document.getElementById('disp-duration'); if (el) el.textContent = getActiveDuration(); }
+        function stampActivity(kind, btn) {
+            if (btn.classList.contains('active')) {
+                btn.classList.remove('active');
+                if (kind === 'response') responseAt = null; else instationAt = null;
+                const d0 = document.getElementById('disp-' + kind); if (d0) d0.textContent = '—';
+            } else {
+                const d = new Date();
+                btn.classList.add('active');
+                if (kind === 'response') responseAt = d; else instationAt = d;
+                const de = document.getElementById('disp-' + kind); if (de) de.textContent = _clk(d);
+                logAction('Activity', (kind === 'response' ? 'Response' : 'In-station') + ' at ' + _clk(d));
+            }
+            updateDuration();
+        }
+        // ===== Annual response data (localStorage + CSV) =====
+        const ANNUAL_KEY = 'emr-annual-log';
+        function loadAnnual() { try { return JSON.parse(localStorage.getItem(ANNUAL_KEY) || '[]'); } catch(e) { return []; } }
+        function saveAnnual(arr) { try { localStorage.setItem(ANNUAL_KEY, JSON.stringify(arr)); } catch(e) {} }
+        function updateAnnualCount() { const el = document.getElementById('annual-count'); if (el) el.textContent = loadAnnual().length; }
+        function addAnnualRecord() {
+            const now = new Date();
+            const date = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+            const age = (document.getElementById('info-age')||{}).value || '';
+            const sex = (document.getElementById('info-sex')||{}).value || '';
+            const cc = (typeof selectedListSummary === 'function') ? selectedListSummary(selectedCC) : ((selectedCC||[]).join(', '));
+            const hosp = ((document.getElementById('transport-hospital')||{}).value || '').trim();
+            const transport = hosp ? 'Yes' : ((typeof selectedDisposition !== 'undefined' && selectedDisposition && /hospital|transport|go/i.test(selectedDisposition)) ? 'Yes' : 'No');
+            const author = (document.getElementById('rep-name')||{}).value || '';
+            const rec = { date: date, age: age, sex: sex, cc: cc, transport: transport, author: author, duration: getActiveDuration(), dist: getDistance() };
+            const arr = loadAnnual(); arr.push(rec); saveAnnual(arr); updateAnnualCount();
+            logAction('Annual Log', 'Record added (' + date + ')');
+            alert('年間データに追加しました / Added to annual log (' + arr.length + ' records)');
+        }
+        function exportAnnualCSV() {
+            const arr = loadAnnual();
+            if (!arr.length) { alert('保存データがありません / No records yet'); return; }
+            const headers = ['Date / 日付','Age / 年齢','Sex / 性別','Chief Complaint / 主訴','Transport / 搬送','Author / 記録者','Active Time / 稼働時間','Distance km / 稼働距離'];
+            const esc = v => '"' + String(v==null?'':v).replace(/"/g,'""') + '"';
+            let csv = headers.map(esc).join(',') + '\r\n';
+            arr.forEach(r => { csv += [r.date,r.age,r.sex,r.cc,r.transport,r.author,r.duration,r.dist].map(esc).join(',') + '\r\n'; });
+            const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = 'EMR_Annual_Response_Data_' + new Date().getFullYear() + '.csv';
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+            logAction('Annual Log', 'Exported ' + arr.length + ' records (CSV)');
+        }
+        function clearAnnualData() {
+            if (!confirm('年間データを全て削除しますか？ / Delete all annual records?')) return;
+            saveAnnual([]); updateAnnualCount();
+        }
         let onSceneTime = '';
         function recordOnScene(btn) {
             if (btn.classList.contains('active')) {
@@ -5080,6 +5171,7 @@
             const pSex = cleanReportValue(document.getElementById('info-sex')?.value, '—');
             const repOms = cleanReportValue(document.getElementById('rep-oms')?.value, '—');
             const repOme = cleanReportValue(document.getElementById('rep-ome')?.value, '—');
+            const repDuration = (typeof getActiveDuration === 'function') ? getActiveDuration() : '—';
             const repRemarks = cleanReportValue(document.getElementById('rep-remarks')?.value, '—');
             const repLoc = cleanReportValue((document.getElementById('loc-text') && document.getElementById('loc-text').value) || (typeof composeLocation==='function' ? composeLocation() : ''), '—');
             const now = new Date();
@@ -5135,7 +5227,7 @@
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.2</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.3</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5143,9 +5235,9 @@
             html += '<div class="cols"><div><div class="sl">OPQRST / 詳細問診</div><div class="card2 kv"><b>O</b><span>' + esc(opO) + '</span><b>P</b><span>' + esc(opP) + '</span><b>Q</b><span>' + esc(opQ) + '</span><b>R</b><span>' + esc(opR) + '</span><b>S</b><span>' + esc(opS) + '</span><b>T</b><span>' + esc(opT) + '</span></div></div>';
             html += '<div><div class="sl">SAMPLE / 既往歴</div><div class="card2 kv"><b>S</b><span>' + esc(smS) + '</span><b>A</b><span>' + esc(smA) + '</span><b>M</b><span>' + esc(smM) + '</span><b>P</b><span>' + esc(smP) + '</span><b>L</b><span>' + esc(smL) + '</span><b>E</b><span>' + esc(smE) + '</span></div></div></div>';
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
-            html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km</span></p></div></div>';
+            html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km  ·  Active: ' + esc(repDuration) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.2</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.3</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5156,7 +5248,7 @@
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.2</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.3</div>';
                 html += '</div>';
             }
             html += '</body></html>';

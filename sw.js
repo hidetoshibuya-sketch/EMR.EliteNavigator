@@ -1,6 +1,6 @@
 // EMR Elite Navigator — Service Worker
 // Bump CACHE_VERSION whenever you publish a new build.
-const CACHE_VERSION = 'emr-nav-v3.2-sex-odo-cc-vitalsintro-36';
+const CACHE_VERSION = 'emr-nav-v3.3-activity-annual-37';
 const ASSETS = [
   './',
   './index.html',
