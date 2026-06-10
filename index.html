@@ -474,7 +474,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v3.4</h1>
+    <h1>EMR Elite Navigator v3.5</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -1868,7 +1868,6 @@
     </div>
 
     <div class="card" id="sec-annual">
-        <h2>Annual Response Data <span class="sub-lang">(年間レスポンスデータ)</span></h2>
         <div style="font-size:0.95rem; color:#475569; margin-bottom:8px;">Saved records / 保存件数: <strong id="annual-count">0</strong></div>
         <button class="btn-ok active" style="width:100%; background:var(--primary); color:#fff;" onclick="addAnnualRecord()">＋ Add This Call to Annual Log <span style="font-size:0.92rem; font-weight:400; display:block;">(この出動を年間データに追加)</span></button>
         <button class="btn-email-act" style="width:100%; margin-top:8px;" onclick="exportAnnualCSV()">⬇ Export Annual Data (Excel / CSV) <span style="font-size:0.92rem; font-weight:400; display:block;">(年間データを書き出し)</span></button>
@@ -2535,6 +2534,23 @@
             'Cold exposure': 'Have you been exposed to cold?',
             'Unusual diet': 'Did you eat anything different from usual?',
             'Felt off all day': 'Have you been feeling off all day?',
+            // v3.5 trauma injury-cause (P)
+            'Machine / equipment malfunction': 'Did a machine or equipment malfunction cause this?',
+            'Slipped on road surface': 'Did you slip on the road surface?',
+            'Tripped / Lost footing': 'Did you trip or lose your footing?',
+            'Poor visibility': 'Was visibility poor at the time?',
+            'Excessive speed': 'Was excessive speed involved?',
+            'Inattention / Distraction': 'Were you distracted or not paying attention?',
+            'Fatigue / Drowsy': 'Were you tired or drowsy?',
+            'Alcohol / Drugs': 'Had you taken any alcohol or drugs?',
+            'Sudden movement / Overexertion': 'Did a sudden movement or overexertion cause this?',
+            'Falling / Dropped object': 'Were you hit by a falling or dropped object?',
+            'Unstable footing / High place': 'Were you on unstable footing or in a high place?',
+            'Wet / Slippery floor': 'Was the floor wet or slippery?',
+            'Another person / Vehicle involved': 'Was another person or vehicle involved?',
+            'Weather / Road conditions': 'Did the weather or road conditions contribute?',
+            'Improper PPE / Safety gear': 'Were you missing proper safety gear?',
+            'Unknown / Cannot identify': 'Can you think of any possible cause?',
         };
 
         // Per-section sentence template when a chip isn't in CHIP_QUESTION_OVERRIDES.
@@ -2645,11 +2661,10 @@
                 'Burn - chemical\n(化学熱傷)', 'Burn - electrical\n(電撃傷)', 'Blast / Explosion\n(爆発損傷)', 'Drowning / Water trauma\n(溺水・水難)'
             ],
             P: [
-                'Worse with movement\n(動かすと悪化)', 'Worse with weight bearing\n(荷重で悪化)', 'Worse with palpation\n(触診で悪化)', 'Worse with pressure on wound\n(創部圧迫で悪化)',
-                'Worse with bending\n(曲げると悪化)', 'Worse with rotation\n(捻ると悪化)', 'Worse with cough/sneeze\n(咳・くしゃみで悪化)', 'Worse with passive ROM\n(他動運動で悪化)',
-                'Worse with active ROM\n(自動運動で悪化)', 'Worse with traction\n(牽引で悪化)', 'Better when immobilized\n(固定で軽快)', 'Better with elevation\n(挙上で軽快)',
-                'Better with ice pack\n(冷却で軽快)', 'Better lying flat\n(仰臥位で軽快)', 'Worse when sitting up\n(座位で悪化)', 'No relief in any position\n(楽な姿勢なし)',
-                'Constant regardless of position\n(姿勢に関係なく持続)', 'Pain on movement only\n(動作時のみ疼痛)', 'No pain - numb area\n(痛みなし・しびれ)', 'Loss of function\n(機能低下あり)'
+                'Machine / equipment malfunction\n(機械・装備の不具合)', 'Slipped on road surface\n(路面状態でスリップ)', 'Tripped / Lost footing\n(つまずき・足を踏み外した)', 'Poor visibility\n(視界不良)',
+                'Excessive speed\n(スピード超過)', 'Inattention / Distraction\n(不注意・確認不足)', 'Fatigue / Drowsy\n(疲労・眠気)', 'Alcohol / Drugs\n(飲酒・薬物)',
+                'Sudden movement / Overexertion\n(急な動き・無理な動作)', 'Falling / Dropped object\n(落下物・物が落ちた)', 'Unstable footing / High place\n(不安定な足場・高所)', 'Wet / Slippery floor\n(濡れた床・滑りやすい)',
+                'Another person / Vehicle involved\n(他者・車両の関与)', 'Weather / Road conditions\n(天候・路面状況)', 'Improper PPE / Safety gear\n(保護具・安全装備の不備)', 'Unknown / Cannot identify\n(原因不明)'
             ],
             Q: [
                 'Sharp / Lacerating\n(鋭い切創痛)', 'Dull aching\n(鈍痛)', 'Crushing / Pressure\n(挫滅痛・圧迫感)', 'Burning thermal pain\n(熱傷痛)',
@@ -4314,14 +4329,6 @@
                     const lbl = document.createElement('label');
                     lbl.className = 'sf-item';
                     lbl.innerHTML = `<input type="checkbox" onchange="toggleSpecialFinding('${sf.id}', this.checked)"><span>${sf.en}<span class="ja">${sf.ja}</span></span>`;
-                    lbl.addEventListener('click', e => {
-                        if (e.target.tagName !== 'INPUT') {
-                            const cb = lbl.querySelector('input');
-                            cb.checked = !cb.checked;
-                            toggleSpecialFinding(sf.id, cb.checked);
-                        }
-                    });
-
                     const box = document.createElement('div');
                     box.className = 'sf-protocol-box';
                     box.innerHTML = `
@@ -4680,6 +4687,15 @@
             return Math.floor(mins/60) + 'h ' + (mins%60) + 'm';
         }
         function updateDuration() { const el = document.getElementById('disp-duration'); if (el) el.textContent = getActiveDuration(); }
+        function getActiveMinutes() {
+            const r = (document.getElementById('rep-response')||{}).value;
+            const i = (document.getElementById('rep-instation')||{}).value;
+            if (!r || !i) return '';
+            const rp = r.split(':').map(Number), ip = i.split(':').map(Number);
+            let mins = (ip[0]*60 + ip[1]) - (rp[0]*60 + rp[1]);
+            if (mins < 0) mins += 1440;
+            return mins;
+        }
         // ===== Annual response data (localStorage + CSV) =====
         const ANNUAL_KEY = 'emr-annual-log';
         function loadAnnual() { try { return JSON.parse(localStorage.getItem(ANNUAL_KEY) || '[]'); } catch(e) { return []; } }
@@ -4693,8 +4709,9 @@
             const cc = (typeof selectedListSummary === 'function') ? selectedListSummary(selectedCC) : ((selectedCC||[]).join(', '));
             const hosp = ((document.getElementById('transport-hospital')||{}).value || '').trim();
             const transport = hosp ? 'Yes' : ((typeof selectedDisposition !== 'undefined' && selectedDisposition && /hospital|transport|go/i.test(selectedDisposition)) ? 'Yes' : 'No');
-            const author = (document.getElementById('rep-name')||{}).value || '';
-            const rec = { date: date, age: age, sex: sex, cc: cc, transport: transport, author: author, duration: getActiveDuration(), dist: getDistance() };
+            const station = (document.getElementById('rep-station')||{}).value || '';
+            const engine = (document.getElementById('rep-engine')||{}).value || '';
+            const rec = { date: date, age: age, sex: sex, cc: cc, transport: transport, station: station, engine: engine, activeMin: getActiveMinutes() };
             const arr = loadAnnual(); arr.push(rec); saveAnnual(arr); updateAnnualCount();
             logAction('Annual Log', 'Record added (' + date + ')');
             alert('年間データに追加しました / Added to annual log (' + arr.length + ' records)');
@@ -4702,10 +4719,10 @@
         function exportAnnualCSV() {
             const arr = loadAnnual();
             if (!arr.length) { alert('保存データがありません / No records yet'); return; }
-            const headers = ['Date / 日付','Age / 年齢','Sex / 性別','Chief Complaint / 主訴','Transport / 搬送','Author / 記録者','Active Time / 稼働時間','Distance km / 稼働距離'];
+            const headers = ['Date / 日付','Age / 年齢','Sex / 性別','Chief Complaint / 主訴','Transport / 搬送','Station / 基地','Engine / エンジン','Active (min) / 稼働分'];
             const esc = v => '"' + String(v==null?'':v).replace(/"/g,'""') + '"';
             let csv = headers.map(esc).join(',') + '\r\n';
-            arr.forEach(r => { csv += [r.date,r.age,r.sex,r.cc,r.transport,r.author,r.duration,r.dist].map(esc).join(',') + '\r\n'; });
+            arr.forEach(r => { csv += [r.date,r.age,r.sex,r.cc,r.transport,r.station,r.engine,r.activeMin].map(esc).join(',') + '\r\n'; });
             const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a'); a.href = url; a.download = 'EMR_Annual_Response_Data_' + new Date().getFullYear() + '.csv';
@@ -5214,7 +5231,7 @@
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.4</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.5</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5224,7 +5241,7 @@
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km  ·  Active: ' + esc(repDuration) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.4</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.5</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5235,7 +5252,7 @@
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.4</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.5</div>';
                 html += '</div>';
             }
             html += '</body></html>';
