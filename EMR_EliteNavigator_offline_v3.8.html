@@ -891,7 +891,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v3.7 (Offline)</h1>
+    <h1>EMR Elite Navigator v3.8 (Offline)</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -984,16 +984,8 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
         </div>
     </div>
 
-    <div class="card disabled" id="sec-branch">
-        <h2>2. Flow Selection <span class="sub-lang">(事案分類選択)</span></h2>
-        <div style="display: flex; justify-content: space-between;">
-            <button class="btn-branch" id="btn-trauma" onclick="selectFlow('trauma')">💥 Trauma <span style="display:block; font-size:0.92rem; font-weight:400;">(外傷フロー)</span></button>
-            <button class="btn-branch" id="btn-medical" onclick="selectFlow('medical')">🏥 Medical <span style="display:block; font-size:0.92rem; font-weight:400;">(急病フロー)</span></button>
-        </div>
-    </div>
-
     <div class="card disabled" id="sec-primary">
-        <h2>3. Primary Assessment <span class="sub-lang">(初期評価)</span></h2>
+        <h2>2. Primary Assessment <span class="sub-lang">(初期評価)</span></h2>
         
         <button class="btn-audio" onclick="playAudio('greeting', 'Hello, I am a firefighter. We came to help you. Please stay still and relax. We will examine your body. Is that okay?')">
             "Hello, I am a firefighter. We came to help you. Please stay still and relax. We will examine your body. Is that okay?"
@@ -1174,6 +1166,14 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
                     <div style="color:#64748b; font-size:1rem;">リザーバーバッグを膨らませてから装着し、吸気時に完全につぶれないことを確認</div>
                 </li>
             </ul>
+        </div>
+    </div>
+
+    <div class="card disabled" id="sec-branch">
+        <h2>3. Flow Selection <span class="sub-lang">(事案分類選択)</span></h2>
+        <div style="display: flex; justify-content: space-between;">
+            <button class="btn-branch" id="btn-trauma" onclick="selectFlow('trauma')">💥 Trauma <span style="display:block; font-size:0.92rem; font-weight:400;">(外傷フロー)</span></button>
+            <button class="btn-branch" id="btn-medical" onclick="selectFlow('medical')">🏥 Medical <span style="display:block; font-size:0.92rem; font-weight:400;">(急病フロー)</span></button>
         </div>
     </div>
 
@@ -4319,7 +4319,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             
             // 必須（安全とBSI）のカウント数が 2 かつ 患者数が選択されていること
             if (activeOkCount === 2 && isPatientSelected) {
-                document.getElementById('sec-branch').classList.remove('disabled');
+                document.getElementById('sec-primary').classList.remove('disabled');
             } else {
                 document.getElementById('sec-branch').classList.add('disabled');
                 document.getElementById('sec-primary').classList.add('disabled');
@@ -4331,7 +4331,6 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             currentFlowType = type;
             document.getElementById('btn-trauma').classList.remove('active');
             document.getElementById('btn-medical').classList.remove('active');
-            document.getElementById('sec-primary').classList.remove('disabled');
 
             if (type === 'trauma') {
                 document.getElementById('btn-trauma').classList.add('active');
@@ -4350,6 +4349,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
         function setAbcStatus(status) {
             activeAbcStatus = status;
+            document.getElementById('sec-branch').classList.remove('disabled');
             document.getElementById('btn-abc-ok').classList.remove('active'); document.getElementById('btn-abc-cpa').classList.remove('active');
             if(status === 'ABC OK') {
                 document.getElementById('btn-abc-ok').classList.add('active'); logAction('Primary-ABC', 'ABC Stable');
@@ -5740,7 +5740,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.7 (Offline)</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.8 (Offline)</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5750,7 +5750,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km  ·  Active: ' + esc(repDuration) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.7 (Offline)</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.8 (Offline)</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5761,7 +5761,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.7 (Offline)</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.8 (Offline)</div>';
                 html += '</div>';
             }
             html += '</body></html>';
