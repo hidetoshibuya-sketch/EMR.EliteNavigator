@@ -1,6 +1,6 @@
 // EMR Elite Navigator — Service Worker
 // Bump CACHE_VERSION whenever you publish a new build.
-const CACHE_VERSION = 'emr-nav-v3.6-swap-dnr-rosc-40';
+const CACHE_VERSION = 'emr-nav-v3.7-dnr-sample-41';
 const ASSETS = [
   './',
   './index.html',

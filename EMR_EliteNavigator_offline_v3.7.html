@@ -891,7 +891,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v3.6 (Offline)</h1>
+    <h1>EMR Elite Navigator v3.7 (Offline)</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -984,8 +984,16 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
         </div>
     </div>
 
+    <div class="card disabled" id="sec-branch">
+        <h2>2. Flow Selection <span class="sub-lang">(事案分類選択)</span></h2>
+        <div style="display: flex; justify-content: space-between;">
+            <button class="btn-branch" id="btn-trauma" onclick="selectFlow('trauma')">💥 Trauma <span style="display:block; font-size:0.92rem; font-weight:400;">(外傷フロー)</span></button>
+            <button class="btn-branch" id="btn-medical" onclick="selectFlow('medical')">🏥 Medical <span style="display:block; font-size:0.92rem; font-weight:400;">(急病フロー)</span></button>
+        </div>
+    </div>
+
     <div class="card disabled" id="sec-primary">
-        <h2>2. Primary Assessment <span class="sub-lang">(初期評価)</span></h2>
+        <h2>3. Primary Assessment <span class="sub-lang">(初期評価)</span></h2>
         
         <button class="btn-audio" onclick="playAudio('greeting', 'Hello, I am a firefighter. We came to help you. Please stay still and relax. We will examine your body. Is that okay?')">
             "Hello, I am a firefighter. We came to help you. Please stay still and relax. We will examine your body. Is that okay?"
@@ -1169,14 +1177,6 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
         </div>
     </div>
 
-    <div class="card disabled" id="sec-branch">
-        <h2>3. Flow Selection <span class="sub-lang">(事案分類選択)</span></h2>
-        <div style="display: flex; justify-content: space-between;">
-            <button class="btn-branch" id="btn-trauma" onclick="selectFlow('trauma')">💥 Trauma <span style="display:block; font-size:0.92rem; font-weight:400;">(外傷フロー)</span></button>
-            <button class="btn-branch" id="btn-medical" onclick="selectFlow('medical')">🏥 Medical <span style="display:block; font-size:0.92rem; font-weight:400;">(急病フロー)</span></button>
-        </div>
-    </div>
-
     <div class="card alert-box hidden" id="sec-cpa-guide">
         <h2>🚨 CRITICAL PROTOCOL: CPR &amp; Philips AED</h2>
 
@@ -1191,6 +1191,36 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
                         <li>Must be a current, signed order — paper document, bracelet, or medallion. <span style="color:#64748b;">署名済みで有効な文書・ブレスレット・メダリオンであること</span></li>
                         <li>Verbal claims by family alone are <strong>not</strong> a valid DNR — confirm documentation. <span style="color:#64748b;">家族の口頭のみは無効。文書を確認</span></li>
                     </ul>
+
+                    <!-- ===== SAMPLE DNR DOCUMENT ===== -->
+                    <div style="margin-top:10px; font-weight:800; color:#92400e; font-size:0.92rem;">📄 Sample — what a DNR order looks like <span class="sub-lang" style="font-weight:400;">(DNR指示書のサンプル・見本)</span></div>
+                    <div style="background:#fcfcf7; border:2px solid #475569; border-radius:6px; padding:12px 13px; margin-top:6px; font-family:'Times New Roman',Georgia,serif; color:#1e293b; position:relative;">
+                        <div style="text-align:center; border-bottom:2px solid #1e293b; padding-bottom:6px; margin-bottom:8px;">
+                            <div style="font-size:0.7rem; letter-spacing:1px; color:#475569;">STATE OF ____ · DEPARTMENT OF HEALTH</div>
+                            <div style="font-size:1rem; font-weight:800; letter-spacing:0.5px;">PREHOSPITAL DO-NOT-RESUSCITATE (DNR) ORDER</div>
+                            <div style="font-size:0.7rem; color:#991b1b; font-weight:700;">EMS / FIRST RESPONDERS — HONOR THIS ORDER</div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; gap:8px; margin-bottom:5px;">
+                            <div><span style="background:#dc2626; color:#fff; border-radius:50%; padding:0 6px; font-weight:800; font-family:Arial;">1</span> <b>Patient:</b> <span style="border-bottom:1px solid #94a3b8;">&nbsp;John A. Smith&nbsp;</span></div>
+                            <div><b>DOB:</b> <span style="border-bottom:1px solid #94a3b8;">&nbsp;1948-05-12&nbsp;</span></div>
+                        </div>
+                        <div style="background:#fff7ed; border:1px dashed #d97706; border-radius:4px; padding:6px 8px; margin:6px 0; font-size:0.9rem;">
+                            <span style="background:#dc2626; color:#fff; border-radius:50%; padding:0 6px; font-weight:800; font-family:Arial;">2</span>
+                            “In the event of cardiac or respiratory arrest, <b>NO chest compressions, defibrillation, intubation, or resuscitation drugs</b> shall be administered. Provide comfort care only.”
+                        </div>
+                        <div style="display:flex; justify-content:space-between; gap:8px; margin-top:8px; font-size:0.88rem;">
+                            <div><span style="background:#dc2626; color:#fff; border-radius:50%; padding:0 6px; font-weight:800; font-family:Arial;">3</span> <b>Physician:</b> <span style="border-bottom:1px solid #94a3b8;">&nbsp;Dr. R. Tanaka, MD&nbsp;</span><br><i style="font-family:'Brush Script MT',cursive; font-size:1.15rem; color:#1d4ed8;">&nbsp;&nbsp;R. Tanaka&nbsp;&nbsp;</i> <span style="font-size:0.72rem; color:#64748b;">(signature)</span><br>License #: 12345</div>
+                            <div style="text-align:right;"><span style="background:#dc2626; color:#fff; border-radius:50%; padding:0 6px; font-weight:800; font-family:Arial;">4</span> <b>Date signed:</b><br><span style="border-bottom:1px solid #94a3b8;">&nbsp;2026-01-08&nbsp;</span><br><span style="font-size:0.72rem; color:#64748b;">Valid / current</span></div>
+                        </div>
+                    </div>
+                    <ul style="margin:7px 0 0; padding-left:18px; font-size:0.88rem;">
+                        <li><b style="color:#991b1b;">1</b> Patient name + DOB match this patient. <span style="color:#64748b;">氏名・生年月日が一致</span></li>
+                        <li><b style="color:#991b1b;">2</b> Clear "do not resuscitate" directive. <span style="color:#64748b;">明確な蘇生拒否の記載</span></li>
+                        <li><b style="color:#991b1b;">3</b> Physician name + signature + license. <span style="color:#64748b;">医師名・署名・免許番号</span></li>
+                        <li><b style="color:#991b1b;">4</b> Signed, dated, currently valid. <span style="color:#64748b;">署名・日付があり有効</span></li>
+                    </ul>
+                    <div style="font-size:0.82rem; color:#64748b; margin-top:5px;">Also valid: POLST / MOLST forms, DNR <b>bracelet</b> or <b>medallion</b>. Forms vary by state/country — verify the 4 points above. <span style="display:block;">他に有効: POLST/MOLST、DNRブレスレット・メダリオン。様式は地域で異なるため上記4点を確認。</span></div>
+                    <div style="font-size:0.78rem; color:#94a3b8; margin-top:3px; font-style:italic;">※ Illustrative sample only — not a real medical order. / これは見本であり実在の指示書ではありません。</div>
                 </div>
                 <div style="background:#fff; border:1px solid #fcd34d; border-radius:7px; padding:8px 10px; margin-bottom:8px;">
                     <strong>② Obvious signs of irreversible death → do NOT start CPR.</strong>
@@ -4289,7 +4319,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             
             // 必須（安全とBSI）のカウント数が 2 かつ 患者数が選択されていること
             if (activeOkCount === 2 && isPatientSelected) {
-                document.getElementById('sec-primary').classList.remove('disabled');
+                document.getElementById('sec-branch').classList.remove('disabled');
             } else {
                 document.getElementById('sec-branch').classList.add('disabled');
                 document.getElementById('sec-primary').classList.add('disabled');
@@ -4301,6 +4331,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             currentFlowType = type;
             document.getElementById('btn-trauma').classList.remove('active');
             document.getElementById('btn-medical').classList.remove('active');
+            document.getElementById('sec-primary').classList.remove('disabled');
 
             if (type === 'trauma') {
                 document.getElementById('btn-trauma').classList.add('active');
@@ -4319,7 +4350,6 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
         function setAbcStatus(status) {
             activeAbcStatus = status;
-            document.getElementById('sec-branch').classList.remove('disabled');
             document.getElementById('btn-abc-ok').classList.remove('active'); document.getElementById('btn-abc-cpa').classList.remove('active');
             if(status === 'ABC OK') {
                 document.getElementById('btn-abc-ok').classList.add('active'); logAction('Primary-ABC', 'ABC Stable');
@@ -5710,7 +5740,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.6 (Offline)</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.7 (Offline)</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5720,7 +5750,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km  ·  Active: ' + esc(repDuration) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.6 (Offline)</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.7 (Offline)</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5731,7 +5761,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.6 (Offline)</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.7 (Offline)</div>';
                 html += '</div>';
             }
             html += '</body></html>';
