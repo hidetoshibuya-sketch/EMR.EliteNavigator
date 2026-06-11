@@ -474,7 +474,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v3.5</h1>
+    <h1>EMR Elite Navigator v3.6</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -567,16 +567,8 @@
         </div>
     </div>
 
-    <div class="card disabled" id="sec-branch">
-        <h2>2. Flow Selection <span class="sub-lang">(事案分類選択)</span></h2>
-        <div style="display: flex; justify-content: space-between;">
-            <button class="btn-branch" id="btn-trauma" onclick="selectFlow('trauma')">💥 Trauma <span style="display:block; font-size:0.92rem; font-weight:400;">(外傷フロー)</span></button>
-            <button class="btn-branch" id="btn-medical" onclick="selectFlow('medical')">🏥 Medical <span style="display:block; font-size:0.92rem; font-weight:400;">(急病フロー)</span></button>
-        </div>
-    </div>
-
     <div class="card disabled" id="sec-primary">
-        <h2>3. Primary Assessment <span class="sub-lang">(初期評価)</span></h2>
+        <h2>2. Primary Assessment <span class="sub-lang">(初期評価)</span></h2>
         
         <button class="btn-audio" onclick="playAudio('greeting', 'Hello, I am a firefighter. We came to help you. Please stay still and relax. We will examine your body. Is that okay?')">
             "Hello, I am a firefighter. We came to help you. Please stay still and relax. We will examine your body. Is that okay?"
@@ -760,8 +752,47 @@
         </div>
     </div>
 
+    <div class="card disabled" id="sec-branch">
+        <h2>3. Flow Selection <span class="sub-lang">(事案分類選択)</span></h2>
+        <div style="display: flex; justify-content: space-between;">
+            <button class="btn-branch" id="btn-trauma" onclick="selectFlow('trauma')">💥 Trauma <span style="display:block; font-size:0.92rem; font-weight:400;">(外傷フロー)</span></button>
+            <button class="btn-branch" id="btn-medical" onclick="selectFlow('medical')">🏥 Medical <span style="display:block; font-size:0.92rem; font-weight:400;">(急病フロー)</span></button>
+        </div>
+    </div>
+
     <div class="card alert-box hidden" id="sec-cpa-guide">
         <h2>🚨 CRITICAL PROTOCOL: CPR &amp; Philips AED</h2>
+
+        <!-- ==================== DNR / WITHHOLD CHECK (FIRST) ==================== -->
+        <div style="background:#fffbeb; border:3px solid #d97706; border-radius:10px; padding:12px 14px; margin-bottom:12px;">
+            <div style="font-weight:900; color:#92400e; font-size:1rem; margin-bottom:6px;">🛑 STEP 0 — Before Starting: DNR / Withhold Check <span class="sub-lang" style="font-weight:400;">(CPR開始前の確認：DNR・蘇生中止の判断)</span></div>
+            <div style="font-size:0.95rem; color:#0f172a; line-height:1.5;">
+                <div style="background:#fff; border:1px solid #fcd34d; border-radius:7px; padding:8px 10px; margin-bottom:8px;">
+                    <strong>① Look for a valid DNR / DNAR / POLST / advance directive.</strong>
+                    <div style="color:#64748b;">有効な DNR / DNAR / POLST・事前指示書（リビングウィル）があるか確認</div>
+                    <ul style="margin:6px 0 0; padding-left:18px;">
+                        <li>Must be a current, signed order — paper document, bracelet, or medallion. <span style="color:#64748b;">署名済みで有効な文書・ブレスレット・メダリオンであること</span></li>
+                        <li>Verbal claims by family alone are <strong>not</strong> a valid DNR — confirm documentation. <span style="color:#64748b;">家族の口頭のみは無効。文書を確認</span></li>
+                    </ul>
+                </div>
+                <div style="background:#fff; border:1px solid #fcd34d; border-radius:7px; padding:8px 10px; margin-bottom:8px;">
+                    <strong>② Obvious signs of irreversible death → do NOT start CPR.</strong>
+                    <div style="color:#64748b;">明らかな死亡徴候があれば CPR を開始しない</div>
+                    <ul style="margin:6px 0 0; padding-left:18px;">
+                        <li>Decapitation / incineration / transection. <span style="color:#64748b;">断頭・焼死・体幹離断</span></li>
+                        <li>Rigor mortis (死後硬直), dependent lividity / 死斑, decomposition / 腐敗. <span style="color:#64748b;">死後硬直・死斑・腐敗</span></li>
+                        <li>Injuries clearly incompatible with life. <span style="color:#64748b;">生存と明らかに両立しない損傷</span></li>
+                    </ul>
+                </div>
+                <div style="background:#fff; border:1px solid #fcd34d; border-radius:7px; padding:8px 10px;">
+                    <strong>③ Valid DNR or obvious death:</strong> withhold resuscitation, ensure dignity, do not disturb the scene, document time and findings, follow local protocol / contact medical control.
+                    <div style="color:#64748b;">有効なDNR・明らかな死亡時：蘇生を行わず、尊厳を保ち現場を保存、時刻と所見を記録、地域プロトコルに従い医療指示者へ連絡</div>
+                </div>
+                <div style="font-weight:900; color:#991b1b; background:#fef2f2; border:1px solid #fca5a5; border-radius:7px; padding:8px 10px; margin-top:8px;">
+                    ⚠ WHEN IN DOUBT, START CPR IMMEDIATELY. <span class="sub-lang" style="font-weight:600;">(判断に迷う場合は、直ちにCPRを開始する)</span>
+                </div>
+            </div>
+        </div>
 
         <!-- ==================== CPR TIMER / START ==================== -->
         <div style="background:#fff; border:3px solid #dc2626; border-radius:10px; padding:14px; margin-bottom:10px; text-align:center;">
@@ -793,6 +824,33 @@
                 <div class="cpr-protocol green"><h4>ROSC / 自己心拍再開</h4><p><b>Confirm pulse ≤10 sec.</b> Maintain airway, support ventilation if RR &lt;10, target SpO2 94-99%, keep AED pads on, monitor every 5 min, prepare for re-arrest, rapid transport.</p><p>10秒以内に脈拍確認。気道維持、RR&lt;10は補助換気、SpO2 94-99%、AED装着継続、5分毎再評価、再心停止準備、迅速搬送。</p></div>
             </div>
             <div class="cpr-note"><b>Quality targets:</b> switch compressors every 2 min, avoid over-ventilation, keep pauses short, continue until ROSC, ALS handoff, unsafe scene, or exhaustion. <span>質の目標: 2分毎交代、過換気回避、中断最小、ROSC/ALS引継ぎ/危険/疲労まで継続。</span></div>
+
+            <!-- ==================== WHEN TO STOP / TERMINATE CPR ==================== -->
+            <div style="background:#f0fdf4; border:2px solid #15803d; border-radius:9px; padding:10px 12px; margin-top:10px;">
+                <div style="font-weight:900; color:#166534; font-size:0.98rem; margin-bottom:6px;">🟢 When to STOP CPR <span class="sub-lang" style="font-weight:400;">(CPRを中止する基準)</span></div>
+                <div style="font-size:0.95rem; color:#0f172a; line-height:1.5;">
+                    <div style="background:#fff; border:1px solid #86efac; border-radius:7px; padding:8px 10px; margin-bottom:8px;">
+                        <strong>① Signs of ROSC — check pulse + breathing ≤10 sec at rhythm check.</strong>
+                        <div style="color:#64748b;">自己心拍再開（ROSC）の徴候：リズムチェック時に10秒以内で脈・呼吸を確認</div>
+                        <ul style="margin:6px 0 0; padding-left:18px;">
+                            <li>Palpable pulse, normal breathing, coughing, movement, or eye opening. <span style="color:#64748b;">脈拍触知、正常な呼吸、咳、体動、開眼など</span></li>
+                            <li>→ Stop compressions, move to ROSC care (right panel). <span style="color:#64748b;">→ 圧迫を止め、ROSCケアへ移行</span></li>
+                        </ul>
+                    </div>
+                    <div style="background:#fff; border:1px solid #86efac; border-radius:7px; padding:8px 10px;">
+                        <strong>② Otherwise, only stop if:</strong>
+                        <div style="color:#64748b;">ROSC以外で中止できるのは次の場合のみ：</div>
+                        <ul style="margin:6px 0 0; padding-left:18px;">
+                            <li>ALS / physician / hospital takes over care. <span style="color:#64748b;">ALS・医師・病院へ引き継いだ</span></li>
+                            <li>A valid DNR / advance directive is presented. <span style="color:#64748b;">有効なDNR・事前指示が提示された</span></li>
+                            <li>Scene becomes unsafe to continue. <span style="color:#64748b;">現場が危険で継続不能</span></li>
+                            <li>Rescuer physically exhausted and unable to continue. <span style="color:#64748b;">救助者が疲労し継続不能</span></li>
+                            <li>Termination ordered by medical control / physician. <span style="color:#64748b;">医療指示者・医師の指示による中止</span></li>
+                        </ul>
+                        <div style="font-weight:800; color:#991b1b; margin-top:6px;">⚠ Never stop simply because it "feels too long." Continue until one of the above. <span class="sub-lang" style="font-weight:600;">(「長すぎる」という理由だけで中止しない。上記のいずれかまで継続)</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- ==================== PHILIPS HS1 AED PROTOCOL ==================== -->
@@ -959,6 +1017,10 @@
         <h2>Secondary Assessment: Trauma <span class="sub-lang">(外傷詳細プロトコル)</span></h2>
 
         <h3>DOTS / DCAP-BTLS Body Survey <span class="sub-lang">(全身詳細観察・各部位12所見)</span></h3>
+        <button class="btn-audio" onclick="playAudio('dots-intro', 'I am now going to examine your body from head to toe to check for injuries. I will touch you gently. Please tell me right away if any area hurts. Try to stay still and do not move.')">
+            "I am now going to examine your body from head to toe to check for injuries. I will touch you gently. Please tell me right away if any area hurts. Try to stay still and do not move."
+            <span class="sub-lang">(これから頭から足先まで全身を観察し、ケガがないか確認します。やさしく身体に触れます。痛いところがあればすぐに教えてください。なるべく動かないでください。)</span>
+        </button>
         <div style="font-size:0.95rem; color:#475569; background:#f1f5f9; padding:6px 8px; border-radius:6px; margin-bottom:8px;">
             Tap a body region to load the 12-finding DCAP-BTLS checklist. Confirmed findings color the illustration.
             <span class="sub-lang" style="display:block;">(イラストの部位をタップして DCAP-BTLS 12項目を評価。所見数で色が濃くなります)</span>
@@ -3810,7 +3872,7 @@
             
             // 必須（安全とBSI）のカウント数が 2 かつ 患者数が選択されていること
             if (activeOkCount === 2 && isPatientSelected) {
-                document.getElementById('sec-branch').classList.remove('disabled');
+                document.getElementById('sec-primary').classList.remove('disabled');
             } else {
                 document.getElementById('sec-branch').classList.add('disabled');
                 document.getElementById('sec-primary').classList.add('disabled');
@@ -3822,7 +3884,6 @@
             currentFlowType = type;
             document.getElementById('btn-trauma').classList.remove('active');
             document.getElementById('btn-medical').classList.remove('active');
-            document.getElementById('sec-primary').classList.remove('disabled');
 
             if (type === 'trauma') {
                 document.getElementById('btn-trauma').classList.add('active');
@@ -3841,6 +3902,7 @@
 
         function setAbcStatus(status) {
             activeAbcStatus = status;
+            document.getElementById('sec-branch').classList.remove('disabled');
             document.getElementById('btn-abc-ok').classList.remove('active'); document.getElementById('btn-abc-cpa').classList.remove('active');
             if(status === 'ABC OK') {
                 document.getElementById('btn-abc-ok').classList.add('active'); logAction('Primary-ABC', 'ABC Stable');
@@ -5231,7 +5293,7 @@
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.5</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.6</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5241,7 +5303,7 @@
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km  ·  Active: ' + esc(repDuration) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.5</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.6</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5252,7 +5314,7 @@
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.5</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.6</div>';
                 html += '</div>';
             }
             html += '</body></html>';
