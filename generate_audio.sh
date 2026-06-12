@@ -701,3 +701,4 @@ generate "chip-weather-road-conditions" "Did the weather or road conditions cont
 generate "chip-improper-ppe-safety-gear" "Were you missing proper safety gear?"
 generate "chip-unknown-cannot-identify" "Can you think of any possible cause?"
 generate "dots-intro" "I am now going to examine your body from head to toe to check for injuries. I will touch you gently. Please tell me right away if any area hurts. Try to stay still and do not move."
+generate "vitals-intro" "I am going to check your vital signs now. Please relax and stay still."
