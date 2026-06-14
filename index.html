@@ -565,7 +565,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v4.6</h1>
+    <h1>EMR Elite Navigator v4.7</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -959,32 +959,37 @@
                 </tbody>
             </table></div>
             <div style="font-weight:700; margin:14px 0 6px;">Protocol &amp; precautions checklist <span class="sub-lang" style="font-weight:400; color:#64748b;">(プロトコル・注意チェック)</span></div>
-            <div style="font-size:0.82rem; color:#64748b; margin-bottom:8px;">Tap each item to check it off; items marked ⓘ expand a detail guide. <span class="sub-lang" style="display:inline;">タップでチェック。ⓘは詳細ガイドが開きます。</span></div>
+            <div style="font-size:0.82rem; color:#64748b; margin-bottom:8px;">Tap an item to check it off and open its detail. <span class="sub-lang" style="display:inline;">タップでチェック＋詳細を開く。</span></div>
 
-            <div class="cpr-proto" onclick="cprProtoToggle(this)"><span class="hint">ⓘ</span>Lower half of the sternum — not the xiphoid process<span class="sub-lang">胸骨下半分を圧迫・剣状突起は押さない</span>
-                <div class="cpr-proto-detail" onclick="event.stopPropagation()">Compressing on the <b>xiphoid process</b> (the tip of the sternum) can <b>damage internal organs</b> such as the liver or stomach. Always compress the <b>lower half of the sternum</b>, not the tip.<span class="jp">剣状突起（胸骨の先端）を圧迫すると肝臓・胃などの内臓を損傷する可能性があります。必ず胸骨下半分を圧迫し、先端は押さないこと。</span></div>
+            <div class="cpr-proto" onclick="cprProtoToggle(this)"><span class="hint">ⓘ</span>1. Correct compression position<span class="sub-lang">正しい圧迫位置</span>
+                <div class="cpr-proto-detail" onclick="event.stopPropagation()">Compress the <b>lower half of the sternum</b>, not the xiphoid process. Pressing on the <b>xiphoid</b> (the tip) can <b>damage internal organs</b> (liver, stomach).<span class="jp">胸骨下半分を圧迫。剣状突起（先端）は押さない — 肝臓・胃などの内臓を損傷する可能性。</span></div>
             </div>
 
-            <div class="cpr-proto" onclick="cprProtoToggle(this)">Compressions 100–120/min, age-appropriate depth, full recoil, pauses under 10 sec<span class="sub-lang">圧迫100-120/分・年齢別の深さ・完全リコイル・中断10秒未満</span></div>
-
-            <div class="cpr-proto" onclick="cprProtoToggle(this)">Ventilation 30:2 (child/infant 2-rescuer 15:2), 1 sec/breath, avoid over-ventilation<span class="sub-lang">換気30:2（小児・乳児2人法15:2）・1秒/回・過換気回避</span></div>
-
-            <div class="cpr-proto" onclick="cprProtoToggle(this)"><span class="hint">ⓘ</span>BVM — check the mouth each breath; suction as needed<span class="sub-lang">BVM：毎回口腔内を確認・必要なら吸引</span>
-                <div class="cpr-proto-detail" onclick="event.stopPropagation()"><b>Suction guide:</b> before each breath, look inside the mouth for vomit, secretions, or blood. Use a <b>rigid (Yankauer) catheter</b>; suction <b>only while withdrawing</b>, never while inserting. Limit each pass to <b>15 sec (adult) · 10 sec (child) · 5 sec (infant)</b>. Pre-oxygenate before and after. Turn the head to the side to drain (log-roll the whole body if trauma is suspected), then re-check the airway and resume ventilation.<span class="jp">吸引ガイド：換気前に口腔内（嘔吐物・分泌物・血液）を確認。硬性吸引（ヤンカウアー）で、挿入時は吸わず引き抜きながら吸引。1回あたり成人15秒・小児10秒・乳児5秒以内。前後に酸素化。顔を横に向け排液（外傷疑いは体ごとログロール）、気道を再確認して換気を再開。</span></div>
+            <div class="cpr-proto" onclick="cprProtoToggle(this)"><span class="hint">ⓘ</span>2. Compression quality<span class="sub-lang">圧迫の質</span>
+                <div class="cpr-proto-detail" onclick="event.stopPropagation()">Rate <b>100–120/min</b>, age-appropriate depth, <b>full recoil</b> between compressions, keep pauses <b>under 10 sec</b>.<span class="jp">速度100–120/分、年齢別の深さ、毎回完全に戻す（リコイル）、中断は10秒未満。</span></div>
             </div>
 
-            <div class="cpr-proto" onclick="cprProtoToggle(this)"><span class="hint">ⓘ</span>Correct AED pad placement<span class="sub-lang">AEDパッドの正しい貼付け</span>
+            <div class="cpr-proto" onclick="cprProtoToggle(this)"><span class="hint">ⓘ</span>3. Ventilation<span class="sub-lang">換気</span>
+                <div class="cpr-proto-detail" onclick="event.stopPropagation()"><b>30:2</b> (child/infant two-rescuer <b>15:2</b>). One second per breath to <b>visible chest rise</b>; avoid over-ventilation.<span class="jp">30:2（小児・乳児の2人法は15:2）。1秒/回・胸が上がる量、過換気を避ける。</span></div>
+            </div>
+
+            <div class="cpr-proto" onclick="cprProtoToggle(this)"><span class="hint">ⓘ</span>4. Airway &amp; suction<span class="sub-lang">気道・吸引</span>
+                <div class="cpr-proto-detail" onclick="event.stopPropagation()">Before each breath, check the mouth for vomit/secretions/blood. Use a <b>rigid (Yankauer) catheter</b>, suction <b>only while withdrawing</b>. Limit: <b>15 sec adult · 10 sec child · 5 sec infant</b>. Pre-oxygenate before/after. Turn the head to drain (log-roll if trauma), re-check the airway, resume ventilation.<span class="jp">換気前に口腔内（嘔吐物・分泌物・血液）を確認。硬性吸引（ヤンカウアー）で引き抜きながら吸引。成人15・小児10・乳児5秒以内。前後に酸素化。顔を横に向け排液（外傷はログロール）、気道再確認して換気再開。</span></div>
+            </div>
+
+            <div class="cpr-proto" onclick="cprProtoToggle(this)"><span class="hint">ⓘ</span>5. AED pad placement<span class="sub-lang">AEDパッドの貼付け</span>
                 <div class="cpr-proto-detail" onclick="event.stopPropagation()"><ul style="margin:0; padding-left:18px;">
-                    <li><b>Expose the chest;</b> dry it if wet; shave only if thick hair blocks pad contact.<span class="jp">胸部を露出、濡れは拭く、接触不良の濃い体毛のみ剃毛。</span></li>
-                    <li><b>Positions:</b> adult — upper-right chest below the clavicle + lower-left mid-axillary line. Pediatric — one pad on the chest, one on the back (between the shoulder blades).<span class="jp">位置：成人は右鎖骨下＋左中腋窩線。小児は前胸部と背部（肩甲骨間）。</span></li>
-                    <li>Keep pads at least <b>2.5 cm (1 in) away from an implanted pacemaker / ICD</b> bulge — do not place a pad over it.<span class="jp">植込みペースメーカー/ICDの隆起から2.5cm以上離す。上には貼らない。</span></li>
-                    <li><b>Remove transdermal medication patches</b> (nitroglycerin, fentanyl) and wipe the skin before applying pads.<span class="jp">経皮薬パッチ（ニトロ・フェンタニル）は除去し皮膚を拭いてから貼付。</span></li>
+                    <li>Expose the chest; dry if wet; shave only if hair blocks contact.<span class="jp">胸部露出、濡れは拭く、接触不良の体毛のみ剃毛。</span></li>
+                    <li>Adult: upper-right chest + lower-left mid-axillary. Pediatric: chest + back (between shoulder blades).<span class="jp">成人：右鎖骨下＋左中腋窩線。小児：前胸部と背部（肩甲骨間）。</span></li>
+                    <li>Keep at least <b>2.5 cm (1 in) from a pacemaker / ICD</b> — never over it.<span class="jp">ペースメーカー/ICDから2.5cm以上離す（上には貼らない）。</span></li>
+                    <li><b>Remove transdermal patches</b> (nitro, fentanyl) and wipe the skin first.<span class="jp">経皮薬パッチ（ニトロ・フェンタニル）は除去し皮膚を拭く。</span></li>
                 </ul></div>
             </div>
 
-            <div class="cpr-proto" onclick="cprProtoToggle(this)"><span class="hint">ⓘ</span>Dry the chest; stay clear during analysis &amp; shock<span class="sub-lang">胸を拭き、解析・ショック時は離れる</span>
-                <div class="cpr-proto-detail" onclick="event.stopPropagation()"><b>During analysis &amp; shock:</b> stop touching the patient while the AED analyzes. Before delivering a shock, shout <b>"I'm clear, you're clear, everybody clear!"</b> and visually confirm no one is in contact. Move the oxygen source away to avoid a spark. Dry the chest and remove the patient from water or metal surfaces before defibrillating.<span class="jp">解析・ショック時：解析中は患者に触れない。ショック前に「離れろ（自分・周囲・全員）」と大声で確認し、接触がないことを目視。酸素は火花防止のため遠ざける。胸を拭き、水場・金属面から離してから除細動。</span></div>
+            <div class="cpr-proto" onclick="cprProtoToggle(this)"><span class="hint">ⓘ</span>6. Clear for analysis &amp; shock<span class="sub-lang">解析・ショック時の安全</span>
+                <div class="cpr-proto-detail" onclick="event.stopPropagation()">Stop touching the patient during analysis. Before a shock, shout <b>"I'm clear, you're clear, everybody clear!"</b> and confirm visually. Move oxygen away (spark risk). Dry the chest and remove from water/metal before defibrillating.<span class="jp">解析中は触れない。ショック前に「離れろ（全員）」と確認。酸素を遠ざける（火花防止）。胸を拭き、水場・金属から離してから除細動。</span></div>
             </div>
+
             <div style="background:#f0fdfa; border:1px solid #5eead4; border-radius:8px; padding:9px 11px; margin-top:13px;">
                 <div style="font-weight:800; color:#0f766e; font-size:0.9rem; margin-bottom:4px;">🔊 Philips AED Voice Prompts <span class="sub-lang" style="font-weight:400;">(音声ガイド)</span></div>
                 <div id="aed-prompts-list"></div>
@@ -1017,9 +1022,11 @@
                     </div>
                 </div>
                 <div class="branch-point triage-disabled" id="cprp-rr">
-                    <h4>Respiratory rate / min <span class="sub-lang">(呼吸数を入力)</span></h4>
-                    <input type="number" id="cprp-rr-input" class="input-text" inputmode="numeric" placeholder="例: 16" oninput="cprPostRR()" style="width:100%; box-sizing:border-box; font-size:1.1rem; text-align:center;">
-                    <div id="cprp-rr-hint" style="font-size:0.8rem; color:#64748b; margin-top:6px;"></div>
+                    <h4>Respiratory rate <span class="sub-lang">(呼吸数の区分)</span></h4>
+                    <div class="branch-btn-group">
+                        <button class="btn-branch tri-red" id="cprp-rr-low" onclick="cprPostRR('low',this)">Lower <span class="sub-lang">(以下)</span></button>
+                        <button class="btn-branch" id="cprp-rr-high" onclick="cprPostRR('high',this)">Higher <span class="sub-lang">(以上)</span></button>
+                    </div>
                 </div>
                 <div id="cprp-result" class="hidden" style="margin-top:4px;"></div>
             </div>
@@ -4220,21 +4227,24 @@
                 cprShow('cpr-sec-manage',true); cprScrollTo('cpr-sec-manage');
             }
         }
-        function cprPostAge(cat,btn){ cprMarkBranch(btn); cprPostAgeCat=cat; cprEnableNode('cprp-rr',true); const h=document.getElementById('cprp-rr-hint'); if(h){ h.innerText='RR '+CPR_RR_LOW[cat]+' or fewer: rescue breathing. More than '+CPR_RR_LOW[cat]+': recovery position ('+cat+').'; } cprPostRR(); }
-        function cprPostRR(){
+        function cprPostAge(cat,btn){ cprMarkBranch(btn); cprPostAgeCat=cat; cprEnableNode('cprp-rr',true);
+            const low=CPR_RR_LOW[cat];
+            const lo=document.getElementById('cprp-rr-low'), hi=document.getElementById('cprp-rr-high');
+            if(lo){ lo.innerHTML='RR ≤ '+low+' <span class="sub-lang">('+low+'以下 — 人工呼吸)</span>'; lo.classList.remove('active','triage-chosen'); }
+            if(hi){ hi.innerHTML='RR &gt; '+low+' <span class="sub-lang">('+low+'超 — 回復体位)</span>'; hi.classList.remove('active','triage-chosen'); }
+            const res=document.getElementById('cprp-result'); if(res){ res.classList.add('hidden'); res.innerHTML=''; }
+        }
+        function cprPostRR(side,btn){
             if(!cprPostAgeCat) return;
-            const res=document.getElementById('cprp-result');
-            const raw=(document.getElementById('cprp-rr-input')||{}).value;
-            const v=parseFloat(raw);
-            if(raw===''||isNaN(v)){ res.classList.add('hidden'); res.innerHTML=''; return; }
+            cprMarkBranch(btn);
+            const res=document.getElementById('cprp-result'); res.classList.remove('hidden');
             const low=CPR_RR_LOW[cprPostAgeCat];
-            res.classList.remove('hidden');
-            if(v<=low){
-                res.innerHTML='<div class="cpr-decide-out" style="border:2px solid #2563eb; background:#eff6ff; color:#1d4ed8;"><div class="t">⚠ RESCUE BREATHING</div><div class="j">不十分な呼吸（'+cprPostAgeCat+' RR '+v+'）— 人工呼吸</div><div class="b"><b>Guide:</b> inadequate breathing — give '+CPR_RB_RATE[cprPostAgeCat]+', each over 1 sec to visible chest rise; avoid over-ventilation.<br><b>Protocol:</b> recheck pulse every 2 min. Child/Infant: if HR under 60 with poor perfusion, start CPR. If breathing/pulse stops, start CPR.<span class="jp" style="color:#1d4ed8;">ガイド：人工呼吸 '+CPR_RB_RATE_JP[cprPostAgeCat]+'、胸が上がる量、過換気回避。プロトコル：2分毎に脈確認。小児・乳児はHR60未満＋灌流不良でCPR。呼吸・脈停止でCPR。</span></div></div>';
-                logAction('Post-arrest','RR '+v+' ('+cprPostAgeCat+') — Rescue Breathing');
+            if(side==='low'){
+                res.innerHTML='<div class="cpr-decide-out" style="border:2px solid #2563eb; background:#eff6ff; color:#1d4ed8;"><div class="t">⚠ RESCUE BREATHING</div><div class="j">不十分な呼吸（'+cprPostAgeCat+' RR ≤ '+low+'）— 人工呼吸</div><div class="b"><b>Guide:</b> inadequate breathing — give '+CPR_RB_RATE[cprPostAgeCat]+', each over 1 sec to visible chest rise; avoid over-ventilation.<br><b>Protocol:</b> recheck pulse every 2 min. Child/Infant: if HR under 60 with poor perfusion, start CPR. If breathing/pulse stops, start CPR.<span class="jp" style="color:#1d4ed8;">ガイド：人工呼吸 '+CPR_RB_RATE_JP[cprPostAgeCat]+'、胸が上がる量、過換気回避。プロトコル：2分毎に脈確認。小児・乳児はHR60未満＋灌流不良でCPR。呼吸・脈停止でCPR。</span></div></div>';
+                logAction('Post-arrest','RR low ('+cprPostAgeCat+') — Rescue Breathing');
             } else {
-                res.innerHTML='<div class="cpr-decide-out" style="border:2px solid #16a34a; background:#f0fdf4; color:#166534;"><div class="t">RECOVERY POSITION</div><div class="j">十分な呼吸（'+cprPostAgeCat+' RR '+v+'）— 回復体位</div><div class="b"><b>Guide:</b> adequate breathing but unconscious — roll onto the side (lateral, preferably left), tilt head to keep the airway open, mouth pointing down for drainage.<br><b>Protocol:</b> monitor breathing &amp; pulse continuously; reassess every 5 min (unstable) or 15 min (stable); be ready to roll back and start CPR if breathing/pulse stops. Do not use if trauma/spinal injury suspected — keep supine with a manual airway.<span class="jp" style="color:#166534;">ガイド：十分な呼吸で意識なし — 側臥位（左が望ましい）、頭部を傾け気道確保、口を下に向け排液。プロトコル：呼吸・脈を継続監視、5分（不安定）/15分（安定）毎に再評価、停止時は仰臥位に戻しCPR。外傷・脊損疑いは仰臥位で用手気道確保。</span></div></div>';
-                logAction('Post-arrest','RR '+v+' ('+cprPostAgeCat+') — Recovery Position');
+                res.innerHTML='<div class="cpr-decide-out" style="border:2px solid #16a34a; background:#f0fdf4; color:#166534;"><div class="t">RECOVERY POSITION</div><div class="j">十分な呼吸（'+cprPostAgeCat+' RR &gt; '+low+'）— 回復体位</div><div class="b"><b>Guide:</b> adequate breathing but unconscious — roll onto the side (lateral, preferably left), tilt head to keep the airway open, mouth pointing down for drainage.<br><b>Protocol:</b> monitor breathing &amp; pulse continuously; reassess every 5 min (unstable) or 15 min (stable); be ready to roll back and start CPR if breathing/pulse stops. Do not use if trauma/spinal injury suspected — keep supine with a manual airway.<span class="jp" style="color:#166534;">ガイド：十分な呼吸で意識なし — 側臥位（左が望ましい）、頭部を傾け気道確保、口を下に向け排液。プロトコル：呼吸・脈を継続監視、5分（不安定）/15分（安定）毎に再評価、停止時は仰臥位に戻しCPR。外傷・脊損疑いは仰臥位で用手気道確保。</span></div></div>';
+                logAction('Post-arrest','RR high ('+cprPostAgeCat+') — Recovery Position');
             }
         }
         function cprProtoToggle(el){ el.classList.toggle('active'); }
@@ -5640,7 +5650,7 @@
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v4.6</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v4.7</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5650,7 +5660,7 @@
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km  ·  Active: ' + esc(repDuration) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v4.6</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v4.7</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5661,7 +5671,7 @@
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v4.6</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v4.7</div>';
                 html += '</div>';
             }
             html += '</body></html>';
