@@ -1,6 +1,6 @@
 // EMR Elite Navigator — Service Worker
 // Bump CACHE_VERSION whenever you publish a new build.
-const CACHE_VERSION = 'emr-nav-v4.4-cpr-flows-48';
+const CACHE_VERSION = 'emr-nav-v4.6-cpr-checklist-50';
 const ASSETS = [
   './',
   './index.html',
