@@ -522,6 +522,20 @@
         .cpr-chk-warn input { accent-color:#dc2626; }
         .cpr-chk-warn.checked { background:#f0fdf4; border-color:#86efac; }
         .cpr-chk-warn.checked .cpr-chk-txt { color:#166534; }
+        /* CPR age column highlight */
+        .cpr-cmp td, .cpr-cmp th { transition:background .15s; }
+        .cpr-cmp.age-adult th.c-adult, .cpr-cmp.age-adult td.c-adult { background:#fde68a !important; }
+        .cpr-cmp.age-child th.c-child, .cpr-cmp.age-child td.c-child { background:#bbf7d0 !important; }
+        .cpr-cmp.age-infant th.c-infant, .cpr-cmp.age-infant td.c-infant { background:#bfdbfe !important; }
+        .cpr-age-btns { display:flex; gap:8px; margin-bottom:12px; }
+        .cpr-age-btns .btn-branch { width:auto; flex:1; min-height:54px; font-size:1.02rem; padding:12px 8px; }
+        .cpr-cyc { display:flex; align-items:center; justify-content:center; gap:14px; margin-top:12px; }
+        .cpr-cyc-n { font-size:2.1rem; font-weight:900; color:#0f172a; min-width:54px; text-align:center; font-variant-numeric:tabular-nums; }
+        .cpr-cyc-lbl { font-size:0.8rem; color:#64748b; font-weight:700; }
+        .cpr-decide-out { border-radius:11px; padding:12px 14px; }
+        .cpr-decide-out .t { font-weight:900; font-size:1.05rem; }
+        .cpr-decide-out .j { font-size:0.82rem; color:#475569; margin:2px 0 6px; }
+        .cpr-decide-out .b { font-size:0.9rem; color:#0f172a; line-height:1.45; }
 
         .result-tag { width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; }
         
@@ -539,7 +553,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v4.3</h1>
+    <h1>EMR Elite Navigator v4.4</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -827,169 +841,144 @@
 
     <div class="card alert-box hidden" id="sec-cpa-guide">
         <h2>🚨 CPR &amp; AED Protocol <span class="sub-lang">(心肺蘇生・AED プロトコル)</span></h2>
-        <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:9px; padding:8px 11px; margin-bottom:12px; font-size:0.88rem; color:#1e3a8a;">☑ Tap each box as you complete it — prevents missed steps. <span class="sub-lang">各項目は実施したらタップ。手順の抜けを防止します。</span></div>
 
-        <!-- DNR / Withhold -->
+        <!-- ============ SECTION 1: Start Decision (triage-style) ============ -->
         <div class="cpr-block">
-            <div class="cpr-block-hd amber"><span class="n">!</span> Before Starting — DNR / Withhold Check <span class="jp">CPR開始前の確認</span></div>
+            <div class="cpr-block-hd"><span class="n">1</span> Start Decision — CPR or Not <span class="jp">CPR実施の判断</span></div>
             <div class="cpr-block-bd">
-                <div style="font-weight:800; color:#92400e; font-size:0.9rem; margin-bottom:5px;">📄 Sample — what a DNR order looks like <span class="sub-lang" style="font-weight:400;">(DNR指示書のサンプル)</span></div>
-                <div style="background:#fcfcf7; border:2px solid #475569; border-radius:6px; padding:12px 13px; margin-bottom:11px; font-family:'Times New Roman',Georgia,serif; color:#1e293b;">
-                    <div style="text-align:center; border-bottom:2px solid #1e293b; padding-bottom:6px; margin-bottom:8px;">
-                        <div style="font-size:0.7rem; letter-spacing:1px; color:#475569;">STATE OF ____ · DEPARTMENT OF HEALTH</div>
-                        <div style="font-size:1rem; font-weight:800;">PREHOSPITAL DO-NOT-RESUSCITATE (DNR) ORDER</div>
-                        <div style="font-size:0.7rem; color:#991b1b; font-weight:700;">EMS / FIRST RESPONDERS — HONOR THIS ORDER</div>
+                <div class="decision-tree">
+                    <div class="branch-point" id="cprq-death">
+                        <h4>Obvious signs of death? <span class="sub-lang">(明らかな死亡徴候はあるか？)</span></h4>
+                        <div style="font-size:0.8rem; color:#64748b; margin:-4px 0 8px;">Decapitation · rigor mortis · dependent lividity · decomposition · injury incompatible with life <span class="sub-lang">断頭・死後硬直・死斑・腐敗・致死的損傷</span></div>
+                        <div class="branch-btn-group">
+                            <button class="btn-branch tri-black" onclick="cprDecide('death','yes',this)">Yes <span class="sub-lang">(あり)</span></button>
+                            <button class="btn-branch" onclick="cprDecide('death','no',this)">No <span class="sub-lang">(なし)</span></button>
+                        </div>
                     </div>
-                    <div style="display:flex; justify-content:space-between; gap:8px; margin-bottom:5px;"><div><b>Patient:</b> <span style="border-bottom:1px solid #94a3b8;">&nbsp;John A. Smith&nbsp;</span></div><div><b>DOB:</b> <span style="border-bottom:1px solid #94a3b8;">&nbsp;1948-05-12&nbsp;</span></div></div>
-                    <div style="background:#fff7ed; border:1px dashed #d97706; border-radius:4px; padding:6px 8px; margin:6px 0; font-size:0.9rem;">“In the event of cardiac or respiratory arrest, <b>NO chest compressions, defibrillation, intubation, or resuscitation drugs</b> shall be administered. Provide comfort care only.”</div>
-                    <div style="display:flex; justify-content:space-between; gap:8px; margin-top:8px; font-size:0.88rem;"><div><b>Physician:</b> <span style="border-bottom:1px solid #94a3b8;">&nbsp;Dr. R. Tanaka, MD&nbsp;</span><br><i style="font-family:'Brush Script MT',cursive; font-size:1.15rem; color:#1d4ed8;">&nbsp;&nbsp;R. Tanaka&nbsp;&nbsp;</i> <span style="font-size:0.72rem; color:#64748b;">(signature)</span><br>License #: 12345</div><div style="text-align:right;"><b>Date signed:</b><br><span style="border-bottom:1px solid #94a3b8;">&nbsp;2026-01-08&nbsp;</span><br><span style="font-size:0.72rem; color:#64748b;">Valid / current</span></div></div>
+                    <div class="branch-point triage-disabled" id="cprq-dnr">
+                        <h4>Valid DNR / advance directive? <span class="sub-lang">(有効なDNR・事前指示の確認)</span></h4>
+                        <div class="branch-btn-group">
+                            <button class="btn-branch tri-black" onclick="cprDecide('dnr','yes',this)">Yes — valid DNR <span class="sub-lang">(有効なDNRあり)</span></button>
+                            <button class="btn-branch" onclick="cprDecide('dnr','no',this)">No / none <span class="sub-lang">(なし)</span></button>
+                        </div>
+                        <div id="cpr-dnr-detail" class="hidden" style="margin-top:11px; background:#fffbeb; border:1px solid #fcd34d; border-radius:9px; padding:11px 12px;">
+                            <div style="font-weight:800; color:#92400e; font-size:0.9rem; margin-bottom:6px;">📄 How to verify a DNR order <span class="sub-lang" style="font-weight:400;">(DNRの確認方法・見本)</span></div>
+                            <div style="background:#fcfcf7; border:2px solid #475569; border-radius:6px; padding:11px 12px; margin-bottom:9px; font-family:'Times New Roman',Georgia,serif; color:#1e293b;">
+                                <div style="text-align:center; border-bottom:2px solid #1e293b; padding-bottom:5px; margin-bottom:7px;"><div style="font-size:0.68rem; letter-spacing:1px; color:#475569;">STATE OF ____ · DEPARTMENT OF HEALTH</div><div style="font-size:0.95rem; font-weight:800;">PREHOSPITAL DO-NOT-RESUSCITATE (DNR) ORDER</div></div>
+                                <div style="display:flex; justify-content:space-between; gap:8px; font-size:0.86rem; margin-bottom:4px;"><div><b>Patient:</b> <span style="border-bottom:1px solid #94a3b8;">&nbsp;John A. Smith&nbsp;</span></div><div><b>DOB:</b> <span style="border-bottom:1px solid #94a3b8;">&nbsp;1948-05-12&nbsp;</span></div></div>
+                                <div style="background:#fff7ed; border:1px dashed #d97706; border-radius:4px; padding:5px 7px; margin:5px 0; font-size:0.85rem;">“In cardiac or respiratory arrest, <b>no compressions, defibrillation, intubation, or resuscitation drugs.</b> Comfort care only.”</div>
+                                <div style="display:flex; justify-content:space-between; gap:8px; font-size:0.84rem; margin-top:6px;"><div><b>Physician:</b> <span style="border-bottom:1px solid #94a3b8;">&nbsp;Dr. R. Tanaka, MD&nbsp;</span><br><i style="font-family:'Brush Script MT',cursive; font-size:1.05rem; color:#1d4ed8;">&nbsp;R. Tanaka&nbsp;</i> License #12345</div><div style="text-align:right;"><b>Date:</b><br><span style="border-bottom:1px solid #94a3b8;">&nbsp;2026-01-08&nbsp;</span></div></div>
+                            </div>
+                            <div style="font-size:0.87rem; color:#0f172a; line-height:1.5;">Confirm all four: <b>name + DOB match</b> · <b>clear do-not-resuscitate directive</b> · <b>physician signature + license</b> · <b>signed, dated, currently valid</b>. Family's verbal claim alone is not valid. Also valid: POLST / MOLST, DNR bracelet or medallion.<span class="jp">4点を確認：氏名・生年月日／明確な蘇生拒否／医師署名・免許／署名・日付・有効。家族の口頭のみは無効。POLST・ブレスレット・メダリオンも有効。</span></div>
+                        </div>
+                    </div>
+                    <div class="branch-point triage-disabled" id="cprq-bp">
+                        <h4>Breathing &amp; pulse — check together within 10 sec <span class="sub-lang">(呼吸と脈を10秒以内に同時確認)</span></h4>
+                        <div class="branch-btn-group">
+                            <button class="btn-branch tri-red" onclick="cprDecide('bp','cpr',this)">No breathing<br>&amp; no pulse <span class="sub-lang">(呼吸・脈なし)</span></button>
+                            <button class="btn-branch" onclick="cprDecide('bp','pulse',this)">Pulse present <span class="sub-lang">(脈あり)</span></button>
+                        </div>
+                    </div>
+                    <div id="cpr-decide-result" class="hidden" style="margin-top:4px;"></div>
                 </div>
-                <div style="font-size:0.82rem; color:#64748b; margin-bottom:9px;">Also valid: POLST / MOLST, DNR <b>bracelet</b> / <b>medallion</b>. Forms vary by region. <span style="display:block;">他に有効: POLST/MOLST・ブレスレット・メダリオン。様式は地域で異なる。これは見本です。</span></div>
-                <label class="cpr-chk cpr-chk-warn"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt">Checked for a valid, signed DNR / DNAR / POLST / advance directive. Family's verbal claim alone is not valid.<span class="jp">有効で署名済みの DNR/DNAR/POLST・事前指示を確認（家族の口頭のみは無効）。</span></span></label>
-                <label class="cpr-chk cpr-chk-warn"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt">Checked for obvious death signs: decapitation, rigor mortis, dependent lividity, decomposition, injuries incompatible with life.<span class="jp">明らかな死亡徴候を確認：断頭・死後硬直・死斑・腐敗・生存と両立しない損傷。</span></span></label>
-                <label class="cpr-chk cpr-chk-warn"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt">If valid DNR or obvious death: withhold resuscitation, ensure dignity, preserve the scene, document time &amp; findings, contact medical control.<span class="jp">有効なDNR・明らかな死亡時：蘇生を行わず尊厳を保ち現場保存、時刻・所見を記録、医療指示者へ連絡。</span></span></label>
-                <div class="cpr-warn" style="font-weight:900;">⚠ WHEN IN DOUBT, START CPR IMMEDIATELY.<span class="jp" style="font-weight:600;">判断に迷う場合は直ちにCPRを開始する。</span></div>
+                <div class="cpr-warn" style="font-weight:900; margin-top:11px;">⚠ WHEN IN DOUBT, START CPR IMMEDIATELY.<span class="jp" style="font-weight:600;">判断に迷う場合は直ちにCPRを開始する。</span></div>
             </div>
         </div>
 
-        <!-- Control Panel -->
-        <div class="cpr-block">
-            <div class="cpr-block-hd"><span class="n">⏱</span> CPR Control Panel <span class="jp">タイマー・メトロノーム</span></div>
-            <div class="cpr-block-bd" style="text-align:center;">
-                <div id="cpr-timer-display" style="font-size:2.6rem; font-weight:900; color:#0f172a; font-variant-numeric:tabular-nums; line-height:1; margin-bottom:6px;">00:00</div>
-                <div id="cpr-cycle-info" style="font-size:0.92rem; color:#475569; margin-bottom:10px;">Cycle —/— · Next rhythm check at 2:00</div>
-                <div style="display:flex; gap:8px; justify-content:center;">
-                    <button id="btn-cpr-start" class="btn-main-act" style="flex:1; padding:12px; font-size:0.95rem;" onclick="startCPR()">▶ CPR START</button>
-                    <button id="btn-cpr-cycle" class="btn-ok" style="flex:1; padding:12px; font-size:0.85rem; display:none;" onclick="cprCycleMark()">⟳ Rhythm Check</button>
-                    <button id="btn-cpr-stop" class="btn-danger-toggle" style="flex:1; padding:12px; font-size:0.85rem; display:none;" onclick="stopCPR()">■ STOP / ROSC</button>
-                </div>
-                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:9px; padding:10px 12px; margin-top:12px; text-align:left;">
-                    <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
-                        <span style="font-weight:700;">🎵 Compression Metronome <span class="sub-lang" style="font-weight:400;">(圧迫テンポ)</span></span>
-                        <span style="font-weight:900; font-size:1.3rem; color:#dc2626;"><span id="metro-bpm">110</span> <span style="font-size:0.78rem; color:#64748b; font-weight:600;">BPM</span></span>
-                    </div>
-                    <input type="range" id="metro-slider" min="100" max="120" step="1" value="110" oninput="setMetroBpm(this.value)" style="width:100%; margin:9px 0 3px;">
-                    <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#94a3b8;"><span>100</span><span>標準 110</span><span>120</span></div>
-                    <button id="btn-metronome" class="btn-ok cpr-metro-btn" style="width:100%; margin-top:8px; padding:11px; font-size:0.92rem;" onclick="toggleMetronome()">▶ Start Metronome <span style="font-size:0.85rem; font-weight:400;">(開始・チクタク音)</span></button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Decision: CPR vs Rescue Breathing -->
-        <div class="cpr-block">
-            <div class="cpr-block-hd"><span class="n">A</span> When to Start — CPR vs Rescue Breathing <span class="jp">開始条件の判断</span></div>
+        <!-- ============ SECTION 2: CPR Management (Equipment-style) ============ -->
+        <div class="cpr-block hidden" id="cpr-sec-manage">
+            <div class="cpr-block-hd"><span class="n">2</span> CPR Management <span class="jp">CPR実施・管理</span></div>
             <div class="cpr-block-bd">
-                <div style="font-size:0.88rem; color:#475569; margin-bottom:10px;">Check <b>breathing + pulse together within 10 sec</b>, then decide. <span class="sub-lang">呼吸と脈を10秒以内に同時確認して判断。</span></div>
-                <div class="cpr-decide">
-                    <div class="cpr-decide-card cpr-decide-cpr">
-                        <div class="cpr-decide-hd">🔴 START CPR<span>胸骨圧迫 ＋ 換気</span></div>
-                        <ul>
-                            <li>Unresponsive and <b>no normal breathing</b> (or only gasping)</li>
-                            <li><b>No pulse</b> felt within 10 sec</li>
-                            <li>Child / Infant: pulse <b>under 60/min</b> with poor perfusion (pale, mottled, weak)</li>
-                        </ul>
-                        <div class="jp" style="margin-top:5px;">反応なし＋正常呼吸なし（あえぎ含む）／脈なし。小児・乳児はHR60未満＋灌流不良でもCPR。</div>
-                        <div class="cpr-decide-act">Compressions 100–120/min immediately</div>
+                <div style="font-weight:700; margin-bottom:6px;">Patient age group <span class="sub-lang">(年齢区分を選択 — 下の表が色付きで強調されます)</span></div>
+                <div class="cpr-age-btns">
+                    <button class="btn-branch" id="cpr-age-adult" onclick="cprSetAge('adult',this)">Adult <span class="sub-lang">(成人)</span></button>
+                    <button class="btn-branch" id="cpr-age-child" onclick="cprSetAge('child',this)">Child <span class="sub-lang">(小児)</span></button>
+                    <button class="btn-branch" id="cpr-age-infant" onclick="cprSetAge('infant',this)">Infant <span class="sub-lang">(乳児)</span></button>
+                </div>
+
+                <div style="background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:13px; text-align:center; margin-bottom:12px;">
+                    <div id="cpr-timer-display" style="font-size:2.6rem; font-weight:900; color:#0f172a; font-variant-numeric:tabular-nums; line-height:1; margin-bottom:5px;">00:00</div>
+                    <div id="cpr-cycle-info" style="font-size:0.9rem; color:#475569; margin-bottom:9px;">Cycle —/— · Next rhythm check at 2:00</div>
+                    <div style="display:flex; gap:8px; justify-content:center;">
+                        <button id="btn-cpr-start" class="btn-main-act" style="flex:1; padding:12px; font-size:0.95rem;" onclick="startCPR()">▶ CPR START</button>
+                        <button id="btn-cpr-cycle" class="btn-ok" style="flex:1; padding:12px; font-size:0.85rem; display:none;" onclick="cprCycleMark()">＋1 Cycle <span style="font-size:0.78rem; font-weight:400;">(サイクル)</span></button>
+                        <button id="btn-cpr-stop" class="btn-danger-toggle" style="flex:1; padding:12px; font-size:0.85rem; display:none;" onclick="stopCPR()">■ STOP / ROSC</button>
                     </div>
-                    <div class="cpr-decide-card cpr-decide-rb">
-                        <div class="cpr-decide-hd">🔵 START RESCUE BREATHING<span>人工呼吸のみ</span></div>
-                        <ul>
-                            <li><b>Pulse present</b> but not breathing, or <b>inadequate breathing</b></li>
-                            <li>Inadequate means too slow or too fast (rates below)</li>
-                            <li>Do not wait for full apnea — start now</li>
-                        </ul>
-                        <div class="jp" style="margin-top:5px;">脈あり＋呼吸なし／不十分な呼吸（遅すぎ・速すぎ）。呼吸停止を待たず開始。</div>
-                        <div class="cpr-decide-act">Give breaths · recheck pulse every 2 min</div>
+                    <div class="cpr-cyc">
+                        <button class="btn-ok" style="width:46px; min-height:46px; padding:0; font-size:1.4rem;" onclick="cprCyc(-1)">−</button>
+                        <div><div class="cpr-cyc-n" id="cpr-cyc-n">0</div><div class="cpr-cyc-lbl">CYCLES <span class="sub-lang" style="font-weight:400;">手動カウント</span></div></div>
+                        <button class="btn-ok" style="width:46px; min-height:46px; padding:0; font-size:1.4rem;" onclick="cprCyc(1)">＋</button>
+                    </div>
+                    <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:9px; padding:10px 12px; margin-top:12px; text-align:left;">
+                        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                            <span style="font-weight:700;">🎵 Metronome <span class="sub-lang" style="font-weight:400;">(圧迫テンポ)</span></span>
+                            <span style="font-weight:900; font-size:1.3rem; color:#dc2626;"><span id="metro-bpm">110</span> <span style="font-size:0.78rem; color:#64748b; font-weight:600;">BPM</span></span>
+                        </div>
+                        <input type="range" id="metro-slider" min="100" max="120" step="1" value="110" oninput="setMetroBpm(this.value)" style="width:100%; margin:9px 0 3px;">
+                        <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#94a3b8;"><span>100</span><span>標準 110</span><span>120</span></div>
+                        <button id="btn-metronome" class="btn-ok cpr-metro-btn" style="width:100%; margin-top:8px; padding:11px; font-size:0.92rem;" onclick="toggleMetronome()">▶ Start Metronome <span style="font-size:0.85rem; font-weight:400;">(開始・チクタク音)</span></button>
                     </div>
                 </div>
-                <div class="cpr-sub" style="margin-top:10px;">
-                    <b>Inadequate breathing — start rescue breathing when RR is:</b>
-                    <ul style="margin:6px 0 0; padding-left:18px;">
-                        <li><b>Adult:</b> 10 or fewer, or 30 or more /min — 1 breath every 5–6 sec <span class="jp" style="display:inline;">成人: 10以下／30以上は5-6秒に1回</span></li>
-                        <li><b>Child:</b> 20 or fewer, or 30–40+ /min — 1 breath every 3–5 sec <span class="jp" style="display:inline;">小児: 20以下／30-40以上は3-5秒に1回</span></li>
-                        <li><b>Infant:</b> 30 or fewer, or 60 or more /min — 1 breath every 3–5 sec <span class="jp" style="display:inline;">乳児: 30以下／60以上は3-5秒に1回</span></li>
-                    </ul>
-                    <div style="color:#991b1b; font-weight:700; margin-top:6px;">⚠ Child / Infant: HR under 60 with poor perfusion means switch to CPR.<span class="jp" style="display:inline; font-weight:400;"> 小児・乳児はHR60未満＋灌流不良でCPRへ移行。</span></div>
-                    <div style="font-size:0.82rem; color:#64748b; margin-top:5px;">Each breath over 1 sec to visible chest rise; avoid over-ventilation. <span class="jp" style="display:inline;">1秒かけ胸が上がる量、過換気回避。</span></div>
-                </div>
-            </div>
-        </div>
 
-        <!-- CPR Steps checklist -->
-        <div class="cpr-block">
-            <div class="cpr-block-hd"><span class="n">B</span> CPR Steps <span class="jp">実施手順・チェック</span></div>
-            <div class="cpr-block-bd">
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt"><b>Scene safety &amp; response</b> — scene safe, PPE / BSI, tap &amp; shout. Infant: flick the soles.<span class="jp">安全確認・PPE・反応確認。乳児は足底刺激。</span></span></label>
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt"><b>Call 119 / EMS</b> and send someone for the AED.<span class="jp">119／EMS要請、AEDを取りに行かせる。</span></span></label>
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt"><b>Breathing &amp; pulse</b> — check together within 10 sec. No normal breathing or no pulse means start CPR. Pulse site: see comparison table.<span class="jp">10秒以内に呼吸と脈を同時確認。正常呼吸なし／脈なしでCPR。触知部位は比較表。</span></span></label>
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt"><b>Compressions</b> — 100–120/min (use metronome), full recoil, pauses under 10 sec. Depth &amp; hand position: see table.<span class="jp">100-120/分（メトロノーム）、完全リコイル、中断10秒未満。深さ・手の位置は比較表。</span></span></label>
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt"><b>Ventilation</b> — 30:2 (child / infant two-rescuer 15:2). One second per breath to visible chest rise; avoid over-ventilation.<span class="jp">30:2（小児・乳児の2人法は15:2）。1秒/回・胸が上がる量、過換気回避。</span></span></label>
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt"><b>AED every 2 min</b> — analyze, clear, shock if advised, resume CPR at once. Switch compressors each cycle.<span class="jp">2分毎に解析・離れる・適応ならショック・即CPR再開。2分毎に圧迫者交代。</span></span></label>
-                <label class="cpr-chk cpr-chk-warn"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt">Confirmed: compress the <b>lower half of the sternum — never the xiphoid process</b> (organ injury).<span class="jp">確認：胸骨下半分を圧迫、剣状突起は押さない（臓器損傷）。</span></span></label>
-                <label class="cpr-chk cpr-chk-warn"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt">Confirmed: <b>unwitnessed</b> child / infant collapse and <b>alone</b> — do 1 cycle (2 min) CPR first, then call EMS / get AED.<span class="jp">確認：小児・乳児で目撃なし＋単独なら、先に1サイクル(2分)CPR後に通報／AED。</span></span></label>
-            </div>
-        </div>
-
-        <!-- Comparison table -->
-        <div class="cpr-block">
-            <div class="cpr-block-hd"><span class="n">C</span> Adult / Child / Infant <span class="jp">成人・小児・乳児 比較</span></div>
-            <div class="cpr-block-bd">
-                <div class="vital-scroll"><table class="vital-table" style="font-size:0.86rem;">
-                    <thead><tr><th style="text-align:left;">Item<br><span class="sub-lang">項目</span></th><th>Adult<br><span class="sub-lang">成人</span></th><th>Child<br><span class="sub-lang">小児</span></th><th>Infant<br><span class="sub-lang">乳児</span></th></tr></thead>
+                <div style="font-weight:700; margin-bottom:5px;">Comparison <span class="sub-lang">(成人・小児・乳児 比較 — 選択年齢が強調)</span></div>
+                <div class="vital-scroll"><table class="vital-table cpr-cmp" id="cpr-cmp-table" style="font-size:0.86rem;">
+                    <thead><tr><th style="text-align:left;">Item<br><span class="sub-lang">項目</span></th><th class="c-adult">Adult<br><span class="sub-lang">成人</span></th><th class="c-child">Child<br><span class="sub-lang">小児</span></th><th class="c-infant">Infant<br><span class="sub-lang">乳児</span></th></tr></thead>
                     <tbody>
-                        <tr><td style="text-align:left;"><b>Age</b><br><span class="sub-lang">年齢</span></td><td>Puberty +<br><span class="sub-lang">思春期以上<br>(♂~11 / ♀~10)</span></td><td>1 yr – puberty<br><span class="sub-lang">1歳〜思春期</span></td><td>0 – 1 yr<br><span class="sub-lang">0〜1歳</span></td></tr>
-                        <tr><td style="text-align:left;"><b>Hands</b><br><span class="sub-lang">手の位置</span></td><td>2 hands,<br>lower ½ sternum<br><span class="sub-lang">両手・胸骨下半分</span></td><td>1 or 2 hands<br><span class="sub-lang">片手または両手</span></td><td>1 rescuer: 2 fingers<br>2 rescuer: 2-thumb encircling<br><span class="sub-lang">単独2本指 / 2人母指包込</span></td></tr>
-                        <tr><td style="text-align:left;"><b>Depth</b><br><span class="sub-lang">深さ</span></td><td>5–6 cm</td><td>~5 cm (⅓ chest)<br><span class="sub-lang">約5cm/胸郭⅓</span></td><td>~4 cm (⅓ AP)<br><span class="sub-lang">約4cm/前後径⅓</span></td></tr>
-                        <tr><td style="text-align:left;"><b>Rate</b><br><span class="sub-lang">圧迫速度</span></td><td colspan="3" style="font-weight:700;">100–120 / min <span class="sub-lang" style="font-weight:400;">(全年齢共通)</span></td></tr>
-                        <tr><td style="text-align:left;"><b>Ratio</b><br><span class="sub-lang">比率</span></td><td>30:2</td><td>30:2 (1R)<br>15:2 (2R)</td><td>30:2 (1R)<br>15:2 (2R)</td></tr>
-                        <tr><td style="text-align:left;"><b>Pulse check</b><br><span class="sub-lang">脈確認</span></td><td>Carotid<br><span class="sub-lang">頸動脈</span></td><td>Carotid / femoral<br><span class="sub-lang">頸/大腿動脈</span></td><td>Brachial<br><span class="sub-lang">上腕動脈</span></td></tr>
-                        <tr><td style="text-align:left;"><b>AED pads</b><br><span class="sub-lang">AEDパッド</span></td><td>Adult pads<br><span class="sub-lang">成人用</span></td><td>Peds (&lt;8 yr/&lt;25 kg).<br>None: adult OK (front-back)<br><span class="sub-lang">小児用。無ければ成人用可(前後)</span></td><td>Peds pads.<br>None: adult OK (front-back)<br><span class="sub-lang">小児用。無ければ成人用可(前後)</span></td></tr>
-                        <tr><td style="text-align:left;"><b>Rescue breath</b><br><span class="sub-lang">人工呼吸</span></td><td>1 / 5–6 sec<br>(10–12/min)</td><td>1 / 3–5 sec<br>(12–20/min)</td><td>1 / 3–5 sec<br>(12–20/min)</td></tr>
-                        <tr><td style="text-align:left;"><b>Inadequate RR<br>(start RB)</b><br><span class="sub-lang">不十分呼吸</span></td><td style="color:#b91c1c; font-weight:700;">≤10 or ≥30</td><td style="color:#b91c1c; font-weight:700;">≤20 or ≥30–40</td><td style="color:#b91c1c; font-weight:700;">≤30 or ≥60</td></tr>
+                        <tr><td style="text-align:left;"><b>Age</b><br><span class="sub-lang">年齢</span></td><td class="c-adult">Puberty +<br><span class="sub-lang">思春期以上</span></td><td class="c-child">1 yr – puberty<br><span class="sub-lang">1歳〜思春期</span></td><td class="c-infant">0 – 1 yr<br><span class="sub-lang">0〜1歳</span></td></tr>
+                        <tr><td style="text-align:left;"><b>Hands</b><br><span class="sub-lang">手の位置</span></td><td class="c-adult">2 hands,<br>lower ½ sternum<br><span class="sub-lang">両手・胸骨下半分</span></td><td class="c-child">1 or 2 hands<br><span class="sub-lang">片手/両手</span></td><td class="c-infant">1R: 2 fingers<br>2R: 2-thumb<br><span class="sub-lang">単独2本指/2人母指</span></td></tr>
+                        <tr><td style="text-align:left;"><b>Depth</b><br><span class="sub-lang">深さ</span></td><td class="c-adult">5–6 cm</td><td class="c-child">~5 cm (⅓)<br><span class="sub-lang">約5cm</span></td><td class="c-infant">~4 cm (⅓)<br><span class="sub-lang">約4cm</span></td></tr>
+                        <tr><td style="text-align:left;"><b>Rate</b><br><span class="sub-lang">速度</span></td><td colspan="3" style="font-weight:700;">100–120 / min <span class="sub-lang" style="font-weight:400;">(全年齢)</span></td></tr>
+                        <tr><td style="text-align:left;"><b>Ratio</b><br><span class="sub-lang">比率</span></td><td class="c-adult">30:2</td><td class="c-child">30:2 (1R)<br>15:2 (2R)</td><td class="c-infant">30:2 (1R)<br>15:2 (2R)</td></tr>
+                        <tr><td style="text-align:left;"><b>Pulse check</b><br><span class="sub-lang">脈確認</span></td><td class="c-adult">Carotid<br><span class="sub-lang">頸動脈</span></td><td class="c-child">Carotid/femoral<br><span class="sub-lang">頸/大腿</span></td><td class="c-infant">Brachial<br><span class="sub-lang">上腕動脈</span></td></tr>
+                        <tr><td style="text-align:left;"><b>AED pads</b><br><span class="sub-lang">AEDパッド</span></td><td class="c-adult">Adult<br><span class="sub-lang">成人用</span></td><td class="c-child">Peds; none: adult (front-back)<br><span class="sub-lang">小児用/無ければ成人前後</span></td><td class="c-infant">Peds; none: adult (front-back)<br><span class="sub-lang">小児用/無ければ成人前後</span></td></tr>
+                        <tr><td style="text-align:left;"><b>Rescue breath</b><br><span class="sub-lang">人工呼吸</span></td><td class="c-adult">1 / 5–6 sec</td><td class="c-child">1 / 3–5 sec</td><td class="c-infant">1 / 3–5 sec</td></tr>
+                        <tr><td style="text-align:left;"><b>Inadequate RR</b><br><span class="sub-lang">不十分呼吸</span></td><td class="c-adult" style="color:#b91c1c; font-weight:700;">≤10 or ≥30</td><td class="c-child" style="color:#b91c1c; font-weight:700;">≤20 or ≥30–40</td><td class="c-infant" style="color:#b91c1c; font-weight:700;">≤30 or ≥60</td></tr>
                     </tbody>
                 </table></div>
-            </div>
-        </div>
 
-        <!-- AED checklist -->
-        <div class="cpr-block">
-            <div class="cpr-block-hd"><span class="n">D</span> AED — Philips HeartStart HS1 <span class="jp">AED 使用手順・チェック</span></div>
-            <div class="cpr-block-bd">
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt">Press the green <b>ON/OFF</b> button — device self-tests.<span class="jp">緑のON/OFFボタン。電源ON・セルフテスト。</span></span></label>
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt">Expose chest; dry if wet; shave only if hair blocks pad contact.<span class="jp">胸部露出・濡れは拭く・必要時のみ剃毛。</span></span></label>
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt">Apply pads per diagram: upper-right chest &amp; lower-left side. Pad type: see table.<span class="jp">図の通り右上胸・左下側に貼付。パッド区分は比較表。</span></span></label>
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt">Plug the pads connector into the flashing port.<span class="jp">点滅コネクタに接続。</span></span></label>
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt">Stop touching — let the AED analyze the rhythm.<span class="jp">患者から離れAEDが解析。</span></span></label>
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt">If shock advised: shout "I'm clear, you're clear, everybody clear!" then press the orange Shock button.<span class="jp">適応時「離れろ」と確認しオレンジボタン。</span></span></label>
-                <label class="cpr-chk"><input type="checkbox" onchange="cprCheckToggle(this)"><span class="cpr-chk-txt">Resume CPR for 2 min; AED re-analyzes every 2 min until ALS arrives.<span class="jp">直ちに2分CPR再開、2分毎に再解析しALSまで継続。</span></span></label>
-                <div style="background:#f0fdfa; border:1px solid #5eead4; border-radius:8px; padding:8px 10px; margin-top:9px;">
-                    <div style="font-weight:800; color:#0f766e; font-size:0.9rem; margin-bottom:4px;">🔊 Philips AED Voice Prompts <span class="sub-lang" style="font-weight:400;">(音声ガイド・日本語解説)</span></div>
-                    <div style="font-size:0.86rem; color:#475569; margin-bottom:6px;">Tap 🔊 to hear each prompt. <span class="sub-lang">タップで各音声を再生。</span></div>
+                <div style="font-weight:700; margin:14px 0 6px;">Protocol &amp; precautions checklist <span class="sub-lang">(プロトコル・注意チェック)</span></div>
+                <div class="equip-grid">
+                    <div class="equip-item" onclick="this.classList.toggle('active')">Compressions 100–120/min, full recoil, pauses under 10 sec <span class="sub-lang">圧迫100-120/分・完全リコイル・中断10秒未満</span></div>
+                    <div class="equip-item" onclick="this.classList.toggle('active')">Lower half of sternum — not the xiphoid process <span class="sub-lang">胸骨下半分・剣状突起は押さない</span></div>
+                    <div class="equip-item" onclick="this.classList.toggle('active')">Ventilation 30:2 (child/infant 2-rescuer 15:2) <span class="sub-lang">換気30:2（小児・乳児2人法15:2）</span></div>
+                    <div class="equip-item" onclick="this.classList.toggle('active')">BVM: check inside the mouth each breath <span class="sub-lang">BVMは毎回口腔内を確認</span></div>
+                    <div class="equip-item" onclick="this.classList.toggle('active')">AED analyze every 2 min, switch compressors <span class="sub-lang">AED2分毎解析・圧迫者交代</span></div>
+                    <div class="equip-item" onclick="this.classList.toggle('active')">Unwitnessed child/infant &amp; alone: 1 cycle CPR first <span class="sub-lang">小児・乳児目撃なし＋単独は先に1サイクル</span></div>
+                </div>
+
+                <div style="background:#f0fdfa; border:1px solid #5eead4; border-radius:8px; padding:9px 11px; margin-top:12px;">
+                    <div style="font-weight:800; color:#0f766e; font-size:0.9rem; margin-bottom:4px;">🔊 Philips AED Voice Prompts <span class="sub-lang" style="font-weight:400;">(音声ガイド)</span></div>
                     <div id="aed-prompts-list"></div>
                 </div>
             </div>
         </div>
 
-        <!-- ROSC & Stop -->
-        <div class="cpr-block">
-            <div class="cpr-block-hd green"><span class="n">✓</span> ROSC &amp; When to Stop CPR <span class="jp">心拍再開・中止基準</span></div>
+        <!-- ============ SECTION 3: ROSC / Post-arrest (triage-style) ============ -->
+        <div class="cpr-block hidden" id="cpr-sec-post">
+            <div class="cpr-block-hd green"><span class="n">3</span> After ROSC / Pulse Present <span class="jp">心拍再開後・脈あり</span></div>
             <div class="cpr-block-bd">
                 <div class="cpr-sub" style="border-color:#86efac; background:#f0fdf4;">
-                    <b>Signs of ROSC</b> — at a rhythm check: palpable pulse, normal breathing, coughing, movement, or eye opening.
-                    <div class="jp">ROSCの徴候：リズムチェック時に脈触知・正常呼吸・咳・体動・開眼など。</div>
-                    <div style="margin-top:5px;">Then stop compressions. Maintain airway, support ventilation if RR under 10, target SpO₂ 94–99%, keep AED pads on, monitor every 5 min, prepare for re-arrest, rapid transport.</div>
-                    <div class="jp">圧迫中止。気道維持・RR10未満は補助換気・SpO₂94-99%・AED装着継続・5分毎再評価・再心停止に備え迅速搬送。</div>
+                    <b>ROSC signs:</b> palpable pulse · normal breathing · coughing · movement · eye opening.
+                    <div class="jp">ROSC徴候：脈触知・正常呼吸・咳・体動・開眼。</div>
+                    <div style="margin-top:5px;"><b>ROSC care:</b> maintain airway · support ventilation if RR under 10 · target SpO₂ 94–99% · keep AED pads on · monitor every 5 min · prepare for re-arrest · rapid transport.</div>
+                    <div class="jp">ROSCケア：気道維持・RR10未満は補助換気・SpO₂94-99%・AED装着継続・5分毎再評価・再心停止に備え迅速搬送。</div>
                 </div>
-                <div class="cpr-sub">
-                    <b>Otherwise, only stop CPR when:</b>
-                    <ul style="margin:6px 0 0; padding-left:18px;">
-                        <li>ALS / physician / hospital takes over. <span class="jp" style="display:inline;">ALS・医師・病院へ引き継ぎ</span></li>
-                        <li>A valid DNR / advance directive is presented. <span class="jp" style="display:inline;">有効なDNR提示</span></li>
-                        <li>Scene becomes unsafe. <span class="jp" style="display:inline;">現場が危険</span></li>
-                        <li>Rescuer physically exhausted. <span class="jp" style="display:inline;">救助者の疲労で継続不能</span></li>
-                        <li>Termination ordered by medical control. <span class="jp" style="display:inline;">医療指示者の中止指示</span></li>
-                    </ul>
-                    <div style="font-weight:800; color:#991b1b; margin-top:6px;">⚠ Never stop just because it "feels too long."<span class="jp" style="display:block; font-weight:600;">「長すぎる」という理由だけで中止しない。</span></div>
+                <div style="font-weight:700; margin:12px 0 6px;">Post-arrest flow <span class="sub-lang">(年齢区分・呼吸数で判断)</span></div>
+                <div class="decision-tree">
+                    <div class="branch-point" id="cprp-age">
+                        <h4>Patient age group <span class="sub-lang">(年齢区分)</span></h4>
+                        <div class="cpr-age-btns">
+                            <button class="btn-branch" onclick="cprPostAge('adult',this)">Adult <span class="sub-lang">(成人)</span></button>
+                            <button class="btn-branch" onclick="cprPostAge('child',this)">Child <span class="sub-lang">(小児)</span></button>
+                            <button class="btn-branch" onclick="cprPostAge('infant',this)">Infant <span class="sub-lang">(乳児)</span></button>
+                        </div>
+                    </div>
+                    <div class="branch-point triage-disabled" id="cprp-rr">
+                        <h4>Respiratory rate / min <span class="sub-lang">(呼吸数を入力)</span></h4>
+                        <input type="number" id="cprp-rr-input" class="input-text" inputmode="numeric" placeholder="例: 16" oninput="cprPostRR()" style="width:100%; box-sizing:border-box; font-size:1.1rem; text-align:center;">
+                        <div id="cprp-rr-hint" style="font-size:0.8rem; color:#64748b; margin-top:6px;"></div>
+                    </div>
+                    <div id="cprp-result" class="hidden" style="margin-top:4px;"></div>
                 </div>
             </div>
         </div>
@@ -4143,8 +4132,73 @@
 
         function cprCheckToggle(cb){ const row=cb.closest('.cpr-chk'); if(row) row.classList.toggle('checked', cb.checked); }
         function resetCprChecks(){ document.querySelectorAll('#sec-cpa-guide .cpr-chk').forEach(r=>{ r.classList.remove('checked'); const cb=r.querySelector('input'); if(cb) cb.checked=false; }); }
+        let cprActiveAge=null, cprPostAgeCat=null, cprManualCycles=0;
+        const CPR_RR_RANGE={adult:{low:10,high:30,br:'1 breath every 5–6 sec (10–12/min)',jp:'5-6秒に1回'},child:{low:20,high:30,br:'1 breath every 3–5 sec (12–20/min)',jp:'3-5秒に1回'},infant:{low:30,high:60,br:'1 breath every 3–5 sec (12–20/min)',jp:'3-5秒に1回'}};
+        function cprMarkBranch(btn){ const node=btn.closest('.branch-point'); node.querySelectorAll('.btn-branch').forEach(b=>b.classList.remove('active','triage-chosen')); btn.classList.add('active','triage-chosen'); }
+        function cprEnableNode(id,on){ const e=document.getElementById(id); if(e) e.classList.toggle('triage-disabled', !on); }
+        function cprShow(id,on){ const e=document.getElementById(id); if(e) e.classList.toggle('hidden', !on); }
+        function cprDecideOut(bg,border,color,t,j,b){ const r=document.getElementById('cpr-decide-result'); r.classList.remove('hidden'); r.innerHTML='<div class="cpr-decide-out" style="border:2px solid '+border+'; background:'+bg+'; color:'+color+';"><div class="t">'+t+'</div><div class="j">'+j+'</div><div class="b">'+b+'</div></div>'; }
+        function cprDecide(q,choice,btn){
+            cprMarkBranch(btn);
+            if(q==='death'){
+                if(choice==='yes'){ cprEnableNode('cprq-dnr',false); cprEnableNode('cprq-bp',false); cprShow('cpr-sec-manage',false); cprShow('cpr-sec-post',false); document.getElementById('cpr-dnr-detail').classList.add('hidden');
+                    cprDecideOut('#f1f5f9','#0f172a','#0f172a','DO NOT START CPR — obvious death','明らかな死亡。蘇生は行わない','Withhold resuscitation, preserve the scene, document time and findings, contact medical control.');
+                    logAction('CPR Decision','Obvious death — withhold');
+                } else { cprEnableNode('cprq-dnr',true); cprEnableNode('cprq-bp',false); document.getElementById('cpr-dnr-detail').classList.add('hidden'); document.getElementById('cpr-decide-result').classList.add('hidden'); }
+            } else if(q==='dnr'){
+                if(choice==='yes'){ document.getElementById('cpr-dnr-detail').classList.remove('hidden'); cprEnableNode('cprq-bp',false); cprShow('cpr-sec-manage',false);
+                    cprDecideOut('#fffbeb','#d97706','#92400e','WITHHOLD — valid DNR','有効なDNR。蘇生を差し控える','Honor the order: comfort care only, document, contact medical control. Verify the four points shown.');
+                    logAction('CPR Decision','Valid DNR — withhold');
+                } else { document.getElementById('cpr-dnr-detail').classList.add('hidden'); cprEnableNode('cprq-bp',true); document.getElementById('cpr-decide-result').classList.add('hidden'); }
+            } else if(q==='bp'){
+                if(choice==='cpr'){ cprShow('cpr-sec-post',false); cprShow('cpr-sec-manage',true);
+                    cprDecideOut('#fef2f2','#dc2626','#991b1b','START CPR NOW','直ちにCPR開始','No normal breathing and no pulse. Begin compressions 100–120/min and use CPR Management below.');
+                    logAction('CPR Decision','No breathing/no pulse — START CPR');
+                    setTimeout(()=>{ const e=document.getElementById('cpr-sec-manage'); if(e) e.scrollIntoView({behavior:'smooth',block:'start'}); },120);
+                } else { cprShow('cpr-sec-manage',false); cprShow('cpr-sec-post',true);
+                    cprDecideOut('#eff6ff','#2563eb','#1d4ed8','PULSE PRESENT — do not compress','脈あり。圧迫はしない','Use the post-arrest flow below: choose age group, enter RR, then rescue breathing or ongoing assessment.');
+                    logAction('CPR Decision','Pulse present — post-arrest flow');
+                    setTimeout(()=>{ const e=document.getElementById('cpr-sec-post'); if(e) e.scrollIntoView({behavior:'smooth',block:'start'}); },120);
+                }
+            }
+        }
+        function cprSetAge(cat,btn){
+            ['adult','child','infant'].forEach(c=>{ const b=document.getElementById('cpr-age-'+c); if(b) b.classList.remove('active'); });
+            btn.classList.add('active'); cprActiveAge=cat;
+            const t=document.getElementById('cpr-cmp-table'); if(t){ t.classList.remove('age-adult','age-child','age-infant'); t.classList.add('age-'+cat); }
+            logAction('CPR Age', cat);
+        }
+        function cprCyc(d){ cprManualCycles=Math.max(0,cprManualCycles+d); const n=document.getElementById('cpr-cyc-n'); if(n) n.innerText=cprManualCycles; logAction('CPR Cycle','Manual cycles: '+cprManualCycles); }
+        function cprPostAge(cat,btn){ cprMarkBranch(btn); cprPostAgeCat=cat; cprEnableNode('cprp-rr',true); const h=document.getElementById('cprp-rr-hint'); if(h){ const th=CPR_RR_RANGE[cat]; h.innerText='Inadequate if RR ≤ '+th.low+' or ≥ '+th.high+' /min ('+cat+').'; } cprPostRR(); }
+        function cprPostRR(){
+            if(!cprPostAgeCat) return;
+            const res=document.getElementById('cprp-result');
+            const raw=(document.getElementById('cprp-rr-input')||{}).value;
+            const v=parseFloat(raw);
+            if(raw===''||isNaN(v)){ res.classList.add('hidden'); res.innerHTML=''; return; }
+            const th=CPR_RR_RANGE[cprPostAgeCat];
+            res.classList.remove('hidden');
+            if(v<=th.low || v>=th.high){
+                res.innerHTML='<div class="cpr-decide-out" style="border:2px solid #2563eb; background:#eff6ff; color:#1d4ed8;"><div class="t">RESCUE BREATHING</div><div class="j">不十分な呼吸 — 人工呼吸</div><div class="b">Inadequate breathing (RR '+v+'). Give '+th.br+' to visible chest rise; recheck pulse every 2 min. Child/Infant: if HR under 60 with poor perfusion, start CPR.<span class="jp" style="display:block; color:#1d4ed8;">人工呼吸 '+th.jp+'、胸が上がる量。2分毎に脈確認。小児・乳児はHR60未満＋灌流不良でCPR。</span></div></div>';
+                logAction('Post-arrest','RR '+v+' ('+cprPostAgeCat+') — Rescue Breathing');
+            } else {
+                res.innerHTML='<div class="cpr-decide-out" style="border:2px solid #16a34a; background:#f0fdf4; color:#166534;"><div class="t">ONGOING ASSESSMENT</div><div class="j">十分な呼吸 — 継続観察</div><div class="b">Adequate breathing (RR '+v+'). Monitor airway, breathing, pulse, skin, SpO₂. Reassess vitals every 15 min if stable, every 5 min if unstable.<span class="jp" style="display:block; color:#166534;">十分な呼吸。気道・呼吸・脈・皮膚・SpO₂を監視。安定15分毎／不安定5分毎に再評価。</span></div></div>';
+                logAction('Post-arrest','RR '+v+' ('+cprPostAgeCat+') — Ongoing Assessment');
+            }
+        }
+        function cprResetFlow(){
+            ['cprq-death','cprq-dnr','cprq-bp','cprp-age','cprp-rr'].forEach(id=>{ const n=document.getElementById(id); if(n) n.querySelectorAll('.btn-branch').forEach(b=>b.classList.remove('active','triage-chosen')); });
+            cprEnableNode('cprq-dnr',false); cprEnableNode('cprq-bp',false); cprEnableNode('cprp-rr',false);
+            ['cpr-decide-result','cpr-dnr-detail','cpr-sec-manage','cpr-sec-post','cprp-result'].forEach(id=>{ const e=document.getElementById(id); if(e) e.classList.add('hidden'); });
+            ['adult','child','infant'].forEach(c=>{ const b=document.getElementById('cpr-age-'+c); if(b) b.classList.remove('active'); });
+            const t=document.getElementById('cpr-cmp-table'); if(t) t.classList.remove('age-adult','age-child','age-infant');
+            cprActiveAge=null; cprPostAgeCat=null; cprManualCycles=0;
+            const n=document.getElementById('cpr-cyc-n'); if(n) n.innerText='0';
+            const rri=document.getElementById('cprp-rr-input'); if(rri) rri.value='';
+            document.querySelectorAll('#sec-cpa-guide .equip-item.active').forEach(e=>e.classList.remove('active'));
+        }
         function triggerCPA() {
-            resetCprChecks();
+            cprResetFlow();
             logAction('CRITICAL', 'CPA Detected. Emergency Protocol Activation.');
             document.getElementById('sec-primary').classList.add('hidden'); document.getElementById('sec-branch').classList.add('hidden');
             const cpa = document.getElementById('sec-cpa-guide');
@@ -4252,7 +4306,7 @@
         }
         function startCPR() {
             cprStartedAt = new Date();
-            cprCycleCount = 0;
+            cprCycleCount = 0; cprManualCycles = 0; const _cn0=document.getElementById('cpr-cyc-n'); if(_cn0) _cn0.innerText='0';
             const ts = cprStartedAt.toLocaleTimeString();
             logAction('CPR START', `Compressions started at ${ts} — 100-120/min, 5-6cm depth, 30:2 with BVM`);
             document.getElementById('btn-cpr-start').style.display = 'none';
@@ -4267,6 +4321,7 @@
             const sec = cprStartedAt ? Math.floor((Date.now() - cprStartedAt.getTime()) / 1000) : 0;
             const mm = Math.floor(sec / 60); const ss = sec % 60;
             logAction('CPR Cycle Mark', `Cycle ${cprCycleCount} at ${mm}:${ss.toString().padStart(2,'0')} — rhythm check / shock if advised`);
+            cprManualCycles = cprCycleCount; const _cn=document.getElementById('cpr-cyc-n'); if(_cn) _cn.innerText=cprManualCycles;
             updateCprDisplay();
         }
         function stopCPR() {
@@ -4280,6 +4335,8 @@
             document.getElementById('btn-cpr-start').innerText = '▶ CPR RESTART';
             document.getElementById('btn-cpr-cycle').style.display = 'none';
             document.getElementById('btn-cpr-stop').style.display = 'none';
+            cprShow('cpr-sec-post', true);
+            setTimeout(()=>{ const e=document.getElementById('cpr-sec-post'); if(e) e.scrollIntoView({behavior:'smooth',block:'start'}); },120);
         }
         function updateCprDisplay() {
             if (!cprStartedAt) return;
@@ -5529,7 +5586,7 @@
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v4.3</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v4.4</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5539,7 +5596,7 @@
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km  ·  Active: ' + esc(repDuration) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v4.3</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v4.4</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5550,7 +5607,7 @@
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v4.3</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v4.4</div>';
                 html += '</div>';
             }
             html += '</body></html>';
