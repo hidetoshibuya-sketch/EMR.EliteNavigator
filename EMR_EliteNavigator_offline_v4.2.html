@@ -896,6 +896,34 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
         .cpr-sub:last-child { margin-bottom:0; }
         .cpr-sub .jp { color:#64748b; font-size:0.85rem; }
         .cpr-metro-btn.active { background:#dc2626 !important; color:#fff !important; }
+        /* polish */
+        .cpr-block-hd { background:linear-gradient(135deg,#0f172a,#1e293b); letter-spacing:.3px; }
+        .cpr-block-hd.amber { background:linear-gradient(135deg,#b45309,#92400e); }
+        .cpr-block-hd.green { background:linear-gradient(135deg,#15803d,#166534); }
+        .cpr-block-hd.teal  { background:linear-gradient(135deg,#0f766e,#115e59); }
+        .cpr-block-bd { font-size:0.95rem; }
+        .cpr-block .vital-table td, .cpr-block .vital-table th { padding:7px 8px; }
+        .cpr-block .vital-table tbody tr:nth-child(odd) { background:#f8fafc; }
+        .cpr-block .vital-table tbody td:first-child { background:#eef2f7; }
+        .cpr-seq > li::before { background:linear-gradient(135deg,#ef4444,#b91c1c); box-shadow:0 1px 2px rgba(185,28,28,.4); }
+        /* CPR vs Rescue Breathing decision cards */
+        .cpr-decide { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+        @media (max-width:600px){ .cpr-decide { grid-template-columns:1fr; } }
+        .cpr-decide-card { border-radius:12px; padding:11px 13px; border:2px solid; }
+        .cpr-decide-cpr { background:#fef2f2; border-color:#dc2626; }
+        .cpr-decide-rb  { background:#eff6ff; border-color:#2563eb; }
+        .cpr-decide-hd { font-weight:900; font-size:1rem; margin-bottom:7px; display:flex; flex-direction:column; line-height:1.2; }
+        .cpr-decide-cpr .cpr-decide-hd { color:#991b1b; }
+        .cpr-decide-rb .cpr-decide-hd { color:#1d4ed8; }
+        .cpr-decide-hd span { font-weight:400; font-size:0.76rem; color:#64748b; margin-top:2px; }
+        .cpr-decide-card ul { margin:0; padding-left:17px; font-size:0.88rem; line-height:1.5; color:#0f172a; }
+        .cpr-decide-act { margin-top:8px; font-weight:800; font-size:0.85rem; padding:6px 9px; border-radius:8px; text-align:center; }
+        .cpr-decide-cpr .cpr-decide-act { background:#dc2626; color:#fff; }
+        .cpr-decide-rb .cpr-decide-act { background:#2563eb; color:#fff; }
+        /* RR rescue-breathing warning banner */
+        .rb-warn { display:none; margin-top:10px; border:2px solid #dc2626; background:#fef2f2; border-radius:10px; padding:10px 12px; color:#991b1b; font-size:0.92rem; line-height:1.5; box-shadow:0 1px 3px rgba(220,38,38,.18); }
+        .rb-warn b { color:#7f1d1d; }
+        .rb-warn .rbttl { font-weight:900; font-size:0.96rem; display:flex; align-items:center; gap:7px; margin-bottom:4px; }
 
         .result-tag { width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; }
         
@@ -913,7 +941,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v4.1 (Offline)</h1>
+    <h1>EMR Elite Navigator v4.2 (Offline)</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -1283,9 +1311,49 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             </div>
         </div>
 
+        <!-- ===== STEP 1: Start Decision (CPR vs Rescue Breathing) ===== -->
+        <div class="cpr-block">
+            <div class="cpr-block-hd"><span class="n">1</span> When to Start — CPR vs Rescue Breathing <span class="jp">開始条件の判断</span></div>
+            <div class="cpr-block-bd">
+                <div style="font-size:0.88rem; color:#475569; margin-bottom:10px;">Check <b>breathing + pulse together in ≤ 10 sec</b>, then decide. <span class="jp" style="display:inline;">呼吸と脈を10秒以内に同時確認して判断。</span></div>
+                <div class="cpr-decide">
+                    <div class="cpr-decide-card cpr-decide-cpr">
+                        <div class="cpr-decide-hd">🔴 START CPR<span>胸骨圧迫 ＋ 換気</span></div>
+                        <ul>
+                            <li>Unresponsive + <b>no normal breathing</b> (or only gasping)</li>
+                            <li><b>No pulse</b> felt within 10 sec</li>
+                            <li>Child / Infant: pulse <b>&lt; 60/min</b> + poor perfusion (pale, mottled, weak)</li>
+                        </ul>
+                        <div class="jp" style="margin-top:5px;">反応なし＋正常呼吸なし（あえぎ含む）／脈なし。小児・乳児はHR&lt;60＋灌流不良でもCPR。</div>
+                        <div class="cpr-decide-act">→ Compressions 100–120/min now</div>
+                    </div>
+                    <div class="cpr-decide-card cpr-decide-rb">
+                        <div class="cpr-decide-hd">🔵 START RESCUE BREATHING<span>人工呼吸のみ</span></div>
+                        <ul>
+                            <li><b>Pulse PRESENT</b> but not breathing, or <b>inadequate breathing</b></li>
+                            <li>Inadequate = too slow OR too fast (rates below)</li>
+                            <li>Don't wait for full apnea — start now</li>
+                        </ul>
+                        <div class="jp" style="margin-top:5px;">脈あり＋呼吸なし／不十分な呼吸（遅すぎ・速すぎ）。呼吸停止を待たず開始。</div>
+                        <div class="cpr-decide-act">→ Breaths + recheck pulse every 2 min</div>
+                    </div>
+                </div>
+                <div class="cpr-sub" style="margin-top:10px;">
+                    <b>Inadequate breathing — start rescue breathing if RR:</b>
+                    <ul style="margin:6px 0 0; padding-left:18px;">
+                        <li><b>Adult:</b> ≤ 10 or ≥ 30 /min → 1 breath / 5–6 sec <span class="jp" style="display:inline;">成人: 10以下/30以上 → 5-6秒に1回</span></li>
+                        <li><b>Child:</b> ≤ 20 or ≥ 30–40 /min → 1 breath / 3–5 sec <span class="jp" style="display:inline;">小児: 20以下/30-40以上 → 3-5秒に1回</span></li>
+                        <li><b>Infant:</b> ≤ 30 or ≥ 60 /min → 1 breath / 3–5 sec <span class="jp" style="display:inline;">乳児: 30以下/60以上 → 3-5秒に1回</span></li>
+                    </ul>
+                    <div style="color:#991b1b; font-weight:700; margin-top:6px;">⚠ Child / Infant: HR &lt; 60 + poor perfusion → switch to CPR.<span class="jp" style="display:inline; font-weight:400;"> 小児・乳児はHR&lt;60＋灌流不良でCPRへ移行。</span></div>
+                    <div style="font-size:0.82rem; color:#64748b; margin-top:5px;">Each breath over 1 sec to visible chest rise; avoid over-ventilation. <span class="jp" style="display:inline;">1秒かけ胸が上がる量、過換気回避。</span></div>
+                </div>
+            </div>
+        </div>
+
         <!-- ===== STEP 1: Sequence (replaces flowchart) ===== -->
         <div class="cpr-block">
-            <div class="cpr-block-hd"><span class="n">1</span> CPR Sequence <span class="jp">実施手順</span></div>
+            <div class="cpr-block-hd"><span class="n">2</span> CPR Sequence <span class="jp">実施手順</span></div>
             <div class="cpr-block-bd">
                 <ol class="cpr-seq">
                     <li><b>Safety &amp; Response</b> — scene safe, PPE/BSI, tap &amp; shout. Infant: flick soles.<span class="jp">安全確認・PPE・反応確認。乳児は足底刺激。</span></li>
@@ -1302,7 +1370,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 
         <!-- ===== STEP 2: Age comparison table ===== -->
         <div class="cpr-block">
-            <div class="cpr-block-hd"><span class="n">2</span> Adult / Child / Infant <span class="jp">成人・小児・乳児 比較</span></div>
+            <div class="cpr-block-hd"><span class="n">3</span> Adult / Child / Infant <span class="jp">成人・小児・乳児 比較</span></div>
             <div class="cpr-block-bd">
                 <div class="vital-scroll"><table class="vital-table" style="font-size:0.86rem;">
                     <thead>
@@ -1316,31 +1384,10 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
                         <tr><td style="text-align:left;"><b>Ratio</b><br><span class="sub-lang">比率</span></td><td>30:2</td><td>30:2 (1R)<br>15:2 (2R)</td><td>30:2 (1R)<br>15:2 (2R)</td></tr>
                         <tr><td style="text-align:left;"><b>Pulse check</b><br><span class="sub-lang">脈確認</span></td><td>Carotid<br><span class="sub-lang">頸動脈</span></td><td>Carotid / femoral<br><span class="sub-lang">頸/大腿動脈</span></td><td>Brachial<br><span class="sub-lang">上腕動脈</span></td></tr>
                         <tr><td style="text-align:left;"><b>AED pads</b><br><span class="sub-lang">AEDパッド</span></td><td>Adult pads<br><span class="sub-lang">成人用</span></td><td>Peds (&lt;8 yr/&lt;25 kg).<br><b>None → adult OK</b> (front-back)<br><span class="sub-lang">小児用。無ければ成人用可(前後)</span></td><td>Peds pads.<br><b>None → adult OK</b> (front-back)<br><span class="sub-lang">小児用。無ければ成人用可(前後)</span></td></tr>
+                        <tr><td style="text-align:left;"><b>Rescue breath</b><br><span class="sub-lang">人工呼吸</span></td><td>1 / 5–6 sec<br>(10–12/min)</td><td>1 / 3–5 sec<br>(12–20/min)</td><td>1 / 3–5 sec<br>(12–20/min)</td></tr>
+                        <tr><td style="text-align:left;"><b>Inadequate RR<br>→ start RB</b><br><span class="sub-lang">不十分呼吸→人工呼吸</span></td><td style="color:#b91c1c; font-weight:700;">≤10 or ≥30</td><td style="color:#b91c1c; font-weight:700;">≤20 or ≥30–40</td><td style="color:#b91c1c; font-weight:700;">≤30 or ≥60</td></tr>
                     </tbody>
                 </table></div>
-            </div>
-        </div>
-
-        <!-- ===== STEP 3: Rescue Breathing ===== -->
-        <div class="cpr-block">
-            <div class="cpr-block-hd teal"><span class="n">3</span> Rescue Breathing — pulse present <span class="jp">レスキューブリージング</span></div>
-            <div class="cpr-block-bd">
-                <div class="cpr-sub">
-                    <b>"Inadequate breathing" (too slow OR too fast) — give rescue breaths even with a pulse; don't wait for full apnea.</b>
-                    <div class="jp">「不十分な呼吸」(遅すぎ・速すぎ) は脈があっても人工呼吸を開始。呼吸停止を待たない。</div>
-                    <ul style="margin:6px 0 0; padding-left:18px;">
-                        <li><b>Adult:</b> ≤ 10 or ≥ 30 /min <span class="jp" style="display:inline;">成人: 10回以下 または 30回以上</span></li>
-                        <li><b>Child:</b> ≤ 20 or ≥ 30–40 /min <span class="jp" style="display:inline;">小児: 20回以下 または 30〜40回以上</span></li>
-                        <li><b>Infant:</b> ≤ 30 or ≥ 60 /min <span class="jp" style="display:inline;">乳児: 30回以下 または 60回以上</span></li>
-                    </ul>
-                </div>
-                <div class="cpr-sub">
-                    <ul style="margin:0; padding-left:18px;">
-                        <li><b>Rate:</b> Adult 1 breath / 5–6 sec · Child &amp; Infant 1 breath / 3–5 sec. Each over 1 sec to visible chest rise. <span class="jp" style="display:inline;">成人5-6秒/回、小児・乳児3-5秒/回。1秒かけ胸が上がる量。</span></li>
-                        <li><b>Pulse check every 2 min</b> during rescue breathing. <span class="jp" style="display:inline;">2分毎に脈確認。</span></li>
-                        <li style="color:#991b1b;"><b>Child / Infant: HR &lt; 60 /min with poor perfusion → start CPR.</b> <span class="jp" style="display:inline; color:#b91c1c;">小児・乳児はHR&lt;60＋灌流不良でCPR開始。</span></li>
-                    </ul>
-                </div>
             </div>
         </div>
 
@@ -1654,6 +1701,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             </thead>
             <tbody id="trauma-vitals-tbody"></tbody>
         </table></div>
+        <div id="rb-warning-tv" class="rb-warn"></div>
         <button class="btn-save" style="width:100%; margin-top:8px; background-color:var(--secondary);" onclick="saveTraumaVitals()">Save All 5 Vital Sets <span style="font-size:0.92rem; font-weight:400;">(全バイタルを保存)</span></button>
         <div id="trauma-oxygen-advisory" class="guide-box alert-box hidden" style="margin-top:8px;">
             ⚠️ <strong>O₂ Administration Recommended <span class="sub-lang">(酸素投与を推奨)</span></strong>
@@ -1868,6 +1916,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             </thead>
             <tbody id="vitals-tbody"></tbody>
         </table></div>
+        <div id="rb-warning-v" class="rb-warn"></div>
         <button class="btn-save" style="width:100%; margin-top:8px; background-color:var(--secondary);" onclick="saveMedicalVitals()">Save All 5 Vital Sets <span style="font-size:0.92rem; font-weight:400;">(全バイタルを保存)</span></button>
 
         <details style="margin-top:12px; background:#f0f9ff; border:1px solid #38bdf8; border-radius:8px; padding:0;">
@@ -3696,6 +3745,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
                     if (inp.value && inp.value !== inp.dataset.placeholder) inp.classList.add('confirmed');
                     else inp.classList.remove('confirmed');
                     checkOxygenAdvisory();
+                    checkRescueBreathing(prefix);
                 });
             });
         }
@@ -5232,6 +5282,37 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             return out;
         }
 
+        function getPatientAgeCat(){
+            const el=document.getElementById('info-age'); if(!el) return null;
+            const v=parseFloat(el.value); if(isNaN(v)) return null;
+            if(v<1) return 'infant'; if(v<12) return 'child'; return 'adult';
+        }
+        const RB_RR_THRESH={ infant:{low:30,high:60,jp:'乳児',en:'Infant'}, child:{low:20,high:30,jp:'小児',en:'Child'}, adult:{low:10,high:30,jp:'成人',en:'Adult'} };
+        function checkRescueBreathing(prefix){
+            const warnEl=document.getElementById('rb-warning-'+prefix); if(!warnEl) return;
+            const cat=getPatientAgeCat();
+            if(!cat){ warnEl.style.display='none'; warnEl.innerHTML=''; return; }
+            const th=RB_RR_THRESH[cat]; const hits=[];
+            for(let i=0;i<5;i++){
+                const el=document.getElementById(prefix+'-'+i+'-rr'); if(!el) continue;
+                const raw=(el.value||'').trim(); if(!raw||raw===el.dataset.placeholder) continue;
+                const rr=parseFloat(raw); if(isNaN(rr)) continue;
+                if(rr<=th.low) hits.push({set:i+1,rr:rr,kind:'low'});
+                else if(rr>=th.high) hits.push({set:i+1,rr:rr,kind:'high'});
+            }
+            if(!hits.length){ warnEl.style.display='none'; warnEl.innerHTML=''; return; }
+            const last=hits[hits.length-1];
+            const slow=last.kind==='low';
+            const detail=hits.map(h=>'#'+h.set+': '+h.rr).join(', ');
+            warnEl.innerHTML='<div class="rbttl">⚠ Respiratory rate out of range — '+th.en+' ('+th.jp+')</div>'+
+                'RR '+detail+' /min. Normal-range threshold: <b>≤'+th.low+' or ≥'+th.high+'</b>.<br>'+
+                (slow
+                  ? '<b>Inadequate (slow) breathing → start RESCUE BREATHING</b> if a pulse is present; start CPR if no pulse.'
+                  : '<b>Inadequate (fast) breathing → support ventilation / consider rescue breathing</b>; reassess airway, give O₂, watch for deterioration.')+
+                '<span class="jp" style="display:block; color:#b91c1c; margin-top:3px;">呼吸数が'+th.jp+'の範囲外（'+th.low+'以下 または '+th.high+'以上）。'+
+                (slow?'脈があればレスキューブリージング開始（脈なしはCPR）。':'換気補助／人工呼吸を考慮し、気道再評価・酸素・悪化に注意。')+'</span>';
+            warnEl.style.display='block';
+        }
         function calcAge(dobId, ageId) {
             const dobEl = document.getElementById(dobId), ageEl = document.getElementById(ageId);
             if (!dobEl || !ageEl) return;
@@ -5243,6 +5324,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             const m = now.getMonth() - d.getMonth();
             if (m < 0 || (m === 0 && now.getDate() < d.getDate())) age--;
             ageEl.value = (age >= 0 && age < 150) ? String(age) : '';
+            if(ageId==='info-age' && typeof checkRescueBreathing==='function'){ checkRescueBreathing('v'); checkRescueBreathing('tv'); }
         }
         function selectSex(btn, val) {
             const grp = document.getElementById('sex-btns');
@@ -5887,7 +5969,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v4.1 (Offline)</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v4.2 (Offline)</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5897,7 +5979,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km  ·  Active: ' + esc(repDuration) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v4.1 (Offline)</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v4.2 (Offline)</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5908,7 +5990,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v4.1 (Offline)</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v4.2 (Offline)</div>';
                 html += '</div>';
             }
             html += '</body></html>';
