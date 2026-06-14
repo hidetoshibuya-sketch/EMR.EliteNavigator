@@ -891,7 +891,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v3.9 (Offline)</h1>
+    <h1>EMR Elite Navigator v4.0 (Offline)</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -1251,6 +1251,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
                 <button id="btn-cpr-cycle" class="btn-ok" style="flex:1; padding:12px; font-size:0.85rem; display:none;" onclick="cprCycleMark()">⟳ Rhythm Check Mark</button>
                 <button id="btn-cpr-stop" class="btn-danger-toggle" style="flex:1; padding:12px; font-size:0.85rem; display:none;" onclick="stopCPR()">■ STOP / ROSC</button>
             </div>
+            <button id="btn-metronome" class="btn-ok" style="width:100%; margin-top:10px; padding:11px; font-size:0.92rem;" onclick="toggleMetronome()">🎵 110 BPM Metronome <span style="font-size:0.85rem; font-weight:400;">(圧迫テンポ・チクタク音)</span></button>
         </div>
 
         <!-- ==================== CPR FLOWCHART + BILINGUAL PROTOCOL ==================== -->
@@ -1258,17 +1259,59 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             <div class="cpr-flow-head">① CPR Action Flowchart <span>(実施フローチャート)</span></div>
             <div class="cpr-flow-grid">
                 <div class="cpr-step-wrap"><div class="cpr-step critical" onclick="toggleCprNote(this,'safety')"><b>1. Safety + Response</b><span>Scene safe, PPE, tap/shout. Infant: foot flick.</span><em>安全確認・PPE・反応確認。乳児は足底刺激。</em></div><div class="cpr-step-detail" style="display:none"></div></div>
-                <div class="cpr-step-wrap"><div class="cpr-step critical" onclick="toggleCprNote(this,'call-aed')"><b>2. Call + AED</b><span>Activate EMS, send for AED. If alone with child/infant: 2 min CPR first when unwitnessed.</span><em>119/AED要請。小児・乳児で単独かつ目撃なしは2分CPR後。</em></div><div class="cpr-step-detail" style="display:none"></div></div>
+                <div class="cpr-step-wrap"><div class="cpr-step critical" onclick="toggleCprNote(this,'call-aed')"><b>2. Call + AED</b><span>Activate EMS, send for AED. Alone with an <b>unwitnessed</b> child/infant collapse: do <b>1 cycle (2 min) CPR first</b>, then call / get AED.</span><em>119/AED要請。小児・乳児で<b>目撃なし＋単独</b>なら先に<b>1サイクル(2分)CPR</b>後に通報/AED。</em></div><div class="cpr-step-detail" style="display:none"></div></div>
                 <div class="cpr-step-wrap"><div class="cpr-step critical" onclick="toggleCprNote(this,'pulse-breath')"><b>3. Breathing + Pulse ≤10 sec</b><span>Adult/child: carotid. Infant: brachial. No normal breathing or no pulse = CPR.</span><em>10秒以内。成人/小児は頸動脈、乳児は上腕動脈。正常呼吸なし/脈なしでCPR。</em></div><div class="cpr-step-detail" style="display:none"></div></div>
-                <div class="cpr-step-wrap"><div class="cpr-step red" onclick="toggleCprNote(this,'compressions')"><b>4. Start Compressions</b><span>Rate 100-120/min. Full recoil. Minimize pauses under 10 sec.</span><em>100-120回/分。完全リコイル。中断10秒未満。</em></div><div class="cpr-step-detail" style="display:none"></div></div>
+                <div class="cpr-step-wrap"><div class="cpr-step red" onclick="toggleCprNote(this,'compressions')"><b>4. Start Compressions</b><span>Rate 100-120/min. Full recoil. Pauses &lt;10 sec. Push lower half of sternum — <b>NOT the xiphoid process</b>.</span><em>100-120回/分。完全リコイル。中断10秒未満。胸骨下半分を圧迫し<b>剣状突起は押さない</b>。</em></div><div class="cpr-step-detail" style="display:none"></div></div>
                 <div class="cpr-step-wrap"><div class="cpr-step blue" onclick="toggleCprNote(this,'ventilation')"><b>5. 30:2 or 15:2</b><span>Adult: 30:2. Child/infant: 30:2 one rescuer, 15:2 two rescuers.</span><em>成人30:2。小児/乳児は単独30:2、2人15:2。</em></div><div class="cpr-step-detail" style="display:none"></div></div>
                 <div class="cpr-step-wrap"><div class="cpr-step green" onclick="toggleCprNote(this,'aed-cycle')"><b>6. AED Analyze Every 2 min</b><span>Clear patient, shock if advised, resume CPR immediately.</span><em>2分毎解析。離れてショック、直ちにCPR再開。</em></div><div class="cpr-step-detail" style="display:none"></div></div>
             </div>
-            <div class="cpr-protocol-grid">
-                <div class="cpr-protocol red"><h4>Adult / 成人</h4><p><b>Hands:</b> two hands on lower half of sternum. <b>Depth:</b> 5-6 cm. <b>Ratio:</b> 30:2. <b>Airway:</b> BVM with O2, 1 sec breath to visible chest rise.</p><p>両手を胸骨下半分へ。深さ5-6cm。比率30:2。BVM+酸素で胸が上がる程度に1秒換気。</p></div>
-                <div class="cpr-protocol amber"><h4>Child / 小児</h4><p><b>Hands:</b> one or two hands. <b>Depth:</b> about 5 cm or 1/3 chest depth. <b>Ratio:</b> 30:2 one rescuer, 15:2 two rescuers. Use pediatric AED pads if available.</p><p>片手または両手。深さ約5cm/胸郭1/3。単独30:2、2人15:2。小児用AEDパッドを優先。</p></div>
-                <div class="cpr-protocol yellow"><h4>Infant / 乳児</h4><p><b>Technique:</b> 2 fingers for one rescuer, 2-thumb encircling hands for two rescuers. <b>Depth:</b> about 4 cm or 1/3 AP chest depth. <b>Ratio:</b> 30:2 or 15:2.</p><p>単独は2本指、2人は胸郭包み込み両母指。深さ約4cm/胸郭前後径1/3。比率30:2または15:2。</p></div>
+            <div class="cpr-flow-head" style="margin-top:10px;">② Adult / Child / Infant Comparison <span>(成人・小児・乳児 比較一覧)</span></div>
+            <div class="vital-scroll"><table class="vital-table" style="font-size:0.86rem;">
+                <thead>
+                    <tr><th style="text-align:left;">Item<br><span class="sub-lang">項目</span></th><th>Adult<br><span class="sub-lang">成人</span></th><th>Child<br><span class="sub-lang">小児</span></th><th>Infant<br><span class="sub-lang">乳児</span></th></tr>
+                </thead>
+                <tbody>
+                    <tr><td style="text-align:left;"><b>Age</b><br><span class="sub-lang">年齢</span></td><td>Puberty +<br><span class="sub-lang">思春期以上<br>(♂~11 / ♀~10)</span></td><td>1 yr – puberty<br><span class="sub-lang">1歳〜思春期</span></td><td>0 – 1 yr<br><span class="sub-lang">0〜1歳</span></td></tr>
+                    <tr><td style="text-align:left;"><b>Hands</b><br><span class="sub-lang">手の位置</span></td><td>2 hands,<br>lower ½ sternum<br><span class="sub-lang">両手・胸骨下半分</span></td><td>1 or 2 hands<br><span class="sub-lang">片手または両手</span></td><td>1R: 2 fingers<br>2R: 2-thumb encircling<br><span class="sub-lang">単独2本指 / 2人母指包込</span></td></tr>
+                    <tr><td style="text-align:left;"><b>Depth</b><br><span class="sub-lang">深さ</span></td><td>5–6 cm</td><td>~5 cm (⅓ chest)<br><span class="sub-lang">約5cm/胸郭⅓</span></td><td>~4 cm (⅓ AP)<br><span class="sub-lang">約4cm/前後径⅓</span></td></tr>
+                    <tr><td style="text-align:left;"><b>Rate</b><br><span class="sub-lang">圧迫速度</span></td><td colspan="3" style="font-weight:700;">100–120 / min <span class="sub-lang" style="font-weight:400;">(全年齢共通)</span></td></tr>
+                    <tr><td style="text-align:left;"><b>Ratio</b><br><span class="sub-lang">比率</span></td><td>30:2</td><td>30:2 (1R)<br>15:2 (2R)</td><td>30:2 (1R)<br>15:2 (2R)</td></tr>
+                    <tr><td style="text-align:left;"><b>Pulse check</b><br><span class="sub-lang">脈確認</span></td><td>Carotid<br><span class="sub-lang">頸動脈</span></td><td>Carotid / femoral<br><span class="sub-lang">頸/大腿動脈</span></td><td>Brachial<br><span class="sub-lang">上腕動脈</span></td></tr>
+                    <tr><td style="text-align:left;"><b>AED pads</b><br><span class="sub-lang">AEDパッド</span></td><td>Adult pads<br><span class="sub-lang">成人用</span></td><td>Peds pads (&lt;8 yr / &lt;25 kg).<br><b>None → adult pads OK</b> (ANT-POST)<br><span class="sub-lang">小児用。無ければ成人用可(前後貼付)</span></td><td>Peds pads.<br><b>None → adult pads OK</b> (ANT-POST)<br><span class="sub-lang">小児用。無ければ成人用可(前後貼付)</span></td></tr>
+                    <tr><td style="text-align:left;"><b>Rescue breath</b><br><span class="sub-lang">人工呼吸</span></td><td>1 / 5–6 sec<br>(10–12 /min)</td><td>1 / 3–5 sec<br>(12–20 /min)</td><td>1 / 3–5 sec<br>(12–20 /min)</td></tr>
+                    <tr><td style="text-align:left;"><b>Start rescue breathing if RR ≤</b><br><span class="sub-lang">不十分呼吸→人工呼吸</span></td><td style="color:#b91c1c; font-weight:700;">≤ 10 /min</td><td style="color:#b91c1c; font-weight:700;">≤ 20 /min</td><td style="color:#b91c1c; font-weight:700;">≤ 20 /min</td></tr>
+                    <tr><td style="text-align:left;"><b>Pulse but CPR</b><br><span class="sub-lang">脈ありでもCPR</span></td><td>—</td><td>HR &lt; 60 + poor perfusion → CPR<br><span class="sub-lang">HR&lt;60＋灌流不良でCPR</span></td><td>HR &lt; 60 + poor perfusion → CPR<br><span class="sub-lang">HR&lt;60＋灌流不良でCPR</span></td></tr>
+                </tbody>
+            </table></div>
+            <div style="background:#fff7ed; border:1px solid #f59e0b; border-radius:7px; padding:7px 10px; margin-top:8px; font-size:0.9rem; color:#0f172a;">
+                ⚠ <b>Compress the lower half of the sternum — never on the xiphoid process</b> (risk of liver/organ injury). <span class="sub-lang">胸骨下半分を圧迫し、<b>剣状突起は押さない</b>（肝臓・臓器損傷のリスク）。</span><br>
+                ⚠ <b>Unwitnessed child/infant collapse &amp; you are alone:</b> give <b>1 cycle (2 min) CPR first</b>, then leave to call EMS / get AED. <span class="sub-lang">小児・乳児で<b>目撃なし＋単独</b>なら、先に<b>1サイクル(2分)CPR</b>を行ってから通報/AED取得。</span>
+            </div>
+            <div class="cpr-protocol-grid" style="margin-top:8px;">
                 <div class="cpr-protocol green"><h4>ROSC / 自己心拍再開</h4><p><b>Confirm pulse ≤10 sec.</b> Maintain airway, support ventilation if RR &lt;10, target SpO2 94-99%, keep AED pads on, monitor every 5 min, prepare for re-arrest, rapid transport.</p><p>10秒以内に脈拍確認。気道維持、RR&lt;10は補助換気、SpO2 94-99%、AED装着継続、5分毎再評価、再心停止準備、迅速搬送。</p></div>
+            </div>
+
+            <!-- ==================== RESCUE BREATHING (inadequate breathing) ==================== -->
+            <div style="background:#eff6ff; border:2px solid #2563eb; border-radius:9px; padding:10px 12px; margin-top:10px;">
+                <div style="font-weight:900; color:#1d4ed8; font-size:0.98rem; margin-bottom:6px;">🫁 Rescue Breathing — Inadequate Breathing <span class="sub-lang" style="font-weight:400;">(レスキューブリージング・不十分な呼吸)</span></div>
+                <div style="font-size:0.92rem; color:#0f172a; line-height:1.5;">
+                    <div style="background:#fff; border:1px solid #bfdbfe; border-radius:7px; padding:8px 10px; margin-bottom:8px;">
+                        <b>"Inadequate breathing" (too slow OR too fast) — give rescue breaths even if a pulse is present; do NOT wait for full apnea.</b>
+                        <div style="color:#64748b;">「不十分な呼吸」(遅すぎ・速すぎ) は脈があってもレスキューブリージングを開始。呼吸停止を待たない。</div>
+                        <ul style="margin:6px 0 0; padding-left:18px;">
+                            <li><b>Adult:</b> ≤ 10 /min or ≥ 30 /min <span style="color:#64748b;">成人: 10回以下 または 30回以上</span></li>
+                            <li><b>Child:</b> ≤ 20 /min or ≥ 30–40 /min <span style="color:#64748b;">小児: 20回以下 または 30〜40回以上</span></li>
+                            <li><b>Infant:</b> ≤ 30 /min or ≥ 60 /min <span style="color:#64748b;">乳児: 30回以下 または 60回以上</span></li>
+                        </ul>
+                    </div>
+                    <div style="background:#fff; border:1px solid #bfdbfe; border-radius:7px; padding:8px 10px;">
+                        <ul style="margin:0; padding-left:18px;">
+                            <li><b>Rate:</b> Adult 1 breath / 5–6 sec · Child &amp; Infant 1 breath / 3–5 sec. Each breath over 1 sec to visible chest rise. <span style="color:#64748b;">換気: 成人5-6秒/回、小児・乳児3-5秒/回。1秒かけ胸が上がる量。</span></li>
+                            <li><b>Pulse check every 2 min</b> during rescue breathing. <span style="color:#64748b;">レスキューブリージング中は2分毎に脈確認。</span></li>
+                            <li><b>Child/Infant: HR &lt; 60 /min with poor perfusion → start CPR.</b> <span style="color:#991b1b;">小児・乳児はHR&lt;60＋灌流不良でCPR開始。</span></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="cpr-note"><b>Quality targets:</b> switch compressors every 2 min, avoid over-ventilation, keep pauses short, continue until ROSC, ALS handoff, unsafe scene, or exhaustion. <span>質の目標: 2分毎交代、過換気回避、中断最小、ROSC/ALS引継ぎ/危険/疲労まで継続。</span></div>
 
@@ -2067,6 +2110,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             <div class="care-protocol-box">
                 <strong>BVM Ventilation Protocol</strong>
                 <ul>
+                    <li><strong>Each breath:</strong> look inside the mouth for vomit / secretions / obstruction before squeezing; suction &amp; reposition airway if seen. <span style="color:#64748b;">換気のたびに口腔内を確認（嘔吐物・分泌物・異物）、あれば吸引し気道を入れ直す。</span></li>
                     <li><strong>Indications:</strong> RR &lt; 10 or &gt; 30, apnea, agonal breathing, inadequate tidal volume, CPA.</li>
                     <li><strong>Equipment:</strong> appropriately sized mask, reservoir bag, 15 LPM O₂.</li>
                     <li><strong>Seal:</strong> EC clamp technique (1-rescuer) or 2-handed thumbs-down (2-rescuer, preferred).</li>
@@ -4498,6 +4542,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             }, 80);
         }
         function cancelCPA() {
+            if(_metroOn) toggleMetronome();
             document.getElementById('sec-primary').classList.remove('hidden'); document.getElementById('sec-branch').classList.remove('hidden');
             document.getElementById('sec-cpa-guide').classList.add('hidden'); evaluateFlowLogic();
             const abc = document.getElementById('abc-eval');
@@ -4580,6 +4625,15 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
         let cprStartedAt = null;
         let cprTimer = null;
         let cprCycleCount = 0;
+        let _metroOn=false, _metroTimer=null, _metroCtx=null;
+        function toggleMetronome(){
+            const btn=document.getElementById('btn-metronome');
+            if(_metroOn){ if(_metroTimer)clearInterval(_metroTimer); _metroTimer=null; _metroOn=false; btn.classList.remove('active'); btn.innerHTML='🎵 110 BPM Metronome <span style="font-size:0.85rem; font-weight:400;">(圧迫テンポ・チクタク音)</span>'; return; }
+            try{ _metroCtx=_metroCtx||new (window.AudioContext||window.webkitAudioContext)(); if(_metroCtx.state==='suspended')_metroCtx.resume(); }catch(e){ return; }
+            _metroOn=true; btn.classList.add('active'); btn.innerHTML='⏸ Stop Metronome <span style="font-size:0.85rem; font-weight:400;">(停止・110 BPM)</span>';
+            const tick=()=>{ if(!_metroCtx)return; const o=_metroCtx.createOscillator(), g=_metroCtx.createGain(); o.frequency.value=1000; o.connect(g); g.connect(_metroCtx.destination); const t=_metroCtx.currentTime; g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.4,t+0.001); g.gain.exponentialRampToValueAtTime(0.0001,t+0.05); o.start(t); o.stop(t+0.06); };
+            tick(); _metroTimer=setInterval(tick, 60000/110);
+        }
         function startCPR() {
             cprStartedAt = new Date();
             cprCycleCount = 0;
@@ -5827,7 +5881,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v3.9 (Offline)</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v4.0 (Offline)</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5837,7 +5891,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km  ·  Active: ' + esc(repDuration) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v3.9 (Offline)</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v4.0 (Offline)</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5848,7 +5902,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v3.9 (Offline)</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v4.0 (Offline)</div>';
                 html += '</div>';
             }
             html += '</body></html>';
