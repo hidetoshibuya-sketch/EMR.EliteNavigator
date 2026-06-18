@@ -565,7 +565,7 @@
 </head>
 <body>
 
-    <h1>EMR Elite Navigator v4.7</h1>
+    <h1>EMR Elite Navigator v4.8</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -848,6 +848,37 @@
         <div style="display: flex; justify-content: space-between;">
             <button class="btn-branch" id="btn-trauma" onclick="selectFlow('trauma')">💥 Trauma <span style="display:block; font-size:0.92rem; font-weight:400;">(外傷フロー)</span></button>
             <button class="btn-branch" id="btn-medical" onclick="selectFlow('medical')">🏥 Medical <span style="display:block; font-size:0.92rem; font-weight:400;">(急病フロー)</span></button>
+        </div>
+
+        <div id="trauma-energy" class="hidden" style="margin-top:16px;">
+            <h3>Mechanism — Energy Level <span class="sub-lang">(受傷エネルギーの分類)</span></h3>
+            <div style="display:flex; gap:10px;">
+                <button class="btn-branch tri-red" id="btn-energy-high" onclick="selectTraumaEnergy('high',this)">💥 High-energy <span style="display:block; font-size:0.92rem; font-weight:400;">(高エネルギー外傷)</span></button>
+                <button class="btn-branch" id="btn-energy-normal" onclick="selectTraumaEnergy('normal',this)">Normal <span style="display:block; font-size:0.92rem; font-weight:400;">(通常)</span></button>
+            </div>
+            <div id="high-energy-guide" class="hidden guide-box alert-box" style="margin-top:12px; line-height:1.5;">
+                <div style="font-weight:900; color:#991b1b; font-size:1rem; margin-bottom:8px;">💥 High-Energy Trauma <span class="sub-lang" style="font-weight:400;">(高エネルギー外傷ガイド)</span></div>
+                <div style="background:#fff; border:1px solid #fca5a5; border-radius:8px; padding:9px 11px; margin-bottom:8px;">
+                    <div style="font-weight:800; color:#991b1b; margin-bottom:4px;">Suspect when <span class="sub-lang" style="font-weight:400;">(疑う受傷機転)</span></div>
+                    <ul style="margin:0; padding-left:18px; font-size:0.93rem; color:#0f172a;">
+                        <li>Fall: adult &gt; 6 m (~3× height) · child &gt; 3 m or 2–3× height.<span class="jp">転落：成人6m超（身長の約3倍）・小児3m超または身長の2〜3倍。</span></li>
+                        <li>High-speed MVC, ejection, rollover, intrusion &gt; 30 cm, death of another occupant.<span class="jp">高速の交通事故・車外放出・横転・30cm超の車内変形・同乗者の死亡。</span></li>
+                        <li>Pedestrian / cyclist struck by a vehicle; motorcycle crash.<span class="jp">歩行者・自転車と車両の衝突、バイク事故。</span></li>
+                        <li>Penetrating injury to head, neck, torso, or proximal limbs.<span class="jp">頭・頸・体幹・四肢近位部の刺創・銃創。</span></li>
+                        <li>Blast / explosion, crush, or industrial machinery.<span class="jp">爆発・挫滅・機械への巻き込み。</span></li>
+                    </ul>
+                </div>
+                <div style="background:#fff; border:1px solid #fca5a5; border-radius:8px; padding:9px 11px;">
+                    <div style="font-weight:800; color:#991b1b; margin-bottom:4px;">Actions <span class="sub-lang" style="font-weight:400;">(対応)</span></div>
+                    <ul style="margin:0; padding-left:18px; font-size:0.93rem; color:#0f172a;">
+                        <li>Manual in-line spinal stabilization; consider C-spine immobilization.<span class="jp">用手的頸椎保護、頸椎固定を考慮。</span></li>
+                        <li>High-flow O₂; control major bleeding; treat for shock; prevent hypothermia.<span class="jp">高流量酸素・大出血の制御・ショック対応・保温。</span></li>
+                        <li>Rapid full-body survey (DCAP-BTLS); anticipate hidden internal injuries.<span class="jp">全身の迅速観察（DCAP-BTLS）、隠れた内部損傷を想定。</span></li>
+                        <li><b>Load-and-go:</b> minimize scene time (target under 10 min); rapid transport to a trauma center; pre-notify.<span class="jp">ロード＆ゴー：現場時間を最小化（10分以内目標）、外傷センターへ迅速搬送・事前通報。</span></li>
+                        <li>Reassess frequently; anticipate deterioration.<span class="jp">頻回に再評価し、急変に備える。</span></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -4116,10 +4147,15 @@
                 document.getElementById('btn-trauma').classList.add('active');
                 opqrstChipsData = opqrstTraumaChips;
                 sampleChipsData = sampleTraumaChips;
+                document.getElementById('trauma-energy').classList.remove('hidden');
             } else {
                 document.getElementById('btn-medical').classList.add('active');
                 opqrstChipsData = opqrstMedicalChips;
                 sampleChipsData = sampleMedicalChips;
+                document.getElementById('trauma-energy').classList.add('hidden');
+                document.getElementById('high-energy-guide').classList.add('hidden');
+                document.getElementById('btn-energy-high').classList.remove('active');
+                document.getElementById('btn-energy-normal').classList.remove('active');
             }
             rebuildOpqrstChips();
             rebuildSampleChips();
@@ -4127,6 +4163,14 @@
             evaluateFlowLogic();
         }
 
+        function selectTraumaEnergy(level, btn){
+            document.getElementById('btn-energy-high').classList.remove('active');
+            document.getElementById('btn-energy-normal').classList.remove('active');
+            btn.classList.add('active');
+            const g=document.getElementById('high-energy-guide');
+            if(level==='high'){ g.classList.remove('hidden'); logAction('Trauma Mechanism','High-energy trauma'); }
+            else { g.classList.add('hidden'); logAction('Trauma Mechanism','Normal mechanism'); }
+        }
         function setAbcStatus(status) {
             activeAbcStatus = status;
             document.getElementById('sec-branch').classList.remove('disabled');
@@ -5650,7 +5694,7 @@
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v4.7</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v4.8</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -5660,7 +5704,7 @@
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km  ·  Active: ' + esc(repDuration) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v4.7</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v4.8</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -5671,7 +5715,7 @@
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v4.7</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v4.8</div>';
                 html += '</div>';
             }
             html += '</body></html>';
