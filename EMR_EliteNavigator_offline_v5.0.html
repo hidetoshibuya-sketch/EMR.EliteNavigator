@@ -480,6 +480,14 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             text-align: center; color: #1e3a8a; font-size: 2.4rem; margin: 0 0 28px; font-weight: 800;
             letter-spacing: 0.5px; border-bottom: 6px solid var(--primary); padding-bottom: 16px;
         }
+        #app-gate { position:fixed; inset:0; z-index:99999; background:#0f172a; color:#fff; display:flex; align-items:center; justify-content:center; padding:24px; }
+        #app-gate .gate-box { width:100%; max-width:380px; text-align:center; }
+        #app-gate .gate-title { font-size:1.5rem; font-weight:800; letter-spacing:3px; margin-bottom:8px; }
+        #app-gate .gate-sub { color:#94a3b8; font-size:0.92rem; line-height:1.5; margin-bottom:20px; }
+        #app-gate input { width:100%; box-sizing:border-box; padding:15px; font-size:1.15rem; border-radius:11px; border:1px solid #334155; background:#1e293b; color:#fff; text-align:center; }
+        #app-gate button { width:100%; margin-top:13px; padding:15px; font-size:1.05rem; border:none; border-radius:11px; background:#2563eb; color:#fff; font-weight:800; cursor:pointer; }
+        #app-gate .gate-err { color:#fca5a5; font-size:0.9rem; margin-top:11px; min-height:18px; }
+        #app-gate .gate-skip { display:inline-block; margin-top:18px; color:#94a3b8; font-size:0.84rem; text-decoration:underline; cursor:pointer; }
         h2 {
             font-size: 1.55rem; background: #2563eb; color: white;
             padding: 18px 22px; border-radius: 14px; margin-top: 0; margin-bottom: 18px; font-weight: 700;
@@ -981,8 +989,18 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     </style>
 </head>
 <body>
+    <div id="app-gate" style="display:none;">
+        <div class="gate-box">
+            <div class="gate-title">EMR ELITE NAVIGATOR</div>
+            <div class="gate-sub">パスワードを入力してください<br>Enter the access password</div>
+            <input type="password" id="gate-pass" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')fbUnlock();">
+            <button id="gate-btn" onclick="fbUnlock()">Unlock / 解除</button>
+            <div class="gate-err" id="gate-err"></div>
+            <span class="gate-skip" onclick="fbGateSkip()">オフラインで続行（クラウド同期なし） / Continue offline</span>
+        </div>
+    </div>
 
-    <h1>EMR Elite Navigator v4.8 (Offline)</h1>
+    <h1>EMR Elite Navigator v5.0 (Offline)</h1>
 
     <button class="btn-reset-top" onclick="resetFlowState()">↩ ALL RESET <span style="font-size:0.88rem;">(全リセット)</span></button>
 
@@ -2604,12 +2622,25 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
     </div>
 
     <div class="card" id="sec-annual">
+        <div id="fb-auth-box" style="margin-bottom:12px; border:1px solid #e2e8f0; border-radius:9px; padding:11px 13px; background:#f8fafc;">
+            <div id="fb-logged-out">
+                <div style="font-weight:700; color:#92400e;">☁ Offline mode <span class="sub-lang" style="font-weight:400; color:#64748b;">(クラウド未接続)</span></div>
+                <div style="font-size:0.85rem; color:#64748b; margin:4px 0;">Records save on this device only. Connect to sync &amp; share across stations. <span class="sub-lang">端末内のみ保存。接続すると基地間で同期・共有。</span></div>
+                <button class="btn-ok active" style="background:var(--primary); color:#fff;" onclick="fbGate(true)">Connect (password) <span style="font-weight:400;">(パスワードで接続)</span></button>
+            </div>
+            <div id="fb-logged-in" class="hidden">
+                <div style="font-weight:700; color:#166534;">☁ Cloud sync ON <span class="sub-lang" style="font-weight:400; color:#64748b;">(クラウド同期中・基地間共有)</span></div>
+                <button class="btn-reset-top" style="margin-top:6px;" onclick="fbLogout()">Disconnect <span style="font-weight:400;">(切断・ログアウト)</span></button>
+            </div>
+            <div id="fb-config-note" class="hidden" style="font-size:0.85rem; color:#92400e;">⚠ Firebase not configured — records save on this device only. See FIREBASE_SETUP.md. <span class="sub-lang">Firebase未設定：端末内のみ保存。FIREBASE_SETUP.md参照。</span></div>
+        </div>
         <div style="font-size:0.95rem; color:#475569; margin-bottom:8px;">Saved records / 保存件数: <strong id="annual-count">0</strong></div>
         <button class="btn-ok active" style="width:100%; background:var(--primary); color:#fff;" onclick="addAnnualRecord()">＋ Add This Call to Annual Log <span style="font-size:0.92rem; font-weight:400; display:block;">(この出動を年間データに追加)</span></button>
         <button class="btn-email-act" style="width:100%; margin-top:8px;" onclick="exportAnnualCSV()">⬇ Export Annual Data (Excel / CSV) <span style="font-size:0.92rem; font-weight:400; display:block;">(年間データを書き出し)</span></button>
         <button class="btn-reset-top" style="margin-top:8px;" onclick="clearAnnualData()">Clear All Records <span style="font-weight:400;">(全削除)</span></button>
     </div>
 
+    <!-- Firebase (compat SDK; loaded from gstatic CDN; absent in offline build) -->
     <script>
         let recognition; let isRecording = false; let activeField = ''; let currentFlowType = '';
         let isBleedingActive = false; let isShockActive = false; let activeAbcStatus = '';
@@ -3612,6 +3643,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             buildVitals5x('trauma-vitals-tbody', 'tv');
             formatProtocolJa();
             if (typeof updateAnnualCount === 'function') updateAnnualCount();
+            if (typeof fbInit === 'function') fbInit();
             document.addEventListener('keydown', function(e) {
                 if (e.key !== 'Enter') return;
                 const t = e.target;
@@ -5576,9 +5608,63 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             if (mins < 0) mins += 1440;
             return mins;
         }
-        // ===== Annual response data (localStorage + CSV) =====
+        // ===== Firebase (Hosting + Firestore + Auth) =====
+        // SETUP: paste your Firebase web config below (Firebase console > Project settings > Your apps > SDK config).
+        const firebaseConfig = {
+            apiKey: "AIzaSyAQMdUbo4MYD3Y51JOI40E7x6w2O_uHvEM",
+            authDomain: "emergency-protocols.firebaseapp.com",
+            projectId: "emergency-protocols",
+            storageBucket: "emergency-protocols.firebasestorage.app",
+            messagingSenderId: "713722952280",
+            appId: "1:713722952280:web:9885af4bff76657e0e282d",
+            measurementId: "G-FLDTL30PC0"
+        };
+        const GATE_EMAIL = 'crew@emergency-protocols.web.app';
+        let fbAuth=null, fbDb=null, fbUser=null, fbRecords=null, fbUnsub=null, fbGateSkipped=false;
+        function fbConfigured(){ return firebaseConfig.apiKey && firebaseConfig.apiKey.indexOf('PASTE')===-1; }
+        function fbGate(show){ const g=document.getElementById('app-gate'); if(g) g.style.display = show ? 'flex' : 'none'; if(show){ const e=document.getElementById('gate-err'); if(e)e.textContent=''; const p=document.getElementById('gate-pass'); if(p) setTimeout(()=>p.focus(),50); } }
+        function fbInit(){
+            if (typeof firebase === 'undefined' || !fbConfigured()) { fbShowState(null,true); return; }
+            try {
+                firebase.initializeApp(firebaseConfig);
+                fbAuth = firebase.auth();
+                fbDb = firebase.firestore();
+                fbDb.enablePersistence({ synchronizeTabs:true }).catch(()=>{});
+                fbGate(true); // show gate until auth resolves (persisted session will auto-hide)
+                fbAuth.onAuthStateChanged(function(u){
+                    fbUser=u; fbShowState(u,false);
+                    if(u){ fbGate(false); fbAttach(); }
+                    else { if(fbUnsub){fbUnsub();fbUnsub=null;} fbRecords=null; updateAnnualCount(); if(!fbGateSkipped) fbGate(true); }
+                });
+            } catch(e){ console.warn('Firebase init failed', e); fbGate(false); fbShowState(null,true); }
+        }
+        function fbUnlock(){
+            const p=(document.getElementById('gate-pass')||{}).value||''; const err=document.getElementById('gate-err'); if(err)err.textContent='';
+            const btn=document.getElementById('gate-btn');
+            if(!fbAuth){ if(err)err.textContent='Firebase not configured.'; return; }
+            if(btn){ btn.disabled=true; btn.textContent='...'; }
+            fbAuth.signInWithEmailAndPassword(GATE_EMAIL, p).then(function(){ const pe=document.getElementById('gate-pass'); if(pe)pe.value=''; }).catch(function(e){ if(err)err.textContent='パスワードが違います / Wrong password'; }).finally(function(){ if(btn){ btn.disabled=false; btn.textContent='Unlock / 解除'; } });
+        }
+        function fbGateSkip(){ fbGateSkipped=true; fbGate(false); }
+        function fbLogout(){ fbGateSkipped=false; if(fbAuth) fbAuth.signOut(); }
+        function fbShowState(u, notConfigured){
+            const out=document.getElementById('fb-logged-out'), inn=document.getElementById('fb-logged-in'), note=document.getElementById('fb-config-note');
+            if(notConfigured){ if(out)out.classList.add('hidden'); if(inn)inn.classList.add('hidden'); if(note)note.classList.remove('hidden'); return; }
+            if(note)note.classList.add('hidden');
+            if(u){ if(out)out.classList.add('hidden'); if(inn)inn.classList.remove('hidden'); }
+            else { if(out)out.classList.remove('hidden'); if(inn)inn.classList.add('hidden'); }
+        }
+        function fbAttach(){
+            if(!fbDb||!fbUser) return;
+            if(fbUnsub) fbUnsub();
+            fbUnsub = fbDb.collection('annualRecords').orderBy('date').onSnapshot(function(snap){
+                fbRecords = snap.docs.map(function(d){ return Object.assign({_id:d.id}, d.data()); });
+                updateAnnualCount();
+            }, function(err){ console.warn('Firestore listen error', err); });
+        }
+        // ===== Annual response data (Firestore when logged in, else localStorage + CSV) =====
         const ANNUAL_KEY = 'emr-annual-log';
-        function loadAnnual() { try { return JSON.parse(localStorage.getItem(ANNUAL_KEY) || '[]'); } catch(e) { return []; } }
+        function loadAnnual() { if (fbUser && fbRecords !== null) return fbRecords; try { return JSON.parse(localStorage.getItem(ANNUAL_KEY) || '[]'); } catch(e) { return []; } }
         function saveAnnual(arr) { try { localStorage.setItem(ANNUAL_KEY, JSON.stringify(arr)); } catch(e) {} }
         function updateAnnualCount() { const el = document.getElementById('annual-count'); if (el) el.textContent = loadAnnual().length; }
         function addAnnualRecord() {
@@ -5592,9 +5678,17 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             const station = (document.getElementById('rep-station')||{}).value || '';
             const engine = (document.getElementById('rep-engine')||{}).value || '';
             const rec = { date: date, age: age, sex: sex, cc: cc, transport: transport, station: station, engine: engine, activeMin: getActiveMinutes() };
-            const arr = loadAnnual(); arr.push(rec); saveAnnual(arr); updateAnnualCount();
             logAction('Annual Log', 'Record added (' + date + ')');
-            alert('年間データに追加しました / Added to annual log (' + arr.length + ' records)');
+            if (fbUser && fbDb) {
+                rec.uid = fbUser.uid;
+                rec.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                fbDb.collection('annualRecords').add(rec)
+                    .then(function(){ alert('クラウドに追加しました / Added to cloud log'); })
+                    .catch(function(err){ alert('保存に失敗: ' + err.message); });
+            } else {
+                const arr = loadAnnual(); arr.push(rec); saveAnnual(arr); updateAnnualCount();
+                alert('端末に保存しました / Saved on this device (' + arr.length + ' records)');
+            }
         }
         function exportAnnualCSV() {
             const arr = loadAnnual();
@@ -5611,8 +5705,15 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             logAction('Annual Log', 'Exported ' + arr.length + ' records (CSV)');
         }
         function clearAnnualData() {
-            if (!confirm('年間データを全て削除しますか？ / Delete all annual records?')) return;
-            saveAnnual([]); updateAnnualCount();
+            if (fbUser && fbDb) {
+                if (!confirm('クラウドの年間データを全て削除しますか？ / Delete ALL cloud records?')) return;
+                fbDb.collection('annualRecords').get().then(function(snap){
+                    const batch=fbDb.batch(); snap.docs.forEach(function(d){ batch.delete(d.ref); }); return batch.commit();
+                }).then(function(){ logAction('Annual Log','Cloud records cleared'); }).catch(function(err){ alert(err.message); });
+            } else {
+                if (!confirm('年間データを全て削除しますか？ / Delete all annual records?')) return;
+                saveAnnual([]); updateAnnualCount();
+            }
         }
         let onSceneTime = '';
         function recordOnScene(btn) {
@@ -6111,7 +6212,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             html += '<div class="sl">Body Map / ボディマップ</div><div class="card2 bmap">' + (bodyMapHtml || '<span style="color:#94a3b8;font-size:12px;">Trauma cases only / 外傷時のみ</span>') + '</div>';
             html += '</div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v4.8 (Offline)</div>';
+            html += '<div class="ft">Page 1 of ' + _totalPages + ' — Overview &amp; Body Map  ·  EMR Elite Navigator v5.0 (Offline)</div>';
             html += '</div>';
             html += '<div class="sheet">';
             html += '<div class="hd2"><div><div class="nm">EMR ELITE NAVIGATOR</div><div class="sub">History &amp; Treatment — ' + esc(pName) + '</div></div><div class="mt"><div><b>Report</b> ' + esc(reportId) + '</div><div><b>Type</b> ' + esc(typeLabel) + '</div></div></div>';
@@ -6121,7 +6222,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
             html += '<div><div class="sl">CPSS / Trauma / 特記</div><div class="card2"><p class="txt">CPSS: ' + esc(fast) + '<span class="mut">Body map: ' + esc(currentFlowType === 'trauma' ? bodyMapSummary() : 'N/A') + '</span><span class="mut">Special: ' + esc(special) + '</span></p></div></div>';
             html += '<div><div class="sl">Treatment &amp; Disposition / 処置・搬送</div><div class="card2"><p class="txt">' + esc(selectedListSummary(deployedEquipment, 'No advanced equipment')) + '<span class="mut">Disposition: ' + esc(selectedDisposition || '—') + '  ·  On-scene: ' + esc(repOnScene) + '  ·  Hospital: ' + esc(repHospital) + '  ·  Mileage: ' + esc(repOms) + '–' + esc(repOme) + ' km  ·  Active: ' + esc(repDuration) + '</span></p></div></div>';
             html += '</div>';
-            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v4.8 (Offline)</div>';
+            html += '<div class="ft">Page 2 of ' + _totalPages + ' — Assessment &amp; Treatment  ·  EMR Elite Navigator v5.0 (Offline)</div>';
             html += '</div>';
             for (let _p = 0; _p < _tlPageCount; _p++) {
                 const _chunk = _allTl.slice(_p * _perPage, (_p + 1) * _perPage);
@@ -6132,7 +6233,7 @@ function(t){t.__bidiEngine__=t.prototype.__bidiEngine__=function(t){var r,n,i,a,
                 html += '<div class="body">';
                 html += '<div style="flex:1"><div class="sl">Handoff Timeline / 活動タイムライン' + _cont + '</div><div class="card2"><table class="tl"><thead><tr><th>Time</th><th>Action</th><th>Detail</th></tr></thead><tbody>' + _rows + '</tbody></table></div></div>';
                 html += '</div>';
-                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v4.8 (Offline)</div>';
+                html += '<div class="ft">Recorded by / 記録者: ' + esc(repUnit) + ' — ' + esc(repName) + '  ·  Page ' + (3 + _p) + ' of ' + _totalPages + '  ·  EMR Elite Navigator v5.0 (Offline)</div>';
                 html += '</div>';
             }
             html += '</body></html>';

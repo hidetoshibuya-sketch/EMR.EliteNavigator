@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "firestore.rules",
+      "**/.*",
+      "**/node_modules/**",
+      "FIREBASE_SETUP.md",
+      "README.md",
+      "generate_audio.sh",
+      "*.xlsx",
+      "EMR_EliteNavigator_offline_*.html"
+    ]
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  }
+}
